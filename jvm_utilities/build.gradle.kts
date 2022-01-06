@@ -135,6 +135,7 @@ afterEvaluate {
 			rpExtra["SIGNING_KEY_B64"] as String,
 			rpExtra["SIGNING_PASSWORD"] as String
 		)
+		sign(publishing.publications)
 	}
 }
 

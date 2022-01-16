@@ -1,8 +1,8 @@
 package com.github.ushiosan23.jvm.collections;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
+import org.jetbrains.annotations.Nullable;
 
 public final class Arr {
 
@@ -61,6 +61,26 @@ public final class Arr {
 	 */
 	public static char[] ofChars(char... elements) {
 		return elements;
+	}
+
+	/**
+	 * Generate a number array
+	 *
+	 * @param elements Array elements
+	 * @return Returns an abstract number object array
+	 */
+	public static Number @NotNull [] ofNumber(Number @NotNull ... elements) {
+		return elements;
+	}
+
+	/**
+	 * Convert any numeric array to number array
+	 *
+	 * @param array Target array
+	 * @return Returns an abstract number object array
+	 */
+	public static Number @NotNull [] ofNumberExt(Object array) {
+		return ArrInternal.convertToNumberArray(array);
 	}
 
 	/**
@@ -151,30 +171,193 @@ public final class Arr {
 	 * @throws IllegalArgumentException Error if {@code array} is not an array
 	 */
 	public static @NotNull String toString(@NotNull Object array) {
-		// Check object class
-		if (!array.getClass().isArray())
-			throw new IllegalArgumentException(String.format("Invalid array type. %s given.", array.getClass()));
-		// Check array type
-		Class<?> objClass = array.getClass();
-		// Check all kind of arrays
-		if (objClass == boolean[].class)
-			return Arrays.toString((boolean[]) array);
-		if (objClass == char[].class)
-			return Arrays.toString((char[]) array);
-		if (objClass == byte[].class)
-			return Arrays.toString((byte[]) array);
-		if (objClass == short[].class)
-			return Arrays.toString((short[]) array);
-		if (objClass == int[].class)
-			return Arrays.toString((int[]) array);
-		if (objClass == long[].class)
-			return Arrays.toString((long[]) array);
-		if (objClass == float[].class)
-			return Arrays.toString((float[]) array);
-		if (objClass == double[].class)
-			return Arrays.toString((double[]) array);
+		return ArrInternal.toString(array);
+	}
 
-		return Arrays.toString((Object[]) array);
+	/* ------------------------------------------------------------------
+	 * Search methods
+	 * ------------------------------------------------------------------ */
+
+	/**
+	 * Search element in the array
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int indexOf(Object @NotNull [] array, @Nullable Object search) {
+		for (int i = 0; i < array.length; i++) {
+			// Store element
+			Object indexObj = array[i];
+			if (indexObj == null) {
+				if (search == null) return i;
+			} else {
+				if (indexObj.equals(search)) return i;
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * Search element in the array
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int numberIndexOf(Number @NotNull [] array, @NotNull Number search) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i].equals(search)) return i;
+		}
+		return -1;
+	}
+
+	/**
+	 * Search element in the array
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int byteIndexOf(byte @NotNull [] array, byte search) {
+		Number[] target = Arr.ofNumberExt(array);
+		return numberIndexOf(target, search);
+	}
+
+	/**
+	 * Search element in the array
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int shortIndexOf(short @NotNull [] array, short search) {
+		Number[] target = Arr.ofNumberExt(array);
+		return numberIndexOf(target, search);
+	}
+
+	/**
+	 * Search element in the array
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int intIndexOf(int @NotNull [] array, int search) {
+		Number[] target = Arr.ofNumberExt(array);
+		return numberIndexOf(target, search);
+	}
+
+	/**
+	 * Search element in the array
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int longIndexOf(long @NotNull [] array, long search) {
+		Number[] target = Arr.ofNumberExt(array);
+		return numberIndexOf(target, search);
+	}
+
+	/**
+	 * Search an element in the array. This method make the same process that {@link #indexOf(Object[], Object)} but
+	 * inverted.
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int lastIndexOf(Object @NotNull [] array, @Nullable Object search) {
+		for (int i = (array.length - 1); i >= 0; i--) {
+			// Store element
+			Object indexObj = array[i];
+			if (indexObj == null) {
+				if (search == null) return i;
+			} else {
+				if (indexObj.equals(search)) return i;
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * Search an element in the array. This method make the same process that {@link #indexOf(Object[], Object)} but
+	 * inverted.
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int lastNumberIndexOf(Number @NotNull [] array, @NotNull Number search) {
+		for (int i = (array.length - 1); i >= 0; i--) {
+			if (array[i].equals(search)) return i;
+		}
+		return -1;
+	}
+
+	/**
+	 * Search an element in the array. This method make the same process that {@link #indexOf(Object[], Object)} but
+	 * inverted.
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int lastByteIndexOf(byte @NotNull [] array, byte search) {
+		Number[] target = Arr.ofNumberExt(array);
+		return lastNumberIndexOf(target, search);
+	}
+
+	/**
+	 * Search an element in the array. This method make the same process that {@link #indexOf(Object[], Object)} but
+	 * inverted.
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int lastShortIndexOf(short @NotNull [] array, short search) {
+		Number[] target = Arr.ofNumberExt(array);
+		return lastNumberIndexOf(target, search);
+	}
+
+	/**
+	 * Search an element in the array. This method make the same process that {@link #indexOf(Object[], Object)} but
+	 * inverted.
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int lastIntIndexOf(int @NotNull [] array, int search) {
+		Number[] target = Arr.ofNumberExt(array);
+		return lastNumberIndexOf(target, search);
+	}
+
+	/**
+	 * Search an element in the array. This method make the same process that {@link #indexOf(Object[], Object)} but
+	 * inverted.
+	 *
+	 * @param array  The array to search
+	 * @param search Element to search
+	 * @return Returns the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int lastLongIndexOf(long @NotNull [] array, long search) {
+		Number[] target = Arr.ofNumberExt(array);
+		return lastNumberIndexOf(target, search);
 	}
 
 }

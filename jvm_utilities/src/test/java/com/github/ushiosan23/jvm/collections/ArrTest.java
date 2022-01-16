@@ -1,6 +1,9 @@
 package com.github.ushiosan23.jvm.collections;
 
+import org.junit.After;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 public class ArrTest {
 
@@ -27,5 +30,23 @@ public class ArrTest {
 		System.err.println(Arr.toString(doubleArr));
 		System.err.println(Arr.toString(objArr));
 	}
+
+	@After
+	public void conversionTest() {
+		byte[] baseArray = Arr.ofByte(2, 4, 6);
+		Number[] conversion = ArrInternal.convertToNumberArray(baseArray);
+
+		System.err.println(Arrays.toString(conversion));
+	}
+
+	@After
+	public void indexOfTest() {
+		// Base array
+		int[] arr = Arr.ofInt(2, 4, 6, 8, 6, 12, 24);
+		int index = Arr.intIndexOf(arr, 6);
+
+		System.err.println("Index: " + index);
+	}
+
 
 }

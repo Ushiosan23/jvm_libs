@@ -52,6 +52,64 @@ final class ArrInternal {
 	}
 
 	/**
+	 * Convert any array to info string representation
+	 *
+	 * @param array Target array to convert
+	 * @return Returns an array info string representation
+	 * @throws IllegalArgumentException Error if {@code array} is not a valid array type
+	 */
+	@SuppressWarnings("ConstantConditions")
+	public static @NotNull String toInfoString(@NotNull Object array) {
+		// Check object class
+		if (!array.getClass().isArray())
+			throw new IllegalArgumentException(String.format("Invalid array type. %s given.", array.getClass()));
+		// Check array type
+		Class<?> objClass = array.getClass();
+		String name = "";
+		int size = 0;
+		// Check all kind of arrays
+		if (objClass == boolean[].class) {
+			name = "boolean";
+			size = ((boolean[]) array).length;
+		}
+		if (objClass == char[].class) {
+			name = "char";
+			size = ((char[]) array).length;
+		}
+		if (objClass == byte[].class) {
+			name = "byte";
+			size = ((byte[]) array).length;
+		}
+		if (objClass == short[].class) {
+			name = "short";
+			size = ((short[]) array).length;
+		}
+		if (objClass == int[].class) {
+			name = "int";
+			size = ((int[]) array).length;
+		}
+		if (objClass == long[].class) {
+			name = "long";
+			size = ((long[]) array).length;
+		}
+		if (objClass == float[].class) {
+			name = "float";
+			size = ((float[]) array).length;
+		}
+		if (objClass == double[].class) {
+			name = "double";
+			size = ((double[]) array).length;
+		}
+		if (name.isBlank()) {
+			name = objClass.getCanonicalName();
+			if (name.endsWith("[]"))
+				name = name.substring(0, name.length() - 2);
+			size = ((Object[]) array).length;
+		}
+		return name + "[" + size + "]";
+	}
+
+	/**
 	 * Convert any numeric array to number array
 	 *
 	 * @param array Target array to convert

@@ -1,5 +1,6 @@
 package com.github.ushiosan23.jvm.base;
 
+import com.github.ushiosan23.jvm.collections.Arr;
 import com.github.ushiosan23.jvm.functions.apply.IApply;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,6 +20,44 @@ public final class Obj {
 	/* ------------------------------------------------------------------
 	 * Methods
 	 * ------------------------------------------------------------------ */
+
+	/**
+	 * Get object string representation
+	 *
+	 * @param data The data to convert
+	 * @return Returns an object string representation
+	 */
+	public static @NotNull String toBaseString(@Nullable Object data) {
+		// Get class
+		if (data == null) return "null";
+		// Check if is an array
+		Class<?> type = data.getClass();
+		if (type.isArray()) {
+			return Arr.toString(data);
+		} else {
+			return data.toString();
+		}
+	}
+
+	/**
+	 * Get object info representation
+	 *
+	 * @param data The data to convert
+	 * @return Returns an object info string representation
+	 */
+	public static @NotNull String toInfoString(@Nullable Object data) {
+		// Check if data is null
+		if (data == null) return "null";
+		// Resolve data
+		Class<?> type = data.getClass();
+		String hashCode = Integer.toHexString(data.hashCode());
+		// Return data
+		if (type.isArray()) {
+			return String.format("(@%s) %s", hashCode, Arr.toInfoString(data));
+		} else {
+			return String.format("(@%s) %s", hashCode, type.getName());
+		}
+	}
 
 	/**
 	 * Get not null value

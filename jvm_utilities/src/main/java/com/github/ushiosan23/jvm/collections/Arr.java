@@ -174,6 +174,16 @@ public final class Arr {
 		return ArrInternal.toString(array);
 	}
 
+	/**
+	 * Array info string representation
+	 *
+	 * @param array Array to get representation
+	 * @return Array info string representation
+	 */
+	public static @NotNull String toInfoString(@NotNull Object array) {
+		return ArrInternal.toInfoString(array);
+	}
+
 	/* ------------------------------------------------------------------
 	 * Search methods
 	 * ------------------------------------------------------------------ */

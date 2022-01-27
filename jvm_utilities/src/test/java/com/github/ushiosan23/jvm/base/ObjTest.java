@@ -37,4 +37,17 @@ public class ObjTest {
 		);
 	}
 
+
+	@After
+	public void toStringTest() {
+		int[] arr = Arr.ofInt(2, 4, 6, 8);
+		String[] data = Arr.of("Hello,", "World", "!");
+		String simpleData = "Hello";
+
+		System.err.println(Obj.toInfoString(arr));
+		System.err.println(Obj.toInfoString(data));
+		System.err.println(Obj.toInfoString(simpleData));
+	}
+
+
 }

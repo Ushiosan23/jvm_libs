@@ -72,6 +72,17 @@ public final class Obj {
 	}
 
 	/**
+	 * Execute action only if object is not null
+	 *
+	 * @param obj   The object to evaluate
+	 * @param apply Action to execute
+	 * @param <T>   Generic object type
+	 */
+	public static <T> void notNull(@Nullable T obj, IApply.@NotNull EmptyResult<T> apply) {
+		if (obj != null) apply.run(obj);
+	}
+
+	/**
 	 * Apply configuration to the object and return it as a result
 	 *
 	 * @param obj    Object to which the action applies
@@ -79,7 +90,21 @@ public final class Obj {
 	 * @param <T>    Generic object type
 	 * @return Returns the same object is returned but with the changes made
 	 */
-	public static <T> T apply(T obj, @NotNull IApply.WithResult<T, T> action) {
+	public static <T> T apply(T obj, IApply.@NotNull WithResult<T, T> action) {
+		return applyTransform(obj, action);
+	}
+
+	/**
+	 * Apply configuration to the object and return another object result
+	 * <p>
+	 * Object to which the action applies
+	 *
+	 * @param action Apply action to execute
+	 * @param <T>    Generic object type
+	 * @param <V>    Generic return type
+	 * @return Returns a transformation object result
+	 */
+	public static <T, V> V applyTransform(T obj, IApply.@NotNull WithResult<T, V> action) {
 		return action.run(obj);
 	}
 

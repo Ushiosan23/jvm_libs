@@ -170,7 +170,7 @@ public final class Arr {
 	 * @return Array string representation
 	 * @throws IllegalArgumentException Error if {@code array} is not an array
 	 */
-	public static @NotNull String toString(@NotNull Object array) {
+	public static @NotNull String toString(@Nullable Object array) {
 		return ArrInternal.toString(array);
 	}
 
@@ -180,7 +180,7 @@ public final class Arr {
 	 * @param array Array to get representation
 	 * @return Array info string representation
 	 */
-	public static @NotNull String toInfoString(@NotNull Object array) {
+	public static @NotNull String toInfoString(@Nullable Object array) {
 		return ArrInternal.toInfoString(array);
 	}
 

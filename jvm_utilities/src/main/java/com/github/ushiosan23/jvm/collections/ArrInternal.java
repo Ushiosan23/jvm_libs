@@ -2,6 +2,7 @@ package com.github.ushiosan23.jvm.collections;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 
@@ -24,7 +25,8 @@ final class ArrInternal {
 	 * @return Returns an array string representation
 	 * @throws IllegalArgumentException Error if {@code array} is not a valid array type
 	 */
-	public static @NotNull String toString(@NotNull Object array) {
+	public static @NotNull String toString(@Nullable Object array) {
+		if (array == null) return "null";
 		// Check object class
 		if (!array.getClass().isArray())
 			throw new IllegalArgumentException(String.format("Invalid array type. %s given.", array.getClass()));
@@ -59,7 +61,8 @@ final class ArrInternal {
 	 * @throws IllegalArgumentException Error if {@code array} is not a valid array type
 	 */
 	@SuppressWarnings("ConstantConditions")
-	public static @NotNull String toInfoString(@NotNull Object array) {
+	public static @NotNull String toInfoString(@Nullable Object array) {
+		if (array == null) return "null";
 		// Check object class
 		if (!array.getClass().isArray())
 			throw new IllegalArgumentException(String.format("Invalid array type. %s given.", array.getClass()));

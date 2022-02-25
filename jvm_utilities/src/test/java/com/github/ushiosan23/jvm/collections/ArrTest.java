@@ -21,14 +21,31 @@ public class ArrTest {
 		Object[] objArr = Arr.of("Hello", "World", "!");
 
 		System.err.println(Arr.toString(boolArr));
+		System.out.println(Arr.toInfoString(boolArr));
+
 		System.err.println(Arr.toString(charArr));
+		System.out.println(Arr.toInfoString(charArr));
+
 		System.err.println(Arr.toString(byteArr));
+		System.out.println(Arr.toInfoString(byteArr));
+
 		System.err.println(Arr.toString(shortArr));
+		System.out.println(Arr.toInfoString(shortArr));
+
 		System.err.println(Arr.toString(intArr));
+		System.out.println(Arr.toInfoString(intArr));
+
 		System.err.println(Arr.toString(longArr));
+		System.out.println(Arr.toInfoString(longArr));
+
 		System.err.println(Arr.toString(floatArr));
+		System.out.println(Arr.toInfoString(floatArr));
+
 		System.err.println(Arr.toString(doubleArr));
+		System.out.println(Arr.toInfoString(doubleArr));
+
 		System.err.println(Arr.toString(objArr));
+		System.out.println(Arr.toInfoString(objArr));
 	}
 
 	@After

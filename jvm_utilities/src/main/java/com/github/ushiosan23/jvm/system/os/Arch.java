@@ -10,9 +10,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum Arch {
+	/**
+	 * 64-bit architectures
+	 */
 	X64("(x64|amd64|sparc|ppc|aarch64)"),
+	/**
+	 * 32-bit architecture
+	 */
 	X86("(x86|i386)"),
+	/**
+	 * ARM architecture
+	 */
 	ARM("(arm)"),
+	/**
+	 * Unknown architecture. Used to represent an error
+	 */
 	UNKNOWN;
 
 	/* ------------------------------------------------------------------

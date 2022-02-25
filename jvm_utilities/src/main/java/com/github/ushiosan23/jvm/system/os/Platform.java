@@ -10,11 +10,29 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum Platform {
+	/**
+	 * Linux platform
+	 */
 	LINUX("^(linux)"),
+	/**
+	 * Any macOS platform
+	 */
 	MACOS("^(mac os|mac)"),
+	/**
+	 * Solaris platform
+	 */
 	SOLARIS("^(sunos|sun)"),
+	/**
+	 * Windows platform
+	 */
 	WINDOWS("^(windows|win)"),
+	/**
+	 * Free BSD platform
+	 */
 	FREE_BSD("^(freebsd|free)"),
+	/**
+	 * Unknown platform. Used only to represent an error
+	 */
 	UNKNOWN;
 
 	/* ------------------------------------------------------------------
@@ -52,7 +70,14 @@ public enum Platform {
 	 * ------------------------------------------------------------------ */
 
 	/**
-	 * Determine if the platform is unix-like
+	 * Determine if the platform is unix-like.
+	 * <p>
+	 * Example:
+	 * <pre>{@code
+	 * Platform current = Platform.getCurrent();
+	 * // Check unix platform
+	 * boolean isUnix = current.isUnix();
+	 * }</pre>
 	 *
 	 * @return Returns {@code true} if platform is unix-like or {@code false} otherwise
 	 */

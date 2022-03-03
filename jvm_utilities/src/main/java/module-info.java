@@ -1,5 +1,8 @@
-module com.github.ushiosanXXIII.jvm {
+@SuppressWarnings("JavaModuleNaming")
+module com.github.ushiosan23.jvm {
+	requires java.xml;
 	requires static org.jetbrains.annotations;
+
 	/* ------------------------------------------------------------------
 	 * Base
 	 * ------------------------------------------------------------------ */

@@ -1,5 +1,7 @@
 package com.github.ushiosan23.jvm.io;
 
+import com.github.ushiosan23.jvm.base.Obj;
+import com.github.ushiosan23.jvm.collections.Arr;
 import com.github.ushiosan23.jvm.io.predicates.IPredicate;
 import org.junit.After;
 import org.junit.Test;
@@ -36,16 +38,17 @@ public class IOUtilsTest {
 	@After
 	public void walkRecursiveDirectoryTest() throws IOException {
 		Path location = IOUtils.resolveUserPath("Downloads");
-		Path[] paths = IOUtils.directoryWalkArr(
-			location,
-			true,
-			Files::isRegularFile,
-			IPredicate.extensionsOf("png", "jpg", "svg")
-		);
+		Object[] paths = IOUtils.directoryWalk(
+				location,
+				true,
+				Files::isRegularFile,
+				IPredicate.extensionsOf("png", "jpg", "svg")
+			).map(it -> Arr.of(it, IOUtils.getBaseName(it)))
+			.toArray();
 
 		System.out.println("\n\n");
-		for (Path item : paths) {
-			System.err.println(item);
+		for (Object item : paths) {
+			System.err.println(Obj.toBaseString(item));
 		}
 	}
 

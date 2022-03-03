@@ -41,7 +41,7 @@ public final class IOUtils {
 	 * @return Return all extensions of a given file
 	 * @throws IllegalArgumentException Error if path is not a valid file
 	 */
-	public static @NotNull String getAllExtensions(Path path) {
+	public static @NotNull String getAllExtensions(@NotNull Path path) {
 		// Validate path
 		if (Files.isDirectory(path))
 			throw new IllegalArgumentException(String.format("%s is not valid file. Directory given.", path));
@@ -61,7 +61,7 @@ public final class IOUtils {
 	 * @return Returns the extension of a given file.
 	 * @throws IllegalArgumentException Error if path is not a valid file
 	 */
-	public static @NotNull String getExtension(Path path) {
+	public static @NotNull String getExtension(@NotNull Path path) {
 		// Get all extensions
 		String extensions = getAllExtensions(path);
 		int lastIndex = extensions.lastIndexOf(".");
@@ -69,6 +69,27 @@ public final class IOUtils {
 		if (lastIndex == -1) return "";
 		// Return last extension
 		return extensions.substring(lastIndex + 1);
+	}
+
+	/**
+	 * Returns the base name of the route.
+	 * For directories, it will only return the name and for files the name without the extensions.
+	 *
+	 * @param path Route to evaluate
+	 * @return Returns the base name
+	 */
+	public static @NotNull String getBaseName(@NotNull Path path) {
+		// Store filename
+		String fileName = path.getFileName().toString();
+		// Check element type
+		if (!Files.isDirectory(path)) {
+			// Check all extensions
+			int index = fileName.indexOf(".");
+			if (index != -1) {
+				fileName = fileName.substring(0, index);
+			}
+		}
+		return fileName;
 	}
 
 	/**

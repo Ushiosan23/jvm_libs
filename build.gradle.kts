@@ -33,7 +33,7 @@ buildscript {
 
 	// Utilities configuration
 	extra.set("utilities.name", "JVM Utilities")
-	extra.set("utilities.version", "0.1.9")
+	extra.set("utilities.version", "0.1.10")
 	extra.set("utilities.maven.artifact", "jvm_utilities")
 	extra.set("utilities.maven.description", "Utilities for the java virtual machine.")
 	extra.set("utilities.maven.url", "${extra["global.maven.url"]}/tree/main/jvm_utilities")

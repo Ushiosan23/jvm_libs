@@ -1,5 +1,7 @@
 @SuppressWarnings("JavaModuleNaming")
 module com.github.ushiosan23.jvm {
+	uses java.nio.file.spi.FileSystemProvider;
+
 	requires java.xml;
 	requires static org.jetbrains.annotations;
 

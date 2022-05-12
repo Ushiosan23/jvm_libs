@@ -9,7 +9,7 @@ public interface IApply {
 		 *
 		 * @param element Object to which the action applies
 		 */
-		void run(T element);
+		void invoke(T element);
 
 	}
 
@@ -21,7 +21,7 @@ public interface IApply {
 		 * @param element Object to which the action applies
 		 * @return Returns the same object is returned but with the changes made
 		 */
-		V run(T element);
+		V invoke(T element);
 
 	}
 

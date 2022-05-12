@@ -1,3 +1,7 @@
+/**
+ * Utilities module for repetitive or complex tasks of the java virtual machine.
+ * All these utilities are separated into specific and intuitive packages for easy use.
+ */
 @SuppressWarnings("JavaModuleNaming")
 module com.github.ushiosan23.jvm {
 	uses java.nio.file.spi.FileSystemProvider;

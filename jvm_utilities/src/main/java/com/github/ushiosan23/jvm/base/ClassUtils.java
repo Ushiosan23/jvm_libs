@@ -5,6 +5,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
+/**
+ * Utilities for the class {@link Class} or similar.
+ */
 public final class ClassUtils {
 
 	/**

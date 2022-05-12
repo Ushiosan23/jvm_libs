@@ -1,5 +1,9 @@
 package com.github.ushiosan23.jvm.base;
 
+/**
+ * Class that adds extra math utilities. They are methods that are not found in
+ * the {@link Math} class and seek to add functionality to java.
+ */
 public final class MathExtra {
 
 	/* ------------------------------------------------------------------

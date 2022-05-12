@@ -2,28 +2,77 @@ package com.github.ushiosan23.jvm.collections;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Unmodifiable;
 import org.jetbrains.annotations.UnmodifiableView;
 
-import java.util.AbstractMap;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public final class Maps {
+public final class Containers {
 
 	/* ------------------------------------------------------------------
-	 * Constructor
+	 * Constructors
 	 * ------------------------------------------------------------------ */
 
 	/**
 	 * This class cannot be instantiated
 	 */
-	private Maps() {
+	private Containers() {
 	}
 
 	/* ------------------------------------------------------------------
 	 * Methods
 	 * ------------------------------------------------------------------ */
+
+	/**
+	 * Create an immutable list with all the given elements.
+	 *
+	 * @param items Elements to insert
+	 * @param <T>   List generic type
+	 * @return Return an immutable list with all elements
+	 */
+	@SafeVarargs
+	@Contract(pure = true)
+	public static <T> @NotNull @Unmodifiable List<T> listOf(T... items) {
+		return List.of(items);
+	}
+
+	/**
+	 * Create a mutable list with all the given elements.
+	 *
+	 * @param items Elements to insert
+	 * @param <T>   List generic type
+	 * @return Return a mutable list with all elements
+	 */
+	@SafeVarargs
+	@Contract("_ -> new")
+	public static <T> @NotNull List<T> mutableListOf(T... items) {
+		return new ArrayList<>(Arrays.asList(items));
+	}
+
+	/**
+	 * Create an immutable set with all the given elements.
+	 *
+	 * @param items Elements to insert
+	 * @param <T>   Set generic type
+	 * @return Return an immutable set with all elements
+	 */
+	@SafeVarargs
+	public static <T> @Unmodifiable @NotNull Set<T> setOf(T... items) {
+		return Set.of(items);
+	}
+
+	/**
+	 * Create a mutable set with all the given elements.
+	 *
+	 * @param items Elements to insert
+	 * @param <T>   Set generic type
+	 * @return Return a mutable set with all elements
+	 */
+	@SafeVarargs
+	@Contract("_ -> new")
+	public static <T> @NotNull Set<T> mutableSetOf(T... items) {
+		return new HashSet<>(Arrays.asList(items));
+	}
 
 	/**
 	 * Generate an immutable map with all elements inside.
@@ -35,8 +84,8 @@ public final class Maps {
 	 */
 	@SafeVarargs
 	@UnmodifiableView
-	public static <K, V> @NotNull Map<K, V> of(Map.Entry<K, V>... elements) {
-		return Collections.unmodifiableMap(mutableOf(elements));
+	public static <K, V> @NotNull Map<K, V> mapOf(Map.Entry<K, V>... elements) {
+		return Collections.unmodifiableMap(mutableMapOf(elements));
 	}
 
 	/**
@@ -49,7 +98,7 @@ public final class Maps {
 	 */
 	@Contract(pure = true)
 	@SafeVarargs
-	public static <K, V> @NotNull Map<K, V> mutableOf(Map.Entry<K, V> @NotNull ... elements) {
+	public static <K, V> @NotNull Map<K, V> mutableMapOf(Map.Entry<K, V> @NotNull ... elements) {
 		// Generate result
 		Map<K, V> result = new HashMap<>(elements.length);
 

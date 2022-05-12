@@ -1,5 +1,6 @@
 package com.github.ushiosan23.jvm.collections;
 
+import com.github.ushiosan23.jvm.io.PrintUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -50,7 +51,7 @@ final class ArrInternal {
 		if (objClass == double[].class)
 			return Arrays.toString((double[]) array);
 
-		return Arrays.toString((Object[]) array);
+		return toStringImpl((Object[]) array);
 	}
 
 	/**
@@ -145,6 +146,21 @@ final class ArrInternal {
 	/* ------------------------------------------------------------------
 	 * Internal methods
 	 * ------------------------------------------------------------------ */
+
+	private static @NotNull String toStringImpl(Object @NotNull [] array) {
+		// Check empty array
+		if (array.length == 0) return "[]";
+		// Generate result
+		StringBuilder builder = new StringBuilder("[");
+		int max = array.length - 1;
+
+		for (int i = 0; i < array.length; i++) {
+			builder.append(PrintUtils.toString(array[i]));
+			if (i != max) builder.append(", ");
+		}
+
+		return builder.append("]").toString();
+	}
 
 	@Contract(pure = true)
 	private static Number @NotNull [] byteOf(byte @NotNull [] numbers) {

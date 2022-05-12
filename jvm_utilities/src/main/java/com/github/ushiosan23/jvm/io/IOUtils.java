@@ -1,12 +1,14 @@
 package com.github.ushiosan23.jvm.io;
 
 import com.github.ushiosan23.jvm.base.Obj;
+import com.github.ushiosan23.jvm.collections.Containers;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.*;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -178,6 +180,90 @@ public final class IOUtils {
 		// Close stream
 		pathStream.close();
 		return result;
+	}
+
+	/* ------------------------------------------------------------------
+	 * File system utilities
+	 * ------------------------------------------------------------------ */
+
+	/**
+	 * Try to return a valid file system. This only works with local connections
+	 * where it is possible to get files from a jar file inside a classloader.
+	 *
+	 * @param location The file to check
+	 * @return Returns a valid file system instance
+	 * @throws IOException        If an I/O error occurs
+	 * @throws URISyntaxException If the url is not set correctly.
+	 */
+	public static @NotNull FileSystem getValidFileSystem(@NotNull URL location) throws IOException, URISyntaxException {
+		return getValidFileSystem(location.toURI());
+	}
+
+	/**
+	 * Try to return a valid file system. This only works with local connections
+	 * where it is possible to get files from a jar file inside a classloader.
+	 *
+	 * @param location The file to check
+	 * @return Returns a valid file system instance
+	 * @throws IOException If an I/O error occurs
+	 */
+	public static @NotNull FileSystem getValidFileSystem(@NotNull URI location) throws IOException {
+		// Store scheme
+		String scheme = location.getScheme();
+		// Check scheme type
+		switch (scheme) {
+			case "file":
+				return Path.of(location).getFileSystem();
+			case "jar":
+				return FileSystems.newFileSystem(location, Containers.mapOf());
+			default:
+				throw new IOException(String.format("\"%s\" is not supported.", scheme));
+		}
+	}
+
+	/* ------------------------------------------------------------------
+	 * Jar files
+	 * ------------------------------------------------------------------ */
+
+	/**
+	 * Returns a jar file as a virtual directory. If the file is not a valid jar it will throw an error.
+	 *
+	 * @param location The jar file location
+	 * @return Returns a virtual jar directory
+	 * @throws IOException        If an I/O error occurs
+	 * @throws URISyntaxException If the url is not set correctly.
+	 */
+	public static @NotNull Path jarToPath(@NotNull URL location) throws IOException, URISyntaxException {
+		return jarToPath(location.toURI());
+	}
+
+	/**
+	 * Returns a jar file as a virtual directory. If the file is not a valid jar it will throw an error.
+	 *
+	 * @param location The jar file location
+	 * @return Returns a virtual jar directory
+	 * @throws IOException If an I/O error occurs
+	 */
+	public static @NotNull Path jarToPath(@NotNull URI location) throws IOException {
+		// Get filesystem
+		FileSystem fs = getValidFileSystem(location);
+		return fs.getPath("/");
+	}
+
+	/**
+	 * Returns a jar file as a virtual directory. If the file is not a valid jar it will throw an error.
+	 *
+	 * @param location The jar file location
+	 * @return Returns a virtual jar directory
+	 * @throws IOException If an I/O error occurs
+	 */
+	public static @NotNull Path jarToPath(@NotNull Path location) throws IOException {
+		// Check file type
+		if (!getExtension(location).equals("jar"))
+			throw new IOException("Invalid jar file");
+		// Generate new filesystem
+		FileSystem fs = FileSystems.newFileSystem(location, Obj.castTo(null, ClassLoader.class));
+		return fs.getPath("/");
 	}
 
 }

@@ -8,9 +8,9 @@ public class MapsTest {
 
 	@Test
 	public void runTest() throws Exception {
-		Map<String, String> map = Maps.of(
-			Maps.entry("Hello", null),
-			Maps.mutableEntry("XD", "World")
+		Map<String, String> map = Containers.mapOf(
+			Containers.entry("Hello", null),
+			Containers.mutableEntry("XD", "World")
 		);
 
 		System.err.println(map);

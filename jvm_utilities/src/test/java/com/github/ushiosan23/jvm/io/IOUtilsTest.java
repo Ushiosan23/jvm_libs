@@ -48,7 +48,7 @@ public class IOUtilsTest {
 
 		System.out.println("\n\n");
 		for (Object item : paths) {
-			System.err.println(Obj.toBaseString(item));
+			System.err.println(Obj.toString(item));
 		}
 	}
 

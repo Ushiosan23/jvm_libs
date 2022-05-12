@@ -5,12 +5,12 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class ArrListTest {
+public class ContainersTest {
 
 	@Test(expected = UnsupportedOperationException.class)
 	@SuppressWarnings("ConstantConditions")
 	public void runOfTest() {
-		List<String> immutableList = ArrList.of("Hello", ", ", "World!");
+		List<String> immutableList = Containers.listOf("Hello", ", ", "World!");
 
 		System.err.println(immutableList);
 		immutableList.add("Invalid action");
@@ -19,7 +19,7 @@ public class ArrListTest {
 
 	@After
 	public void runMutableOfTest() {
-		List<String> immutableList = ArrList.mutableOf("Hello", ", ", "World!");
+		List<String> immutableList = Containers.mutableListOf("Hello", ", ", "World!");
 		immutableList.add("Valid insert");
 		System.err.println(immutableList);
 	}

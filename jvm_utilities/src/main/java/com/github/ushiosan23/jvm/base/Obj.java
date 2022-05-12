@@ -1,9 +1,12 @@
 package com.github.ushiosan23.jvm.base;
 
-import com.github.ushiosan23.jvm.collections.Arr;
 import com.github.ushiosan23.jvm.functions.apply.IApply;
+import com.github.ushiosan23.jvm.io.PrintUtils;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public final class Obj {
 
@@ -27,16 +30,9 @@ public final class Obj {
 	 * @param data The data to convert
 	 * @return Returns an object string representation
 	 */
-	public static @NotNull String toBaseString(@Nullable Object data) {
-		// Get class
-		if (data == null) return "null";
+	public static @NotNull String toString(@Nullable Object data) {
 		// Check if is an array
-		Class<?> type = data.getClass();
-		if (type.isArray()) {
-			return Arr.toString(data);
-		} else {
-			return data.toString();
-		}
+		return PrintUtils.toString(data);
 	}
 
 	/**
@@ -46,17 +42,9 @@ public final class Obj {
 	 * @return Returns an object info string representation
 	 */
 	public static @NotNull String toInfoString(@Nullable Object data) {
-		// Check if data is null
+		// Check null value
 		if (data == null) return "null";
-		// Resolve data
-		Class<?> type = data.getClass();
-		String hashCode = Integer.toHexString(data.hashCode());
-		// Return data
-		if (type.isArray()) {
-			return String.format("(@%s) %s", hashCode, Arr.toInfoString(data));
-		} else {
-			return String.format("(@%s) %s", hashCode, type.getName());
-		}
+		return PrintUtils.toRawString(data, true);
 	}
 
 	/**
@@ -79,7 +67,7 @@ public final class Obj {
 	 * @param <T>   Generic object type
 	 */
 	public static <T> void notNull(@Nullable T obj, IApply.@NotNull EmptyResult<T> apply) {
-		if (obj != null) apply.run(obj);
+		if (obj != null) apply.invoke(obj);
 	}
 
 	/**
@@ -105,7 +93,39 @@ public final class Obj {
 	 * @return Returns a transformation object result
 	 */
 	public static <T, V> V applyTransform(T obj, IApply.@NotNull WithResult<T, V> action) {
-		return action.run(obj);
+		return action.invoke(obj);
+	}
+
+	/**
+	 * Recast the object towards the assigned destination.
+	 * This method must be sure that the object is of the desired type, or it will generate an error.
+	 *
+	 * @param obj    Object to analyze
+	 * @param tClass Destination class
+	 * @param <T>    Generic destination type
+	 * @return Returns the transformed object
+	 * @throws ClassCastException Error if object is not compatible with type
+	 */
+	@Contract(value = "_, _ -> param1", pure = true)
+	public static <T> T castTo(@Nullable Object obj, @NotNull Class<T> tClass) {
+		return tClass.cast(obj);
+	}
+
+	/**
+	 * Recast the object towards the assigned destination.
+	 * This method must be sure that the object is of the desired type, or it will generate an error.
+	 * <p>
+	 * <i>Note: </i>
+	 * <b>This method is based on the context in which it is called.</b>
+	 *
+	 * @param obj Object to analyze
+	 * @param <T> Generic destination type
+	 * @return Returns the transformed object
+	 * @throws ClassCastException Error if object is not compatible with type
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T castTo(@Nullable Object obj) {
+		return (T) obj;
 	}
 
 	/**
@@ -129,10 +149,8 @@ public final class Obj {
 	 * @param <T>    Generic destination type
 	 */
 	public static <T> void tryCast(@NotNull Object obj, @NotNull Class<T> tClass, @NotNull IApply.EmptyResult<T> action) {
-		// Get result
-		T result = tryCast(obj, tClass);
-		// Check if result is null
-		if (result != null) action.run(result);
+		// Check if result is present
+		tryCast(obj, tClass).ifPresent(action::invoke);
 	}
 
 	/**
@@ -141,15 +159,16 @@ public final class Obj {
 	 * @param obj    Object to analyze
 	 * @param tClass Destination class
 	 * @param <T>    Generic destination type
-	 * @return Returns a recast object or {@code null} if the cast fails
+	 * @return Returns a recast object or {@link Optional#empty()} if the cast fails
+	 * @see Optional#isPresent()
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> @Nullable T tryCast(@NotNull Object obj, @NotNull Class<T> tClass) {
+	public static <T> @NotNull Optional<T> tryCast(@NotNull Object obj, @NotNull Class<T> tClass) {
 		// Check if obj is instance of tClass
 		if (obj.getClass().isAssignableFrom(tClass) || tClass.isInstance(obj))
-			return (T) obj;
+			return Optional.of((T) obj);
 		// Return invalid value
-		return null;
+		return Optional.empty();
 	}
 
 }

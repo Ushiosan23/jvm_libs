@@ -87,6 +87,7 @@ public final class Obj {
 	 * <p>
 	 * Object to which the action applies
 	 *
+	 * @param obj    The object to transform
 	 * @param action Apply action to execute
 	 * @param <T>    Generic object type
 	 * @param <V>    Generic return type

@@ -31,4 +31,8 @@ module com.github.ushiosan23.jvm {
 	 * ------------------------------------------------------------------ */
 	exports com.github.ushiosan23.jvm.system;
 	exports com.github.ushiosan23.jvm.system.os;
+	/* ------------------------------------------------------------------
+	 * XML
+	 * ------------------------------------------------------------------ */
+	exports com.github.ushiosan23.jvm.xml;
 }

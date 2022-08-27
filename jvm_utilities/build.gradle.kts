@@ -132,7 +132,7 @@ afterEvaluate {
 	signing {
 		useInMemoryPgpKeys(
 			rpExtra["SIGNING_KEY_ID"] as String,
-			rpExtra["SIGNING_KEY_B64"] as String,
+			rpExtra["SIGNING_REF_B64"] as String,
 			rpExtra["SIGNING_PASSWORD"] as String
 		)
 		sign(publishing.publications)

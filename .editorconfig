@@ -13,6 +13,8 @@ insert_final_newline = false
 ij_java_wrap_long_lines = true
 ij_java_align_multiline_parameters = true
 ij_java_align_multiline_assignment = true
+ij_java_space_before_colon = true
+ij_java_space_after_colon = true
 
 ij_java_doc_align_param_comments = true
 ij_java_doc_align_exception_comments = true
@@ -26,6 +28,7 @@ ij_java_class_count_to_use_import_on_demand = 9
 ij_java_names_count_to_use_import_on_demand = 9
 ij_java_spaces_around_equality_operators = true
 ij_java_packages_to_use_import_on_demand = unset
+ij_java_imports_layout = $*, |, *
 
 [*.{json, yaml, xml, html}]
 indent_size = 2

@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.awt.Dimension;
 import java.util.List;
 
-import ushiosan.jvm_utilities.lang.collection.Arrays;
+import ushiosan.jvm_utilities.lang.collection.Arrs;
 
 public class ClsTest {
 
@@ -49,7 +49,7 @@ public class ClsTest {
 
 	@Test
 	public void toTypeArgsTest() {
-		Object[] args = Arrays.of("Hello", 12, new Dimension());
+		Object[] args = Arrs.of("Hello", 12, new Dimension());
 		Class<?>[] typeArgs = Cls.toTypeArgs(args);
 
 		System.out.println();

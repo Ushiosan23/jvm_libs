@@ -2,7 +2,7 @@ package ushiosan.jvm_utilities.lang;
 
 import org.jetbrains.annotations.NotNull;
 
-import ushiosan.jvm_utilities.lang.collection.Arrays;
+import ushiosan.jvm_utilities.lang.collection.Arrs;
 
 public final class Cls {
 
@@ -59,7 +59,7 @@ public final class Cls {
 	 * @return {@code true} if the class is a primitive type or {@code false} otherwise
 	 */
 	public static boolean isPrimitive(@NotNull Class<?> clazz) {
-		return clazz.isPrimitive() || Arrays.contains(PRIMITIVE_WRAPPED_CLASSES, clazz);
+		return clazz.isPrimitive() || Arrs.contains(PRIMITIVE_WRAPPED_CLASSES, clazz);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public final class Cls {
 	 * @return {@code true} if the class is a primitive type or {@code false} otherwise
 	 */
 	public static boolean isPrimitiveArray(@NotNull Class<?> clazz) {
-		return clazz.isArray() && Arrays.contains(PRIMITIVE_ARRAY_CLASSES, clazz);
+		return clazz.isArray() && Arrs.contains(PRIMITIVE_ARRAY_CLASSES, clazz);
 	}
 
 	/**

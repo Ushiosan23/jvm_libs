@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ushiosan.jvm_utilities.lang.collection.Arrays;
+import ushiosan.jvm_utilities.lang.collection.Arrs;
 
 public final class Strings {
 
@@ -36,7 +36,7 @@ public final class Strings {
 	 */
 	public static @NotNull String capitalize(@NotNull CharSequence content, boolean all) {
 		String realContent = content.toString();
-		String[] chunks = all ? realContent.split("\\s"):Arrays.of(realContent);
+		String[] chunks = all ? realContent.split("\\s"):Arrs.of(realContent);
 		// Convert all elements
 		String[] result = java.util.Arrays.stream(chunks)
 			.map(Strings::capitalizeImpl)

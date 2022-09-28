@@ -7,14 +7,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-public final class ArraysImpl {
+public final class ArrsImpl {
 
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
 	 * Singleton or utility class mode.
 	 */
-	private ArraysImpl() {
+	private ArrsImpl() {
 	}
 
 	/* -----------------------------------------------------

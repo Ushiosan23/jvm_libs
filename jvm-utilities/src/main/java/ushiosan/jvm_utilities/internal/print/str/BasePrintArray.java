@@ -5,7 +5,7 @@ import static ushiosan.jvm_utilities.lang.Obj.cast;
 import org.jetbrains.annotations.NotNull;
 
 import ushiosan.jvm_utilities.lang.Cls;
-import ushiosan.jvm_utilities.lang.collection.Arrays;
+import ushiosan.jvm_utilities.lang.collection.Arrs;
 
 public abstract class BasePrintArray {
 
@@ -32,7 +32,7 @@ public abstract class BasePrintArray {
 		// is to convert the primitive types to object arrays
 		// and use them as a generic object array.
 		Object[] arrayObj = Cls.isPrimitiveArray(obj) ?
-			Arrays.toObjectArray(obj):cast(obj);
+			Arrs.toObjectArray(obj):cast(obj);
 		return arrayString(cast(arrayObj));
 	}
 

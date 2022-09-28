@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ushiosan.jvm_utilities.lang.Obj;
+import ushiosan.jvm_utilities.lang.collection.Arrs;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintExclude;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
@@ -231,7 +232,7 @@ public final class PrintInstance {
 		Matcher pMatch = pair.second.first.matcher(method.getName());
 		Matcher sMatch = pair.second.second.matcher(method.getName());
 		if (!pMatch.find() || !sMatch.find() ||
-			ushiosan.jvm_utilities.lang.collection.Arrays.contains(INVALID_METHODS, method.getName())) {
+			Arrs.contains(INVALID_METHODS, method.getName())) {
 			return false;
 		}
 

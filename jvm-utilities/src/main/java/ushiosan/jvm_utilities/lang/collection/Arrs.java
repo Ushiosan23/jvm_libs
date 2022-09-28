@@ -7,9 +7,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Iterator;
 import java.util.List;
 
-import ushiosan.jvm_utilities.internal.collection.ArraysImpl;
+import ushiosan.jvm_utilities.internal.collection.ArrsImpl;
 
-public final class Arrays {
+public final class Arrs {
 
 	/**
 	 * number to represent not found operation in the arrays
@@ -21,7 +21,7 @@ public final class Arrays {
 	 * <p>
 	 * Singleton or utility class mode.
 	 */
-	private Arrays() {
+	private Arrs() {
 	}
 
 	/* -----------------------------------------------------
@@ -146,7 +146,7 @@ public final class Arrays {
 	 * @return a converted array object
 	 */
 	public static Object @NotNull [] toObjectArray(Object array) {
-		return ArraysImpl.toObjectArray(array);
+		return ArrsImpl.toObjectArray(array);
 	}
 
 	/* -----------------------------------------------------
@@ -207,7 +207,7 @@ public final class Arrays {
 	 * @see Number
 	 */
 	public static Number @NotNull [] toNumberOf(byte[] array) {
-		return ArraysImpl.toNumberArray(array);
+		return ArrsImpl.toNumberArray(array);
 	}
 
 	/**
@@ -234,7 +234,7 @@ public final class Arrays {
 	 * @see Number
 	 */
 	public static Number @NotNull [] toNumberOf(short[] array) {
-		return ArraysImpl.toNumberArray(array);
+		return ArrsImpl.toNumberArray(array);
 	}
 
 	/**
@@ -255,7 +255,7 @@ public final class Arrays {
 	 * @see Number
 	 */
 	public static Number @NotNull [] toNumberOf(int[] array) {
-		return ArraysImpl.toNumberArray(array);
+		return ArrsImpl.toNumberArray(array);
 	}
 
 	/**
@@ -276,7 +276,7 @@ public final class Arrays {
 	 * @see Number
 	 */
 	public static Number @NotNull [] toNumberOf(long[] array) {
-		return ArraysImpl.toNumberArray(array);
+		return ArrsImpl.toNumberArray(array);
 	}
 
 	/**
@@ -297,7 +297,7 @@ public final class Arrays {
 	 * @see Number
 	 */
 	public static Number @NotNull [] toNumberOf(float[] array) {
-		return ArraysImpl.toNumberArray(array);
+		return ArrsImpl.toNumberArray(array);
 	}
 
 	/**
@@ -318,7 +318,7 @@ public final class Arrays {
 	 * @see Number
 	 */
 	public static Number @NotNull [] toNumberOf(double[] array) {
-		return ArraysImpl.toNumberArray(array);
+		return ArrsImpl.toNumberArray(array);
 	}
 
 }

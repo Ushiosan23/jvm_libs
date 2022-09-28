@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import ushiosan.jvm_utilities.lang.collection.Arrays;
+import ushiosan.jvm_utilities.lang.collection.Arrs;
 import ushiosan.jvm_utilities.lang.io.IO;
 
 public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
@@ -45,7 +45,7 @@ public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
 		Optional<String> extension = IO.getExtension(path);
 		// Check if the extension exists
 		if (extension.isEmpty()) return false;
-		return Arrays.contains(extensions, extension);
+		return Arrs.contains(extensions, extension);
 	}
 
 	/* -----------------------------------------------------

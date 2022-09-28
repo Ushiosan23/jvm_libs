@@ -2,7 +2,6 @@ package ushiosan.jvm_utilities.lang.print;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import ushiosan.jvm_utilities.function.Apply;
 import ushiosan.jvm_utilities.internal.print.instance.PrintInstance;
 import ushiosan.jvm_utilities.internal.print.str.BasePrintObject;
@@ -73,7 +72,8 @@ public final class PrintObj {
 	 * @param action    the extension action
 	 * @param supported supported elements
 	 */
-	public void attachExtension(boolean verbose, @NotNull Apply.Result<Object, String> action, Class<?> @NotNull ... supported) {
+	public void attachExtension(boolean verbose, @NotNull Apply.Result<Object, String> action,
+								Class<?> @NotNull ... supported) {
 		BasePrintObject.getInstance(verbose)
 			.attachExtension(action, supported);
 	}

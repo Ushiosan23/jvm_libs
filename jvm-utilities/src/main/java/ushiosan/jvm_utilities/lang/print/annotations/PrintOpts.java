@@ -1,11 +1,10 @@
 package ushiosan.jvm_utilities.lang.print.annotations;
 
-import org.intellij.lang.annotations.RegExp;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.intellij.lang.annotations.RegExp;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

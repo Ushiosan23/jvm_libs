@@ -1,22 +1,9 @@
 package ushiosan.jvm_utilities.lang;
 
 import org.jetbrains.annotations.NotNull;
-
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 
 public final class Cls {
-
-	/**
-	 * This class cannot be instantiated.
-	 * <p>
-	 * Singleton or utility class mode.
-	 */
-	private Cls() {
-	}
-
-	/* -----------------------------------------------------
-	 * Methods
-	 * ----------------------------------------------------- */
 
 	/**
 	 * Java wrapped primitive types
@@ -33,6 +20,9 @@ public final class Cls {
 		Void.class
 	};
 
+	/* -----------------------------------------------------
+	 * Methods
+	 * ----------------------------------------------------- */
 	/**
 	 * Java primitive array types
 	 */
@@ -46,6 +36,14 @@ public final class Cls {
 		float[].class,
 		double[].class
 	};
+
+	/**
+	 * This class cannot be instantiated.
+	 * <p>
+	 * Singleton or utility class mode.
+	 */
+	private Cls() {
+	}
 
 	/* -----------------------------------------------------
 	 * Methods

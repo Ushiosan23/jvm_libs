@@ -10,6 +10,17 @@ public final class SimplePrintArray extends BasePrintArray {
 	private static BasePrintArray INSTANCE;
 
 	/**
+	 * Get current class instance
+	 *
+	 * @return the instance of current class
+	 */
+	static BasePrintArray getInstance() {
+		if (INSTANCE == null)
+			INSTANCE = new SimplePrintArray();
+		return INSTANCE;
+	}
+
+	/**
 	 * Converts an array into a plain text representation of all its component elements.
 	 *
 	 * @param array the array to convert
@@ -29,17 +40,6 @@ public final class SimplePrintArray extends BasePrintArray {
 		}
 
 		return builder.append("]").toString();
-	}
-
-	/**
-	 * Get current class instance
-	 *
-	 * @return the instance of current class
-	 */
-	static BasePrintArray getInstance() {
-		if (INSTANCE == null)
-			INSTANCE = new SimplePrintArray();
-		return INSTANCE;
 	}
 
 }

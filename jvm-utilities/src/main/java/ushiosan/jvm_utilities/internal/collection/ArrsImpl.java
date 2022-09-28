@@ -2,10 +2,9 @@ package ushiosan.jvm_utilities.internal.collection;
 
 import static ushiosan.jvm_utilities.lang.Obj.cast;
 
+import java.util.Arrays;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
 
 public final class ArrsImpl {
 

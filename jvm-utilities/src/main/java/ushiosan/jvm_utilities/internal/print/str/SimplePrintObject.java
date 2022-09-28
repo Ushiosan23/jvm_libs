@@ -2,10 +2,9 @@ package ushiosan.jvm_utilities.internal.print.str;
 
 import static ushiosan.jvm_utilities.lang.Obj.cast;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Collection;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
 
 public final class SimplePrintObject extends BasePrintObject {
 
@@ -26,6 +25,17 @@ public final class SimplePrintObject extends BasePrintObject {
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
+
+	/**
+	 * Get current class instance
+	 *
+	 * @return the instance of current class
+	 */
+	static BasePrintObject getInstance() {
+		if (INSTANCE == null)
+			INSTANCE = new SimplePrintObject();
+		return INSTANCE;
+	}
 
 	/**
 	 * Collection string representation
@@ -49,6 +59,10 @@ public final class SimplePrintObject extends BasePrintObject {
 		return builder.append("]").toString();
 	}
 
+	/* -----------------------------------------------------
+	 * Static methods
+	 * ----------------------------------------------------- */
+
 	/**
 	 * Map string representation
 	 *
@@ -69,21 +83,6 @@ public final class SimplePrintObject extends BasePrintObject {
 			if (++index != total) builder.append(", ");
 		}
 		return builder.append("}").toString();
-	}
-
-	/* -----------------------------------------------------
-	 * Static methods
-	 * ----------------------------------------------------- */
-
-	/**
-	 * Get current class instance
-	 *
-	 * @return the instance of current class
-	 */
-	static BasePrintObject getInstance() {
-		if (INSTANCE == null)
-			INSTANCE = new SimplePrintObject();
-		return INSTANCE;
 	}
 
 }

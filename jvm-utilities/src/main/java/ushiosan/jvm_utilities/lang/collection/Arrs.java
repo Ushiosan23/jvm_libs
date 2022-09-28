@@ -1,12 +1,10 @@
 package ushiosan.jvm_utilities.lang.collection;
 
+import java.util.Iterator;
+import java.util.List;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Iterator;
-import java.util.List;
-
 import ushiosan.jvm_utilities.internal.collection.ArrsImpl;
 
 public final class Arrs {
@@ -184,6 +182,49 @@ public final class Arrs {
 	}
 
 	/**
+	 * Search elements in the array
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int indexOf(char @NotNull [] array, char element) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == element) return i;
+		}
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Search an element in the array. This method tries to search in reverse,
+	 * first starting at the end of the array, to find the desired element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	public static int lastIndexOf(char @NotNull [] array, char element) {
+		int maxSize = array.length - 1;
+		for (int i = maxSize; i >= 0; i--) {
+			if (array[i] == element) return i;
+		}
+		// By default, returns -1
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Checks if the array contains the selected element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return {@code true} if the element exists or {@code false} otherwise
+	 */
+	public static boolean contains(char @NotNull [] array, char element) {
+		return indexOf(array, element) != INDEX_NOT_FOUND;
+	}
+
+	/**
 	 * Generate a primitive byte array
 	 *
 	 * @param elements byte elements
@@ -208,6 +249,49 @@ public final class Arrs {
 	 */
 	public static Number @NotNull [] toNumberOf(byte[] array) {
 		return ArrsImpl.toNumberArray(array);
+	}
+
+	/**
+	 * Search elements in the array
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int indexOf(byte @NotNull [] array, byte element) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == element) return i;
+		}
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Search an element in the array. This method tries to search in reverse,
+	 * first starting at the end of the array, to find the desired element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	public static int lastIndexOf(byte @NotNull [] array, byte element) {
+		int maxSize = array.length - 1;
+		for (int i = maxSize; i >= 0; i--) {
+			if (array[i] == element) return i;
+		}
+		// By default, returns -1
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Checks if the array contains the selected element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return {@code true} if the element exists or {@code false} otherwise
+	 */
+	public static boolean contains(byte @NotNull [] array, byte element) {
+		return indexOf(array, element) != INDEX_NOT_FOUND;
 	}
 
 	/**
@@ -238,6 +322,49 @@ public final class Arrs {
 	}
 
 	/**
+	 * Search elements in the array
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int indexOf(short @NotNull [] array, short element) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == element) return i;
+		}
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Search an element in the array. This method tries to search in reverse,
+	 * first starting at the end of the array, to find the desired element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	public static int lastIndexOf(short @NotNull [] array, short element) {
+		int maxSize = array.length - 1;
+		for (int i = maxSize; i >= 0; i--) {
+			if (array[i] == element) return i;
+		}
+		// By default, returns -1
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Checks if the array contains the selected element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return {@code true} if the element exists or {@code false} otherwise
+	 */
+	public static boolean contains(short @NotNull [] array, short element) {
+		return indexOf(array, element) != INDEX_NOT_FOUND;
+	}
+
+	/**
 	 * Generate a primitive int array
 	 *
 	 * @param elements int elements
@@ -256,6 +383,49 @@ public final class Arrs {
 	 */
 	public static Number @NotNull [] toNumberOf(int[] array) {
 		return ArrsImpl.toNumberArray(array);
+	}
+
+	/**
+	 * Search elements in the array
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int indexOf(int @NotNull [] array, int element) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == element) return i;
+		}
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Search an element in the array. This method tries to search in reverse,
+	 * first starting at the end of the array, to find the desired element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	public static int lastIndexOf(int @NotNull [] array, int element) {
+		int maxSize = array.length - 1;
+		for (int i = maxSize; i >= 0; i--) {
+			if (array[i] == element) return i;
+		}
+		// By default, returns -1
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Checks if the array contains the selected element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return {@code true} if the element exists or {@code false} otherwise
+	 */
+	public static boolean contains(int @NotNull [] array, int element) {
+		return indexOf(array, element) != INDEX_NOT_FOUND;
 	}
 
 	/**
@@ -280,6 +450,49 @@ public final class Arrs {
 	}
 
 	/**
+	 * Search elements in the array
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int indexOf(long @NotNull [] array, long element) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == element) return i;
+		}
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Search an element in the array. This method tries to search in reverse,
+	 * first starting at the end of the array, to find the desired element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	public static int lastIndexOf(long @NotNull [] array, long element) {
+		int maxSize = array.length - 1;
+		for (int i = maxSize; i >= 0; i--) {
+			if (array[i] == element) return i;
+		}
+		// By default, returns -1
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Checks if the array contains the selected element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return {@code true} if the element exists or {@code false} otherwise
+	 */
+	public static boolean contains(long @NotNull [] array, long element) {
+		return indexOf(array, element) != INDEX_NOT_FOUND;
+	}
+
+	/**
 	 * Generate a primitive float array
 	 *
 	 * @param elements float elements
@@ -301,6 +514,49 @@ public final class Arrs {
 	}
 
 	/**
+	 * Search elements in the array
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int indexOf(float @NotNull [] array, float element) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == element) return i;
+		}
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Search an element in the array. This method tries to search in reverse,
+	 * first starting at the end of the array, to find the desired element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	public static int lastIndexOf(float @NotNull [] array, float element) {
+		int maxSize = array.length - 1;
+		for (int i = maxSize; i >= 0; i--) {
+			if (array[i] == element) return i;
+		}
+		// By default, returns -1
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Checks if the array contains the selected element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return {@code true} if the element exists or {@code false} otherwise
+	 */
+	public static boolean contains(float @NotNull [] array, float element) {
+		return indexOf(array, element) != INDEX_NOT_FOUND;
+	}
+
+	/**
 	 * Generate a primitive double array
 	 *
 	 * @param elements double elements
@@ -319,6 +575,49 @@ public final class Arrs {
 	 */
 	public static Number @NotNull [] toNumberOf(double[] array) {
 		return ArrsImpl.toNumberArray(array);
+	}
+
+	/**
+	 * Search elements in the array
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	@Contract(pure = true)
+	public static int indexOf(double @NotNull [] array, double element) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == element) return i;
+		}
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Search an element in the array. This method tries to search in reverse,
+	 * first starting at the end of the array, to find the desired element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return the first index element or {@code -1} if element not exists
+	 */
+	public static int lastIndexOf(double @NotNull [] array, double element) {
+		int maxSize = array.length - 1;
+		for (int i = maxSize; i >= 0; i--) {
+			if (array[i] == element) return i;
+		}
+		// By default, returns -1
+		return INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Checks if the array contains the selected element.
+	 *
+	 * @param array   base array to search
+	 * @param element the element to search
+	 * @return {@code true} if the element exists or {@code false} otherwise
+	 */
+	public static boolean contains(double @NotNull [] array, double element) {
+		return indexOf(array, element) != INDEX_NOT_FOUND;
 	}
 
 }

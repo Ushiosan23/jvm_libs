@@ -1,8 +1,5 @@
 package ushiosan.jvm_utilities.lang.io;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -13,7 +10,8 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.internal.io.IOImpl;
 import ushiosan.jvm_utilities.lang.Obj;
 
@@ -24,20 +22,18 @@ public final class IO extends IOImpl {
 	 * ----------------------------------------------------- */
 
 	/**
-	 * Error message to invalid file type
-	 */
-	private static final String INVALID_FILE_TYPE =
-		"The argument is not valid \"%s\" type. A \"%s\" given";
-
-	/**
 	 * Empty extensions array
 	 */
 	public static final String[] EMPTY_EXTENSIONS = new String[0];
-
 	/**
 	 * Character used to identify all file extensions
 	 */
 	public static final char EXTENSION_IDENTIFIER = '.';
+	/**
+	 * Error message to invalid file type
+	 */
+	private static final String INVALID_FILE_TYPE =
+		"The argument is not valid \"%s\" type. A \"%s\" given";
 
 	/* -----------------------------------------------------
 	 * Constructors
@@ -193,7 +189,7 @@ public final class IO extends IOImpl {
 	) throws IOException {
 		// Generate walk object depending on recursive parameter
 		Stream<Path> walkObj = recursive ?
-			Files.walk(location):
+			Files.walk(location) :
 			Files.walk(location, 1);
 		// configure walk object
 		return Obj.apply(walkObj, it -> {

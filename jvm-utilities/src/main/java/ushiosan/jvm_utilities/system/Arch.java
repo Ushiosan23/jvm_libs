@@ -1,13 +1,11 @@
 package ushiosan.jvm_utilities.system;
 
-import org.intellij.lang.annotations.RegExp;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import org.intellij.lang.annotations.RegExp;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 
@@ -54,22 +52,8 @@ public enum Arch {
 	 * @param regex regular expression detector
 	 */
 	Arch(@Nullable @RegExp String regex) {
-		pattern = regex != null ? Pattern.compile(regex):null;
+		pattern = regex != null ? Pattern.compile(regex) : null;
 	}
-
-	/**
-	 * Object string representation
-	 *
-	 * @return object string representation
-	 */
-	@Override
-	public @NotNull String toString() {
-		return Obj.toInstanceString(this);
-	}
-
-	/* -----------------------------------------------------
-	 * Static methods
-	 * ----------------------------------------------------- */
 
 	/**
 	 * Gets the current platform architecture
@@ -79,6 +63,10 @@ public enum Arch {
 	public static String getRawArch() {
 		return System.getProperty("os.arch");
 	}
+
+	/* -----------------------------------------------------
+	 * Static methods
+	 * ----------------------------------------------------- */
 
 	/**
 	 * Returns the current architecture where the JVM is running
@@ -102,6 +90,16 @@ public enum Arch {
 		}
 
 		return UNKNOWN;
+	}
+
+	/**
+	 * Object string representation
+	 *
+	 * @return object string representation
+	 */
+	@Override
+	public @NotNull String toString() {
+		return Obj.toInstanceString(this);
 	}
 
 }

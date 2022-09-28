@@ -1,14 +1,12 @@
 package ushiosan.jvm_utilities.internal.io;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-
+import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.lang.collection.Collections;
 
 public abstract class IOImpl {

@@ -1,9 +1,8 @@
 package ushiosan.jvm_utilities.error;
 
+import java.security.PrivilegedActionException;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import java.security.PrivilegedActionException;
 
 public class InvalidArgumentTypeException extends Exception {
 
@@ -90,7 +89,8 @@ public class InvalidArgumentTypeException extends Exception {
 	 *                           be writable
 	 * @since 1.7
 	 */
-	public InvalidArgumentTypeException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public InvalidArgumentTypeException(String message, Throwable cause, boolean enableSuppression,
+										boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 

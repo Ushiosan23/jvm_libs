@@ -3,17 +3,15 @@ package ushiosan.jvm_utilities.lang;
 public final class Maths {
 
 	/**
-	 * This class cannot be instantiated.
+	 * Default decimal operations tolerance
 	 * <p>
-	 * Singleton or utility class mode.
+	 * 32-bit number tolerance
 	 */
-	private Maths() {
-	}
+	public static final double DECIMAL_TOLERANCE = 0.000001;
 
 	/* -----------------------------------------------------
 	 * Properties
 	 * ----------------------------------------------------- */
-
 	/**
 	 * A radian represented in degrees
 	 */
@@ -25,11 +23,12 @@ public final class Maths {
 	private static final double DEGREE_RADIANS = 0.017453292519943295769236907684886;
 
 	/**
-	 * Default decimal operations tolerance
+	 * This class cannot be instantiated.
 	 * <p>
-	 * 32-bit number tolerance
+	 * Singleton or utility class mode.
 	 */
-	public static final double DECIMAL_TOLERANCE = 0.000001;
+	private Maths() {
+	}
 
 	/* -----------------------------------------------------
 	 * Methods

@@ -1,10 +1,8 @@
 package ushiosan.jvm_utilities.lang.collection.elements;
 
+import java.util.Map;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Map;
-
 import ushiosan.jvm_utilities.lang.Obj;
 
 /**
@@ -44,16 +42,6 @@ public class Pair<T, K> {
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
-	/**
-	 * Object string representation
-	 *
-	 * @return object string representation
-	 */
-	@Override
-	public String toString() {
-		return "(" + Obj.toString(first) + ", " + Obj.toString(second) + ")";
-	}
 
 	/**
 	 * Shortcut pair instance
@@ -100,6 +88,16 @@ public class Pair<T, K> {
 		for (Map.Entry<T, K> current : map.entrySet())
 			result[counter++] = copyOf(current);
 		return result;
+	}
+
+	/**
+	 * Object string representation
+	 *
+	 * @return object string representation
+	 */
+	@Override
+	public String toString() {
+		return "(" + Obj.toString(first) + ", " + Obj.toString(second) + ")";
 	}
 
 }

@@ -1,15 +1,13 @@
 package ushiosan.jvm_utilities.system;
 
-import org.intellij.lang.annotations.RegExp;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import org.intellij.lang.annotations.RegExp;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 
@@ -64,12 +62,36 @@ public enum Platform {
 	 * @param regex target regular expression to detect the platform
 	 */
 	Platform(@Nullable @RegExp String regex) {
-		pattern = regex != null ? Pattern.compile(regex):null;
+		pattern = regex != null ? Pattern.compile(regex) : null;
 	}
 
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
+
+	/**
+	 * Returns the current platform where the JVM is running
+	 *
+	 * @return Returns the platform where the JVM runs or {@link #UNKNOWN} if the platform is not listed
+	 */
+	@SuppressWarnings("ConstantConditions")
+	public static Platform getRunningPlatform() {
+		// Temporal variables
+		String nativeOs = System.getProperty("os.name")
+			.toLowerCase();
+		Platform[] allValidPlatforms = Arrays.stream(values())
+			.filter(it -> it.pattern != null)
+			.toArray(Platform[]::new);
+
+		// Iterate all platforms
+		for (Platform platform : allValidPlatforms) {
+			Matcher matcher = platform.pattern.matcher(nativeOs);
+			if (matcher.find())
+				return platform;
+		}
+
+		return UNKNOWN;
+	}
 
 	/**
 	 * Determine if current platform is a {@code UNIX} like operating system
@@ -119,6 +141,10 @@ public enum Platform {
 		return Optional.of(System.getProperty("os.version"));
 	}
 
+	/* -----------------------------------------------------
+	 * Static methods
+	 * ----------------------------------------------------- */
+
 	/**
 	 * Object string representation
 	 *
@@ -126,34 +152,6 @@ public enum Platform {
 	 */
 	public @NotNull String toString() {
 		return Obj.toInstanceString(this);
-	}
-
-	/* -----------------------------------------------------
-	 * Static methods
-	 * ----------------------------------------------------- */
-
-	/**
-	 * Returns the current platform where the JVM is running
-	 *
-	 * @return Returns the platform where the JVM runs or {@link #UNKNOWN} if the platform is not listed
-	 */
-	@SuppressWarnings("ConstantConditions")
-	public static Platform getRunningPlatform() {
-		// Temporal variables
-		String nativeOs = System.getProperty("os.name")
-			.toLowerCase();
-		Platform[] allValidPlatforms = Arrays.stream(values())
-			.filter(it -> it.pattern != null)
-			.toArray(Platform[]::new);
-
-		// Iterate all platforms
-		for (Platform platform : allValidPlatforms) {
-			Matcher matcher = platform.pattern.matcher(nativeOs);
-			if (matcher.find())
-				return platform;
-		}
-
-		return UNKNOWN;
 	}
 
 }

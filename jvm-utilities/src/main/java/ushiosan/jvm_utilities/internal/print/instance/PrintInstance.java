@@ -1,8 +1,5 @@
 package ushiosan.jvm_utilities.internal.print.instance;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -10,7 +7,8 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
@@ -24,27 +22,19 @@ public final class PrintInstance {
 	 * ----------------------------------------------------- */
 
 	/**
-	 * Current class instance
-	 */
-	private static PrintInstance INSTANCE;
-
-	/**
 	 * All invalid method names
 	 */
 	private static final String[] INVALID_METHODS = new String[]{
 		"toString", "getClass", "hashCode", "getDeclaringClass", "ordinal"
 	};
-
 	/**
 	 * Empty method array
 	 */
 	private static final Method[] EMPTY_METHODS = new Method[0];
-
 	/**
 	 * Empty fields array
 	 */
 	private static final Field[] EMPTY_FIELDS = new Field[0];
-
 	/**
 	 * Default options instance
 	 */
@@ -83,6 +73,10 @@ public final class PrintInstance {
 		}
 
 	};
+	/**
+	 * Current class instance
+	 */
+	private static PrintInstance INSTANCE;
 
 	/* -----------------------------------------------------
 	 * Constructors
@@ -98,6 +92,21 @@ public final class PrintInstance {
 
 	/* -----------------------------------------------------
 	 * Methods
+	 * ----------------------------------------------------- */
+
+	/**
+	 * Get current class instance
+	 *
+	 * @return an instance of current class
+	 */
+	public static PrintInstance getInstance() {
+		if (INSTANCE == null)
+			INSTANCE = new PrintInstance();
+		return INSTANCE;
+	}
+
+	/* -----------------------------------------------------
+	 * Internal methods
 	 * ----------------------------------------------------- */
 
 	/**
@@ -120,10 +129,6 @@ public final class PrintInstance {
 		return toStringImpl(obj, opts);
 	}
 
-	/* -----------------------------------------------------
-	 * Internal methods
-	 * ----------------------------------------------------- */
-
 	/**
 	 * Loop through the entire object and create a representation of the
 	 * object in a text string. This behavior can be configured using class annotations
@@ -137,7 +142,7 @@ public final class PrintInstance {
 		Class<?> clazz = obj.getClass();
 		Method[] methods = getAllValidMethods(clazz, opts);
 		Field[] fields = getAllValidFields(clazz, opts);
-		StringBuilder builder = new StringBuilder(opts.shortName() ? clazz.getSimpleName():Obj.toString(clazz));
+		StringBuilder builder = new StringBuilder(opts.shortName() ? clazz.getSimpleName() : Obj.toString(clazz));
 		builder.append("{");
 
 		try {
@@ -215,6 +220,10 @@ public final class PrintInstance {
 		return modsState && !pair.first.isAnnotationPresent(PrintExclude.class);
 	}
 
+	/* -----------------------------------------------------
+	 * Static methods
+	 * ----------------------------------------------------- */
+
 	/**
 	 * Validate each method individually
 	 *
@@ -241,21 +250,6 @@ public final class PrintInstance {
 		boolean modsState = !Modifier.isAbstract(mods) && !Modifier.isPrivate(mods) &&
 			!Modifier.isProtected(mods) && !Modifier.isStatic(mods);
 		return modsState && !method.isAnnotationPresent(PrintExclude.class);
-	}
-
-	/* -----------------------------------------------------
-	 * Static methods
-	 * ----------------------------------------------------- */
-
-	/**
-	 * Get current class instance
-	 *
-	 * @return an instance of current class
-	 */
-	public static PrintInstance getInstance() {
-		if (INSTANCE == null)
-			INSTANCE = new PrintInstance();
-		return INSTANCE;
 	}
 
 }

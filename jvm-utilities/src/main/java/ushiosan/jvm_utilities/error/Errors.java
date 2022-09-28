@@ -2,12 +2,10 @@ package ushiosan.jvm_utilities.error;
 
 import static ushiosan.jvm_utilities.lang.Obj.cast;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
-
+import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.lang.Cls;
 
 public final class Errors {
@@ -80,7 +78,7 @@ public final class Errors {
 	 */
 	public static @NotNull String toString(@NotNull Throwable error, boolean simplify) {
 		// Temporal variables
-		Throwable realError = simplify ? getRootCause(error):error;
+		Throwable realError = simplify ? getRootCause(error) : error;
 		StringWriter writer = new StringWriter();
 		PrintWriter printer = new PrintWriter(writer);
 

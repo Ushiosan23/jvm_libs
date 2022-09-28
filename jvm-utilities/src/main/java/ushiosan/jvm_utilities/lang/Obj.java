@@ -1,12 +1,10 @@
 package ushiosan.jvm_utilities.lang;
 
+import java.lang.ref.WeakReference;
+import java.util.Optional;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.lang.ref.WeakReference;
-import java.util.Optional;
-
 import ushiosan.jvm_utilities.function.Apply;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 import ushiosan.jvm_utilities.lang.print.PrintObj;
@@ -143,7 +141,7 @@ public final class Obj {
 	 * @return the original reference if not {@code null} or the default value otherwise
 	 */
 	public static <T> @NotNull T notNull(@Nullable T obj, @NotNull T defaultVal) {
-		return isNull(obj) ? defaultVal:obj;
+		return isNull(obj) ? defaultVal : obj;
 	}
 
 	/**

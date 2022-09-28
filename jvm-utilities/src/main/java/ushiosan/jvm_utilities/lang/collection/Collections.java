@@ -1,12 +1,10 @@
 package ushiosan.jvm_utilities.lang.collection;
 
+import java.util.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
-
-import java.util.*;
-
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 
 /**

@@ -3,7 +3,7 @@
 Utilities for the java virtual machine. It only contains utilities to avoid repetitive code and does not contain functionality
 from any specific software or library.
 
-[![javadoc](https://javadoc.io/badge2/com.github.ushiosan23/jvm_utilities/jvm-utilities.svg?logo=openjdk)](https://javadoc.io/doc/com.github.ushiosan23/jvm-utilities)
+[![javadoc](https://javadoc.io/badge2/com.github.ushiosan23/jvm-utilities/jvm--utilities.svg?logo=openjdk)](https://javadoc.io/doc/com.github.ushiosan23/jvm-utilities)
 
 It also adds a new functionalities listed below:
 

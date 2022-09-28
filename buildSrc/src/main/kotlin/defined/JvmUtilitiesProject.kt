@@ -14,7 +14,7 @@ import publishing.*
 val JvmUtilitiesProject.releasePublication: PublicationInfo
 	get() = PublicationInfo(
 		name = "release",
-		version = "0.2.0",
+		version = "0.2.2",
 		pom = PublicationPom(
 			artifactUrl = "https://github.com/Ushiosan23/jvm_libs.git",
 			description = "Utilities for the java virtual machine.",
@@ -38,25 +38,25 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 	/**
 	 * All maven publications
 	 */
-	override val registeredPublications: List<PublicationInfo>?
+	override val registeredPublications: List<PublicationInfo>
 		get() = listOf(releasePublication)
 
 	/**
 	 * Project name
 	 */
-	override val projectName: String?
+	override val projectName: String
 		get() = "JVM Utilities"
 
 	/**
 	 * project group id
 	 */
-	override val projectGroup: String?
+	override val projectGroup: String
 		get() = "com.github.ushiosan23"
 
 	/**
 	 * project artifact name
 	 */
-	override val artifactId: String?
+	override val artifactId: String
 		get() = "jvm-utilities"
 
 	/**
@@ -82,7 +82,7 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 	/**
 	 * Signing information
 	 */
-	override val signingInfo: SigningInfo?
+	override val signingInfo: SigningInfo
 		get() = SigningInfo(
 			getEnv("SIGNING_KEY_ID", ""),
 			getEnv("SIGNING_PASSWORD", ""),
@@ -98,7 +98,7 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 	 *
 	 * @return All dependency map
 	 */
-	override fun dependencyMap(): Map<Any, List<*>?>? =
+	override fun dependencyMap(): Map<Any, List<*>?> =
 		dependencyOf()
 
 	/**

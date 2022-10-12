@@ -1,4 +1,4 @@
-import defined.SwingUtilitiesProject
+import defined.project.SwingUtilitiesProject
 
 plugins {
 	id("common-java-library")

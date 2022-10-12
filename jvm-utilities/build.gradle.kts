@@ -1,4 +1,4 @@
-import defined.JvmUtilitiesProject
+import defined.project.JvmUtilitiesProject
 
 plugins {
 	id("common-java-library")

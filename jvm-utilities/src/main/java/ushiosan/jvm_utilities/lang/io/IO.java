@@ -93,7 +93,7 @@ public final class IO extends IOImpl {
 	@Contract("_ -> new")
 	public static String @NotNull [] getAllExtensions(@NotNull Path path) {
 		// Validate regular file
-		if (java.nio.file.Files.isDirectory(path))
+		if (Files.isDirectory(path))
 			throw new IllegalArgumentException(String.format(INVALID_FILE_TYPE, "Regular File", "Directory"));
 		// Temporal variables
 		String baseName = getBaseName(path);
@@ -105,7 +105,7 @@ public final class IO extends IOImpl {
 		if (extIndex == -1)
 			return EMPTY_EXTENSIONS;
 		// Generate result
-		String pattern = String.valueOf(EXTENSION_IDENTIFIER);
+		String pattern = "\\" + EXTENSION_IDENTIFIER;
 		return Arrays.stream(pathStr.split(pattern))
 			.filter(it -> !baseName.contentEquals(it))
 			.toArray(String[]::new);

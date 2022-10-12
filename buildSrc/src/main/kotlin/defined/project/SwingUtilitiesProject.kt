@@ -1,51 +1,46 @@
-package defined
+package defined.project
 
+import defined.common.dependencyOf
 import defined.common.developersOf
 import defined.common.javadocLinksOf
 import defined.common.licensesOf
-import defined.common.dependencyOf
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.PluginContainer
 import org.gradle.api.tasks.TaskContainer
 import project.SimpleJavaProject
+import project.TypeDependency
 import publishing.*
 
-val JvmUtilitiesProject.releasePublication: PublicationInfo
+val SwingUtilitiesProject.releasePublication: PublicationInfo
 	get() = PublicationInfo(
 		name = "release",
-		version = "0.2.2",
+		version = "0.2.0",
 		pom = PublicationPom(
 			artifactUrl = "https://github.com/Ushiosan23/jvm_libs.git",
-			description = "Utilities for the java virtual machine.",
+			description = "Utilities for the java swing components.",
 			licenses = licensesOf(),
 			developers = developersOf(),
 			scm = ScmConnection()
 		)
 	)
 
-object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
+object SwingUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 
 	/* -----------------------------------------------------
 	 * Properties
 	 * ----------------------------------------------------- */
 
 	/**
-	 * current project
+	 * current project instance
 	 */
 	private lateinit var projectImpl: Project
-
-	/**
-	 * All maven publications
-	 */
-	override val registeredPublications: List<PublicationInfo>
-		get() = listOf(releasePublication)
 
 	/**
 	 * Project name
 	 */
 	override val projectName: String
-		get() = "JVM Utilities"
+		get() = "Swing Utilities"
 
 	/**
 	 * project group id
@@ -57,7 +52,7 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 	 * project artifact name
 	 */
 	override val artifactId: String
-		get() = "jvm-utilities"
+		get() = "swing-utilities"
 
 	/**
 	 * project version string
@@ -66,10 +61,10 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 		get() = releasePublication.version
 
 	/**
-	 * Generate automatically extra maven tasks
+	 * All maven publications
 	 */
-	override val autoGenerateMavenTasks: Boolean
-		get() = true
+	override val registeredPublications: List<PublicationInfo>
+		get() = listOf(releasePublication)
 
 	/**
 	 * project javadoc information
@@ -78,6 +73,12 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 		get() = SimpleJavaProject.JavadocInfo(
 			urls = javadocLinksOf()
 		)
+
+	/**
+	 * Generate automatically extra maven tasks
+	 */
+	override val autoGenerateMavenTasks: Boolean
+		get() = true
 
 	/**
 	 * Signing information
@@ -98,8 +99,11 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 	 *
 	 * @return All dependency map
 	 */
-	override fun dependencyMap(): Map<Any, List<*>?> =
-		dependencyOf()
+	override fun dependencyMap(): Map<Any, List<*>?> = dependencyOf(
+		TypeDependency.IMPLEMENTATION to listOf(
+			getProject(":jvm-utilities")
+		)
+	)
 
 	/**
 	 * Returns the current project

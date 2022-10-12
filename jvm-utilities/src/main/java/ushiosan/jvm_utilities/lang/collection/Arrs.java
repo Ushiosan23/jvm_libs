@@ -2,6 +2,7 @@ package ushiosan.jvm_utilities.lang.collection;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -123,6 +124,29 @@ public final class Arrs {
 	}
 
 	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @param <T>   generic array type
+	 * @return the last element of the array or {@link Optional#empty()} if array is empty
+	 */
+	public static <T> @NotNull Optional<T> lastElement(T @NotNull [] array) {
+		return Optional.ofNullable(unsafeLastElement(array));
+	}
+
+	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @param <T>   generic array type
+	 * @return the last element of the array or {@code null} if array is empty
+	 */
+	public static <T> @Nullable T unsafeLastElement(T @NotNull [] array) {
+		if (array.length == 0) return null;
+		return array[array.length - 1];
+	}
+
+	/**
 	 * Convert any array to object array. This also applies to primitive types.
 	 * <p>
 	 * Be careful with this method because this method uses a trick to convert primitive
@@ -225,6 +249,29 @@ public final class Arrs {
 	}
 
 	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array or {@link Optional#empty()} if array is empty
+	 */
+	public static @NotNull Optional<Character> lastElement(char @NotNull [] array) {
+		if (array.length == 0) return Optional.empty();
+		return Optional.of(array[array.length - 1]);
+	}
+
+	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array
+	 * @throws IllegalStateException if the array is empty
+	 */
+	public static char unsafeLastElement(char @NotNull [] array) {
+		if (array.length == 0) throw new IllegalStateException("The array is empty");
+		return array[array.length - 1];
+	}
+
+	/**
 	 * Generate a primitive byte array
 	 *
 	 * @param elements byte elements
@@ -292,6 +339,29 @@ public final class Arrs {
 	 */
 	public static boolean contains(byte @NotNull [] array, byte element) {
 		return indexOf(array, element) != INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array or {@link Optional#empty()} if array is empty
+	 */
+	public static @NotNull Optional<Byte> lastElement(byte @NotNull [] array) {
+		if (array.length == 0) return Optional.empty();
+		return Optional.of(array[array.length - 1]);
+	}
+
+	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array
+	 * @throws IllegalStateException if the array is empty
+	 */
+	public static byte unsafeLastElement(byte @NotNull [] array) {
+		if (array.length == 0) throw new IllegalStateException("The array is empty");
+		return array[array.length - 1];
 	}
 
 	/**
@@ -365,6 +435,29 @@ public final class Arrs {
 	}
 
 	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array or {@link Optional#empty()} if array is empty
+	 */
+	public static @NotNull Optional<Short> lastElement(short @NotNull [] array) {
+		if (array.length == 0) return Optional.empty();
+		return Optional.of(array[array.length - 1]);
+	}
+
+	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array
+	 * @throws IllegalStateException if the array is empty
+	 */
+	public static short unsafeLastElement(short @NotNull [] array) {
+		if (array.length == 0) throw new IllegalStateException("The array is empty");
+		return array[array.length - 1];
+	}
+
+	/**
 	 * Generate a primitive int array
 	 *
 	 * @param elements int elements
@@ -426,6 +519,29 @@ public final class Arrs {
 	 */
 	public static boolean contains(int @NotNull [] array, int element) {
 		return indexOf(array, element) != INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array or {@link Optional#empty()} if array is empty
+	 */
+	public static @NotNull Optional<Integer> lastElement(int @NotNull [] array) {
+		if (array.length == 0) return Optional.empty();
+		return Optional.of(array[array.length - 1]);
+	}
+
+	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array
+	 * @throws IllegalStateException if the array is empty
+	 */
+	public static int unsafeLastElement(int @NotNull [] array) {
+		if (array.length == 0) throw new IllegalStateException("The array is empty");
+		return array[array.length - 1];
 	}
 
 	/**
@@ -493,6 +609,29 @@ public final class Arrs {
 	}
 
 	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array or {@link Optional#empty()} if array is empty
+	 */
+	public static @NotNull Optional<Long> lastElement(long @NotNull [] array) {
+		if (array.length == 0) return Optional.empty();
+		return Optional.of(array[array.length - 1]);
+	}
+
+	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array
+	 * @throws IllegalStateException if the array is empty
+	 */
+	public static long unsafeLastElement(long @NotNull [] array) {
+		if (array.length == 0) throw new IllegalStateException("The array is empty");
+		return array[array.length - 1];
+	}
+
+	/**
 	 * Generate a primitive float array
 	 *
 	 * @param elements float elements
@@ -557,6 +696,29 @@ public final class Arrs {
 	}
 
 	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array or {@link Optional#empty()} if array is empty
+	 */
+	public static @NotNull Optional<Float> lastElement(float @NotNull [] array) {
+		if (array.length == 0) return Optional.empty();
+		return Optional.of(array[array.length - 1]);
+	}
+
+	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array
+	 * @throws IllegalStateException if the array is empty
+	 */
+	public static float unsafeLastElement(float @NotNull [] array) {
+		if (array.length == 0) throw new IllegalStateException("The array is empty");
+		return array[array.length - 1];
+	}
+
+	/**
 	 * Generate a primitive double array
 	 *
 	 * @param elements double elements
@@ -618,6 +780,29 @@ public final class Arrs {
 	 */
 	public static boolean contains(double @NotNull [] array, double element) {
 		return indexOf(array, element) != INDEX_NOT_FOUND;
+	}
+
+	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array or {@link Optional#empty()} if array is empty
+	 */
+	public static @NotNull Optional<Double> lastElement(double @NotNull [] array) {
+		if (array.length == 0) return Optional.empty();
+		return Optional.of(array[array.length - 1]);
+	}
+
+	/**
+	 * Returns the last element of the array
+	 *
+	 * @param array base array to search
+	 * @return the last element of the array
+	 * @throws IllegalStateException if the array is empty
+	 */
+	public static double unsafeLastElement(double @NotNull [] array) {
+		if (array.length == 0) throw new IllegalStateException("The array is empty");
+		return array[array.length - 1];
 	}
 
 }

@@ -1,15 +1,16 @@
 package ushiosan.jvm_utilities.error;
 
-import static ushiosan.jvm_utilities.lang.Obj.cast;
+import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm_utilities.lang.Cls;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
-import org.jetbrains.annotations.NotNull;
-import ushiosan.jvm_utilities.lang.Cls;
+
+import static ushiosan.jvm_utilities.lang.Obj.cast;
 
 public final class Errors {
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -17,11 +18,11 @@ public final class Errors {
 	 */
 	private Errors() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Launch methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Launch specific exception.
 	 * <p>
@@ -44,11 +45,11 @@ public final class Errors {
 		}
 		throw errorInstance;
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Information methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Returns the base cause of the exception. This method tries to find the
 	 * main or root cause of the exception, it returns the same object if
@@ -60,14 +61,14 @@ public final class Errors {
 	public static @NotNull Throwable getRootCause(@NotNull Throwable base) {
 		// Store temporal result
 		Throwable parent, result = base;
-
+		
 		// Get root cause
 		while ((parent = result.getCause()) != null) {
 			result = parent;
 		}
 		return result;
 	}
-
+	
 	/**
 	 * Returns the exception stack trace in text format.
 	 *
@@ -81,12 +82,12 @@ public final class Errors {
 		Throwable realError = simplify ? getRootCause(error) : error;
 		StringWriter writer = new StringWriter();
 		PrintWriter printer = new PrintWriter(writer);
-
+		
 		// Extract the error stack-trace
 		realError.printStackTrace(printer);
 		printer.flush(); // print possible buffered text
-
+		
 		return writer.toString();
 	}
-
+	
 }

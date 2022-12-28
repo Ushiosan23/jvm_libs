@@ -1,25 +1,25 @@
 package ushiosan.jvm_utilities.error;
 
 public final class NotImplementedException extends RuntimeException {
-
+	
 	/* -----------------------------------------------------
 	 * Properties
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Exception message
 	 */
 	private static final String PLAIN_MESSAGE = "An operation is not implemented.";
-
+	
 	/**
 	 * Exception with reason message
 	 */
 	private static final String REASON_MESSAGE = "An operation is not implemented: %s";
-
+	
 	/* -----------------------------------------------------
 	 * Constructors
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Constructs a new runtime exception with {@code null} as its
 	 * detail message.  The cause is not initialized, and may subsequently be
@@ -28,7 +28,7 @@ public final class NotImplementedException extends RuntimeException {
 	public NotImplementedException() {
 		super(PLAIN_MESSAGE);
 	}
-
+	
 	/**
 	 * Constructs a new runtime exception with the specified detail message.
 	 * The cause is not initialized, and may subsequently be initialized by a
@@ -40,7 +40,7 @@ public final class NotImplementedException extends RuntimeException {
 	public NotImplementedException(String message) {
 		super(String.format(REASON_MESSAGE, message));
 	}
-
+	
 	/**
 	 * Constructs a new runtime exception with the specified detail message and
 	 * cause.  <p>Note that the detail message associated with
@@ -58,7 +58,7 @@ public final class NotImplementedException extends RuntimeException {
 	public NotImplementedException(String message, Throwable cause) {
 		super(String.format(REASON_MESSAGE, message), cause);
 	}
-
+	
 	/**
 	 * Constructs a new runtime exception with the specified cause and a
 	 * detail message of {@code (cause==null ? null : cause.toString())}
@@ -75,7 +75,7 @@ public final class NotImplementedException extends RuntimeException {
 	public NotImplementedException(Throwable cause) {
 		super(cause);
 	}
-
+	
 	/**
 	 * Constructs a new runtime exception with the specified detail
 	 * message, cause, suppression enabled or disabled, and writable
@@ -93,5 +93,5 @@ public final class NotImplementedException extends RuntimeException {
 	public NotImplementedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(String.format(REASON_MESSAGE, message), cause, enableSuppression, writableStackTrace);
 	}
-
+	
 }

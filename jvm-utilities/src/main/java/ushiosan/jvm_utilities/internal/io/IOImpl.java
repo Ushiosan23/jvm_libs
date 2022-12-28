@@ -1,21 +1,22 @@
 package ushiosan.jvm_utilities.internal.io;
 
+import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm_utilities.lang.collection.Collections;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import org.jetbrains.annotations.NotNull;
-import ushiosan.jvm_utilities.lang.collection.Collections;
 
 public abstract class IOImpl {
-
+	
 	/**
 	 * Filesystem path root
 	 */
 	public static final String FILESYSTEM_ROOT = "/";
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -23,11 +24,11 @@ public abstract class IOImpl {
 	 */
 	protected IOImpl() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Returns a valid file system depending on the scheme of the given url
 	 *
@@ -42,7 +43,7 @@ public abstract class IOImpl {
 			throw new IOException(e);
 		}
 	}
-
+	
 	/**
 	 * Returns a valid file system depending on the scheme of the given url
 	 *
@@ -60,7 +61,7 @@ public abstract class IOImpl {
 				throw new IOException(String.format("Scheme \"%s\" is not supported.", uri.getScheme()));
 		}
 	}
-
+	
 	/**
 	 * Returns the path of an url in the file system (if the scheme is supported).
 	 * <p>
@@ -77,7 +78,7 @@ public abstract class IOImpl {
 			throw new IOException(e);
 		}
 	}
-
+	
 	/**
 	 * Returns the path of an url in the file system (if the scheme is supported).
 	 * <p>
@@ -98,5 +99,5 @@ public abstract class IOImpl {
 				throw new IOException(String.format("Scheme \"%s\" is not supported.", uri.getScheme()));
 		}
 	}
-
+	
 }

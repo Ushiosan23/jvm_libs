@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
 public final class Numbers {
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -12,11 +12,11 @@ public final class Numbers {
 	 */
 	private Numbers() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Determine if a decimal number contains decimals after the floating point.
 	 *
@@ -26,7 +26,7 @@ public final class Numbers {
 	public static boolean isDecimal(double number) {
 		return (number % 1) != 0;
 	}
-
+	
 	/**
 	 * Returns a new {@link Number} initialized to the value
 	 * represented by the specified {@code String}.
@@ -39,5 +39,5 @@ public final class Numbers {
 	public static @NotNull @Unmodifiable Number parse(@NotNull CharSequence content) {
 		return Double.parseDouble(content.toString());
 	}
-
+	
 }

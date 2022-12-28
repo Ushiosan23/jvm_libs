@@ -1,18 +1,19 @@
 package ushiosan.jvm_utilities.internal.print.str;
 
-import static ushiosan.jvm_utilities.lang.Obj.cast;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Map;
-import org.jetbrains.annotations.NotNull;
+
+import static ushiosan.jvm_utilities.lang.Obj.cast;
 
 public final class SimplePrintObject extends BasePrintObject {
-
+	
 	/**
 	 * Print object instance
 	 */
 	private static BasePrintObject INSTANCE;
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -21,22 +22,23 @@ public final class SimplePrintObject extends BasePrintObject {
 	private SimplePrintObject() {
 		super();
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Get current class instance
 	 *
 	 * @return the instance of current class
 	 */
 	static BasePrintObject getInstance() {
-		if (INSTANCE == null)
+		if (INSTANCE == null) {
 			INSTANCE = new SimplePrintObject();
+		}
 		return INSTANCE;
 	}
-
+	
 	/**
 	 * Collection string representation
 	 *
@@ -51,18 +53,18 @@ public final class SimplePrintObject extends BasePrintObject {
 		// Iteration variables
 		int index = 0;
 		int total = collection.size();
-
+		
 		for (Object it : collection) {
 			builder.append(toString(it));
 			if (++index != total) builder.append(", ");
 		}
 		return builder.append("]").toString();
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Static methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Map string representation
 	 *
@@ -77,12 +79,12 @@ public final class SimplePrintObject extends BasePrintObject {
 		// Iteration variables
 		int index = 0;
 		int total = mapObj.size();
-
+		
 		for (Map.Entry<?, ?> entry : mapObj.entrySet()) {
 			builder.append(toString(entry));
 			if (++index != total) builder.append(", ");
 		}
 		return builder.append("}").toString();
 	}
-
+	
 }

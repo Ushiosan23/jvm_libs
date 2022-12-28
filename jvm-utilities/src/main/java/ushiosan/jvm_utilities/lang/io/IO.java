@@ -1,5 +1,10 @@
 package ushiosan.jvm_utilities.lang.io;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm_utilities.internal.io.IOImpl;
+import ushiosan.jvm_utilities.lang.Obj;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -10,17 +15,13 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import ushiosan.jvm_utilities.internal.io.IOImpl;
-import ushiosan.jvm_utilities.lang.Obj;
 
 public final class IO extends IOImpl {
-
+	
 	/* -----------------------------------------------------
 	 * Properties
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Empty extensions array
 	 */
@@ -34,11 +35,11 @@ public final class IO extends IOImpl {
 	 */
 	private static final String INVALID_FILE_TYPE =
 		"The argument is not valid \"%s\" type. A \"%s\" given";
-
+	
 	/* -----------------------------------------------------
 	 * Constructors
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -46,11 +47,11 @@ public final class IO extends IOImpl {
 	 */
 	private IO() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Get the file base name, without any extension.
 	 * <p>
@@ -68,16 +69,18 @@ public final class IO extends IOImpl {
 		String pathStr = path.getFileName()
 			.toString();
 		// The directories object don't have extensions
-		if (java.nio.file.Files.isDirectory(path))
+		if (java.nio.file.Files.isDirectory(path)) {
 			return pathStr;
-
+		}
+		
 		// Resolve regular file name
 		int extIndex = pathStr.indexOf(EXTENSION_IDENTIFIER);
-		if (extIndex != -1)
+		if (extIndex != -1) {
 			pathStr = pathStr.substring(0, extIndex);
+		}
 		return pathStr;
 	}
-
+	
 	/**
 	 * Returns all existing extensions in a file.
 	 * <p>
@@ -93,24 +96,26 @@ public final class IO extends IOImpl {
 	@Contract("_ -> new")
 	public static String @NotNull [] getAllExtensions(@NotNull Path path) {
 		// Validate regular file
-		if (Files.isDirectory(path))
+		if (Files.isDirectory(path)) {
 			throw new IllegalArgumentException(String.format(INVALID_FILE_TYPE, "Regular File", "Directory"));
+		}
 		// Temporal variables
 		String baseName = getBaseName(path);
 		String pathStr = path.getFileName()
 			.toString();
 		int extIndex = pathStr.indexOf(EXTENSION_IDENTIFIER);
-
+		
 		// Validate index
-		if (extIndex == -1)
+		if (extIndex == -1) {
 			return EMPTY_EXTENSIONS;
+		}
 		// Generate result
 		String pattern = "\\" + EXTENSION_IDENTIFIER;
 		return Arrays.stream(pathStr.split(pattern))
 			.filter(it -> !baseName.contentEquals(it))
 			.toArray(String[]::new);
 	}
-
+	
 	/**
 	 * Returns the file extension.
 	 * <p>
@@ -133,7 +138,7 @@ public final class IO extends IOImpl {
 		int lastIndex = extensions.length - 1;
 		return Optional.of(extensions[lastIndex]);
 	}
-
+	
 	/**
 	 * Returns the file extension
 	 *
@@ -143,11 +148,11 @@ public final class IO extends IOImpl {
 	public static @NotNull String getExtensionUnsafe(@NotNull Path path) {
 		return getExtension(path).orElse("");
 	}
-
+	
 	/* -----------------------------------------------------
 	 * User methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Returns a specific path within the user's folder.
 	 *
@@ -157,7 +162,7 @@ public final class IO extends IOImpl {
 	public static @NotNull Path resolveUserPath(String @NotNull ... location) {
 		return Path.of(System.getProperty("user.home"), location);
 	}
-
+	
 	/**
 	 * Depending on the operating system, it returns the path of the current user.
 	 *
@@ -166,11 +171,11 @@ public final class IO extends IOImpl {
 	public static @NotNull Path getUserPath() {
 		return resolveUserPath();
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Directory walk methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Generates a stream where it recursively iterates through all the directories within the given destination.
 	 *
@@ -189,17 +194,20 @@ public final class IO extends IOImpl {
 	) throws IOException {
 		// Generate walk object depending on recursive parameter
 		Stream<Path> walkObj = recursive ?
-			Files.walk(location) :
-			Files.walk(location, 1);
+							   Files.walk(location) :
+							   Files.walk(location, 1);
 		// configure walk object
 		return Obj.apply(walkObj, it -> {
 			// Attach filters
-			for (Predicate<Path> predicate : predicates)
+			for (Predicate<Path> predicate : predicates) {
 				it = it.filter(predicate);
+			}
+			// The iterated stream should be returned because a condition
+			// has already been applied, and it becomes a new stream.
 			return it;
 		});
 	}
-
+	
 	/**
 	 * Generates an array where it recursively iterates through all the directories within the given destination.
 	 *
@@ -220,11 +228,11 @@ public final class IO extends IOImpl {
 			return walk.toArray(Path[]::new);
 		}
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Filesystem methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Returns a valid file system depending on the scheme of the given url
 	 *
@@ -235,7 +243,7 @@ public final class IO extends IOImpl {
 	public static @NotNull FileSystem getFilesystem(@NotNull URL url) throws IOException {
 		return getValidFilesystem(url);
 	}
-
+	
 	/**
 	 * Returns a valid file system depending on the scheme of the given url
 	 *
@@ -246,11 +254,11 @@ public final class IO extends IOImpl {
 	public static @NotNull FileSystem getFilesystem(@NotNull URI uri) throws IOException {
 		return getValidFilesystem(uri);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Conversion methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Returns the path of an url in the file system (if the scheme is supported).
 	 * <p>
@@ -263,7 +271,7 @@ public final class IO extends IOImpl {
 	public static @NotNull Path pathOf(@NotNull URL url) throws IOException {
 		return getValidPath(url);
 	}
-
+	
 	/**
 	 * Returns the path of an url in the file system (if the scheme is supported).
 	 * <p>
@@ -276,5 +284,5 @@ public final class IO extends IOImpl {
 	public static @NotNull Path pathOf(@NotNull URI uri) throws IOException {
 		return getValidPath(uri);
 	}
-
+	
 }

@@ -1,9 +1,5 @@
 package ushiosan.jvm_utilities.system;
 
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -11,51 +7,56 @@ import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @PrintOpts(getterAccess = true, getterPrefix = "^(is|name)")
 public enum Platform {
 	/**
 	 * Free BSD operating system family
 	 */
 	FREE_BSD("^(freebsd|free)"),
-
+	
 	/**
 	 * Linux operating system family (distros)
 	 */
 	LINUX("^(linux)"),
-
+	
 	/**
 	 * Mac operating system family (IOS not supported)
 	 */
 	MACOS("^(mac)"),
-
+	
 	/**
 	 * Solaris operating system family
 	 */
 	SOLARIS("^(sunos|sun)"),
-
+	
 	/**
 	 * Windows operating system family
 	 */
 	WINDOWS("^(windows|win)"),
-
+	
 	/**
 	 * Unknown platform. Used only to represent an error
 	 */
 	UNKNOWN(null);
-
+	
 	/* -----------------------------------------------------
 	 * Properties
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Platform pattern
 	 */
 	private final @Nullable Pattern pattern;
-
+	
 	/* -----------------------------------------------------
 	 * Constructors
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Constructor with regular expression
 	 *
@@ -64,11 +65,11 @@ public enum Platform {
 	Platform(@Nullable @RegExp String regex) {
 		pattern = regex != null ? Pattern.compile(regex) : null;
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Returns the current platform where the JVM is running
 	 *
@@ -82,17 +83,18 @@ public enum Platform {
 		Platform[] allValidPlatforms = Arrays.stream(values())
 			.filter(it -> it.pattern != null)
 			.toArray(Platform[]::new);
-
+		
 		// Iterate all platforms
 		for (Platform platform : allValidPlatforms) {
 			Matcher matcher = platform.pattern.matcher(nativeOs);
-			if (matcher.find())
+			if (matcher.find()) {
 				return platform;
+			}
 		}
-
+		
 		return UNKNOWN;
 	}
-
+	
 	/**
 	 * Determine if current platform is a {@code UNIX} like operating system
 	 * <p>
@@ -116,7 +118,7 @@ public enum Platform {
 				return false;
 		}
 	}
-
+	
 	/**
 	 * Get current platform name
 	 *
@@ -129,7 +131,7 @@ public enum Platform {
 		// Get platform name
 		return System.getProperty("os.name");
 	}
-
+	
 	/**
 	 * Get current platform version
 	 *
@@ -140,11 +142,11 @@ public enum Platform {
 		if (this == UNKNOWN) return Optional.empty();
 		return Optional.of(System.getProperty("os.version"));
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Static methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Object string representation
 	 *
@@ -153,5 +155,5 @@ public enum Platform {
 	public @NotNull String toString() {
 		return Obj.toInstanceString(this);
 	}
-
+	
 }

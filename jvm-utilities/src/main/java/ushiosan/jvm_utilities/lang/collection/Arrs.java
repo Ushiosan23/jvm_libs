@@ -1,20 +1,21 @@
 package ushiosan.jvm_utilities.lang.collection;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm_utilities.internal.collection.ArrsImpl;
 
-public final class Arrs {
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
+public final class Arrs {
+	
 	/**
 	 * number to represent not found operation in the arrays
 	 */
 	public static final int INDEX_NOT_FOUND = -1;
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -22,11 +23,11 @@ public final class Arrs {
 	 */
 	private Arrs() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Generate array from given values. If you want to use primitive arrays,
 	 * you must use the classes that encapsulate those types.
@@ -47,7 +48,7 @@ public final class Arrs {
 	public static <T> T[] of(T... elements) {
 		return elements;
 	}
-
+	
 	/**
 	 * Generate array from given values. If you want to use primitive arrays,
 	 * you must use the classes that encapsulate those types.
@@ -67,7 +68,7 @@ public final class Arrs {
 		List<?> iteratorList = Collections.listOf(iterator);
 		return iteratorList.toArray();
 	}
-
+	
 	/**
 	 * Search elements in the array
 	 *
@@ -80,15 +81,17 @@ public final class Arrs {
 		for (int i = 0; i < array.length; i++) {
 			Object it = array[i];
 			// Check if the selected element exists
-			if (element == null && it == null)
+			if (element == null && it == null) {
 				return i;
-			if (it != null && it.equals(element))
+			}
+			if (it != null && it.equals(element)) {
 				return i;
+			}
 		}
 		// By default, returns -1
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Search an element in the array. This method tries to search in reverse,
 	 * first starting at the end of the array, to find the desired element.
@@ -103,15 +106,17 @@ public final class Arrs {
 		for (int i = maxSize; i >= 0; i--) {
 			Object it = array[i];
 			// Check if the selected element exists
-			if (element == null && it == null)
+			if (element == null && it == null) {
 				return i;
-			if (it != null && it.equals(element))
+			}
+			if (it != null && it.equals(element)) {
 				return i;
+			}
 		}
 		// By default, returns -1
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Checks if the array contains the selected element.
 	 *
@@ -122,7 +127,7 @@ public final class Arrs {
 	public static boolean contains(Object @NotNull [] array, @Nullable Object element) {
 		return indexOf(array, element) != INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -133,7 +138,7 @@ public final class Arrs {
 	public static <T> @NotNull Optional<T> lastElement(T @NotNull [] array) {
 		return Optional.ofNullable(unsafeLastElement(array));
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -145,7 +150,7 @@ public final class Arrs {
 		if (array.length == 0) return null;
 		return array[array.length - 1];
 	}
-
+	
 	/**
 	 * Convert any array to object array. This also applies to primitive types.
 	 * <p>
@@ -170,11 +175,11 @@ public final class Arrs {
 	public static Object @NotNull [] toObjectArray(Object array) {
 		return ArrsImpl.toObjectArray(array);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Primitive methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Generates a generic array with numeric objects.
 	 *
@@ -184,7 +189,7 @@ public final class Arrs {
 	public static Number @NotNull [] numberOf(Number @NotNull ... elements) {
 		return elements;
 	}
-
+	
 	/**
 	 * Generate a primitive boolean array
 	 *
@@ -194,7 +199,7 @@ public final class Arrs {
 	public static boolean[] booleanOf(boolean... elements) {
 		return elements;
 	}
-
+	
 	/**
 	 * Generate a primitive char array
 	 *
@@ -204,7 +209,7 @@ public final class Arrs {
 	public static char[] charOf(char... elements) {
 		return elements;
 	}
-
+	
 	/**
 	 * Search elements in the array
 	 *
@@ -219,7 +224,7 @@ public final class Arrs {
 		}
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Search an element in the array. This method tries to search in reverse,
 	 * first starting at the end of the array, to find the desired element.
@@ -236,7 +241,7 @@ public final class Arrs {
 		// By default, returns -1
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Checks if the array contains the selected element.
 	 *
@@ -247,7 +252,7 @@ public final class Arrs {
 	public static boolean contains(char @NotNull [] array, char element) {
 		return indexOf(array, element) != INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -258,7 +263,7 @@ public final class Arrs {
 		if (array.length == 0) return Optional.empty();
 		return Optional.of(array[array.length - 1]);
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -270,7 +275,7 @@ public final class Arrs {
 		if (array.length == 0) throw new IllegalStateException("The array is empty");
 		return array[array.length - 1];
 	}
-
+	
 	/**
 	 * Generate a primitive byte array
 	 *
@@ -280,13 +285,14 @@ public final class Arrs {
 	public static byte @NotNull [] byteOf(Number @NotNull ... elements) {
 		// Temporal variables
 		byte[] result = new byte[elements.length];
-
+		
 		// Copy elements
-		for (int i = 0; i < elements.length; ++i)
+		for (int i = 0; i < elements.length; ++i) {
 			result[i] = elements[i].byteValue();
+		}
 		return result;
 	}
-
+	
 	/**
 	 * Convert the primitive byte array to a numeric array
 	 *
@@ -297,7 +303,7 @@ public final class Arrs {
 	public static Number @NotNull [] toNumberOf(byte[] array) {
 		return ArrsImpl.toNumberArray(array);
 	}
-
+	
 	/**
 	 * Search elements in the array
 	 *
@@ -312,7 +318,7 @@ public final class Arrs {
 		}
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Search an element in the array. This method tries to search in reverse,
 	 * first starting at the end of the array, to find the desired element.
@@ -329,7 +335,7 @@ public final class Arrs {
 		// By default, returns -1
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Checks if the array contains the selected element.
 	 *
@@ -340,7 +346,7 @@ public final class Arrs {
 	public static boolean contains(byte @NotNull [] array, byte element) {
 		return indexOf(array, element) != INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -351,7 +357,7 @@ public final class Arrs {
 		if (array.length == 0) return Optional.empty();
 		return Optional.of(array[array.length - 1]);
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -363,7 +369,7 @@ public final class Arrs {
 		if (array.length == 0) throw new IllegalStateException("The array is empty");
 		return array[array.length - 1];
 	}
-
+	
 	/**
 	 * Generate a primitive short array
 	 *
@@ -373,13 +379,14 @@ public final class Arrs {
 	public static short @NotNull [] shortOf(Number @NotNull ... elements) {
 		// Temporal variables
 		short[] result = new short[elements.length];
-
+		
 		// Copy elements
-		for (int i = 0; i < elements.length; ++i)
+		for (int i = 0; i < elements.length; ++i) {
 			result[i] = elements[i].shortValue();
+		}
 		return result;
 	}
-
+	
 	/**
 	 * Convert the primitive short array to a numeric array
 	 *
@@ -390,7 +397,7 @@ public final class Arrs {
 	public static Number @NotNull [] toNumberOf(short[] array) {
 		return ArrsImpl.toNumberArray(array);
 	}
-
+	
 	/**
 	 * Search elements in the array
 	 *
@@ -405,7 +412,7 @@ public final class Arrs {
 		}
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Search an element in the array. This method tries to search in reverse,
 	 * first starting at the end of the array, to find the desired element.
@@ -422,7 +429,7 @@ public final class Arrs {
 		// By default, returns -1
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Checks if the array contains the selected element.
 	 *
@@ -433,7 +440,7 @@ public final class Arrs {
 	public static boolean contains(short @NotNull [] array, short element) {
 		return indexOf(array, element) != INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -444,7 +451,7 @@ public final class Arrs {
 		if (array.length == 0) return Optional.empty();
 		return Optional.of(array[array.length - 1]);
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -456,7 +463,7 @@ public final class Arrs {
 		if (array.length == 0) throw new IllegalStateException("The array is empty");
 		return array[array.length - 1];
 	}
-
+	
 	/**
 	 * Generate a primitive int array
 	 *
@@ -466,7 +473,7 @@ public final class Arrs {
 	public static int[] intOf(int... elements) {
 		return elements;
 	}
-
+	
 	/**
 	 * Convert the primitive int array to a numeric array
 	 *
@@ -477,7 +484,7 @@ public final class Arrs {
 	public static Number @NotNull [] toNumberOf(int[] array) {
 		return ArrsImpl.toNumberArray(array);
 	}
-
+	
 	/**
 	 * Search elements in the array
 	 *
@@ -492,7 +499,7 @@ public final class Arrs {
 		}
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Search an element in the array. This method tries to search in reverse,
 	 * first starting at the end of the array, to find the desired element.
@@ -509,7 +516,7 @@ public final class Arrs {
 		// By default, returns -1
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Checks if the array contains the selected element.
 	 *
@@ -520,7 +527,7 @@ public final class Arrs {
 	public static boolean contains(int @NotNull [] array, int element) {
 		return indexOf(array, element) != INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -531,7 +538,7 @@ public final class Arrs {
 		if (array.length == 0) return Optional.empty();
 		return Optional.of(array[array.length - 1]);
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -543,7 +550,7 @@ public final class Arrs {
 		if (array.length == 0) throw new IllegalStateException("The array is empty");
 		return array[array.length - 1];
 	}
-
+	
 	/**
 	 * Generate a primitive long array
 	 *
@@ -553,7 +560,7 @@ public final class Arrs {
 	public static long[] longOf(long... elements) {
 		return elements;
 	}
-
+	
 	/**
 	 * Convert the primitive long array to a numeric array
 	 *
@@ -564,7 +571,7 @@ public final class Arrs {
 	public static Number @NotNull [] toNumberOf(long[] array) {
 		return ArrsImpl.toNumberArray(array);
 	}
-
+	
 	/**
 	 * Search elements in the array
 	 *
@@ -579,7 +586,7 @@ public final class Arrs {
 		}
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Search an element in the array. This method tries to search in reverse,
 	 * first starting at the end of the array, to find the desired element.
@@ -596,7 +603,7 @@ public final class Arrs {
 		// By default, returns -1
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Checks if the array contains the selected element.
 	 *
@@ -607,7 +614,7 @@ public final class Arrs {
 	public static boolean contains(long @NotNull [] array, long element) {
 		return indexOf(array, element) != INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -618,7 +625,7 @@ public final class Arrs {
 		if (array.length == 0) return Optional.empty();
 		return Optional.of(array[array.length - 1]);
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -630,7 +637,7 @@ public final class Arrs {
 		if (array.length == 0) throw new IllegalStateException("The array is empty");
 		return array[array.length - 1];
 	}
-
+	
 	/**
 	 * Generate a primitive float array
 	 *
@@ -640,7 +647,7 @@ public final class Arrs {
 	public static float[] floatOf(float... elements) {
 		return elements;
 	}
-
+	
 	/**
 	 * Convert the primitive float array to a numeric array
 	 *
@@ -651,7 +658,7 @@ public final class Arrs {
 	public static Number @NotNull [] toNumberOf(float[] array) {
 		return ArrsImpl.toNumberArray(array);
 	}
-
+	
 	/**
 	 * Search elements in the array
 	 *
@@ -666,7 +673,7 @@ public final class Arrs {
 		}
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Search an element in the array. This method tries to search in reverse,
 	 * first starting at the end of the array, to find the desired element.
@@ -683,7 +690,7 @@ public final class Arrs {
 		// By default, returns -1
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Checks if the array contains the selected element.
 	 *
@@ -694,7 +701,7 @@ public final class Arrs {
 	public static boolean contains(float @NotNull [] array, float element) {
 		return indexOf(array, element) != INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -705,7 +712,7 @@ public final class Arrs {
 		if (array.length == 0) return Optional.empty();
 		return Optional.of(array[array.length - 1]);
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -717,7 +724,7 @@ public final class Arrs {
 		if (array.length == 0) throw new IllegalStateException("The array is empty");
 		return array[array.length - 1];
 	}
-
+	
 	/**
 	 * Generate a primitive double array
 	 *
@@ -727,7 +734,7 @@ public final class Arrs {
 	public static double[] doubleOf(double... elements) {
 		return elements;
 	}
-
+	
 	/**
 	 * Convert the primitive double array to a numeric array
 	 *
@@ -738,7 +745,7 @@ public final class Arrs {
 	public static Number @NotNull [] toNumberOf(double[] array) {
 		return ArrsImpl.toNumberArray(array);
 	}
-
+	
 	/**
 	 * Search elements in the array
 	 *
@@ -753,7 +760,7 @@ public final class Arrs {
 		}
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Search an element in the array. This method tries to search in reverse,
 	 * first starting at the end of the array, to find the desired element.
@@ -770,7 +777,7 @@ public final class Arrs {
 		// By default, returns -1
 		return INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Checks if the array contains the selected element.
 	 *
@@ -781,7 +788,7 @@ public final class Arrs {
 	public static boolean contains(double @NotNull [] array, double element) {
 		return indexOf(array, element) != INDEX_NOT_FOUND;
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -792,7 +799,7 @@ public final class Arrs {
 		if (array.length == 0) return Optional.empty();
 		return Optional.of(array[array.length - 1]);
 	}
-
+	
 	/**
 	 * Returns the last element of the array
 	 *
@@ -804,5 +811,5 @@ public final class Arrs {
 		if (array.length == 0) throw new IllegalStateException("The array is empty");
 		return array[array.length - 1];
 	}
-
+	
 }

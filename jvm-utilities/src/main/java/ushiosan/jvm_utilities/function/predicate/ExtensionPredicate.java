@@ -1,15 +1,16 @@
 package ushiosan.jvm_utilities.function.predicate;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.function.Predicate;
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 import ushiosan.jvm_utilities.lang.io.IO;
 
-public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.function.Predicate;
 
+public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
+	
 	/**
 	 * Generate instance of {@link ExtensionPredicate}
 	 *
@@ -20,20 +21,20 @@ public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
 	 */
 	static <T extends Path> @NotNull Predicate<T> of(boolean acceptDirs, String @NotNull ... extensions) {
 		return new ExtensionPredicate<>() {
-
+			
 			@Override
 			public boolean accepDirectoryObjects() {
 				return acceptDirs;
 			}
-
+			
 			@Override
 			public String @NotNull [] getExtensions() {
 				return extensions;
 			}
-
+			
 		};
 	}
-
+	
 	/**
 	 * Generate instance of {@link ExtensionPredicate}
 	 *
@@ -44,18 +45,18 @@ public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
 	static <T extends Path> @NotNull Predicate<T> of(String @NotNull ... extensions) {
 		return of(true, extensions);
 	}
-
+	
 	/**
 	 * Get current predicate accepted extensions
 	 *
 	 * @return an array with all predicate extensions
 	 */
 	String @NotNull [] getExtensions();
-
+	
 	/* -----------------------------------------------------
 	 * Static methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Determines whether the predicate also scans directories
 	 *
@@ -65,13 +66,13 @@ public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
 		// By default, the result is true
 		return true;
 	}
-
+	
 	/**
 	 * Evaluates this predicate on the given argument.
 	 *
 	 * @param path the input argument
 	 * @return {@code true} if the input argument matches the predicate,
-	 * otherwise {@code false}
+	 * 	otherwise {@code false}
 	 */
 	@Override
 	default boolean test(@NotNull T path) {
@@ -81,8 +82,7 @@ public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
 		String[] extensions = getExtensions();
 		Optional<String> extension = IO.getExtension(path);
 		// Check if the extension exists
-		if (extension.isEmpty()) return false;
-		return Arrs.contains(extensions, extension);
+		return extension.filter(s -> Arrs.contains(extensions, s)).isPresent();
 	}
-
+	
 }

@@ -1,9 +1,10 @@
 package ushiosan.jvm_utilities.lang.collection.elements;
 
-import java.util.Map;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.lang.Obj;
+
+import java.util.Map;
 
 /**
  * Immutable object used to represent elements with 2 values (element pair).
@@ -13,21 +14,21 @@ import ushiosan.jvm_utilities.lang.Obj;
  * @param <K> second element type
  */
 public class Pair<T, K> {
-
+	
 	/**
 	 * First pair element
 	 */
 	public final T first;
-
+	
 	/**
 	 * Second pair element
 	 */
 	public final K second;
-
+	
 	/* -----------------------------------------------------
 	 * Constructors
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Default constructor
 	 *
@@ -38,11 +39,11 @@ public class Pair<T, K> {
 		this.first = first;
 		this.second = second;
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Shortcut pair instance
 	 *
@@ -56,7 +57,7 @@ public class Pair<T, K> {
 	public static <T, K> @NotNull Pair<T, K> of(T first, K second) {
 		return new Pair<>(first, second);
 	}
-
+	
 	/**
 	 * Copies the content of a map entry and converts it to a {@link Pair} object.
 	 *
@@ -69,7 +70,7 @@ public class Pair<T, K> {
 	public static <T, K> @NotNull Pair<T, K> copyOf(Map.@NotNull Entry<T, K> entry) {
 		return of(entry.getKey(), entry.getValue());
 	}
-
+	
 	/**
 	 * Extracts all map entries and converts them to {@link Pair} objects.
 	 *
@@ -83,13 +84,14 @@ public class Pair<T, K> {
 		// Temporal variables
 		int counter = 0;
 		Pair<T, K>[] result = (Pair<T, K>[]) new Pair[map.size()];
-
+		
 		// Iterate all map
-		for (Map.Entry<T, K> current : map.entrySet())
+		for (Map.Entry<T, K> current : map.entrySet()) {
 			result[counter++] = copyOf(current);
+		}
 		return result;
 	}
-
+	
 	/**
 	 * Object string representation
 	 *
@@ -99,5 +101,5 @@ public class Pair<T, K> {
 	public String toString() {
 		return "(" + Obj.toString(first) + ", " + Obj.toString(second) + ")";
 	}
-
+	
 }

@@ -1,31 +1,30 @@
 package ushiosan.jvm_utilities.lang.random;
 
-import java.util.Random;
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 
+import java.util.Random;
+
 public final class Rand {
-
-	/**
-	 * System random object
-	 */
-	private static Random sysRandom;
-
-	/* -----------------------------------------------------
-	 * Properties
-	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Default random size
 	 */
 	private static final int DEFAULT_SIZE = 18;
-
+	
+	/* -----------------------------------------------------
+	 * Properties
+	 * ----------------------------------------------------- */
+	/**
+	 * System random object
+	 */
+	private static Random sysRandom;
 	/**
 	 * Current system random seed
 	 */
 	private static long randomSeed = -1L;
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -33,11 +32,11 @@ public final class Rand {
 	 */
 	private Rand() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Returns a pseudorandom object to use in the methods of this same class
 	 *
@@ -53,7 +52,7 @@ public final class Rand {
 		if (seed != oldSeed) sysRandom.setSeed(randomSeed);
 		return sysRandom;
 	}
-
+	
 	/**
 	 * Returns a pseudorandom object to use in the methods of this same class
 	 *
@@ -62,11 +61,11 @@ public final class Rand {
 	public static @NotNull Random getRandom() {
 		return getRandom(randomSeed == -1L ? System.currentTimeMillis() : randomSeed);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Random string
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Returns a pseudo random text string, depending on the selected setting
 	 *
@@ -87,7 +86,7 @@ public final class Rand {
 			.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
 			.toString();
 	}
-
+	
 	/**
 	 * Returns a pseudo random text string, depending on the selected setting
 	 *
@@ -100,7 +99,7 @@ public final class Rand {
 	public static @NotNull String getRandomString(int size, char... ignore) {
 		return getRandomString(size, TextType.ALL_SYMBOLS, ignore);
 	}
-
+	
 	/**
 	 * Returns a pseudo random text string, depending on the selected setting
 	 *
@@ -113,11 +112,11 @@ public final class Rand {
 	public static @NotNull String getRandomString(char... ignore) {
 		return getRandomString(DEFAULT_SIZE, ignore);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Random range
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Returns an array of pseudorandom numbers within a specified range
 	 *
@@ -131,15 +130,16 @@ public final class Rand {
 	 */
 	public static int[] getRandomRange(int start, int end, long limit, boolean inclusive) {
 		if (inclusive) {
-			if (end > Integer.MIN_VALUE && end < Integer.MAX_VALUE)
+			if (end > Integer.MIN_VALUE && end < Integer.MAX_VALUE) {
 				end = end < 0 ? end - 1 : end + 1;
+			}
 		}
 		return getRandom()
 			.ints(start, end)
 			.limit(limit)
 			.toArray();
 	}
-
+	
 	/**
 	 * Returns an array of pseudorandom numbers within a specified range
 	 *
@@ -152,7 +152,7 @@ public final class Rand {
 	public static int[] getRandomRange(int start, int end, long limit) {
 		return getRandomRange(start, end, limit, true);
 	}
-
+	
 	/**
 	 * Returns an array of pseudorandom numbers within a specified range
 	 *
@@ -166,15 +166,16 @@ public final class Rand {
 	 */
 	public static long[] getRandomRange(long start, long end, long limit, boolean inclusive) {
 		if (inclusive) {
-			if (end > Long.MIN_VALUE && end < Long.MAX_VALUE)
+			if (end > Long.MIN_VALUE && end < Long.MAX_VALUE) {
 				end = end < 0 ? end - 1 : end + 1;
+			}
 		}
 		return getRandom()
 			.longs(start, end)
 			.limit(limit)
 			.toArray();
 	}
-
+	
 	/**
 	 * Returns an array of pseudorandom numbers within a specified range
 	 *
@@ -187,5 +188,5 @@ public final class Rand {
 	public static long[] getRandomRange(long start, long end, long limit) {
 		return getRandomRange(start, end, limit, true);
 	}
-
+	
 }

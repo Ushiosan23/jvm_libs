@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class PlatformTest {
-
+	
 	@Test
 	public void runTest() {
 		// Check current platform
@@ -15,5 +15,5 @@ public class PlatformTest {
 		System.out.println(platform.isUnix());
 		System.out.println(platform);
 	}
-
+	
 }

@@ -1,20 +1,21 @@
 package ushiosan.jvm_utilities.lang.collection;
 
-import java.util.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 
+import java.util.*;
+
 /**
  *
  */
 public final class Collections {
-
+	
 	@SuppressWarnings("rawtypes")
 	private static final Pair[] EMPTY_PAIR = new Pair[0];
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -22,11 +23,11 @@ public final class Collections {
 	 */
 	private Collections() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * List Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Create an immutable list with all given elements.
 	 *
@@ -39,7 +40,7 @@ public final class Collections {
 	public static @Unmodifiable <T> List<T> listOf(T @NotNull ... elements) {
 		return List.of(elements);
 	}
-
+	
 	/**
 	 * Create an immutable list with all given elements.
 	 *
@@ -50,7 +51,7 @@ public final class Collections {
 	public static @Unmodifiable <T> List<T> listOf(@NotNull Collection<T> base) {
 		return List.copyOf(base);
 	}
-
+	
 	/**
 	 * Create an immutable list with all given elements.
 	 *
@@ -61,7 +62,7 @@ public final class Collections {
 	public static @Unmodifiable <T> @NotNull List<T> listOf(@NotNull Iterator<T> iterator) {
 		return java.util.Collections.unmodifiableList(mutableListOf(iterator));
 	}
-
+	
 	/**
 	 * Create a mutable list with all given elements.
 	 *
@@ -74,10 +75,12 @@ public final class Collections {
 	@Contract("_ -> new")
 	public static <T> @NotNull List<T> mutableListOf(T @NotNull ... elements) {
 		List<T> result = new ArrayList<>(elements.length);
-		for (T it : elements) result.add(it);
+		for (T it : elements) {
+			result.add(it);
+		}
 		return result;
 	}
-
+	
 	/**
 	 * Create a mutable list with all given elements.
 	 *
@@ -88,7 +91,7 @@ public final class Collections {
 	public static <T> @NotNull List<T> mutableListOf(@NotNull Collection<T> base) {
 		return new ArrayList<>(base);
 	}
-
+	
 	/**
 	 * Create a mutable list with all given elements.
 	 *
@@ -99,10 +102,10 @@ public final class Collections {
 	public static <T> @NotNull List<T> mutableListOf(@NotNull Iterator<T> iterator) {
 		List<T> base = new ArrayList<>();
 		iterator.forEachRemaining(base::add);
-
+		
 		return base;
 	}
-
+	
 	/**
 	 * Create a linked list with all given elements.
 	 *
@@ -114,7 +117,7 @@ public final class Collections {
 	public static <T> @NotNull List<T> linkedListOf(T @NotNull ... elements) {
 		return new LinkedList<>(listOf(elements));
 	}
-
+	
 	/**
 	 * Create a linked list with all given elements.
 	 *
@@ -125,7 +128,7 @@ public final class Collections {
 	public static <T> @NotNull List<T> linkedListOf(@NotNull Collection<T> base) {
 		return new LinkedList<>(base);
 	}
-
+	
 	/**
 	 * Create a stack with all given elements.
 	 *
@@ -137,11 +140,13 @@ public final class Collections {
 	@SafeVarargs
 	public static <T> @NotNull Stack<T> stackOf(T @NotNull ... elements) {
 		Stack<T> result = new Stack<>();
-		for (T it : elements) result.add(it);
+		for (T it : elements) {
+			result.add(it);
+		}
 		// Only return the `result` object
 		return result;
 	}
-
+	
 	/**
 	 * Create a stack with all given elements.
 	 *
@@ -155,7 +160,7 @@ public final class Collections {
 		// Only return the `result` object
 		return result;
 	}
-
+	
 	/**
 	 * Create a vector with all given elements.
 	 *
@@ -167,11 +172,13 @@ public final class Collections {
 	@SafeVarargs
 	public static <T> @NotNull Vector<T> vectorOf(T @NotNull ... elements) {
 		Vector<T> result = new Vector<>(elements.length);
-		for (T it : elements) result.add(it);
+		for (T it : elements) {
+			result.add(it);
+		}
 		// Only return the `result` object
 		return result;
 	}
-
+	
 	/**
 	 * Create a vector with all given elements.
 	 *
@@ -185,11 +192,11 @@ public final class Collections {
 		// Only return the `result` object
 		return result;
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Set methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Create a set with all given elements.
 	 *
@@ -201,7 +208,7 @@ public final class Collections {
 	public static @Unmodifiable <T> @NotNull Set<T> setOf(T @NotNull ... elements) {
 		return Set.of(elements);
 	}
-
+	
 	/**
 	 * Create a set with all given elements.
 	 *
@@ -216,7 +223,7 @@ public final class Collections {
 		// wants to avoid that.
 		return (Set<T>) Set.of(base.toArray());
 	}
-
+	
 	/**
 	 * Create a mutable set with all given elements.
 	 *
@@ -229,11 +236,13 @@ public final class Collections {
 	public static <T> @NotNull Set<T> mutableSetOf(T @NotNull ... elements) {
 		HashSet<T> result = new HashSet<>(elements.length);
 		// prioritize speed instead of copying items to another list
-		for (T it : elements) result.add(it);
+		for (T it : elements) {
+			result.add(it);
+		}
 		// Only return the `result` object
 		return result;
 	}
-
+	
 	/**
 	 * Create a mutable set with all given elements.
 	 *
@@ -247,7 +256,7 @@ public final class Collections {
 		// Only return the `result` object
 		return result;
 	}
-
+	
 	/**
 	 * Create a linked set with all given elements.
 	 *
@@ -260,11 +269,13 @@ public final class Collections {
 	public static <T> @NotNull Set<T> linkedSetOf(T @NotNull ... elements) {
 		Set<T> result = new LinkedHashSet<>(elements.length);
 		// prioritize speed instead of copying items to another list
-		for (T it : elements) result.add(it);
+		for (T it : elements) {
+			result.add(it);
+		}
 		// Only return the `result` object
 		return result;
 	}
-
+	
 	/**
 	 * Create a linked set with all given elements.
 	 *
@@ -278,7 +289,7 @@ public final class Collections {
 		// Only return the `result` object
 		return result;
 	}
-
+	
 	/**
 	 * Create a tree set with all given elements.
 	 *
@@ -292,11 +303,13 @@ public final class Collections {
 	public static <T> @NotNull Set<T> treeSetOf(@Nullable Comparator<T> comparator, T @NotNull ... elements) {
 		Set<T> result = new TreeSet<>(comparator);
 		// prioritize speed instead of copying items to another list
-		for (T it : elements) result.add(it);
+		for (T it : elements) {
+			result.add(it);
+		}
 		// Only return the `result` object
 		return result;
 	}
-
+	
 	/**
 	 * Create a tree set with all given elements.
 	 *
@@ -308,7 +321,7 @@ public final class Collections {
 	public static <T> @NotNull Set<T> treeSetOf(T @NotNull ... elements) {
 		return treeSetOf(null, elements);
 	}
-
+	
 	/**
 	 * Create a linked set with all given elements.
 	 *
@@ -323,7 +336,7 @@ public final class Collections {
 		// Only return the `result` object
 		return result;
 	}
-
+	
 	/**
 	 * Create an enum set with all enum elements.
 	 *
@@ -334,16 +347,16 @@ public final class Collections {
 	public static <T extends Enum<T>> @NotNull Set<T> enumSetOf(@NotNull Class<T> cls) {
 		return EnumSet.allOf(cls);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Map methods
 	 * ----------------------------------------------------- */
-
+	
 	@SuppressWarnings("unchecked")
 	public static @Unmodifiable <K, V> @NotNull Map<K, V> mapOf() {
 		return mapOf((Pair<K, V>[]) EMPTY_PAIR);
 	}
-
+	
 	/**
 	 * Create a read-only map with all the given elements.
 	 *
@@ -357,7 +370,7 @@ public final class Collections {
 		// Convert a mutable map to an immutable one
 		return java.util.Collections.unmodifiableMap(mutableMapOf(entries));
 	}
-
+	
 	/**
 	 * Create a read-only map with all the given elements.
 	 *
@@ -371,7 +384,7 @@ public final class Collections {
 		// Convert a mutable map to an immutable one
 		return java.util.Collections.unmodifiableMap(mutableMapOf(pairs));
 	}
-
+	
 	/**
 	 * Create a mutable map with all the given elements.
 	 *
@@ -383,7 +396,7 @@ public final class Collections {
 	public static <K, V> @NotNull Map<K, V> mutableMapOf() {
 		return mutableMapOf((Pair<K, V>[]) EMPTY_PAIR);
 	}
-
+	
 	/**
 	 * Create a mutable map with all the given elements.
 	 *
@@ -395,11 +408,12 @@ public final class Collections {
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> mutableMapOf(Map.Entry<K, V> @NotNull ... entries) {
 		Map<K, V> result = new HashMap<>(entries.length);
-		for (Map.Entry<K, V> it : entries)
+		for (Map.Entry<K, V> it : entries) {
 			result.put(it.getKey(), it.getValue());
+		}
 		return result;
 	}
-
+	
 	/**
 	 * Create a mutable map with all the given elements.
 	 *
@@ -411,11 +425,12 @@ public final class Collections {
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> mutableMapOf(Pair<K, V> @NotNull ... pairs) {
 		Map<K, V> result = new HashMap<>(pairs.length);
-		for (Pair<K, V> it : pairs)
+		for (Pair<K, V> it : pairs) {
 			result.put(it.first, it.second);
+		}
 		return result;
 	}
-
+	
 	/**
 	 * Create a weak-reference map with all the given elements.
 	 *
@@ -427,11 +442,12 @@ public final class Collections {
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> weakMapOf(Map.Entry<K, V> @NotNull ... entries) {
 		Map<K, V> result = new WeakHashMap<>(entries.length);
-		for (Map.Entry<K, V> it : entries)
+		for (Map.Entry<K, V> it : entries) {
 			result.put(it.getKey(), it.getValue());
+		}
 		return result;
 	}
-
+	
 	/**
 	 * Create a weak-reference map with all the given elements.
 	 *
@@ -443,11 +459,12 @@ public final class Collections {
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> weakMapOf(Pair<K, V> @NotNull ... pairs) {
 		Map<K, V> result = new WeakHashMap<>(pairs.length);
-		for (Pair<K, V> it : pairs)
+		for (Pair<K, V> it : pairs) {
 			result.put(it.first, it.second);
+		}
 		return result;
 	}
-
+	
 	/**
 	 * Create a linked map with all the given elements.
 	 *
@@ -459,11 +476,12 @@ public final class Collections {
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> linkedMapOf(Map.Entry<K, V> @NotNull ... entries) {
 		Map<K, V> result = new LinkedHashMap<>(entries.length);
-		for (Map.Entry<K, V> it : entries)
+		for (Map.Entry<K, V> it : entries) {
 			result.put(it.getKey(), it.getValue());
+		}
 		return result;
 	}
-
+	
 	/**
 	 * Create a linked map with all the given elements.
 	 *
@@ -475,15 +493,16 @@ public final class Collections {
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> linkedMapOf(Pair<K, V> @NotNull ... pairs) {
 		Map<K, V> result = new LinkedHashMap<>(pairs.length);
-		for (Pair<K, V> it : pairs)
+		for (Pair<K, V> it : pairs) {
 			result.put(it.first, it.second);
+		}
 		return result;
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Entry methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Instantiate {@link Map.Entry} to more easily generate data maps.
 	 *
@@ -496,7 +515,7 @@ public final class Collections {
 	public static <K, V> Map.@Unmodifiable @NotNull Entry<K, V> entryOf(K key, V value) {
 		return new AbstractMap.SimpleImmutableEntry<>(key, value);
 	}
-
+	
 	/**
 	 * Instantiate {@link Map.Entry} to more easily generate data maps.
 	 *
@@ -509,5 +528,5 @@ public final class Collections {
 	public static <K, V> Map.@NotNull Entry<K, V> mutableEntryOf(K key, V value) {
 		return new AbstractMap.SimpleEntry<>(key, value);
 	}
-
+	
 }

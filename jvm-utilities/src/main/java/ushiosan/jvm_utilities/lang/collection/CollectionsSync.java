@@ -1,15 +1,13 @@
 package ushiosan.jvm_utilities.lang.collection;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 
-public final class CollectionsSync {
+import java.util.Collections;
+import java.util.*;
 
+public final class CollectionsSync {
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -17,11 +15,11 @@ public final class CollectionsSync {
 	 */
 	private CollectionsSync() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * List methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Create a mutable synchronized collection with all given elements.
 	 *
@@ -32,7 +30,7 @@ public final class CollectionsSync {
 	public static <T> @NotNull Collection<T> collectionOf(@NotNull Collection<T> base) {
 		return Collections.synchronizedCollection(base);
 	}
-
+	
 	/**
 	 * Create a mutable synchronized list with all given elements.
 	 *
@@ -44,11 +42,11 @@ public final class CollectionsSync {
 	public static <T> @NotNull List<T> listOf(T @NotNull ... elements) {
 		return Collections.synchronizedList(List.of(elements));
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Set methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Create a mutable synchronized set with all given elements.
 	 *
@@ -60,11 +58,11 @@ public final class CollectionsSync {
 	public static <T> @NotNull Set<T> setOf(T @NotNull ... elements) {
 		return Collections.synchronizedSet(Set.of(elements));
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Map methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Create a mutable synchronized map with all the given elements.
 	 *
@@ -79,7 +77,7 @@ public final class CollectionsSync {
 			.mapOf(entries);
 		return Collections.synchronizedMap(base);
 	}
-
+	
 	/**
 	 * Create a mutable synchronized map with all the given elements.
 	 *
@@ -94,5 +92,5 @@ public final class CollectionsSync {
 			.mapOf(pairs);
 		return Collections.synchronizedMap(base);
 	}
-
+	
 }

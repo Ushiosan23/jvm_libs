@@ -1,24 +1,25 @@
 package ushiosan.jvm_utilities.error;
 
-import java.security.PrivilegedActionException;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public class InvalidArgumentTypeException extends Exception {
+import java.security.PrivilegedActionException;
 
+public class InvalidArgumentTypeException extends Exception {
+	
 	/* -----------------------------------------------------
 	 * Properties
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Exception message
 	 */
 	private static final String MESSAGE = "The argument is not valid \"%s\" type. A \"%s\" given";
-
+	
 	/* -----------------------------------------------------
 	 * Constructors
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Constructs a new exception with {@code null} as its detail message.
 	 * The cause is not initialized, and may subsequently be initialized by a
@@ -26,7 +27,7 @@ public class InvalidArgumentTypeException extends Exception {
 	 */
 	public InvalidArgumentTypeException() {
 	}
-
+	
 	/**
 	 * Constructs a new exception with the specified detail message.  The
 	 * cause is not initialized, and may subsequently be initialized by
@@ -38,7 +39,7 @@ public class InvalidArgumentTypeException extends Exception {
 	public InvalidArgumentTypeException(String message) {
 		super(message);
 	}
-
+	
 	/**
 	 * Constructs a new exception with the specified detail message and
 	 * cause.  <p>Note that the detail message associated with
@@ -56,7 +57,7 @@ public class InvalidArgumentTypeException extends Exception {
 	public InvalidArgumentTypeException(String message, Throwable cause) {
 		super(message, cause);
 	}
-
+	
 	/**
 	 * Constructs a new exception with the specified cause and a detail
 	 * message of {@code (cause==null ? null : cause.toString())} (which
@@ -74,7 +75,7 @@ public class InvalidArgumentTypeException extends Exception {
 	public InvalidArgumentTypeException(Throwable cause) {
 		super(cause);
 	}
-
+	
 	/**
 	 * Constructs a new exception with the specified detail message,
 	 * cause, suppression enabled or disabled, and writable stack
@@ -90,14 +91,14 @@ public class InvalidArgumentTypeException extends Exception {
 	 * @since 1.7
 	 */
 	public InvalidArgumentTypeException(String message, Throwable cause, boolean enableSuppression,
-										boolean writableStackTrace) {
+		boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Generate a configured exception
 	 *
@@ -109,7 +110,7 @@ public class InvalidArgumentTypeException extends Exception {
 	public static @NotNull InvalidArgumentTypeException makeOf(@NotNull String expected, @NotNull String given) {
 		return new InvalidArgumentTypeException(String.format(MESSAGE, expected, given));
 	}
-
+	
 	/**
 	 * Generate a configured exception
 	 *
@@ -121,5 +122,5 @@ public class InvalidArgumentTypeException extends Exception {
 	public static @NotNull InvalidArgumentTypeException makeOf(@NotNull Class<?> expected, @NotNull Class<?> given) {
 		return makeOf(expected.toString(), given.toString());
 	}
-
+	
 }

@@ -1,6 +1,6 @@
 module com.github.ushiosan.jvm_utilities {
 	requires static org.jetbrains.annotations;
-
+	
 	exports ushiosan.jvm_utilities.error;
 	exports ushiosan.jvm_utilities.function;
 	exports ushiosan.jvm_utilities.function.predicate;

@@ -1,13 +1,5 @@
 package ushiosan.jvm_utilities.internal.print.str;
 
-import static ushiosan.jvm_utilities.lang.Obj.canCast;
-import static ushiosan.jvm_utilities.lang.Obj.canCastNotNull;
-import static ushiosan.jvm_utilities.lang.Obj.cast;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm_utilities.function.Apply;
@@ -15,21 +7,30 @@ import ushiosan.jvm_utilities.lang.Cls;
 import ushiosan.jvm_utilities.lang.collection.Collections;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 
-public abstract class BasePrintObject {
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
+import static ushiosan.jvm_utilities.lang.Obj.canCast;
+import static ushiosan.jvm_utilities.lang.Obj.canCastNotNull;
+import static ushiosan.jvm_utilities.lang.Obj.cast;
+
+public abstract class BasePrintObject {
+	
 	/* -----------------------------------------------------
 	 * Properties
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Print map
 	 */
 	protected List<Pair<Apply.Result<Object, String>, Class<?>[]>> printMap = Collections.mutableListOf();
-
+	
 	/* -----------------------------------------------------
 	 * Constructors
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -44,11 +45,11 @@ public abstract class BasePrintObject {
 		// Should always go last to prevent unexpected behavior
 		attach(this::toObjectString, Object.class);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Global methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Get valid print object instance
 	 *
@@ -57,9 +58,9 @@ public abstract class BasePrintObject {
 	 */
 	public static @NotNull BasePrintObject getInstance(boolean verbose) {
 		return verbose ? VerbosePrintObject.getInstance() :
-			SimplePrintObject.getInstance();
+			   SimplePrintObject.getInstance();
 	}
-
+	
 	/**
 	 * Null reference string representation
 	 *
@@ -68,7 +69,7 @@ public abstract class BasePrintObject {
 	public @NotNull String nullString() {
 		return "<null>";
 	}
-
+	
 	/**
 	 * String representation
 	 *
@@ -78,7 +79,7 @@ public abstract class BasePrintObject {
 	protected String toStringString(@NotNull Object obj) {
 		return String.format("\"%s\"", obj);
 	}
-
+	
 	/**
 	 * Entry string representation
 	 *
@@ -89,7 +90,7 @@ public abstract class BasePrintObject {
 		Map.Entry<?, ?> entry = cast(obj, Map.Entry.class);
 		return String.format("%s=%s", toString(entry.getKey()), toString(entry.getValue()));
 	}
-
+	
 	/**
 	 * Generic object string representation
 	 *
@@ -102,15 +103,15 @@ public abstract class BasePrintObject {
 		// Verify that the object has the method "toString" defined to call it instead.
 		boolean toStringExists = Arrays.stream(clazz.getDeclaredMethods())
 			.anyMatch(it -> it.getName().equals("toString"));
-
+		
 		return toStringExists ? obj.toString() :
-			String.format("(@%X) %s", obj.hashCode(), getInstance(true).toClassString(clazz));
+			   String.format("(@%X) %s", obj.hashCode(), getInstance(true).toClassString(clazz));
 	}
-
+	
 	/* -----------------------------------------------------
 	 * String methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Class string representation
 	 *
@@ -121,13 +122,15 @@ public abstract class BasePrintObject {
 		Class<?> clazz = cast(obj, Class.class);
 		String name = "";
 		// Check if class is a primitive type
-		if (clazz.isPrimitive() || clazz.isArray())
+		if (clazz.isPrimitive() || clazz.isArray()) {
 			name = clazz.getCanonicalName();
-		if (name.isBlank())
+		}
+		if (name.isBlank()) {
 			name = clazz.getName();
+		}
 		return name;
 	}
-
+	
 	/**
 	 * Insert new printable extension to the instance
 	 *
@@ -145,7 +148,7 @@ public abstract class BasePrintObject {
 		// Replace the list
 		printMap = tmpList;
 	}
-
+	
 	/**
 	 * Insert new printable extension to the instance
 	 *
@@ -155,7 +158,7 @@ public abstract class BasePrintObject {
 	public void attachExtension(@NotNull Apply.Result<Object, String> action, Class<?> @NotNull ... supported) {
 		attachExtension(Pair.of(action, supported));
 	}
-
+	
 	/**
 	 * Object string representation
 	 *
@@ -167,7 +170,7 @@ public abstract class BasePrintObject {
 		// Check if object is a primitive type
 		if (Cls.isPrimitive(obj)) {
 			return canCast(obj, Character.class) ? String.format("'%s'", obj) :
-				obj.toString();
+				   obj.toString();
 		}
 		// Check if object is an array
 		if (obj.getClass().isArray()) {
@@ -179,14 +182,15 @@ public abstract class BasePrintObject {
 		for (Pair<Apply.Result<Object, String>, Class<?>[]> entry : printMap) {
 			Class<?>[] entryClassArr = entry.second;
 			for (Class<?> clazz : entryClassArr) {
-				if (canCastNotNull(obj, clazz))
+				if (canCastNotNull(obj, clazz)) {
 					return entry.first.apply(obj);
+				}
 			}
 		}
 		// Returns the default result if action is not registered
 		return result;
 	}
-
+	
 	/**
 	 * Collection string representation
 	 *
@@ -194,11 +198,11 @@ public abstract class BasePrintObject {
 	 * @return an object string representation
 	 */
 	protected abstract @NotNull String toCollectionString(@NotNull Object obj);
-
+	
 	/* -----------------------------------------------------
 	 * Internal methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Map string representation
 	 *
@@ -206,11 +210,11 @@ public abstract class BasePrintObject {
 	 * @return an object string representation
 	 */
 	protected abstract @NotNull String toMapString(@NotNull Object obj);
-
+	
 	/* -----------------------------------------------------
 	 * Static methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Insert new printable extension to the instance
 	 *
@@ -220,5 +224,5 @@ public abstract class BasePrintObject {
 	private void attach(@NotNull Apply.Result<Object, String> action, Class<?> @NotNull ... supported) {
 		printMap.add(Pair.of(action, supported));
 	}
-
+	
 }

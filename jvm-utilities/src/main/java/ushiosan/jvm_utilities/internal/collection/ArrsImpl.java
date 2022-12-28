@@ -1,13 +1,14 @@
 package ushiosan.jvm_utilities.internal.collection;
 
-import static ushiosan.jvm_utilities.lang.Obj.cast;
-
-import java.util.Arrays;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public final class ArrsImpl {
+import java.util.Arrays;
 
+import static ushiosan.jvm_utilities.lang.Obj.cast;
+
+public final class ArrsImpl {
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -15,11 +16,11 @@ public final class ArrsImpl {
 	 */
 	private ArrsImpl() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Convert any array of primitive numbers to an array of numeric objects
 	 *
@@ -30,26 +31,33 @@ public final class ArrsImpl {
 	public static Number @NotNull [] toNumberArray(@NotNull Object array) {
 		// Array validations
 		Class<?> refClass = array.getClass();
-		if (!refClass.isArray())
+		if (!refClass.isArray()) {
 			throw new IllegalArgumentException("Invalid array type.");
-
+		}
+		
 		// Check array type
-		if (refClass == byte[].class)
+		if (refClass == byte[].class) {
 			return toNumberArrayFromPrimitive(cast(array, byte[].class));
-		if (refClass == short[].class)
+		}
+		if (refClass == short[].class) {
 			return toNumberArrayFromPrimitive(cast(array, short[].class));
-		if (refClass == int[].class)
+		}
+		if (refClass == int[].class) {
 			return toNumberArrayFromPrimitive(cast(array, int[].class));
-		if (refClass == long[].class)
+		}
+		if (refClass == long[].class) {
 			return toNumberArrayFromPrimitive(cast(array, long[].class));
-		if (refClass == float[].class)
+		}
+		if (refClass == float[].class) {
 			return toNumberArrayFromPrimitive(cast(array, float[].class));
-		if (refClass == double[].class)
+		}
+		if (refClass == double[].class) {
 			return toNumberArrayFromPrimitive(cast(array, double[].class));
-
+		}
+		
 		throw new IllegalArgumentException("Invalid numeric array.");
 	}
-
+	
 	/**
 	 * Convert any array to object array. This also applies to primitive types.
 	 * <p>
@@ -74,27 +82,31 @@ public final class ArrsImpl {
 	public static Object @NotNull [] toObjectArray(@NotNull Object array) {
 		// Array validations
 		Class<?> refClass = array.getClass();
-		if (!refClass.isArray())
+		if (!refClass.isArray()) {
 			throw new IllegalArgumentException("Invalid array type.");
-
+		}
+		
 		// Check if is another primitive type
-		if (refClass == boolean[].class)
+		if (refClass == boolean[].class) {
 			return toObjectArrayImpl(cast(array, boolean[].class));
-		if (refClass == char[].class)
+		}
+		if (refClass == char[].class) {
 			return toObjectArrayImpl(cast(array, char[].class));
-
+		}
+		
 		// Check numeric types
 		if (refClass == byte[].class || refClass == short[].class || refClass == int[].class ||
-			refClass == long[].class || refClass == float[].class || refClass == double[].class)
+			refClass == long[].class || refClass == float[].class || refClass == double[].class) {
 			return toNumberArray(array);
-
+		}
+		
 		return cast(array);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Primitive conversions
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Convert a boolean primitive array to object array
 	 *
@@ -106,14 +118,14 @@ public final class ArrsImpl {
 		// Generate result
 		final int total = array.length;
 		Boolean[] result = new Boolean[total];
-
+		
 		// Copy the array
 		for (int i = 0; i < total; i++) {
 			result[i] = array[i];
 		}
 		return result;
 	}
-
+	
 	/**
 	 * Convert a char primitive array to object array
 	 *
@@ -125,18 +137,18 @@ public final class ArrsImpl {
 		// Generate result
 		final int total = array.length;
 		Character[] result = new Character[total];
-
+		
 		// Copy the array
 		for (int i = 0; i < total; i++) {
 			result[i] = array[i];
 		}
 		return result;
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Number conversions
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Convert the primitive array to a numeric array
 	 *
@@ -156,7 +168,7 @@ public final class ArrsImpl {
 		}
 		return result;
 	}
-
+	
 	/**
 	 * Convert the primitive array to a numeric array
 	 *
@@ -176,7 +188,7 @@ public final class ArrsImpl {
 		}
 		return result;
 	}
-
+	
 	/**
 	 * Convert the primitive array to a numeric array
 	 *
@@ -190,7 +202,7 @@ public final class ArrsImpl {
 			.boxed()
 			.toArray(Number[]::new);
 	}
-
+	
 	/**
 	 * Convert the primitive array to a numeric array
 	 *
@@ -204,7 +216,7 @@ public final class ArrsImpl {
 			.boxed()
 			.toArray(Number[]::new);
 	}
-
+	
 	/**
 	 * Convert the primitive array to a numeric array
 	 *
@@ -224,7 +236,7 @@ public final class ArrsImpl {
 		}
 		return result;
 	}
-
+	
 	/**
 	 * Convert the primitive array to a numeric array
 	 *
@@ -238,5 +250,5 @@ public final class ArrsImpl {
 			.boxed()
 			.toArray(Number[]::new);
 	}
-
+	
 }

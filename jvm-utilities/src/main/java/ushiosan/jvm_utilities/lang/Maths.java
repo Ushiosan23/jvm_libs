@@ -1,14 +1,14 @@
 package ushiosan.jvm_utilities.lang;
 
 public final class Maths {
-
+	
 	/**
 	 * Default decimal operations tolerance
 	 * <p>
 	 * 32-bit number tolerance
 	 */
 	public static final double DECIMAL_TOLERANCE = 0.000001;
-
+	
 	/* -----------------------------------------------------
 	 * Properties
 	 * ----------------------------------------------------- */
@@ -16,12 +16,12 @@ public final class Maths {
 	 * A radian represented in degrees
 	 */
 	private static final double RADIANS_DEGREE = 57.295779513082320876798154814105;
-
+	
 	/**
 	 * A degree represented in radians
 	 */
 	private static final double DEGREE_RADIANS = 0.017453292519943295769236907684886;
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -29,11 +29,11 @@ public final class Maths {
 	 */
 	private Maths() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Linear interpolation between two numbers.
 	 *
@@ -45,7 +45,7 @@ public final class Maths {
 	public static double lerp(double base, double objective, double amount) {
 		return base + amount * (objective - base);
 	}
-
+	
 	/**
 	 * Linear interpolation between two numbers.
 	 * <p>
@@ -60,7 +60,7 @@ public final class Maths {
 	public static double lerpPrecise(double base, double objective, double amount) {
 		return (1.0 - amount) * base + amount * objective;
 	}
-
+	
 	/**
 	 * Returns the distance between two values.
 	 *
@@ -71,7 +71,7 @@ public final class Maths {
 	public static double distance(double v1, double v2) {
 		return Math.abs(v1 - v2);
 	}
-
+	
 	/**
 	 * Linearly normalizes two numbers. This range must not be empty.
 	 *
@@ -83,7 +83,7 @@ public final class Maths {
 	public static double normalize(double start, double end, double current) {
 		return (current - start) / (end - start);
 	}
-
+	
 	/**
 	 * Keeps the value within a specified range.
 	 *
@@ -95,10 +95,10 @@ public final class Maths {
 	public static double clamp(double value, double min, double max) {
 		value = Math.min(value, max);
 		value = Math.max(value, min);
-
+		
 		return value;
 	}
-
+	
 	/**
 	 * Check if two decimal numbers are equal.
 	 * Decimal number operations can lead to many errors because they take into account
@@ -121,7 +121,7 @@ public final class Maths {
 	public static boolean equals(double v1, double v2, double tolerance) {
 		return distance(v1, v2) <= tolerance;
 	}
-
+	
 	/**
 	 * Check if two decimal numbers are equal.
 	 *
@@ -134,7 +134,7 @@ public final class Maths {
 	public static boolean equals(double v1, double v2) {
 		return equals(v1, v2, DECIMAL_TOLERANCE);
 	}
-
+	
 	/**
 	 * Checks if a decimal number is zero
 	 *
@@ -145,7 +145,7 @@ public final class Maths {
 	public static boolean isZero(double value, double tolerance) {
 		return Math.abs(value) <= tolerance;
 	}
-
+	
 	/**
 	 * Checks if a decimal number is zero
 	 *
@@ -157,11 +157,11 @@ public final class Maths {
 	public static boolean isZero(double value) {
 		return isZero(value, DECIMAL_TOLERANCE);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Conversion methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Performs a conversion from radians to degrees
 	 *
@@ -172,7 +172,7 @@ public final class Maths {
 	public static double toDegrees(double radians) {
 		return radians * RADIANS_DEGREE;
 	}
-
+	
 	/**
 	 * Performs a conversion from degrees to radians
 	 *
@@ -183,7 +183,7 @@ public final class Maths {
 	public static double toRadians(double degrees) {
 		return degrees * DEGREE_RADIANS;
 	}
-
+	
 	/**
 	 * Calculates the percentage of an amount.
 	 * <p>
@@ -201,7 +201,7 @@ public final class Maths {
 	public static double percentage(double value, double percentage) {
 		return value * percentageValue(percentage);
 	}
-
+	
 	/**
 	 * Converts a percent based on hundreds to a decimal percent.
 	 * <p>
@@ -219,5 +219,5 @@ public final class Maths {
 	public static double percentageValue(double percentage) {
 		return percentage / 100f;
 	}
-
+	
 }

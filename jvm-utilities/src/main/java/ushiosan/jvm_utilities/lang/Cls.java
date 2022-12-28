@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 
 public final class Cls {
-
+	
 	/**
 	 * Java wrapped primitive types
 	 */
@@ -19,7 +19,7 @@ public final class Cls {
 		Double.class,
 		Void.class
 	};
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
@@ -36,7 +36,7 @@ public final class Cls {
 		float[].class,
 		double[].class
 	};
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -44,11 +44,11 @@ public final class Cls {
 	 */
 	private Cls() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Checks whether the class of the argument is of some primitive type or some
 	 * wrapper class corresponding to the primitive type.
@@ -59,7 +59,7 @@ public final class Cls {
 	public static boolean isPrimitive(@NotNull Class<?> clazz) {
 		return clazz.isPrimitive() || Arrs.contains(PRIMITIVE_WRAPPED_CLASSES, clazz);
 	}
-
+	
 	/**
 	 * Checks whether the class of the argument is of some primitive type or some
 	 * wrapper class corresponding to the primitive type.
@@ -70,7 +70,7 @@ public final class Cls {
 	public static boolean isPrimitive(@NotNull Object obj) {
 		return isPrimitive(obj.getClass());
 	}
-
+	
 	/**
 	 * Checks if the class of the argument is of some primitive type or some
 	 * wrapper class corresponding to the primitive type (version for arrays).
@@ -81,7 +81,7 @@ public final class Cls {
 	public static boolean isPrimitiveArray(@NotNull Class<?> clazz) {
 		return clazz.isArray() && Arrs.contains(PRIMITIVE_ARRAY_CLASSES, clazz);
 	}
-
+	
 	/**
 	 * Checks if the class of the argument is of some primitive type or some
 	 * wrapper class corresponding to the primitive type (version for arrays).
@@ -92,7 +92,7 @@ public final class Cls {
 	public static boolean isPrimitiveArray(@NotNull Object obj) {
 		return isPrimitiveArray(obj.getClass());
 	}
-
+	
 	/**
 	 * Returns the type of all data passed as arguments
 	 *
@@ -104,5 +104,5 @@ public final class Cls {
 			.map(Object::getClass)
 			.toArray(Class[]::new);
 	}
-
+	
 }

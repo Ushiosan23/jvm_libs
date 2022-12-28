@@ -1,21 +1,20 @@
 package ushiosan.jvm_utilities.lang;
 
-import static ushiosan.jvm_utilities.lang.Obj.toDetailString;
-import static ushiosan.jvm_utilities.lang.Obj.toObjString;
-
 import org.junit.Test;
+import ushiosan.jvm_utilities.lang.collection.Arrs;
+import ushiosan.jvm_utilities.lang.collection.Collections;
+import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 
 import java.awt.Dimension;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-import ushiosan.jvm_utilities.lang.collection.Arrs;
-import ushiosan.jvm_utilities.lang.collection.Collections;
-import ushiosan.jvm_utilities.lang.collection.elements.Pair;
+import static ushiosan.jvm_utilities.lang.Obj.toDetailString;
+import static ushiosan.jvm_utilities.lang.Obj.toObjString;
 
 public class ObjTest {
-
+	
 	@Test
 	public void runTest() {
 		List<String> strings = Collections.listOf("Hello", ",", "World!");
@@ -28,9 +27,9 @@ public class ObjTest {
 		);
 		byte[] bytes = Arrs.byteOf(0x0, 0xb1f, 12);
 		Object[] all = Arrs.of(strings, ints, objectMap, bytes, intStream);
-
+		
 		System.out.println(toObjString(all));
 		System.out.println(toDetailString(all));
 	}
-
+	
 }

@@ -1,7 +1,5 @@
 package ushiosan.jvm_utilities.lang;
 
-import java.lang.ref.WeakReference;
-import java.util.Optional;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -11,8 +9,11 @@ import ushiosan.jvm_utilities.lang.print.PrintObj;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintExclude;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 
-public final class Obj {
+import java.lang.ref.WeakReference;
+import java.util.Optional;
 
+public final class Obj {
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -20,23 +21,23 @@ public final class Obj {
 	 */
 	private Obj() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Object string methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * converts any object to a generic object. Even for primitive types.
 	 *
 	 * @param obj the object to convert
 	 * @return the same object but with different type.
-	 * For primitive types, these are wrapped in their wrapper
-	 * classes, and it is possible to perform the operations of a normal object.
+	 * 	For primitive types, these are wrapped in their wrapper
+	 * 	classes, and it is possible to perform the operations of a normal object.
 	 */
 	public static @NotNull Object toObject(@NotNull Object obj) {
 		return obj;
 	}
-
+	
 	/**
 	 * Object string representation
 	 *
@@ -48,7 +49,7 @@ public final class Obj {
 	public static @NotNull String toString(@Nullable Object obj) {
 		return PrintObj.toString(obj, false);
 	}
-
+	
 	/**
 	 * Object string representation.
 	 * <p>
@@ -72,7 +73,7 @@ public final class Obj {
 	public static @NotNull String toObjString(@Nullable Object obj) {
 		return toString(obj);
 	}
-
+	
 	/**
 	 * Loop through the entire object and create a representation of the
 	 * object in a text string. This behavior can be configured using class annotations
@@ -84,7 +85,7 @@ public final class Obj {
 	public static @NotNull String toInstanceString(@NotNull Object instance) {
 		return PrintObj.toInstanceString(instance);
 	}
-
+	
 	/**
 	 * Object string representation.
 	 * <p>
@@ -97,11 +98,11 @@ public final class Obj {
 	public static @NotNull String toDetailString(@Nullable Object obj) {
 		return PrintObj.toString(obj, true);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Nullable methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Checks if an object or reference is null. This method also
 	 * checks if an object of type {@link Optional} is empty (this means that the reference is null).
@@ -113,13 +114,15 @@ public final class Obj {
 	public static boolean isNull(@Nullable Object obj) {
 		if (obj == null) return true;
 		// Weak reference object check
-		if (canCastNotNull(obj, WeakReference.class))
+		if (canCastNotNull(obj, WeakReference.class)) {
 			return cast(obj, WeakReference.class).get() == null;
-		if (canCastNotNull(obj, Optional.class))
+		}
+		if (canCastNotNull(obj, Optional.class)) {
 			return cast(obj, Optional.class).isEmpty();
+		}
 		return false;
 	}
-
+	
 	/**
 	 * Checks if an object or reference is not null. This method also
 	 * checks if an object of type {@link Optional} is empty (this means that the reference is null).
@@ -131,7 +134,7 @@ public final class Obj {
 	public static boolean isNotNull(@Nullable Object obj) {
 		return !isNull(obj);
 	}
-
+	
 	/**
 	 * Method used to prevent null references and avoid errors for this type of objects.
 	 *
@@ -143,7 +146,7 @@ public final class Obj {
 	public static <T> @NotNull T notNull(@Nullable T obj, @NotNull T defaultVal) {
 		return isNull(obj) ? defaultVal : obj;
 	}
-
+	
 	/**
 	 * Method used to prevent null references and avoid errors for this type of objects.
 	 *
@@ -154,11 +157,11 @@ public final class Obj {
 	public static <T> void notNull(@Nullable T obj, @NotNull Apply.Empty<T> action) {
 		if (!isNull(obj)) action.apply(obj);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Casting methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Recast the object towards the assigned destination.
 	 * <p>
@@ -176,7 +179,7 @@ public final class Obj {
 	public static <T> T cast(@Nullable Object obj) {
 		return (T) obj;
 	}
-
+	
 	/**
 	 * Recast the object towards the assigned destination.
 	 * <p>
@@ -193,15 +196,16 @@ public final class Obj {
 	public static <T> T cast(@Nullable Object obj, @NotNull Class<T> clazz) {
 		if (obj == null) return cast(null);
 		Class<?> objCls = obj.getClass();
-		if (canCast(obj, clazz))
+		if (canCast(obj, clazz)) {
 			return cast(obj);
+		}
 		throw new ClassCastException("Cannot cast " + objCls.getName() + " to " + clazz.getName());
 	}
-
+	
 	public static <T> T pairCast(@NotNull Pair<?, Class<T>> pair) {
 		return cast(pair.first, pair.second);
 	}
-
+	
 	/**
 	 * Tries to recast the object towards the assigned destination, but does not generate an error.
 	 * Instead, the action passed as the third parameter is executed, as long as the condition is true.
@@ -214,7 +218,7 @@ public final class Obj {
 	public static <T> void tryCast(@Nullable Object obj, @NotNull Class<T> clazz, Apply.Empty<T> action) {
 		if (canCast(obj, clazz)) action.apply(cast(obj, clazz));
 	}
-
+	
 	/**
 	 * Tries to recast the object towards the assigned destination, but does not generate an error.
 	 * Instead, the action passed as the third parameter is executed, as long as the condition is true.
@@ -225,12 +229,13 @@ public final class Obj {
 	 * @return the transformed object or {@link Optional#empty()} if object is not compatible type
 	 */
 	public static <T> Optional<T> tryCast(@Nullable Object obj, @NotNull Class<T> clazz) {
-		if (canCast(obj, clazz))
+		if (canCast(obj, clazz)) {
 			return Optional.ofNullable(cast(obj, clazz));
-		else
+		} else {
 			return Optional.empty();
+		}
 	}
-
+	
 	/**
 	 * Check if one object can be cast to another type.
 	 * <p>
@@ -245,7 +250,7 @@ public final class Obj {
 	public static <T> boolean canCast(@Nullable Object obj, @NotNull Class<T> clazz) {
 		return canCastImpl(obj, clazz, true);
 	}
-
+	
 	/**
 	 * Check if one object can be cast to another type.
 	 *
@@ -257,11 +262,11 @@ public final class Obj {
 	public static <T> boolean canCastNotNull(@Nullable Object obj, @NotNull Class<T> clazz) {
 		return canCastImpl(obj, clazz, false);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Apply methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Applies configuration to an object based on a local context. Returns the
 	 * same object but with the configuration already applied.
@@ -276,7 +281,7 @@ public final class Obj {
 		action.apply(obj);
 		return obj;
 	}
-
+	
 	/**
 	 * Applies configuration to an object based on a local context. Returns a
 	 * different object depending on the applied configuration.
@@ -290,11 +295,11 @@ public final class Obj {
 	public static <T, V> @NotNull V apply(@NotNull T obj, Apply.@NotNull Result<T, V> action) {
 		return action.apply(obj);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Internal methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Check if one object can be cast to another type.
 	 * <p>
@@ -312,5 +317,5 @@ public final class Obj {
 		Class<?> objCls = obj.getClass();
 		return objCls.isAssignableFrom(clazz) || clazz.isInstance(obj);
 	}
-
+	
 }

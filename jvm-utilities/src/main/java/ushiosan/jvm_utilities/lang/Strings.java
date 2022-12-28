@@ -1,17 +1,18 @@
 package ushiosan.jvm_utilities.lang;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 
-public final class Strings {
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+public final class Strings {
+	
 	/**
 	 * Pattern used to count start spaces
 	 */
 	private static final Pattern SPACES_COUNTER = Pattern.compile("^(\\s+)");
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -19,11 +20,11 @@ public final class Strings {
 	 */
 	private Strings() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Transforms the text string and converts each word start to an uppercase letter
 	 *
@@ -41,7 +42,7 @@ public final class Strings {
 			.toArray(String[]::new);
 		return String.join(" ", result);
 	}
-
+	
 	/**
 	 * Transforms the text string and converts each word start to an uppercase letter
 	 *
@@ -51,7 +52,7 @@ public final class Strings {
 	public static @NotNull String capitalize(@NotNull CharSequence content) {
 		return capitalize(content, true);
 	}
-
+	
 	/**
 	 * Change the first letter of the word to a capital letter.
 	 * <p>
@@ -64,11 +65,11 @@ public final class Strings {
 	public static @NotNull String capitalizeWord(@NotNull CharSequence content) {
 		return simpleCapitalize(content);
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Internal methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Change the first letter of the word to a capital letter.
 	 * <p>
@@ -84,14 +85,14 @@ public final class Strings {
 		// Temporal variables
 		StringBuilder builder = new StringBuilder();
 		char[] wordArr = contentStr.toCharArray();
-
+		
 		// Insert elements
 		builder.append(Character.toUpperCase(wordArr[0]));
 		builder.append(contentStr.substring(1));
-
+		
 		return builder.toString();
 	}
-
+	
 	/**
 	 * Transforms the text string and converts each word start to an uppercase letter
 	 *
@@ -106,15 +107,16 @@ public final class Strings {
 		String contentStr = sequence.toString();
 		Matcher matcher = SPACES_COUNTER.matcher(contentStr);
 		int spaces = 0;
-
+		
 		// Count all spaces
-		if (matcher.find())
+		if (matcher.find()) {
 			spaces = matcher.group().length();
-
+		}
+		
 		// Insert the content
 		builder.append(" ".repeat(spaces));
 		builder.append(simpleCapitalize(contentStr.substring(spaces)));
 		return builder.toString();
 	}
-
+	
 }

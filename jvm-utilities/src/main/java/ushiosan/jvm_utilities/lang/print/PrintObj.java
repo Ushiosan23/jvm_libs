@@ -10,11 +10,11 @@ import ushiosan.jvm_utilities.lang.print.annotations.PrintExclude;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 
 public final class PrintObj {
-
+	
 	/* -----------------------------------------------------
 	 * Constructors
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * This class cannot be instantiated.
 	 * <p>
@@ -22,11 +22,11 @@ public final class PrintObj {
 	 */
 	private PrintObj() {
 	}
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * Object string representation
 	 *
@@ -39,7 +39,7 @@ public final class PrintObj {
 			.getInstance(verbose)
 			.toString(obj);
 	}
-
+	
 	/**
 	 * Loop through the entire object and create a representation of the
 	 * object in a text string. This behavior can be configured using class annotations
@@ -53,7 +53,7 @@ public final class PrintObj {
 			.getInstance()
 			.toString(instance);
 	}
-
+	
 	/**
 	 * Insert new printable extension to the instance
 	 *
@@ -64,7 +64,7 @@ public final class PrintObj {
 		BasePrintObject.getInstance(verbose)
 			.attachExtension(extension);
 	}
-
+	
 	/**
 	 * Insert new printable extension to the instance
 	 *
@@ -73,9 +73,9 @@ public final class PrintObj {
 	 * @param supported supported elements
 	 */
 	public void attachExtension(boolean verbose, @NotNull Apply.Result<Object, String> action,
-								Class<?> @NotNull ... supported) {
+		Class<?> @NotNull ... supported) {
 		BasePrintObject.getInstance(verbose)
 			.attachExtension(action, supported);
 	}
-
+	
 }

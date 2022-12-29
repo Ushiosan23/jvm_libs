@@ -1,9 +1,9 @@
 package defined.project
 
+import defined.common.dependencyOf
 import defined.common.developersOf
 import defined.common.javadocLinksOf
 import defined.common.licensesOf
-import defined.common.dependencyOf
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.PluginContainer
@@ -14,7 +14,7 @@ import publishing.*
 val JvmUtilitiesProject.releasePublication: PublicationInfo
 	get() = PublicationInfo(
 		name = "release",
-		version = "0.2.4",
+		version = "0.3.0",
 		pom = PublicationPom(
 			artifactUrl = "https://github.com/Ushiosan23/jvm_libs.git",
 			description = "Utilities for the java virtual machine.",
@@ -25,52 +25,52 @@ val JvmUtilitiesProject.releasePublication: PublicationInfo
 	)
 
 object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
-
+	
 	/* -----------------------------------------------------
 	 * Properties
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * current project
 	 */
 	private lateinit var projectImpl: Project
-
+	
 	/**
 	 * All maven publications
 	 */
 	override val registeredPublications: List<PublicationInfo>
 		get() = listOf(releasePublication)
-
+	
 	/**
 	 * Project name
 	 */
 	override val projectName: String
 		get() = "JVM Utilities"
-
+	
 	/**
 	 * project group id
 	 */
 	override val projectGroup: String
 		get() = "com.github.ushiosan23"
-
+	
 	/**
 	 * project artifact name
 	 */
 	override val artifactId: String
 		get() = "jvm-utilities"
-
+	
 	/**
 	 * project version string
 	 */
 	override val artifactVersion: String?
 		get() = releasePublication.version
-
+	
 	/**
 	 * Generate automatically extra maven tasks
 	 */
 	override val autoGenerateMavenTasks: Boolean
 		get() = true
-
+	
 	/**
 	 * project javadoc information
 	 */
@@ -78,7 +78,7 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 		get() = SimpleJavaProject.JavadocInfo(
 			urls = javadocLinksOf()
 		)
-
+	
 	/**
 	 * Signing information
 	 */
@@ -88,11 +88,11 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 			getEnv("SIGNING_PASSWORD", ""),
 			getEnv("SIGNING_PGP_B64", "")
 		)
-
+	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
-
+	
 	/**
 	 * project dependency map
 	 *
@@ -100,25 +100,25 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 	 */
 	override fun dependencyMap(): Map<Any, List<*>?> =
 		dependencyOf()
-
+	
 	/**
 	 * Returns the current project
 	 */
 	override fun currentProject(): Project =
 		projectImpl
-
+	
 	/**
 	 * Define current project
 	 */
 	override fun setCurrentProject(project: Project) {
 		projectImpl = project
 	}
-
+	
 	/**
 	 * Abstract project configuration
 	 */
 	override fun configureProject() = Unit
-
+	
 	/**
 	 * Configure all plugins per project
 	 *
@@ -128,7 +128,7 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 		super<SimpleJavaProject>.configurePluginsProject(plugins, extensions)
 		super<SimpleMavenProject>.configurePluginsProject(plugins, extensions)
 	}
-
+	
 	/**
 	 * Configure all task per project
 	 *
@@ -138,5 +138,5 @@ object JvmUtilitiesProject : SimpleJavaProject, SimpleMavenProject {
 		super<SimpleJavaProject>.configureTaskProject(tasks)
 		super<SimpleMavenProject>.configureTaskProject(tasks)
 	}
-
+	
 }

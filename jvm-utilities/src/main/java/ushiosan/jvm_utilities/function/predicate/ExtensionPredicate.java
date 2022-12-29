@@ -4,12 +4,18 @@ import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 import ushiosan.jvm_utilities.lang.io.IO;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.zip.ZipEntry;
 
-public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
+import static ushiosan.jvm_utilities.lang.Obj.canCastNotNull;
+import static ushiosan.jvm_utilities.lang.Obj.cast;
+import static ushiosan.jvm_utilities.lang.Obj.isAnyTypeOf;
+
+public interface ExtensionPredicate<T> extends Predicate<T> {
 	
 	/**
 	 * Generate instance of {@link ExtensionPredicate}
@@ -19,7 +25,7 @@ public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
 	 * @param <T>        predicate object type
 	 * @return a configured instance of {@link ExtensionPredicate}
 	 */
-	static <T extends Path> @NotNull Predicate<T> of(boolean acceptDirs, String @NotNull ... extensions) {
+	static <T> @NotNull Predicate<T> of(boolean acceptDirs, String @NotNull ... extensions) {
 		return new ExtensionPredicate<>() {
 			
 			@Override
@@ -42,7 +48,7 @@ public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
 	 * @param <T>        predicate object type
 	 * @return a configured instance of {@link ExtensionPredicate}
 	 */
-	static <T extends Path> @NotNull Predicate<T> of(String @NotNull ... extensions) {
+	static <T> @NotNull Predicate<T> of(String @NotNull ... extensions) {
 		return of(true, extensions);
 	}
 	
@@ -76,11 +82,49 @@ public interface ExtensionPredicate<T extends Path> extends Predicate<T> {
 	 */
 	@Override
 	default boolean test(@NotNull T path) {
+		if (!isAnyTypeOf(path, Path.class, File.class, ZipEntry.class)) {
+			throw new IllegalArgumentException("Invalid argument type");
+		}
+		// Check object type
+		if (canCastNotNull(path, Path.class)) {
+			return testPath(cast(path));
+		}
+		if (canCastNotNull(path, File.class)) {
+			return testFile(cast(path));
+		}
+		if (canCastNotNull(path, ZipEntry.class)) {
+			return testZipEntry(cast(path));
+		}
+		
+		return false;
+	}
+	
+	default boolean testPath(@NotNull Path path) {
 		// If acceptDirectoryObjects is true, all directories are valid
 		if (Files.isDirectory(path)) return accepDirectoryObjects();
 		// Temporal variables
 		String[] extensions = getExtensions();
 		Optional<String> extension = IO.getExtension(path);
+		// Check if the extension exists
+		return extension.filter(s -> Arrs.contains(extensions, s)).isPresent();
+	}
+	
+	default boolean testFile(@NotNull File file) {
+		// If acceptDirectoryObjects is true, all directories are valid
+		if (file.isDirectory()) return accepDirectoryObjects();
+		// Temporal variables
+		String[] extensions = getExtensions();
+		Optional<String> extension = IO.getExtension(file);
+		// Check if the extension exists
+		return extension.filter(s -> Arrs.contains(extensions, s)).isPresent();
+	}
+	
+	default boolean testZipEntry(@NotNull ZipEntry entry) {
+		// If acceptDirectoryObjects is true, all directories are valid
+		if (entry.isDirectory()) return accepDirectoryObjects();
+		// Temporal variables
+		String[] extensions = getExtensions();
+		Optional<String> extension = IO.getExtension(entry);
 		// Check if the extension exists
 		return extension.filter(s -> Arrs.contains(extensions, s)).isPresent();
 	}

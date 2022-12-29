@@ -2,13 +2,20 @@ package ushiosan.jvm_utilities.function.predicate;
 
 import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm_utilities.lang.io.IO;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
 
-public interface RegexPredicate<T extends Path> extends Predicate<T> {
+import static ushiosan.jvm_utilities.lang.Obj.canCast;
+import static ushiosan.jvm_utilities.lang.Obj.cast;
+import static ushiosan.jvm_utilities.lang.Obj.isAnyTypeOf;
+
+public interface RegexPredicate<T> extends Predicate<T> {
 	
 	/**
 	 * Generate instance of {@link RegexPredicate}
@@ -18,7 +25,7 @@ public interface RegexPredicate<T extends Path> extends Predicate<T> {
 	 * @param <T>      predicate object type
 	 * @return a configured instance of {@link RegexPredicate}
 	 */
-	static <T extends Path> @NotNull Predicate<T> of(boolean fullPath, @NotNull @RegExp String regex) {
+	static <T> @NotNull Predicate<T> of(boolean fullPath, @NotNull @RegExp String regex) {
 		final Pattern pattern = Pattern.compile(regex);
 		return new RegexPredicate<T>() {
 			
@@ -41,7 +48,7 @@ public interface RegexPredicate<T extends Path> extends Predicate<T> {
 	 * @param <T>   predicate object type
 	 * @return a configured instance of {@link RegexPredicate}
 	 */
-	static <T extends Path> @NotNull Predicate<T> of(@NotNull @RegExp String regex) {
+	static <T> @NotNull Predicate<T> of(@NotNull @RegExp String regex) {
 		return of(true, regex);
 	}
 	
@@ -75,8 +82,42 @@ public interface RegexPredicate<T extends Path> extends Predicate<T> {
 	 */
 	@Override
 	default boolean test(@NotNull T path) {
+		// Check types
+		if (!isAnyTypeOf(path, Path.class, File.class, ZipEntry.class)) {
+			throw new IllegalArgumentException("Invalid argument type");
+		}
+		
+		if (canCast(path, Path.class)) {
+			return testPath(cast(path));
+		}
+		if (canCast(path, File.class)) {
+			return testFile(cast(path));
+		}
+		if (canCast(path, ZipEntry.class)) {
+			return testZipEntry(cast(path));
+		}
+		
+		return false;
+	}
+	
+	default boolean testPath(@NotNull Path path) {
 		Path realPath = isFullPathInspect() ? path : path.getFileName();
 		Matcher matcher = getPattern().matcher(realPath.toString());
+		
+		return matcher.find();
+	}
+	
+	default boolean testFile(@NotNull File file) {
+		String path = isFullPathInspect() ? file.getAbsolutePath() : file.getName();
+		Matcher matcher = getPattern().matcher(path);
+		
+		return matcher.find();
+	}
+	
+	default boolean testZipEntry(@NotNull ZipEntry entry) {
+		String path = isFullPathInspect() ? entry.getName() :
+					  IO.getFilename(entry);
+		Matcher matcher = getPattern().matcher(path);
 		
 		return matcher.find();
 	}

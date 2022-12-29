@@ -2,19 +2,27 @@ package ushiosan.jvm_utilities.function.predicate;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.io.IO;
+import ushiosan.jvm_utilities.lang.io.ZipUtils;
 
 import javax.swing.JFileChooser;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.zip.ZipFile;
 
 import static ushiosan.jvm_utilities.lang.Obj.also;
+import static ushiosan.jvm_utilities.lang.io.IO.pathOf;
 
 public class ExtensionPredicateTest {
+	
+	ClassLoader loader = ClassLoader
+		.getSystemClassLoader();
 	
 	private final JFileChooser chooser = also(new JFileChooser(), it -> {
 		File home = new File(System.getProperty("user.home"));
@@ -40,6 +48,37 @@ public class ExtensionPredicateTest {
 			Assert.assertFalse("List cannot be empty", files.isEmpty());
 			
 			System.out.println(files);
+		}
+	}
+	
+	@Test
+	public void extensionPredicateZip() throws IOException {
+		URL location = loader.getResource("zip-example.zip");
+		Assert.assertNotNull("Location not found.", location);
+		
+		Path filePath = pathOf(location);
+		try (var zipFile = new ZipFile(filePath.toFile())) {
+			var entries = zipFile.stream()
+				.filter(ZipUtils::isRegularFile)
+				.filter(ExtensionPredicate.of(false, "jar"))
+				.collect(Collectors.toUnmodifiableList());
+			
+			System.out.println(entries);
+		}
+	}
+	
+	@Test
+	public void regexPredicateZip() throws IOException {
+		URL location = loader.getResource("zip-example.zip");
+		Assert.assertNotNull("Location not found.", location);
+		
+		Path filePath = pathOf(location);
+		try (var zipFile = new ZipFile(filePath.toFile())) {
+			var entries = zipFile.stream()
+				.filter(RegexPredicate.of(true, "(sub folder)/.+"))
+				.collect(Collectors.toUnmodifiableList());
+			
+			System.out.println(Obj.toString(entries));
 		}
 	}
 	

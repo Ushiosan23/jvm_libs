@@ -202,6 +202,17 @@ public final class Obj {
 		throw new ClassCastException("Cannot cast " + objCls.getName() + " to " + clazz.getName());
 	}
 	
+	/**
+	 * Recast the object towards the assigned destination.
+	 * <p>
+	 * <b>Be careful: </b> this method must be sure that the object is
+	 * of the desired type, or it will generate an error.
+	 *
+	 * @param pair the entry elements to convert
+	 * @param <T>  class cast type
+	 * @return the transformed object
+	 * @throws ClassCastException error if object is not compatible type
+	 */
 	public static <T> T pairCast(@NotNull Pair<?, Class<T>> pair) {
 		return cast(pair.first, pair.second);
 	}
@@ -261,6 +272,25 @@ public final class Obj {
 	 */
 	public static <T> boolean canCastNotNull(@Nullable Object obj, @NotNull Class<T> clazz) {
 		return canCastImpl(obj, clazz, false);
+	}
+	
+	/**
+	 * Checks if the object is one of the specified types.
+	 *
+	 * @param obj     the object to check
+	 * @param classes all the classes you want to analyze
+	 * @return returns {@code true} if the object matches some data type or {@code false} otherwise
+	 */
+	public static boolean isAnyTypeOf(@NotNull Object obj, Class<?> @NotNull ... classes) {
+		boolean result = false;
+		for (Class<?> clazz : classes) {
+			if (canCastImpl(obj, clazz, false)) {
+				result = true;
+				break;
+			}
+		}
+		
+		return result;
 	}
 	
 	/* -----------------------------------------------------

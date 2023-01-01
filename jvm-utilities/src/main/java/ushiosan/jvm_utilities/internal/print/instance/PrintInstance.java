@@ -7,6 +7,7 @@ import ushiosan.jvm_utilities.lang.collection.Arrs;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintExclude;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
+import ushiosan.jvm_utilities.lang.reflection.FieldUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -122,11 +123,15 @@ public final class PrintInstance {
 	public @NotNull String toString(@NotNull Object obj) {
 		// Temporal variables
 		PrintOpts opts = DEFAULT_OPTS;
-		Class<?> objClass = obj.getClass();
+		Class<?> definedClass = obj.getClass();
 		
-		// Check if annotation exists
-		if (objClass.isAnnotationPresent(PrintOpts.class)) {
-			opts = objClass.getAnnotation(PrintOpts.class);
+		while (definedClass != Object.class) {
+			// Check if annotation is present in the selected class
+			if (definedClass.isAnnotationPresent(PrintOpts.class)) {
+				opts = definedClass.getAnnotation(PrintOpts.class);
+				break;
+			}
+			definedClass = definedClass.getSuperclass();
 		}
 		
 		return toStringImpl(obj, opts);
@@ -180,8 +185,11 @@ public final class PrintInstance {
 	 * @return all valid fields or {@link #EMPTY_FIELDS}
 	 */
 	private Field @NotNull [] getAllValidFields(@NotNull Class<?> cls, @NotNull PrintOpts opts) {
-		if (cls.getDeclaredFields().length == 0) return EMPTY_FIELDS;
-		return Arrays.stream(cls.getFields())
+		Field[] allFields = FieldUtils
+			.getAllRecursiveFields(cls);
+		
+		if (allFields.length == 0) return EMPTY_FIELDS;
+		return Arrays.stream(allFields)
 			.map(it -> Pair.of(it, opts))
 			.filter(this::isValidField)
 			.map(it -> it.first)
@@ -218,9 +226,10 @@ public final class PrintInstance {
 		boolean modsState = !Modifier.isAbstract(mods) && !Modifier.isStatic(mods);
 		
 		// Finalize modifiers check
-		if (pair.second.privateFieldsAccess()) {
-			modsState = modsState && !Modifier.isPrivate(mods) && !Modifier.isProtected(mods);
+		if (Modifier.isProtected(mods) || Modifier.isPrivate(mods)) {
+			modsState = modsState && pair.second.privateFieldsAccess();
 		}
+		
 		return modsState && !pair.first.isAnnotationPresent(PrintExclude.class);
 	}
 	

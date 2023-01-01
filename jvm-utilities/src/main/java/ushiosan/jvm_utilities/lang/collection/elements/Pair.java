@@ -2,9 +2,11 @@ package ushiosan.jvm_utilities.lang.collection.elements;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import ushiosan.jvm_utilities.lang.Obj;
+import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 
 import java.util.Map;
+
+import static ushiosan.jvm_utilities.lang.Obj.toInstanceString;
 
 /**
  * Immutable object used to represent elements with 2 values (element pair).
@@ -13,6 +15,7 @@ import java.util.Map;
  * @param <T> first element type
  * @param <K> second element type
  */
+@PrintOpts
 public class Pair<T, K> {
 	
 	/**
@@ -99,7 +102,7 @@ public class Pair<T, K> {
 	 */
 	@Override
 	public String toString() {
-		return "(" + Obj.toString(first) + ", " + Obj.toString(second) + ")";
+		return toInstanceString(this);
 	}
 	
 }

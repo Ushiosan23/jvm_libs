@@ -11,5 +11,6 @@ module com.github.ushiosan.jvm_utilities {
 	exports ushiosan.jvm_utilities.lang.print;
 	exports ushiosan.jvm_utilities.lang.print.annotations;
 	exports ushiosan.jvm_utilities.lang.random;
+	exports ushiosan.jvm_utilities.lang.reflection;
 	exports ushiosan.jvm_utilities.system;
 }

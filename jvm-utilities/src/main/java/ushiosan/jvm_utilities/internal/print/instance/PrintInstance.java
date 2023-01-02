@@ -186,7 +186,7 @@ public final class PrintInstance {
 	 */
 	private Field @NotNull [] getAllValidFields(@NotNull Class<?> cls, @NotNull PrintOpts opts) {
 		Field[] allFields = FieldUtils
-			.getAllRecursiveFields(cls);
+			.getAllClassFields(cls);
 		
 		if (allFields.length == 0) return EMPTY_FIELDS;
 		return Arrays.stream(allFields)

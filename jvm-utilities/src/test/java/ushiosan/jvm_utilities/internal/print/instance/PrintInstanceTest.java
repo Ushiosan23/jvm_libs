@@ -2,6 +2,7 @@ package ushiosan.jvm_utilities.internal.print.instance;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintExclude;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 
@@ -15,9 +16,10 @@ public class PrintInstanceTest {
 		String instanceStr = toInstanceString(example);
 		
 		Assert.assertEquals("Invalid content",
-							"ushiosan.jvm_utilities.internal.print.instance.PrintInstanceTest$ExampleClass3{}",
+							"ExampleClass3{nothing=\"Hello, World!\", getNothing()=\"Hello, World!\"}",
 							instanceStr);
 		
+		System.err.println(example);
 		System.err.println(instanceStr);
 	}
 	
@@ -25,16 +27,30 @@ public class PrintInstanceTest {
 	 * Extra types
 	 * --------------------------------------------------------- */
 	
-	@PrintOpts(shortName = false, privateFieldsAccess = true)
+	@PrintOpts(privateFieldsAccess = true, getterAccess = true)
 	static class ExampleClass {
 		
 		@PrintExclude
-		private final Void nothing = null;
+		public final boolean exampleB = true;
+		
+		@SuppressWarnings("FieldCanBeLocal")
+		private final String nothing = "Hello, World!";
+		
+		public String getNothing() {
+			return nothing;
+		}
 		
 	}
 	
 	static class ExampleClass2 extends ExampleClass {}
 	
-	static class ExampleClass3 extends ExampleClass2 {}
+	static class ExampleClass3 extends ExampleClass2 {
+		
+		@Override
+		public String toString() {
+			return Obj.toInstanceString(this);
+		}
+		
+	}
 	
 }

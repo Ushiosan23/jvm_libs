@@ -6,6 +6,7 @@ import ushiosan.jvm_utilities.lang.collection.Collections;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 
 import java.awt.Dimension;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -19,7 +20,7 @@ public class ObjTest {
 	public void runTest() {
 		List<String> strings = Collections.listOf("Hello", ",", "World!");
 		int[] ints = Arrs.intOf(2, 4, 6, 8, 10);
-		IntStream intStream = java.util.Arrays.stream(ints);
+		IntStream intStream = Arrays.stream(ints);
 		Map<Character, Object> objectMap = Collections.mapOf(
 			Pair.of('X', null),
 			Pair.of('m', new Dimension()),

@@ -3,6 +3,7 @@ package ushiosan.jvm_utilities.lang.reflection;
 import org.junit.Test;
 import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
+import ushiosan.jvm_utilities.lang.reflection.options.ReflectionOpts;
 
 import java.lang.reflect.Field;
 
@@ -11,25 +12,19 @@ public class FieldUtilsTest {
 	@Test
 	public void runTest() throws NoSuchFieldException, IllegalAccessException {
 		ExampleClass instance = new ExampleClass3();
-		String instanceStr = Obj.toInstanceString(instance);
+		var opts = ReflectionOpts.<Field>getDefault()
+			.setRecursive(false)
+			.setOnlyPublic(false);
+		Field field = FieldUtils.findFieldObj(instance, "notContentField", opts);
 		
-		Field field = FieldUtils.findFieldObj(instance, "notContentField");
-		
-		System.err.println(instanceStr);
-		System.err.println(field);
+		System.err.println(opts);
+		System.err.println(instance);
 		
 		// Change value
 		field.setAccessible(true);
 		field.set(instance, "Some text in notContentField Field");
 		
-		instanceStr = Obj.toInstanceString(instance);
-		System.err.println(instanceStr);
-		
-		try {
-			Field field2 = FieldUtils.findFieldObj(instance, "notValidField");
-			System.err.println(field2);
-		} catch (Exception ignored) {
-		}
+		System.err.println(instance);
 	}
 	
 	
@@ -41,6 +36,11 @@ public class FieldUtilsTest {
 	static class ExampleClass {
 		
 		private final int baseField = -1;
+		
+		@Override
+		public String toString() {
+			return Obj.toInstanceString(this);
+		}
 		
 	}
 	

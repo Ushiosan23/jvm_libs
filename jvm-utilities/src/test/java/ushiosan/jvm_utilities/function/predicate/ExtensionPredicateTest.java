@@ -22,15 +22,14 @@ import static ushiosan.jvm_utilities.lang.io.IO.pathOf;
 
 public class ExtensionPredicateTest {
 	
-	ClassLoader loader = ClassLoader
-		.getSystemClassLoader();
-	
 	private final JFileChooser chooser = also(new JFileChooser(), it -> {
 		File home = new File(System.getProperty("user.home"));
 		// Configure chooser
 		it.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		it.setCurrentDirectory(home);
 	});
+	ClassLoader loader = ClassLoader
+		.getSystemClassLoader();
 	
 	@Ignore
 	@Test

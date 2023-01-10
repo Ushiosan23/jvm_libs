@@ -55,4 +55,13 @@ public class ClsTest {
 		System.out.println(Obj.toString(typeArgs));
 	}
 	
+	@Test
+	public void getArrayIndividualClassTest() {
+		int[] arr = new int[0];
+		var cls = Cls.getArrayMultipleIndividualClass(arr);
+		
+		Assert.assertEquals("Invalid type class", cls, int.class);
+		System.err.println(cls);
+	}
+	
 }

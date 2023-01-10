@@ -9,7 +9,7 @@ public class StringsTest {
 		String word = "   hello, world!";
 		
 		System.out.println(Strings.capitalize(word));
-		System.out.println(Strings.capitalize(word, true));
+		System.out.println(Strings.capitalize(word, false));
 		System.out.println(Strings.capitalizeWord(word));
 	}
 	

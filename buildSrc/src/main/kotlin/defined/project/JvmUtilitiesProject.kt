@@ -14,7 +14,7 @@ import publishing.*
 val JvmUtilitiesProject.releasePublication: PublicationInfo
 	get() = PublicationInfo(
 		name = "release",
-		version = "0.3.5",
+		version = "0.4.0",
 		pom = PublicationPom(
 			artifactUrl = "https://github.com/Ushiosan23/jvm_libs.git",
 			description = "Utilities for the java virtual machine.",

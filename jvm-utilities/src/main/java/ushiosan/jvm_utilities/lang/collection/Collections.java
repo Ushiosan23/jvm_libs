@@ -9,17 +9,18 @@ import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 import java.util.*;
 
 /**
- *
+ * Class that has helper methods for data containers like {@link Map}, {@link List},
+ * {@link Set}, {@link Stack} and {@link Vector}
  */
 public final class Collections {
 	
-	@SuppressWarnings("rawtypes")
-	private static final Pair[] EMPTY_PAIR = new Pair[0];
+	/**
+	 * Empty data pair
+	 */
+	private static final Pair<?, ?>[] EMPTY_PAIR = new Pair[0];
 	
 	/**
 	 * This class cannot be instantiated.
-	 * <p>
-	 * Singleton or utility class mode.
 	 */
 	private Collections() {
 	}
@@ -352,6 +353,13 @@ public final class Collections {
 	 * Map methods
 	 * ----------------------------------------------------- */
 	
+	/**
+	 * Create a read-only empty map.
+	 *
+	 * @param <K> key entry type
+	 * @param <V> value entry type
+	 * @return a read-only map with all content
+	 */
 	@SuppressWarnings("unchecked")
 	public static @Unmodifiable <K, V> @NotNull Map<K, V> mapOf() {
 		return mapOf((Pair<K, V>[]) EMPTY_PAIR);
@@ -527,6 +535,59 @@ public final class Collections {
 	 */
 	public static <K, V> Map.@NotNull Entry<K, V> mutableEntryOf(K key, V value) {
 		return new AbstractMap.SimpleEntry<>(key, value);
+	}
+	
+	/* ---------------------------------------------------------
+	 * Join methods
+	 * --------------------------------------------------------- */
+	
+	/**
+	 * Combine different lists into a single collection
+	 *
+	 * @param excludeDuplicates remove all duplicate items
+	 * @param lts               the lists you want to merge
+	 * @param <T>               generic collection type
+	 * @return returns a single collection with all the elements of the passed lists
+	 */
+	@SafeVarargs
+	public static <T> @NotNull Collection<T> combine(boolean excludeDuplicates, List<T> @NotNull ... lts) {
+		Collection<T> tmpResult = excludeDuplicates ? Collections.mutableSetOf() :
+								  Collections.mutableListOf();
+		// Iterate all collections
+		for (List<T> lt : lts) {
+			tmpResult.addAll(lt);
+		}
+		return tmpResult;
+	}
+	
+	/**
+	 * Combine different lists into a single collection
+	 *
+	 * @param lts the lists you want to merge
+	 * @param <T> generic collection type
+	 * @return returns a single collection with all the elements of the passed lists
+	 */
+	@SafeVarargs
+	public static <T> @NotNull Collection<T> combine(List<T> @NotNull ... lts) {
+		return combine(true, lts);
+	}
+	
+	/**
+	 * Combine different sets into a single collection
+	 *
+	 * @param sets the sets you want to merge
+	 * @param <T>  generic collection type
+	 * @return returns a single collection with all the elements of the passed sets
+	 */
+	@SafeVarargs
+	public static <T> @NotNull Set<T> combine(Set<T> @NotNull ... sets) {
+		Set<T> tmpResult = Collections.mutableSetOf();
+		
+		// Iterate all collections
+		for (Set<T> lt : sets) {
+			tmpResult.addAll(lt);
+		}
+		return tmpResult;
 	}
 	
 }

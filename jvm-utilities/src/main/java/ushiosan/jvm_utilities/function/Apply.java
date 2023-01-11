@@ -2,12 +2,21 @@ package ushiosan.jvm_utilities.function;
 
 import java.util.Optional;
 
+/**
+ * Interface used as a model for lambda expressions.
+ */
 public interface Apply {
 	
 	/* -----------------------------------------------------
 	 * Empty interfaces
 	 * ----------------------------------------------------- */
 	
+	/**
+	 * Very similar to the {@link Apply} interface but with the difference that it does not return a value at the
+	 * time of its call. That's why it's called {@code Empty}
+	 *
+	 * @param <T> the type of data you enter as a parameter
+	 */
 	interface Empty<T> extends Apply {
 		
 		/**
@@ -19,19 +28,36 @@ public interface Apply {
 		
 	}
 	
-	interface EmptyError<T> extends Apply {
+	/**
+	 * Very similar to the {@link Apply} interface but with the difference that it can generate
+	 * an error at the time of its call
+	 *
+	 * @param <T> the type of data you enter as a parameter
+	 * @param <E> the type of error when the interface is called
+	 */
+	interface EmptyError<T, E extends Throwable> extends Apply {
 		
 		/**
 		 * Apply configuration to the object and return it as a result
 		 *
 		 * @param item target element to which the changes will be applied
-		 * @throws Exception Error if something goes wrong
+		 * @throws E Error if something goes wrong
 		 */
-		void apply(T item) throws Exception;
+		void apply(T item) throws E;
 		
 	}
 	
-	interface EmptyErrorSafe<T> extends EmptyError<T> {
+	/**
+	 * Very similar to the {@link Apply} interface but with the difference that it can generate
+	 * an error at the time of its call.
+	 * <p>
+	 * Unlike {@link EmptyError} this can be called without generating any errors, but its use
+	 * is not recommended unless you know what you are doing.
+	 *
+	 * @param <T> the type of data you enter as a parameter
+	 * @param <E> the type of error when the interface is called
+	 */
+	interface EmptyErrorSafe<T, E extends Throwable> extends EmptyError<T, E> {
 		
 		/**
 		 * The same behavior of {@link #apply(Object)} but without launch any error
@@ -41,7 +67,7 @@ public interface Apply {
 		default void safeApply(T item) {
 			try {
 				apply(item);
-			} catch (Exception ignored) {
+			} catch (Throwable ignored) {
 			}
 		}
 		
@@ -51,6 +77,13 @@ public interface Apply {
 	 * Result interfaces
 	 * ----------------------------------------------------- */
 	
+	/**
+	 * Very similar to the {@link Apply} interface but with the difference that it does return a value at the
+	 * time of its call. That's why it's called {@code Result}
+	 *
+	 * @param <T> the type of data you enter as a parameter
+	 * @param <V> the result generated when called
+	 */
 	interface Result<T, V> extends Apply {
 		
 		/**
@@ -63,20 +96,39 @@ public interface Apply {
 		
 	}
 	
-	interface ResultError<T, V> extends Apply {
+	/**
+	 * Very similar to the {@link Result} interface but with the difference that it can generate
+	 * an error at the time of its call
+	 *
+	 * @param <T> the type of data you enter as a parameter
+	 * @param <V> the result generated when called
+	 * @param <E> the type of error when the interface is called
+	 */
+	interface ResultError<T, V, E extends Throwable> extends Apply {
 		
 		/**
 		 * Apply configuration to the object and return it as a result
 		 *
 		 * @param item target element to which the changes will be applied
 		 * @return returns the resulting object after applying the configuration
-		 * @throws Exception error if something goes wrong
+		 * @throws E error if something goes wrong
 		 */
-		V apply(T item) throws Exception;
+		V apply(T item) throws E;
 		
 	}
 	
-	interface ResultErrorSafe<T, V> extends ResultError<T, V> {
+	/**
+	 * Very similar to the {@link ResultError} interface but with the difference that it can generate
+	 * an error at the time of its call.
+	 * <p>
+	 * Unlike {@link ResultError} this can be called without generating any errors, but its use
+	 * is not recommended unless you know what you are doing.
+	 *
+	 * @param <T> the type of data you enter as a parameter
+	 * @param <V> the result generated when called
+	 * @param <E> the type of error when the interface is called
+	 */
+	interface ResultErrorSafe<T, V, E extends Throwable> extends ResultError<T, V, E> {
 		
 		/**
 		 * The same behavior of {@link #apply(Object)} but without launch any error
@@ -88,7 +140,7 @@ public interface Apply {
 		default Optional<V> safeApply(T item) {
 			try {
 				return Optional.ofNullable(apply(item));
-			} catch (Exception ignored) {
+			} catch (Throwable ignored) {
 			}
 			return Optional.empty();
 		}

@@ -1,5 +1,10 @@
 package ushiosan.jvm_utilities.lang.random;
 
+import ushiosan.jvm_utilities.lang.collection.elements.Pair;
+
+/**
+ * Enumerated type that identifies what type of text is the one that will be generated randomly
+ */
 public enum TextType {
 	
 	/**
@@ -23,24 +28,18 @@ public enum TextType {
 	ALL_SYMBOLS(33, 126);
 	
 	/**
-	 * ASCII range start
+	 * ASCII start and end range
 	 */
-	public final int start;
-	
-	/**
-	 * ASCII range end
-	 */
-	public final int end;
+	public final Pair<Integer, Integer> range;
 	
 	/**
 	 * Text type constructor
 	 *
-	 * @param start ASCII start
-	 * @param end   ASCII end
+	 * @param start ASCII start range
+	 * @param end   ASCII end range
 	 */
 	TextType(int start, int end) {
-		this.start = start;
-		this.end = end;
+		range = Pair.of(start, end);
 	}
 	
 }

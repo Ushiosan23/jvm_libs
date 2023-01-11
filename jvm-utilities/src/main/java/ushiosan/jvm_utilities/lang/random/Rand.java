@@ -6,6 +6,9 @@ import ushiosan.jvm_utilities.lang.collection.Arrs;
 
 import java.util.Random;
 
+/**
+ * Class containing utilities for pseudorandom actions
+ */
 public final class Rand {
 	
 	/**
@@ -77,7 +80,7 @@ public final class Rand {
 	 */
 	public static @NotNull String getRandomString(int size, @NotNull TextType type, char... ignore) {
 		return getRandom()
-			.ints(type.start, type.end)
+			.ints(type.range.first, type.range.second)
 			// Prevent to use invalid characters
 			.filter(n -> (n <= 57 || n >= 65) && (n <= 90 || n >= 97))
 			// Ignored characters

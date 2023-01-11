@@ -12,6 +12,9 @@ import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 import java.lang.ref.WeakReference;
 import java.util.Optional;
 
+/**
+ * Class containing functionality for general object manipulation, recasting, and data checking.
+ */
 public final class Obj {
 	
 	/**
@@ -155,7 +158,7 @@ public final class Obj {
 	 * @param <T>    generic object type
 	 */
 	public static <T> void notNull(@Nullable T obj, @NotNull Apply.Empty<T> action) {
-		if (!isNull(obj)) action.apply(obj);
+		if (isNotNull(obj)) action.apply(obj);
 	}
 	
 	/* -----------------------------------------------------
@@ -313,6 +316,20 @@ public final class Obj {
 	}
 	
 	/**
+	 * Applies configuration to an object based on a local context. Returns the
+	 * same object but with the configuration already applied.
+	 *
+	 * @param obj    the base object to configure
+	 * @param action the action to execute
+	 * @param <T>    object type
+	 * @return the same object but with the configuration already applied
+	 */
+	public static <T> @NotNull Optional<T> alsoNotNull(@Nullable T obj, Apply.@NotNull Empty<T> action) {
+		notNull(obj, action);
+		return Optional.ofNullable(obj);
+	}
+	
+	/**
 	 * Applies configuration to an object based on a local context. Returns a
 	 * different object depending on the applied configuration.
 	 *
@@ -324,6 +341,20 @@ public final class Obj {
 	 */
 	public static <T, V> @NotNull V apply(@NotNull T obj, Apply.@NotNull Result<T, V> action) {
 		return action.apply(obj);
+	}
+	
+	/**
+	 * Applies configuration to an object based on a local context. Returns a
+	 * different object depending on the applied configuration.
+	 *
+	 * @param obj    the base object to configure
+	 * @param action the action to execute
+	 * @param <T>    object type
+	 * @param <V>    result type
+	 * @return a different object depending on the applied configuration.
+	 */
+	public static <T, V> @NotNull Optional<V> applyNotNull(@Nullable T obj, Apply.@NotNull Result<T, V> action) {
+		return isNull(obj) ? Optional.empty() : Optional.of(apply(obj, action));
 	}
 	
 	/* -----------------------------------------------------

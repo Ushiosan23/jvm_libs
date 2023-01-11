@@ -3,20 +3,23 @@ package ushiosan.jvm_utilities.internal.print.instance;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.lang.Obj;
-import ushiosan.jvm_utilities.lang.collection.Arrs;
-import ushiosan.jvm_utilities.lang.collection.elements.Pair;
+import ushiosan.jvm_utilities.lang.print.PrintObj;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintExclude;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 import ushiosan.jvm_utilities.lang.reflection.FieldUtils;
+import ushiosan.jvm_utilities.lang.reflection.MethodUtils;
+import ushiosan.jvm_utilities.lang.reflection.options.ReflectionOpts;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static ushiosan.jvm_utilities.lang.Obj.cast;
+
+/**
+ * Class with utilities used to print instances dynamically
+ */
 public final class PrintInstance {
 	
 	/* -----------------------------------------------------
@@ -24,19 +27,24 @@ public final class PrintInstance {
 	 * ----------------------------------------------------- */
 	
 	/**
-	 * All invalid method names
+	 * All invalid method names.
+	 * They are really valid, but they are all inside the {@link Object} super class, and
+	 * they are methods that can be omitted and can even become redundant.
 	 */
 	private static final String[] INVALID_METHODS = new String[]{
-		"toString", "getClass", "hashCode", "getDeclaringClass", "ordinal"
+		"toString", "getClass", "hashCode", "getDeclaringClass", "ordinal", "notify", "notifyAll", "wait"
 	};
+	
 	/**
 	 * Empty method array
 	 */
 	private static final Method[] EMPTY_METHODS = new Method[0];
+	
 	/**
 	 * Empty fields array
 	 */
 	private static final Field[] EMPTY_FIELDS = new Field[0];
+	
 	/**
 	 * Default options instance
 	 */
@@ -75,6 +83,7 @@ public final class PrintInstance {
 		}
 		
 	};
+	
 	/**
 	 * Current class instance
 	 */
@@ -125,16 +134,19 @@ public final class PrintInstance {
 		PrintOpts opts = DEFAULT_OPTS;
 		Class<?> definedClass = obj.getClass();
 		
-		while (definedClass != Object.class) {
-			// Check if annotation is present in the selected class
+		while (true) {
+			if (definedClass == Object.class || definedClass.isEnum()) break;
+			
 			if (definedClass.isAnnotationPresent(PrintOpts.class)) {
 				opts = definedClass.getAnnotation(PrintOpts.class);
 				break;
 			}
+			
 			definedClass = definedClass.getSuperclass();
 		}
 		
-		return toStringImpl(obj, opts);
+		return definedClass.isEnum() ? toEnumStringImpl(obj) :
+			   toStringImpl(obj, opts);
 	}
 	
 	/**
@@ -147,10 +159,10 @@ public final class PrintInstance {
 	 * @return object string representation
 	 */
 	private @NotNull String toStringImpl(@NotNull Object obj, @NotNull PrintOpts opts) {
-		Class<?> clazz = obj.getClass();
-		Method[] methods = getAllValidMethods(clazz, opts);
-		Field[] fields = getAllValidFields(clazz, opts);
-		StringBuilder builder = new StringBuilder(opts.shortName() ? clazz.getSimpleName() : Obj.toString(clazz));
+		Class<?> cls = obj.getClass();
+		Method[] methods = getAllValidMethods(cls, opts);
+		Field[] fields = getAllValidFields(cls, opts);
+		StringBuilder builder = new StringBuilder(opts.shortName() ? cls.getSimpleName() : Obj.toString(cls));
 		builder.append("{");
 		
 		try {
@@ -158,7 +170,7 @@ public final class PrintInstance {
 				fields[i].setAccessible(true);
 				if (i != 0) builder.append(", ");
 				builder.append(fields[i].getName()).append("=");
-				builder.append(Obj.toString(fields[i].get(obj)));
+				builder.append(PrintObj.toString(fields[i].get(obj), !opts.shortName()));
 			}
 		} catch (Exception ignored) {
 		}
@@ -178,6 +190,18 @@ public final class PrintInstance {
 	}
 	
 	/**
+	 * Returns the representation of an enumerated type in text.
+	 * This behavior can be configured using class annotations such
+	 * as {@link PrintOpts} and {@link PrintExclude}.
+	 *
+	 * @param enumObj the object to transform
+	 * @return object string representation
+	 */
+	private @NotNull String toEnumStringImpl(@NotNull Object enumObj) {
+		return cast(enumObj, Enum.class).name();
+	}
+	
+	/**
 	 * Returns all valid fields that will be part of the representation in the string
 	 *
 	 * @param cls  the instance class
@@ -185,15 +209,12 @@ public final class PrintInstance {
 	 * @return all valid fields or {@link #EMPTY_FIELDS}
 	 */
 	private Field @NotNull [] getAllValidFields(@NotNull Class<?> cls, @NotNull PrintOpts opts) {
-		Field[] allFields = FieldUtils
-			.getAllClassFields(cls);
+		ReflectionOpts<Field> rOpts = ReflectionOpts.<Field>getDefault()
+			.setOnlyPublic(!opts.privateFieldsAccess())
+			.setDeclaredOnly(false)
+			.addPredicate(FieldUtils.requireAnnotations(true, PrintExclude.class));
 		
-		if (allFields.length == 0) return EMPTY_FIELDS;
-		return Arrays.stream(allFields)
-			.map(it -> Pair.of(it, opts))
-			.filter(this::isValidField)
-			.map(it -> it.first)
-			.toArray(Field[]::new);
+		return FieldUtils.getAllClassFields(cls, rOpts);
 	}
 	
 	/**
@@ -208,62 +229,14 @@ public final class PrintInstance {
 		Pattern suffix = Pattern.compile(opts.getterSuffix());
 		// Check if options are null
 		if (!opts.getterAccess()) return EMPTY_METHODS;
-		return Arrays.stream(cls.getMethods())
-			.map(it -> Pair.of(it, Pair.of(prefix, suffix)))
-			.filter(this::isValidMethod)
-			.map(it -> it.first)
-			.toArray(Method[]::new);
-	}
-	
-	/**
-	 * Validate each field individually
-	 *
-	 * @param pair the pair information
-	 * @return {@code true} if field is valid or {@code false} otherwise
-	 */
-	private boolean isValidField(@NotNull Pair<Field, PrintOpts> pair) {
-		int mods = pair.first.getModifiers();
-		boolean modsState = !Modifier.isAbstract(mods) && !Modifier.isStatic(mods);
+		ReflectionOpts<Method> rOpts = ReflectionOpts.<Method>getDefault()
+			.setOnlyPublic(true)
+			.addPredicate(MethodUtils.validGetterMethod())
+			.addPredicate(MethodUtils.excludeAll(INVALID_METHODS))
+			.addPredicate(MethodUtils.regexMultipleOf(prefix, suffix))
+			.addPredicate(MethodUtils.requireAnnotations(true, PrintExclude.class));
 		
-		// Finalize modifiers check
-		if (Modifier.isProtected(mods) || Modifier.isPrivate(mods)) {
-			modsState = modsState && pair.second.privateFieldsAccess();
-		}
-		
-		return modsState && !pair.first.isAnnotationPresent(PrintExclude.class);
-	}
-	
-	/* -----------------------------------------------------
-	 * Static methods
-	 * ----------------------------------------------------- */
-	
-	/**
-	 * Validate each method individually
-	 *
-	 * @param pair the pair information
-	 * @return {@code true} if method is valid or {@code false} otherwise
-	 */
-	private boolean isValidMethod(@NotNull Pair<Method, Pair<Pattern, Pattern>> pair) {
-		// Temporal variables
-		Method method = pair.first;
-		// Check if method return something
-		if (method.getParameterCount() != 0 || method.getReturnType() == void.class) {
-			return false;
-		}
-		
-		// Match name
-		Matcher pMatch = pair.second.first.matcher(method.getName());
-		Matcher sMatch = pair.second.second.matcher(method.getName());
-		if (!pMatch.find() || !sMatch.find() ||
-			Arrs.contains(INVALID_METHODS, method.getName())) {
-			return false;
-		}
-		
-		// Check methods modifiers
-		int mods = method.getModifiers();
-		boolean modsState = !Modifier.isAbstract(mods) && !Modifier.isPrivate(mods) &&
-							!Modifier.isProtected(mods) && !Modifier.isStatic(mods);
-		return modsState && !method.isAnnotationPresent(PrintExclude.class);
+		return MethodUtils.getAllClassMethods(cls, rOpts);
 	}
 	
 }

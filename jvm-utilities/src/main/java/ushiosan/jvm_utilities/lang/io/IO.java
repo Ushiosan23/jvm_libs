@@ -20,6 +20,15 @@ import java.util.zip.ZipEntry;
 
 import static ushiosan.jvm_utilities.lang.collection.Arrs.INDEX_NOT_FOUND;
 
+/**
+ * Class containing functionality for input and output elements.
+ *
+ * @see File
+ * @see Path
+ * @see ZipEntry
+ * @see java.util.jar.JarEntry
+ * @see java.util.jar.JarFile
+ */
 public final class IO extends IOImpl {
 	
 	/* -----------------------------------------------------
@@ -46,8 +55,6 @@ public final class IO extends IOImpl {
 	
 	/**
 	 * This class cannot be instantiated.
-	 * <p>
-	 * Singleton or utility class mode.
 	 */
 	private IO() {
 	}
@@ -56,10 +63,22 @@ public final class IO extends IOImpl {
 	 * Methods
 	 * ----------------------------------------------------- */
 	
+	/**
+	 * Returns the location name
+	 *
+	 * @param location the location to inspect
+	 * @return the name of the entry
+	 */
 	public static @NotNull String getFilename(@NotNull Path location) {
 		return getNameWithoutSlashes(location.getFileName().toString());
 	}
 	
+	/**
+	 * Returns the file name
+	 *
+	 * @param file the file object
+	 * @return the name of the entry
+	 */
 	public static @NotNull String getFilename(@NotNull File file) {
 		return getNameWithoutSlashes(file.getAbsolutePath());
 	}

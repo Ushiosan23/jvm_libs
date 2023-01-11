@@ -1,5 +1,8 @@
 package ushiosan.jvm_utilities.function;
 
+/**
+ * Interface used for the execution of actions very similar to what is done in the {@link Runnable} interface
+ */
 public interface Run {
 	
 	/**
@@ -9,6 +12,10 @@ public interface Run {
 	 */
 	void invoke() throws Exception;
 	
+	/**
+	 * Interface used for the execution of actions very similar to what is done in the {@link Runnable} interface.
+	 * The difference between the previous interface is that this one prevents the throwing of errors.
+	 */
 	interface Safe extends Run {
 		
 		/**

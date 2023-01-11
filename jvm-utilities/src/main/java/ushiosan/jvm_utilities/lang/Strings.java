@@ -6,6 +6,9 @@ import ushiosan.jvm_utilities.lang.collection.Arrs;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class with utilities for handling text strings
+ */
 public final class Strings {
 	
 	/**

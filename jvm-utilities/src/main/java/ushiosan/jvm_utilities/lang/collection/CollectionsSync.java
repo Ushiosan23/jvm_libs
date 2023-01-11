@@ -6,15 +6,18 @@ import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 import java.util.Collections;
 import java.util.*;
 
+/**
+ * Class that has helper methods for data holders like {@link Map}, {@link List},
+ * {@link Set}, {@link Stack} and {@link Vector}.
+ * <p>
+ * These collections are synchronized which means that they are safe to use in multiple processes.
+ */
 public final class CollectionsSync {
 	
 	/**
 	 * This class cannot be instantiated.
-	 * <p>
-	 * Singleton or utility class mode.
 	 */
-	private CollectionsSync() {
-	}
+	private CollectionsSync() {}
 	
 	/* -----------------------------------------------------
 	 * List methods

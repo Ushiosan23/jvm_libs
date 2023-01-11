@@ -8,6 +8,9 @@ import java.util.Map;
 
 import static ushiosan.jvm_utilities.lang.Obj.cast;
 
+/**
+ * Class that contains functionality for printing objects in detail
+ */
 public final class VerbosePrintObject extends BasePrintObject {
 	
 	/**
@@ -66,6 +69,16 @@ public final class VerbosePrintObject extends BasePrintObject {
 	/* -----------------------------------------------------
 	 * Static methods
 	 * ----------------------------------------------------- */
+	
+	/**
+	 * check if an object is verbose or not
+	 *
+	 * @return verbose status
+	 */
+	@Override
+	protected boolean isVerbose() {
+		return true;
+	}
 	
 	/**
 	 * Map string representation

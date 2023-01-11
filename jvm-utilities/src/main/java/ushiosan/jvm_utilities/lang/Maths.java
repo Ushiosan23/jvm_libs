@@ -1,5 +1,8 @@
 package ushiosan.jvm_utilities.lang;
 
+/**
+ * Class that contains extra utilities for mathematical operations
+ */
 public final class Maths {
 	
 	/**

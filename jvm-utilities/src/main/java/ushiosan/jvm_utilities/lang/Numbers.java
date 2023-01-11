@@ -3,6 +3,9 @@ package ushiosan.jvm_utilities.lang;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
+/**
+ * Class containing functionality for general number manipulation
+ */
 public final class Numbers {
 	
 	/**

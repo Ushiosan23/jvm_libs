@@ -9,6 +9,9 @@ import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintExclude;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 
+/**
+ * Class with utilities used to print objects dynamically
+ */
 public final class PrintObj {
 	
 	/* -----------------------------------------------------

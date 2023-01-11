@@ -1,3 +1,8 @@
+/**
+ * Module containing classes with utilities for handling actions that are
+ * repetitive or too cumbersome to perform continuously. All of these classes are highly
+ * configurable, and you can implement your own functionality if you wish.
+ */
 module com.github.ushiosan.jvm_utilities {
 	requires static org.jetbrains.annotations;
 	
@@ -12,5 +17,6 @@ module com.github.ushiosan.jvm_utilities {
 	exports ushiosan.jvm_utilities.lang.print.annotations;
 	exports ushiosan.jvm_utilities.lang.random;
 	exports ushiosan.jvm_utilities.lang.reflection;
+	exports ushiosan.jvm_utilities.lang.reflection.options;
 	exports ushiosan.jvm_utilities.system;
 }

@@ -15,6 +15,14 @@ import static ushiosan.jvm_utilities.lang.Obj.canCast;
 import static ushiosan.jvm_utilities.lang.Obj.cast;
 import static ushiosan.jvm_utilities.lang.Obj.isAnyTypeOf;
 
+/**
+ * Interface used as a data filter to search for files by regular expression
+ *
+ * @param <T> the type of data you want to filter
+ * @see File
+ * @see Path
+ * @see ZipEntry
+ */
 public interface RegexPredicate<T> extends Predicate<T> {
 	
 	/**
@@ -100,6 +108,13 @@ public interface RegexPredicate<T> extends Predicate<T> {
 		return false;
 	}
 	
+	/**
+	 * Evaluates this predicate on the given argument.
+	 *
+	 * @param path the input argument
+	 * @return {@code true} if the input argument matches the predicate,
+	 * 	otherwise {@code false}
+	 */
 	default boolean testPath(@NotNull Path path) {
 		Path realPath = isFullPathInspect() ? path : path.getFileName();
 		Matcher matcher = getPattern().matcher(realPath.toString());
@@ -107,6 +122,13 @@ public interface RegexPredicate<T> extends Predicate<T> {
 		return matcher.find();
 	}
 	
+	/**
+	 * Evaluates this predicate on the given argument.
+	 *
+	 * @param file the input argument
+	 * @return {@code true} if the input argument matches the predicate,
+	 * 	otherwise {@code false}
+	 */
 	default boolean testFile(@NotNull File file) {
 		String path = isFullPathInspect() ? file.getAbsolutePath() : file.getName();
 		Matcher matcher = getPattern().matcher(path);
@@ -114,6 +136,13 @@ public interface RegexPredicate<T> extends Predicate<T> {
 		return matcher.find();
 	}
 	
+	/**
+	 * Evaluates this predicate on the given argument.
+	 *
+	 * @param entry the input argument
+	 * @return {@code true} if the input argument matches the predicate,
+	 * 	otherwise {@code false}
+	 */
 	default boolean testZipEntry(@NotNull ZipEntry entry) {
 		String path = isFullPathInspect() ? entry.getName() :
 					  IO.getFilename(entry);

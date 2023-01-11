@@ -2,6 +2,9 @@ package ushiosan.jvm_utilities.internal.print.str;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Class that contains functionality for printing arrays in detail
+ */
 public final class VerbosePrintArray extends BasePrintArray {
 	
 	/**

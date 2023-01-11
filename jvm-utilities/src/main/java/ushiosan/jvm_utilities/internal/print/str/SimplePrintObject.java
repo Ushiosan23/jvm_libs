@@ -7,6 +7,9 @@ import java.util.Map;
 
 import static ushiosan.jvm_utilities.lang.Obj.cast;
 
+/**
+ * Class with functionalities for printing objects dynamically
+ */
 public final class SimplePrintObject extends BasePrintObject {
 	
 	/**
@@ -64,6 +67,16 @@ public final class SimplePrintObject extends BasePrintObject {
 	/* -----------------------------------------------------
 	 * Static methods
 	 * ----------------------------------------------------- */
+	
+	/**
+	 * check if an object is verbose or not
+	 *
+	 * @return verbose status
+	 */
+	@Override
+	protected boolean isVerbose() {
+		return false;
+	}
 	
 	/**
 	 * Map string representation

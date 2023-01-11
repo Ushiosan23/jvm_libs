@@ -1,5 +1,8 @@
 package ushiosan.jvm_utilities.error;
 
+/**
+ * Error that represents that a method or action does not have a defined behavior
+ */
 public final class NotImplementedException extends RuntimeException {
 	
 	/* -----------------------------------------------------

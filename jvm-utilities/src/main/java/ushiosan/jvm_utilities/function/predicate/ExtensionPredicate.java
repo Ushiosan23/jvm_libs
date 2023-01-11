@@ -15,6 +15,11 @@ import static ushiosan.jvm_utilities.lang.Obj.canCastNotNull;
 import static ushiosan.jvm_utilities.lang.Obj.cast;
 import static ushiosan.jvm_utilities.lang.Obj.isAnyTypeOf;
 
+/**
+ * Interface that is used as a data model for use filtering files and directories
+ *
+ * @param <T> file data type
+ */
 public interface ExtensionPredicate<T> extends Predicate<T> {
 	
 	/**
@@ -68,10 +73,7 @@ public interface ExtensionPredicate<T> extends Predicate<T> {
 	 *
 	 * @return directory scan status
 	 */
-	default boolean accepDirectoryObjects() {
-		// By default, the result is true
-		return true;
-	}
+	boolean accepDirectoryObjects();
 	
 	/**
 	 * Evaluates this predicate on the given argument.
@@ -99,6 +101,13 @@ public interface ExtensionPredicate<T> extends Predicate<T> {
 		return false;
 	}
 	
+	/**
+	 * Evaluates this predicate on the given argument.
+	 *
+	 * @param path the input argument
+	 * @return {@code true} if the input argument matches the predicate,
+	 * 	otherwise {@code false}
+	 */
 	default boolean testPath(@NotNull Path path) {
 		// If acceptDirectoryObjects is true, all directories are valid
 		if (Files.isDirectory(path)) return accepDirectoryObjects();
@@ -109,6 +118,13 @@ public interface ExtensionPredicate<T> extends Predicate<T> {
 		return extension.filter(s -> Arrs.contains(extensions, s)).isPresent();
 	}
 	
+	/**
+	 * Evaluates this predicate on the given argument.
+	 *
+	 * @param file the input argument
+	 * @return {@code true} if the input argument matches the predicate,
+	 * 	otherwise {@code false}
+	 */
 	default boolean testFile(@NotNull File file) {
 		// If acceptDirectoryObjects is true, all directories are valid
 		if (file.isDirectory()) return accepDirectoryObjects();
@@ -119,6 +135,13 @@ public interface ExtensionPredicate<T> extends Predicate<T> {
 		return extension.filter(s -> Arrs.contains(extensions, s)).isPresent();
 	}
 	
+	/**
+	 * Evaluates this predicate on the given argument.
+	 *
+	 * @param entry the input argument
+	 * @return {@code true} if the input argument matches the predicate,
+	 * 	otherwise {@code false}
+	 */
 	default boolean testZipEntry(@NotNull ZipEntry entry) {
 		// If acceptDirectoryObjects is true, all directories are valid
 		if (entry.isDirectory()) return accepDirectoryObjects();

@@ -2,6 +2,9 @@ package ushiosan.jvm_utilities.internal.print.str;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Class with functionalities for printing arrays dynamically
+ */
 public final class SimplePrintArray extends BasePrintArray {
 	
 	/**

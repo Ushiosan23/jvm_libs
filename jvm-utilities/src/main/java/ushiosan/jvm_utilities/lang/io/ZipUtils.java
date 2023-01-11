@@ -4,6 +4,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.zip.ZipEntry;
 
+/**
+ * Class containing utilities and filters for handling zip files and their contents
+ */
 public final class ZipUtils {
 	
 	/**

@@ -4,6 +4,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Stack;
 
+/**
+ * Class in charge of carrying out reflection processes to the classes
+ */
 public final class ClassUtils {
 	
 	/**

@@ -5,6 +5,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.security.PrivilegedActionException;
 
+/**
+ * Exception used to define if an argument is not of the required valid type
+ * (Normally java has static typing, but it is possible to simulate dynamic typing so this exception makes sense)
+ */
 public class InvalidArgumentTypeException extends Exception {
 	
 	/* -----------------------------------------------------

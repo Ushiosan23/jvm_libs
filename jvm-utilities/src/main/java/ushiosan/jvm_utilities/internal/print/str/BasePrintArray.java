@@ -6,15 +6,15 @@ import ushiosan.jvm_utilities.lang.collection.Arrs;
 
 import static ushiosan.jvm_utilities.lang.Obj.cast;
 
+/**
+ * Class that contains all the basic functionality for printing arrays
+ */
 public abstract class BasePrintArray {
 	
 	/**
 	 * This class cannot be instantiated.
-	 * <p>
-	 * Singleton or utility class mode.
 	 */
-	protected BasePrintArray() {
-	}
+	protected BasePrintArray() {}
 	
 	/* -----------------------------------------------------
 	 * Methods
@@ -44,7 +44,7 @@ public abstract class BasePrintArray {
 		// is to convert the primitive types to object arrays
 		// and use them as a generic object array.
 		Object[] arrayObj = Cls.isPrimitiveArray(obj) ?
-							Arrs.toObjectArray(obj) : cast(obj);
+							Arrs.toUnsafeObjectArray(obj) : cast(obj);
 		return arrayString(cast(arrayObj));
 	}
 	

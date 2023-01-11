@@ -10,6 +10,9 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
+/**
+ * Base class containing functionality for input and output elements
+ */
 public abstract class IOImpl {
 	
 	/**

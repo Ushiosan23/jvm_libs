@@ -1,12 +1,22 @@
 package ushiosan.jvm_utilities.lang.print.annotations;
 
 import org.intellij.lang.annotations.RegExp;
+import ushiosan.jvm_utilities.internal.print.instance.PrintInstance;
+import ushiosan.jvm_utilities.lang.Obj;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Interface used to define the behavior of the object when printing its content dynamically.
+ * This prevents elements that you don't want to expose or some sensitive property from being printed.
+ *
+ * @see PrintInstance#toString(Object)
+ * @see Obj#toInstanceString(Object)
+ * @see PrintExclude
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PrintOpts {

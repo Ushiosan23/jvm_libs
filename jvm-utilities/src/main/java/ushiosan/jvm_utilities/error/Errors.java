@@ -9,6 +9,9 @@ import java.lang.reflect.Constructor;
 
 import static ushiosan.jvm_utilities.lang.Obj.cast;
 
+/**
+ * Class with helper methods for errors and objects of the same type
+ */
 public final class Errors {
 	
 	/**

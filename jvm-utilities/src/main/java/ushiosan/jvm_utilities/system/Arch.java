@@ -10,6 +10,10 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Enumerated type for listing the processor architectures of the
+ * platform on which the JVM is running
+ */
 @PrintOpts(getterAccess = true, getterPrefix = "^(is|name)")
 public enum Arch {
 	

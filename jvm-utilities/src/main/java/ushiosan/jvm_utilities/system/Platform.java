@@ -12,7 +12,10 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@PrintOpts(getterAccess = true, getterPrefix = "^(is|name)")
+/**
+ * Enumerated type for identification of the operating system on which the JVM is running.
+ */
+@PrintOpts
 public enum Platform {
 	/**
 	 * Free BSD operating system family
@@ -63,7 +66,8 @@ public enum Platform {
 	 * @param regex target regular expression to detect the platform
 	 */
 	Platform(@Nullable @RegExp String regex) {
-		pattern = regex != null ? Pattern.compile(regex) : null;
+		pattern = Obj.applyNotNull(regex, Pattern::compile)
+			.orElse(null);
 	}
 	
 	/* -----------------------------------------------------

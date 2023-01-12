@@ -56,6 +56,11 @@ public final class PrintInstance {
 		}
 		
 		@Override
+		public boolean recursive() {
+			return false;
+		}
+		
+		@Override
 		public boolean privateFieldsAccess() {
 			return false;
 		}
@@ -211,6 +216,7 @@ public final class PrintInstance {
 	private Field @NotNull [] getAllValidFields(@NotNull Class<?> cls, @NotNull PrintOpts opts) {
 		ReflectionOpts<Field> rOpts = ReflectionOpts.<Field>getDefault()
 			.setOnlyPublic(!opts.privateFieldsAccess())
+			.setRecursive(opts.recursive())
 			.setDeclaredOnly(false)
 			.addPredicate(FieldUtils.requireAnnotations(true, PrintExclude.class));
 		
@@ -232,6 +238,7 @@ public final class PrintInstance {
 		ReflectionOpts<Method> rOpts = ReflectionOpts.<Method>getDefault()
 			.setOnlyPublic(true)
 			.addPredicate(MethodUtils.validGetterMethod())
+			.setRecursive(opts.recursive())
 			.addPredicate(MethodUtils.excludeAll(INVALID_METHODS))
 			.addPredicate(MethodUtils.regexMultipleOf(prefix, suffix))
 			.addPredicate(MethodUtils.requireAnnotations(true, PrintExclude.class));

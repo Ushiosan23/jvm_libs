@@ -130,7 +130,8 @@ public final class MethodUtils extends ReflectionUtils {
 								   validateMethods(clazz.getMethods(), opts);
 			List<Method> declaredMethods = validateMethods(clazz.getDeclaredMethods(), opts);
 			// Combine all valid methods
-			allMethods = cast(Collections.combine(methods, declaredMethods));
+			Set<Method> tmpMethods = cast(Collections.combine(methods, declaredMethods));
+			allMethods = cast(Collections.combine(allMethods, tmpMethods));
 		}
 		
 		return allMethods.toArray(Method[]::new);

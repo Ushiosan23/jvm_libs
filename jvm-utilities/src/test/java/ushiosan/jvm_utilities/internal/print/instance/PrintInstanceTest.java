@@ -27,7 +27,7 @@ public class PrintInstanceTest {
 	 * Extra types
 	 * --------------------------------------------------------- */
 	
-	@PrintOpts(privateFieldsAccess = true, getterAccess = true)
+	@PrintOpts(privateFieldsAccess = true, getterAccess = true, recursive = true)
 	static class ExampleClass {
 		
 		@PrintExclude

@@ -29,6 +29,13 @@ public @interface PrintOpts {
 	boolean shortName() default true;
 	
 	/**
+	 * Recursively traverses the inheritance tree until it reaches the root class.
+	 *
+	 * @return recursive status
+	 */
+	boolean recursive() default false;
+	
+	/**
 	 * Option to give access to the internal elements of an instance.
 	 *
 	 * @return {@code true} if inner elements can be accessed or {@code false} otherwise

@@ -49,7 +49,7 @@ public final class FieldUtils extends ReflectionUtils {
 		Field[] fields = getAllClassFields(cls, opts);
 		
 		return Arrays.stream(fields)
-			.filter(it -> it.getName().equals(field))
+			.filter(it -> it.getName().contentEquals(field))
 			.findFirst()
 			.orElseThrow(() -> new NoSuchFieldException(field));
 	}

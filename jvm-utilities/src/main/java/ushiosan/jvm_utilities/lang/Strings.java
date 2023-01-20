@@ -1,10 +1,15 @@
 package ushiosan.jvm_utilities.lang;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import ushiosan.jvm_utilities.function.Apply;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static ushiosan.jvm_utilities.lang.Obj.applyNotNull;
+import static ushiosan.jvm_utilities.lang.Obj.isNull;
 
 /**
  * Class with utilities for handling text strings
@@ -27,6 +32,29 @@ public final class Strings {
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
+	
+	/**
+	 * Check if the string is valid. This method verifies that the text is not null or that the
+	 * content is an empty string.
+	 *
+	 * @param content the content you want to verify
+	 * @param action  the action that is executed if the content is valid
+	 */
+	public static void validate(@Nullable String content, Apply.@NotNull Empty<String> action) {
+		if (isNull(content) || content.isBlank()) return;
+		action.apply(content.trim());
+	}
+	
+	/**
+	 * Check if the string is valid. This method verifies that the text is not null or that the
+	 * content is an empty string.
+	 *
+	 * @param content the content you want to verify
+	 * @param action  the action that is executed if the content is valid
+	 */
+	public static void validateC(@Nullable CharSequence content, Apply.@NotNull Empty<CharSequence> action) {
+		validate(applyNotNull(content, CharSequence::toString).orElse(null), action::apply);
+	}
 	
 	/**
 	 * Transforms the text string and converts each word start to an uppercase letter

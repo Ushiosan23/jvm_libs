@@ -353,6 +353,24 @@ public final class Obj {
 	 * @param <V>    result type
 	 * @return a different object depending on the applied configuration.
 	 */
+	public static <T, V> @NotNull Optional<V> applyErr(@NotNull T obj, Apply.@NotNull ResultError<T, V, ?> action) {
+		try {
+			return Optional.ofNullable(action.apply(obj));
+		} catch (Throwable e) {
+			return Optional.empty();
+		}
+	}
+	
+	/**
+	 * Applies configuration to an object based on a local context. Returns a
+	 * different object depending on the applied configuration.
+	 *
+	 * @param obj    the base object to configure
+	 * @param action the action to execute
+	 * @param <T>    object type
+	 * @param <V>    result type
+	 * @return a different object depending on the applied configuration.
+	 */
 	public static <T, V> @NotNull Optional<V> applyNotNull(@Nullable T obj, Apply.@NotNull Result<T, V> action) {
 		return isNull(obj) ? Optional.empty() : Optional.of(apply(obj, action));
 	}

@@ -2,9 +2,11 @@ package ushiosan.jvm_utilities.lang.collection.elements;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 
 import java.util.Map;
+import java.util.Properties;
 
 import static ushiosan.jvm_utilities.lang.Obj.toInstanceString;
 
@@ -91,6 +93,24 @@ public class Pair<T, K> {
 		// Iterate all map
 		for (Map.Entry<T, K> current : map.entrySet()) {
 			result[counter++] = copyOf(current);
+		}
+		return result;
+	}
+	
+	/**
+	 * Extracts all properties entries and converts them to {@link Pair} objects.
+	 *
+	 * @param props the properties to inspect
+	 * @return an array with all property pairs
+	 */
+	public static Pair<String, String> @NotNull [] extractPairs(@NotNull Properties props) {
+		// Temporal variables
+		int counter = 0;
+		Pair<String, String>[] result = Obj.cast(new Pair[props.size()]);
+		
+		// Iterate all map
+		for (var current : props.entrySet()) {
+			result[counter++] = Obj.cast(Pair.copyOf(current));
 		}
 		return result;
 	}

@@ -11,6 +11,7 @@ import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 
 import java.lang.ref.WeakReference;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 /**
  * Class containing functionality for general object manipulation, recasting, and data checking.
@@ -25,9 +26,27 @@ public final class Obj {
 	private Obj() {
 	}
 	
+	/* ---------------------------------------------------------
+	 * Properties
+	 * --------------------------------------------------------- */
+	
+	/**
+	 * Instance of a logger object
+	 */
+	private static final Logger LOG = Logger.getLogger("GLOBAL");
+	
 	/* -----------------------------------------------------
 	 * Object string methods
 	 * ----------------------------------------------------- */
+	
+	/**
+	 * Returns the default global logger
+	 *
+	 * @return the logger instance
+	 */
+	public static Logger logger() {
+		return LOG;
+	}
 	
 	/**
 	 * converts any object to a generic object. Even for primitive types.

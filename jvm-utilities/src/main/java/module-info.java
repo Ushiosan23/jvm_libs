@@ -4,6 +4,7 @@
  * configurable, and you can implement your own functionality if you wish.
  */
 module com.github.ushiosan.jvm_utilities {
+	requires java.logging;
 	requires static org.jetbrains.annotations;
 	
 	exports ushiosan.jvm_utilities.error;

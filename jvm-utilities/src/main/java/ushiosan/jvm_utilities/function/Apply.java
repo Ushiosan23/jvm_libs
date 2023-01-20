@@ -1,6 +1,9 @@
 package ushiosan.jvm_utilities.function;
 
+import ushiosan.jvm_utilities.lang.Obj;
+
 import java.util.Optional;
+import java.util.logging.Level;
 
 /**
  * Interface used as a model for lambda expressions.
@@ -67,7 +70,8 @@ public interface Apply {
 		default void safeApply(T item) {
 			try {
 				apply(item);
-			} catch (Throwable ignored) {
+			} catch (Throwable e) {
+				Obj.logger().log(Level.SEVERE, e.getMessage(), e);
 			}
 		}
 		
@@ -140,7 +144,8 @@ public interface Apply {
 		default Optional<V> safeApply(T item) {
 			try {
 				return Optional.ofNullable(apply(item));
-			} catch (Throwable ignored) {
+			} catch (Throwable e) {
+				Obj.logger().log(Level.SEVERE, e.getMessage(), e);
 			}
 			return Optional.empty();
 		}

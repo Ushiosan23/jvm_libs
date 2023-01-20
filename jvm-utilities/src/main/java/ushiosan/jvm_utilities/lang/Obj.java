@@ -372,7 +372,7 @@ public final class Obj {
 	 * @return a different object depending on the applied configuration.
 	 */
 	public static <T, V> @NotNull Optional<V> applyNotNull(@Nullable T obj, Apply.@NotNull Result<T, V> action) {
-		return isNull(obj) ? Optional.empty() : Optional.of(apply(obj, action));
+		return isNull(obj) ? Optional.empty() : Optional.of(action.apply(obj));
 	}
 	
 	/* -----------------------------------------------------

@@ -322,6 +322,39 @@ public final class Obj {
 	 * @param obj    the base object to configure
 	 * @param action the action to execute
 	 * @param <T>    object type
+	 * @param <E>    the type of error that can occur
+	 * @return the same object but with the configuration already applied
+	 * @throws E error if something goes wrong
+	 */
+	public static <T, E extends Throwable> @NotNull T alsoErr(@NotNull T obj,
+		Apply.@NotNull EmptyError<T, E> action) throws E {
+		action.apply(obj);
+		return obj;
+	}
+	
+	/**
+	 * Applies configuration to an object based on a local context. Returns the
+	 * same object but with the configuration already applied.
+	 *
+	 * @param obj    the base object to configure
+	 * @param action the action to execute
+	 * @param <T>    object type
+	 * @param <E>    the type of error that can occur
+	 * @return the same object but with the configuration already applied
+	 */
+	public static <T, E extends Throwable> @NotNull T alsoErrSafe(@NotNull T obj,
+		Apply.@NotNull EmptyErrorSafe<T, E> action) {
+		action.safeApply(obj);
+		return obj;
+	}
+	
+	/**
+	 * Applies configuration to an object based on a local context. Returns the
+	 * same object but with the configuration already applied.
+	 *
+	 * @param obj    the base object to configure
+	 * @param action the action to execute
+	 * @param <T>    object type
 	 * @return the same object but with the configuration already applied
 	 */
 	public static <T> @NotNull Optional<T> alsoNotNull(@Nullable T obj, Apply.@NotNull Empty<T> action) {
@@ -351,14 +384,29 @@ public final class Obj {
 	 * @param action the action to execute
 	 * @param <T>    object type
 	 * @param <V>    result type
+	 * @param <E>    the type of error that can occur
+	 * @return a different object depending on the applied configuration.
+	 * @throws E error if something goes wrong
+	 */
+	public static <T, V, E extends Throwable> @NotNull V applyErr(@NotNull T obj,
+		Apply.@NotNull ResultError<T, V, E> action) throws E {
+		return action.apply(obj);
+	}
+	
+	/**
+	 * Applies configuration to an object based on a local context. Returns a
+	 * different object depending on the applied configuration.
+	 *
+	 * @param obj    the base object to configure
+	 * @param action the action to execute
+	 * @param <T>    object type
+	 * @param <V>    result type
+	 * @param <E>    the type of error that can occur
 	 * @return a different object depending on the applied configuration.
 	 */
-	public static <T, V> @NotNull Optional<V> applyErr(@NotNull T obj, Apply.@NotNull ResultError<T, V, ?> action) {
-		try {
-			return Optional.ofNullable(action.apply(obj));
-		} catch (Throwable e) {
-			return Optional.empty();
-		}
+	public static <T, V, E extends Throwable> @NotNull Optional<V> applyErrSafe(@NotNull T obj,
+		Apply.@NotNull ResultErrorSafe<T, V, E> action) {
+		return action.safeApply(obj);
 	}
 	
 	/**

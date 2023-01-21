@@ -442,6 +442,39 @@ public final class Obj {
 		return isNull(obj) ? Optional.empty() : Optional.of(action.apply(obj));
 	}
 	
+	/**
+	 * Applies configuration to an object based on a local context. Returns a
+	 * different object depending on the applied configuration.
+	 *
+	 * @param obj    the base object to configure
+	 * @param action the action to execute
+	 * @param <T>    object type
+	 * @param <V>    result type
+	 * @param <E>    the type of error that can occur
+	 * @return a different object depending on the applied configuration.
+	 * @throws E error if something goes wrong
+	 */
+	public static <T, V, E extends Throwable> @NotNull Optional<V> applyErrNotNull(@Nullable T obj,
+		Apply.@NotNull ResultError<T, V, E> action) throws E {
+		return isNull(obj) ? Optional.empty() : Optional.ofNullable(action.apply(obj));
+	}
+	
+	/**
+	 * Applies configuration to an object based on a local context. Returns a
+	 * different object depending on the applied configuration.
+	 *
+	 * @param obj    the base object to configure
+	 * @param action the action to execute
+	 * @param <T>    object type
+	 * @param <V>    result type
+	 * @param <E>    the type of error that can occur
+	 * @return a different object depending on the applied configuration.
+	 */
+	public static <T, V, E extends Throwable> @NotNull Optional<V> applyErrSafeNotNull(@Nullable T obj,
+		Apply.@NotNull ResultErrorSafe<T, V, E> action) {
+		return isNull(obj) ? Optional.empty() : action.safeApply(obj);
+	}
+	
 	/* -----------------------------------------------------
 	 * Internal methods
 	 * ----------------------------------------------------- */

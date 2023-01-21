@@ -1,20 +1,26 @@
 package ushiosan.jvm_utilities.lang;
 
+import org.junit.Assert;
 import org.junit.Test;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 import ushiosan.jvm_utilities.lang.collection.Collections;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
+import ushiosan.jvm_utilities.lang.io.IO;
 
 import java.awt.Dimension;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
+import static ushiosan.jvm_utilities.lang.Obj.applyErrNotNull;
 import static ushiosan.jvm_utilities.lang.Obj.toDetailString;
 import static ushiosan.jvm_utilities.lang.Obj.toObjString;
 
 public class ObjTest {
+	
+	ClassLoader loader = ClassLoader.getSystemClassLoader();
 	
 	@Test
 	public void runTest() {
@@ -31,6 +37,16 @@ public class ObjTest {
 		
 		System.out.println(toObjString(all));
 		System.out.println(toDetailString(all));
+	}
+	
+	@Test
+	public void applyErrTest() throws IOException {
+		var location = applyErrNotNull(loader.getResource("simple.txt"),
+									   IO::pathOf);
+		Assert.assertTrue("Location cannot be null", location.isPresent());
+		System.err.println(location.get());
+		
+		System.err.println("Hello World!");
 	}
 	
 }

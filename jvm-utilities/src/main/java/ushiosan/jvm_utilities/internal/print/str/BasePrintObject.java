@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm_utilities.function.Apply;
 import ushiosan.jvm_utilities.lang.Cls;
+import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.collection.Collections;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 import ushiosan.jvm_utilities.lang.reflection.MethodUtils;
@@ -11,6 +12,7 @@ import ushiosan.jvm_utilities.lang.reflection.options.ReflectionOpts;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +52,7 @@ public abstract class BasePrintObject {
 		attach(this::toEntryString, Map.Entry.class);
 		attach(this::toMapString, Map.class);
 		attach(this::toStringString, String.class, CharSequence.class);
+		attach(this::toPathString, Path.class);
 		// Should always go last to prevent unexpected behavior
 		attach(this::toObjectString, Object.class);
 	}
@@ -78,76 +81,9 @@ public abstract class BasePrintObject {
 		return "<null>";
 	}
 	
-	/**
-	 * String representation
-	 *
-	 * @param obj the object to convert
-	 * @return an object string representation
-	 */
-	protected String toStringString(@NotNull Object obj) {
-		return String.format("\"%s\"", obj);
-	}
-	
-	/**
-	 * Entry string representation
-	 *
-	 * @param obj the object to convert
-	 * @return an object string representation
-	 */
-	protected @NotNull String toEntryString(@NotNull Object obj) {
-		Map.Entry<?, ?> entry = cast(obj, Map.Entry.class);
-		return String.format("%s=%s", toString(entry.getKey()), toString(entry.getValue()));
-	}
-	
-	/**
-	 * Generic object string representation
-	 *
-	 * @param obj the object to convert
-	 * @return an object string representation
-	 */
-	protected @NotNull String toObjectString(@NotNull Object obj) {
-		// Temporal variables
-		Class<?> clazz = obj.getClass();
-		ReflectionOpts<Method> opts = ReflectionOpts.<Method>getDefault()
-			.setDeclaredOnly(true)
-			.setSkipAbstracts(true)
-			.setOnlyPublic(true);
-		// Verify that the object has the method "toString" defined to call it instead.
-		try {
-			Method toStringMethod = MethodUtils.findMethodObj(obj, "toString", opts);
-			if (toStringMethod.getDeclaringClass() == clazz) {
-				throw new IllegalAccessException("Recursive call");
-			}
-			
-			toStringMethod.setAccessible(true);
-			return cast(toStringMethod.invoke(obj), String.class);
-		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-			return String.format("(@%X) %s", obj.hashCode(), getInstance(isVerbose()).toClassString(clazz));
-		}
-	}
-	
 	/* -----------------------------------------------------
 	 * String methods
 	 * ----------------------------------------------------- */
-	
-	/**
-	 * Class string representation
-	 *
-	 * @param obj the object to convert
-	 * @return an object string representation
-	 */
-	protected @NotNull String toClassString(@NotNull Object obj) {
-		Class<?> clazz = cast(obj, Class.class);
-		String name = "";
-		// Check if class is a primitive type
-		if (clazz.isPrimitive() || clazz.isArray()) {
-			name = clazz.getCanonicalName();
-		}
-		if (name.isBlank()) {
-			name = isVerbose() ? clazz.getName() : clazz.getSimpleName();
-		}
-		return name;
-	}
 	
 	/**
 	 * Insert new printable extension to the instance
@@ -209,6 +145,87 @@ public abstract class BasePrintObject {
 		return result;
 	}
 	
+	/* ---------------------------------------------------------
+	 * Internal methods
+	 * --------------------------------------------------------- */
+	
+	/**
+	 * String representation
+	 *
+	 * @param obj the object to convert
+	 * @return an object string representation
+	 */
+	protected String toStringString(@NotNull Object obj) {
+		return String.format("\"%s\"", obj);
+	}
+	
+	/**
+	 * Entry string representation
+	 *
+	 * @param obj the object to convert
+	 * @return an object string representation
+	 */
+	protected @NotNull String toEntryString(@NotNull Object obj) {
+		Map.Entry<?, ?> entry = cast(obj, Map.Entry.class);
+		return String.format("%s=%s", toString(entry.getKey()), toString(entry.getValue()));
+	}
+	
+	/**
+	 * Generic object string representation
+	 *
+	 * @param obj the object to convert
+	 * @return an object string representation
+	 */
+	protected @NotNull String toObjectString(@NotNull Object obj) {
+		// Temporal variables
+		Class<?> clazz = obj.getClass();
+		ReflectionOpts<Method> opts = ReflectionOpts.<Method>getDefault()
+			.setDeclaredOnly(true)
+			.setSkipAbstracts(true)
+			.setOnlyPublic(true);
+		// Verify that the object has the method "toString" defined to call it instead.
+		try {
+			Method toStringMethod = MethodUtils.findMethodObj(obj, "toString", opts);
+			if (toStringMethod.getDeclaringClass() == clazz) {
+				throw new IllegalAccessException("Recursive call");
+			}
+			
+			toStringMethod.setAccessible(true);
+			return cast(toStringMethod.invoke(obj), String.class);
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+			return String.format("(@%X) %s", obj.hashCode(), getInstance(isVerbose()).toClassString(clazz));
+		}
+	}
+	
+	/**
+	 * Class string representation
+	 *
+	 * @param obj the object to convert
+	 * @return an object string representation
+	 */
+	protected @NotNull String toClassString(@NotNull Object obj) {
+		Class<?> clazz = cast(obj, Class.class);
+		String name = "";
+		// Check if class is a primitive type
+		if (clazz.isPrimitive() || clazz.isArray()) {
+			name = clazz.getCanonicalName();
+		}
+		if (name.isBlank()) {
+			name = isVerbose() ? clazz.getName() : clazz.getSimpleName();
+		}
+		return name;
+	}
+	
+	/**
+	 * Path string representation
+	 *
+	 * @param obj the object to convert
+	 * @return an object string representation
+	 */
+	protected @NotNull String toPathString(@NotNull Object obj) {
+		return Obj.cast(obj, Path.class).toAbsolutePath().toString();
+	}
+	
 	/**
 	 * Collection string representation
 	 *
@@ -216,10 +233,6 @@ public abstract class BasePrintObject {
 	 * @return an object string representation
 	 */
 	protected abstract @NotNull String toCollectionString(@NotNull Object obj);
-	
-	/* -----------------------------------------------------
-	 * Internal methods
-	 * ----------------------------------------------------- */
 	
 	/**
 	 * Map string representation

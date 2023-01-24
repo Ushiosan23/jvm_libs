@@ -223,7 +223,7 @@ public abstract class BasePrintObject {
 	 * @return an object string representation
 	 */
 	protected @NotNull String toPathString(@NotNull Object obj) {
-		return Obj.cast(obj, Path.class).toAbsolutePath().toString();
+		return String.format("\"%s\"", Obj.cast(obj, Path.class).toAbsolutePath());
 	}
 	
 	/**

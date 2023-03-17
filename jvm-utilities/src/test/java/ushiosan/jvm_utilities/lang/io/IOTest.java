@@ -5,12 +5,14 @@ import org.junit.Test;
 import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.zip.ZipFile;
 
+import static ushiosan.jvm_utilities.lang.io.IO.getFileHashStr;
 import static ushiosan.jvm_utilities.lang.io.IO.pathOf;
 
 public class IOTest {
@@ -140,6 +142,27 @@ public class IOTest {
 			
 			System.out.println(entries);
 		}
+	}
+	
+	@Test
+	public void getFileHashTest() throws IOException {
+		URL location = loader.getResource("example.file.properties");
+		Assert.assertNotNull("Location not found", location);
+		
+		Path filePath = pathOf(location);
+		String fileHash256 = getFileHashStr(filePath, StandardAlgorithms.SHA256);
+		String fileHash5012 = getFileHashStr(filePath, StandardAlgorithms.SHA512);
+		
+		Assert.assertEquals(
+			"Invalid File Hash",
+			"343591a14d56d2108bf15877c599a9d5939fbf8253ec1e90f8375f39cf3a0c5ec648cd2a2e64191c269c3fb7ddad07864763e58142087ce381e9ff5a6f46c2b4",
+			fileHash5012
+		);
+		Assert.assertEquals(
+			"Invalid File Hash",
+			"957e268487ff0c6092dfeda46199ba7aae34b234801471786853cb6471db1de8",
+			fileHash256
+		);
 	}
 	
 }

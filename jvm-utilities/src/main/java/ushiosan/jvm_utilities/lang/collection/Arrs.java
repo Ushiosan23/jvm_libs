@@ -257,7 +257,7 @@ public final class Arrs extends ArrsPrimitive {
 	 * @return a converted array object
 	 */
 	private static Object @NotNull [] toObjectArrayImpl(@NotNull Object array) {
-		// Validate array content
+		// Check array content
 		Class<?> cls = array.getClass();
 		if (!cls.isArray()) throw new IllegalArgumentException("Invalid array type.");
 		

@@ -4,19 +4,28 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm_utilities.internal.io.IOImpl;
 import ushiosan.jvm_utilities.lang.Obj;
+import ushiosan.jvm_utilities.lang.collection.Arrs;
+import ushiosan.jvm_utilities.system.Arch;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import static ushiosan.jvm_utilities.lang.collection.Arrs.INDEX_NOT_FOUND;
 
@@ -39,15 +48,27 @@ public final class IO extends IOImpl {
 	 * Empty extensions array
 	 */
 	public static final String[] EMPTY_EXTENSIONS = new String[0];
+	
 	/**
 	 * Character used to identify all file extensions
 	 */
 	public static final char EXTENSION_IDENTIFIER = '.';
+	
 	/**
 	 * Error message to invalid file type
 	 */
 	private static final String INVALID_FILE_TYPE =
 		"The argument is not valid \"%s\" type. A \"%s\" given";
+	
+	/**
+	 * Hash Algorithm for {@link #getFileHashImpl(InputStream, String)} Function.
+	 * It must be remembered that 64-bit platforms work better with 64-bit algorithms
+	 * such as SHA-512 and 32-bit platforms with SHA-256, but it is possible to use both
+	 * on any platform, it is only done this way for performance reasons.
+	 */
+	private static final String DEFAULT_ALGORITHM = (Arch.getRunningArch() == Arch.X64) ?
+													StandardAlgorithms.SHA512 :
+													StandardAlgorithms.SHA256;
 	
 	/* -----------------------------------------------------
 	 * Constructors
@@ -289,6 +310,172 @@ public final class IO extends IOImpl {
 	}
 	
 	/* -----------------------------------------------------
+	 * Hashing methods
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash bytes.
+	 *
+	 * @param path      the file to inspect
+	 * @param algorithm the hash algorithm
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static byte[] getFileHash(@NotNull Path path, @NotNull String algorithm) throws IOException {
+		return getFileHashImpl(Files.newInputStream(path), algorithm);
+	}
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash bytes.
+	 *
+	 * @param path the file to inspect
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static byte[] getFileHash(@NotNull Path path) throws IOException {
+		return getFileHash(path, DEFAULT_ALGORITHM);
+	}
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash bytes.
+	 *
+	 * @param file      the file to inspect
+	 * @param algorithm the hash algorithm
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static byte[] getFileHash(@NotNull File file, @NotNull String algorithm) throws IOException {
+		return getFileHashImpl(new FileInputStream(file), algorithm);
+	}
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash bytes.
+	 *
+	 * @param file the file to inspect
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static byte[] getFileHash(@NotNull File file) throws IOException {
+		return getFileHash(file, DEFAULT_ALGORITHM);
+	}
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash bytes.
+	 *
+	 * @param zipFile   the root zip file
+	 * @param entry     the file to inspect
+	 * @param algorithm the hash algorithm
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static byte[] getFileHash(@NotNull ZipFile zipFile, @NotNull ZipEntry entry, @NotNull String algorithm) throws
+		IOException {
+		return getFileHashImpl(zipFile.getInputStream(entry), algorithm);
+	}
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash bytes.
+	 *
+	 * @param zipFile the root zip file
+	 * @param entry   the file to inspect
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static byte[] getFileHash(@NotNull ZipFile zipFile, @NotNull ZipEntry entry) throws IOException {
+		return getFileHash(zipFile, entry, DEFAULT_ALGORITHM);
+	}
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash as hexadecimal string.
+	 *
+	 * @param path      the file to inspect
+	 * @param algorithm the hash algorithm
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static @NotNull String getFileHashStr(@NotNull Path path, @NotNull String algorithm) throws IOException {
+		return Arrays.stream(Arrs.toObjectArray(getFileHash(path, algorithm)))
+			.map(it -> String.format("%02x", it))
+			.collect(Collectors.joining());
+	}
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash as hexadecimal string.
+	 *
+	 * @param path the file to inspect
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static @NotNull String getFileHashStr(@NotNull Path path) throws IOException {
+		return getFileHashStr(path, DEFAULT_ALGORITHM);
+	}
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash as hexadecimal string.
+	 *
+	 * @param file      the file to inspect
+	 * @param algorithm the hash algorithm
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static @NotNull String getFileHashStr(@NotNull File file, @NotNull String algorithm) throws IOException {
+		return Arrays.stream(Arrs.toObjectArray(getFileHash(file, algorithm)))
+			.map(it -> String.format("%02x", it))
+			.collect(Collectors.joining());
+	}
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash as hexadecimal string.
+	 *
+	 * @param file the file to inspect
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static @NotNull String getFileHashStr(@NotNull File file) throws IOException {
+		return getFileHashStr(file, DEFAULT_ALGORITHM);
+	}
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash as hexadecimal string.
+	 *
+	 * @param zipFile   the root zip file
+	 * @param entry     the file to inspect
+	 * @param algorithm the hash algorithm
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static @NotNull String getFileHashStr(@NotNull ZipFile zipFile, @NotNull ZipEntry entry,
+		@NotNull String algorithm) throws IOException {
+		return Arrays.stream(Arrs.toObjectArray(getFileHash(zipFile, entry, algorithm)))
+			.map(it -> String.format("%02x", it))
+			.collect(Collectors.joining());
+	}
+	
+	/**
+	 * Returns the hash of a file depending on the given configuration.
+	 * This method returns the hash as hexadecimal string.
+	 *
+	 * @param zipFile the root zip file
+	 * @param entry   the file to inspect
+	 * @return the hash result
+	 * @throws IOException error to open file
+	 */
+	public static @NotNull String getFileHashStr(@NotNull ZipFile zipFile, @NotNull ZipEntry entry) throws IOException {
+		return getFileHashStr(zipFile, entry, DEFAULT_ALGORITHM);
+	}
+	
+	/* -----------------------------------------------------
 	 * User methods
 	 * ----------------------------------------------------- */
 	
@@ -520,6 +707,31 @@ public final class IO extends IOImpl {
 		// that defines the file format
 		int lastIndex = extensions.length - 1;
 		return Optional.of(extensions[lastIndex]);
+	}
+	
+	/**
+	 * Returns the hash of the given stream
+	 *
+	 * @param stream    the content stream
+	 * @param algorithm hash algorithm
+	 * @return return the stream hash
+	 * @throws IOException error to read content or algorithm not exists
+	 */
+	@SuppressWarnings("StatementWithEmptyBody")
+	static byte[] getFileHashImpl(@NotNull InputStream stream, @NotNull String algorithm) throws IOException {
+		try (stream) {
+			// Generate message digest instance
+			MessageDigest digest = MessageDigest.getInstance(algorithm);
+			DigestInputStream digestStream = new DigestInputStream(stream, digest);
+			byte[] buffer = new byte[4096];
+			
+			// Generate hash file
+			while (digestStream.read(buffer) != -1) ;
+			
+			return digest.digest();
+		} catch (NoSuchAlgorithmException e) {
+			throw new IOException(e);
+		}
 	}
 	
 }

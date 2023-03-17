@@ -79,16 +79,21 @@ public enum Arch {
 	 * @return Returns the architecture where the JVM runs or UNKNOWN if the
 	 * 	architecture is not listed
 	 */
-	@SuppressWarnings("ConstantConditions")
+	@SuppressWarnings("DataFlowIssue")
 	public static Arch getRunningArch() {
 		// Temporal variables
 		String nativeArch = getRawArch();
 		Arch[] allValidArch = Arrays.stream(values())
-			.filter(Obj::isNotNull)
+			.filter(it -> Obj.isNotNull(it.pattern))
 			.toArray(Arch[]::new);
 		
 		// Iterate all architectures
 		for (Arch arch : allValidArch) {
+			// The editor detects this line as a possible candidate for
+			// launch a "NullPointerException" error when it was previously verified
+			// that this is not possible.
+			// For that reason an annotation "SuppressWarnings("DataFlowIssue")" is used
+			// which removes such a warning.
 			Matcher matcher = arch.pattern.matcher(nativeArch);
 			if (matcher.find()) {
 				return arch;

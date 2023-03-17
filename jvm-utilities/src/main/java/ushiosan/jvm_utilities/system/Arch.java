@@ -65,7 +65,7 @@ public enum Arch {
 	 *
 	 * @return the current platform architecture
 	 */
-	public static String getRawArch() {
+	public static @NotNull String getRawArch() {
 		return System.getProperty("os.arch");
 	}
 	
@@ -80,7 +80,7 @@ public enum Arch {
 	 * 	architecture is not listed
 	 */
 	@SuppressWarnings("DataFlowIssue")
-	public static Arch getRunningArch() {
+	public static @NotNull Arch getRunningArch() {
 		// Temporal variables
 		String nativeArch = getRawArch();
 		Arch[] allValidArch = Arrays.stream(values())
@@ -101,6 +101,18 @@ public enum Arch {
 		}
 		
 		return UNKNOWN;
+	}
+	
+	/**
+	 * Emulates some desired architecture or returns the architecture that is currently running.
+	 * This is only used for experimentation or debugging purposes.
+	 *
+	 * @param emulate target arch emulation
+	 * @return the running arch or emulated arch
+	 */
+	public static @NotNull Arch getRunningEmulateArch(@Nullable Arch emulate) {
+		if (Obj.isNotNull(emulate)) return emulate;
+		return getRunningArch();
 	}
 	
 	/**

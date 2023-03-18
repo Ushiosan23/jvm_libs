@@ -10,13 +10,14 @@ import java.lang.reflect.Field;
 public class FieldUtilsTest {
 	
 	@Test
-	public void runTest() throws NoSuchFieldException, IllegalAccessException {
+	public void findFieldObjTest() throws NoSuchFieldException, IllegalAccessException {
 		ExampleClass instance = new ExampleClass3();
 		var opts = ReflectionOpts.<Field>getDefault()
 			.setRecursive(false)
 			.setOnlyPublic(false);
 		Field field = FieldUtils.findFieldObj(instance, "notContentField", opts);
 		
+		System.out.println("findFieldObjTest()");
 		System.err.println(opts);
 		System.err.println(instance);
 		
@@ -25,6 +26,7 @@ public class FieldUtilsTest {
 		field.set(instance, "Some text in notContentField Field");
 		
 		System.err.println(instance);
+		System.out.println();
 	}
 	
 	

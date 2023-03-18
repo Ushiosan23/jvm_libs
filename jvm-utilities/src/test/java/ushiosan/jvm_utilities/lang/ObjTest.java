@@ -7,7 +7,7 @@ import ushiosan.jvm_utilities.lang.collection.Collections;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 import ushiosan.jvm_utilities.lang.io.IO;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +23,7 @@ public class ObjTest {
 	ClassLoader loader = ClassLoader.getSystemClassLoader();
 	
 	@Test
-	public void runTest() {
+	public void toObjectStringTest() {
 		List<String> strings = Collections.listOf("Hello", ",", "World!");
 		int[] ints = Arrs.intOf(2, 4, 6, 8, 10);
 		IntStream intStream = Arrays.stream(ints);
@@ -35,8 +35,10 @@ public class ObjTest {
 		byte[] bytes = Arrs.byteOf(0x0, 0xb1f, 12);
 		Object[] all = Arrs.of(strings, ints, objectMap, bytes, intStream);
 		
+		System.out.println("toObjectStringTest()");
 		System.out.println(toObjString(all));
 		System.out.println(toDetailString(all));
+		System.out.println();
 	}
 	
 	@Test
@@ -44,9 +46,10 @@ public class ObjTest {
 		var location = applyErrNotNull(loader.getResource("simple.txt"),
 									   IO::pathOf);
 		Assert.assertTrue("Location cannot be null", location.isPresent());
-		System.err.println(location.get());
 		
-		System.err.println("Hello World!");
+		System.out.println("applyErrTest()");
+		System.err.println(location.get());
+		System.out.println();
 	}
 	
 }

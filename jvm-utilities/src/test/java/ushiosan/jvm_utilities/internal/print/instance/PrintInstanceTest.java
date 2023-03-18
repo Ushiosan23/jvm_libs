@@ -11,7 +11,7 @@ import static ushiosan.jvm_utilities.lang.Obj.toInstanceString;
 public class PrintInstanceTest {
 	
 	@Test
-	public void runTest() throws Exception {
+	public void toInstanceStringTest() throws Exception {
 		ExampleClass example = new ExampleClass3();
 		String instanceStr = toInstanceString(example);
 		
@@ -19,8 +19,11 @@ public class PrintInstanceTest {
 							"ExampleClass3{nothing=\"Hello, World!\", getNothing()=\"Hello, World!\"}",
 							instanceStr);
 		
-		System.err.println(example);
+		
+		System.out.println("toInstanceStringTest()");
+		System.err.println(Obj.toString(example));
 		System.err.println(instanceStr);
+		System.out.println();
 	}
 	
 	/* ---------------------------------------------------------

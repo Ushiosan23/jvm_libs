@@ -21,23 +21,24 @@ public class IOTest {
 		.getSystemClassLoader();
 	
 	@Test
-	public void getBaseName() throws Exception {
+	public void getBaseNameTest() throws Exception {
 		URL location = loader.getResource("simple.txt");
-		Assert.assertNotNull("Location not found.", location);
+		Assert.assertNotNull("File not found.", location);
 		
 		Path filePath = pathOf(location);
 		String basename = IO.getBaseName(filePath);
 		
 		Assert.assertEquals("simple", basename);
-		System.out.println(
-			Obj.toString(Arrs.of(filePath, basename))
-		);
+		
+		System.out.println("getBaseNameTest()");
+		System.out.println(Obj.toString(Arrs.of(filePath, basename)));
+		System.out.println();
 	}
 	
 	@Test
-	public void getZipBaseName() throws Exception {
+	public void getZipBaseNameTest() throws Exception {
 		URL location = loader.getResource("zip-example.zip");
-		Assert.assertNotNull("Location not found.", location);
+		Assert.assertNotNull("File not found.", location);
 		
 		Path filePath = pathOf(location);
 		try (var zipFile = new ZipFile(filePath.toFile())) {
@@ -50,28 +51,31 @@ public class IOTest {
 								  IO.getExtensionImpl(IO.getAllExtensionsImpl(entry)).isEmpty());
 			}
 			
+			System.out.println("getZipBaseNameTest()");
 			System.out.println(entries);
+			System.out.println();
 		}
 	}
 	
 	@Test
-	public void getAllExtensions() throws Exception {
+	public void getAllExtensionsTest() throws Exception {
 		URL location = loader.getResource("example.file.properties");
-		Assert.assertNotNull("Location not found.", location);
+		Assert.assertNotNull("File not found.", location);
 		
 		Path filePath = pathOf(location);
 		String[] extensions = IO.getAllExtensions(filePath);
 		
 		Assert.assertEquals("Inconsistent number of extensions.", 2, extensions.length);
-		System.out.println(
-			Obj.toString(Arrs.of(filePath, extensions))
-		);
+		
+		System.out.println("getAllExtensionsTest()");
+		System.out.println(Obj.toString(Arrs.of(filePath, extensions)));
+		System.out.println();
 	}
 	
 	@Test
-	public void getZipAllExtensions() throws Exception {
+	public void getZipAllExtensionsTest() throws Exception {
 		URL location = loader.getResource("zip-example.zip");
-		Assert.assertNotNull("Location not found.", location);
+		Assert.assertNotNull("File not found.", location);
 		
 		Path filePath = pathOf(location);
 		try (var zipFile = new ZipFile(filePath.toFile())) {
@@ -80,28 +84,31 @@ public class IOTest {
 				.map(IO::getAllExtensions)
 				.collect(Collectors.toUnmodifiableList());
 			
+			System.out.println("getZipAllExtensionsTest()");
 			System.out.println(Obj.toString(entries));
+			System.out.println();
 		}
 	}
 	
 	@Test
-	public void getExtension() throws Exception {
+	public void getExtensionTest() throws Exception {
 		URL location = loader.getResource("example.file.properties");
-		Assert.assertNotNull("Location not found.", location);
+		Assert.assertNotNull("File not found.", location);
 		
 		Path filePath = pathOf(location);
 		Optional<String> extension = IO.getExtension(filePath);
 		
-		Assert.assertTrue("The file has no extensions", extension.isPresent());
-		System.out.println(
-			Obj.toString(Arrs.of(filePath, extension))
-		);
+		Assert.assertTrue("The file does not contain extensions", extension.isPresent());
+		
+		System.out.println("getExtensionTest()");
+		System.out.println(Obj.toString(Arrs.of(filePath, extension)));
+		System.out.println();
 	}
 	
 	@Test
-	public void getZipExtension() throws Exception {
+	public void getZipExtensionTest() throws Exception {
 		URL location = loader.getResource("zip-example.zip");
-		Assert.assertNotNull("Location not found.", location);
+		Assert.assertNotNull("File not found.", location);
 		
 		Path filePath = pathOf(location);
 		try (var zipFile = new ZipFile(filePath.toFile())) {
@@ -110,28 +117,31 @@ public class IOTest {
 				.map(IO::getExtension)
 				.collect(Collectors.toUnmodifiableList());
 			
+			System.out.println("getZipExtensionTest()");
 			System.out.println(entries);
+			System.out.println();
 		}
 	}
 	
 	@Test
-	public void getExtensionUnsafe() throws Exception {
+	public void getExtensionUnsafeTest() throws Exception {
 		URL location = loader.getResource("example.file.properties");
-		Assert.assertNotNull("Location not found.", location);
+		Assert.assertNotNull("File not found.", location);
 		
 		Path filePath = pathOf(location);
 		String extension = IO.getExtensionUnsafe(filePath);
 		
 		Assert.assertEquals("The file has no extensions", "properties", extension);
-		System.out.println(
-			Obj.toString(Arrs.of(filePath, extension))
-		);
+		
+		System.out.println("getExtensionUnsafeTest()");
+		System.out.println(Obj.toString(Arrs.of(filePath, extension)));
+		System.out.println();
 	}
 	
 	@Test
-	public void getZipExtensionUnsafe() throws Exception {
+	public void getZipExtensionUnsafeTest() throws Exception {
 		URL location = loader.getResource("zip-example.zip");
-		Assert.assertNotNull("Location not found.", location);
+		Assert.assertNotNull("File not found.", location);
 		
 		Path filePath = pathOf(location);
 		try (var zipFile = new ZipFile(filePath.toFile())) {
@@ -140,14 +150,16 @@ public class IOTest {
 				.map(IO::getExtensionUnsafe)
 				.collect(Collectors.toUnmodifiableList());
 			
+			System.out.println("getZipExtensionUnsafe()");
 			System.out.println(entries);
+			System.out.println();
 		}
 	}
 	
 	@Test
 	public void getFileHashTest() throws IOException {
 		URL location = loader.getResource("example.file.properties");
-		Assert.assertNotNull("Location not found", location);
+		Assert.assertNotNull("File not found", location);
 		
 		Path filePath = pathOf(location);
 		String fileHash256 = getFileHashStr(filePath, StandardAlgorithms.SHA256);

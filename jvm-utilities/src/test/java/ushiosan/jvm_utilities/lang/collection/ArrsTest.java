@@ -12,37 +12,40 @@ import static ushiosan.jvm_utilities.lang.Obj.toObjString;
 public class ArrsTest {
 	
 	@Test
-	public void runTest() {
+	public void arrOfTest() {
 		boolean[] boolArr = Arrs.booleanOf(true, false, false, false);
 		char[] charArr = Arrs.charOf('H', 'e', 'l', 'l', 'o', '\0');
 		byte[] byteArr = Arrs.byteOf(12, 24, 12, 21);
 		short[] shorArr = Arrs.shortOf(12, 21, 134, 435);
 		int[] intArr = Arrs.intOf(2, 4, 6, 12893, 1213, 1213);
 		
+		System.out.println("arrOfTest()");
 		System.out.println(java.util.Arrays.toString(boolArr));
 		System.out.println(java.util.Arrays.toString(charArr));
 		System.out.println(java.util.Arrays.toString(byteArr));
 		System.out.println(java.util.Arrays.toString(shorArr));
 		System.out.println(java.util.Arrays.toString(intArr));
+		System.out.println();
 	}
 	
 	@Test
-	public void conversionTest() {
+	public void toObjectArrayValidTest() {
 		boolean[] boolArr = Arrs.booleanOf(true, false, false, false);
 		char[] charArr = Arrs.charOf('H', 'e', 'l', 'l', 'o', '\0');
 		byte[] byteArr = Arrs.byteOf(12, 24, 12, 21);
 		short[] shorArr = Arrs.shortOf(12, 21, 134, 435);
 		int[] intArr = Arrs.intOf(2, 4, 6, 12893, 1213, 1213);
 		
-		Object[] boolArrObj = Arrs.toObjectArray(boolArr);
+		System.out.println("toObjectArrayValidTest()");
+		Boolean[] boolArrObj = Arrs.toObjectArray(boolArr);
 		Assert.assertEquals("Invalid conversion", boolArr.length, boolArrObj.length);
-		Object[] charArrObj = Arrs.toObjectArray(charArr);
+		Character[] charArrObj = Arrs.toObjectArray(charArr);
 		Assert.assertEquals("Invalid conversion", charArr.length, charArrObj.length);
-		Object[] byteArrObj = Arrs.toObjectArray(byteArr);
+		Byte[] byteArrObj = Arrs.toObjectArray(byteArr);
 		Assert.assertEquals("Invalid conversion", byteArr.length, byteArrObj.length);
-		Object[] shorArrObj = Arrs.toObjectArray(shorArr);
+		Short[] shorArrObj = Arrs.toObjectArray(shorArr);
 		Assert.assertEquals("Invalid conversion", shorArr.length, shorArrObj.length);
-		Object[] intArrObj = Arrs.toObjectArray(intArr);
+		Integer[] intArrObj = Arrs.toObjectArray(intArr);
 		Assert.assertEquals("Invalid conversion", intArr.length, intArrObj.length);
 	}
 	
@@ -51,22 +54,21 @@ public class ArrsTest {
 		// Primitives
 		int[] intArr = Arrs.intOf(2, 4, 6, 12893, 1213, 1213);
 		float[] floatArr = Arrs.floatOf(12.2f, 2123f, 31212.21f);
-		// Objects
-		Number[] intArrObj = Arrs.toObjectArray(intArr);
-		Number[] floatArrObj = Arrs.toObjectArray(floatArr);
 		
 		Assert.assertTrue("intIndexOf not found",
-						  Arrs.contains(intArrObj, 1213));
+						  Arrs.contains(intArr, 1213));
 		Assert.assertTrue("floatIndexOf not found",
-						  Arrs.contains(floatArrObj, 31212.21f));
+						  Arrs.contains(floatArr, 31212.21f));
 	}
 	
 	@Test
-	public void convertTest() {
+	public void transformTest() {
 		String[] regex = Arrs.of(".+", "[A-Za-z]+", "\\d+");
 		Pattern[] pattern = Arrs.transform(regex, Pattern::compile, Pattern[]::new);
 		
+		System.out.println("transformTest()");
 		System.err.println(Arrays.toString(pattern));
+		System.out.println();
 	}
 	
 	@Test
@@ -79,9 +81,11 @@ public class ArrsTest {
 		Integer[] objAr2 = Arrs.toObjectArray(ar2);
 		Number[] objAr3 = Arrs.toObjectArray(ar3);
 		
+		System.out.println("toObjectArrayTest()");
 		System.err.println(toObjString(objAr1));
 		System.err.println(toObjString(objAr2));
 		System.err.println(toObjString(objAr3));
+		System.out.println();
 	}
 	
 	@Test
@@ -92,8 +96,10 @@ public class ArrsTest {
 		String[] r = Arrs.join(a1, a2);
 		String[] r2 = Arrs.joinAll(a1, a2);
 		
+		System.out.println("joinTest()");
 		System.err.println(Arrays.toString(r));
 		System.err.println(Arrays.toString(r2));
+		System.out.println();
 	}
 	
 }

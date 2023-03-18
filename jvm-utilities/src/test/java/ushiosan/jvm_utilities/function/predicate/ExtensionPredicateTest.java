@@ -3,11 +3,10 @@ package ushiosan.jvm_utilities.function.predicate;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.io.IO;
 import ushiosan.jvm_utilities.lang.io.ZipUtils;
 
-import javax.swing.JFileChooser;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -33,7 +32,7 @@ public class ExtensionPredicateTest {
 	
 	@Ignore
 	@Test
-	public void runTest() throws IOException {
+	public void extensionPredicateTest() throws IOException {
 		Assert.assertEquals("Action cancelled",
 							JFileChooser.APPROVE_OPTION,
 							chooser.showOpenDialog(null));
@@ -48,12 +47,14 @@ public class ExtensionPredicateTest {
 			List<Path> files = walk.collect(Collectors.toUnmodifiableList());
 			Assert.assertFalse("List cannot be empty", files.isEmpty());
 			
+			System.out.println("runTest()");
 			System.out.println(files);
+			System.out.println();
 		}
 	}
 	
 	@Test
-	public void extensionPredicateZip() throws IOException {
+	public void extensionPredicateZipTest() throws IOException {
 		URL location = loader.getResource("zip-example.zip");
 		Assert.assertNotNull("Location not found.", location);
 		
@@ -64,7 +65,11 @@ public class ExtensionPredicateTest {
 				.filter(ExtensionPredicate.of(false, "jar"))
 				.collect(Collectors.toUnmodifiableList());
 			
+			Assert.assertFalse("Zip not contains *.jar files", entries.isEmpty());
+			
+			System.out.println("extensionPredicateZipTest");
 			System.out.println(entries);
+			System.out.println();
 		}
 	}
 	
@@ -79,7 +84,9 @@ public class ExtensionPredicateTest {
 				.filter(RegexPredicate.of(true, "(sub folder)/.+"))
 				.collect(Collectors.toUnmodifiableList());
 			
-			System.out.println(Obj.toString(entries));
+			System.out.println("regexPredicateZipTest");
+			System.out.println(entries);
+			System.out.println();
 		}
 	}
 	

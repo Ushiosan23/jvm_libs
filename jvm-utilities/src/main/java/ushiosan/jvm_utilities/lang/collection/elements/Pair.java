@@ -6,6 +6,7 @@ import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 import static ushiosan.jvm_utilities.lang.Obj.toInstanceString;
@@ -112,6 +113,38 @@ public class Pair<T, K> {
 		for (var current : props.entrySet()) {
 			result[counter++] = Obj.cast(Pair.copyOf(current));
 		}
+		return result;
+	}
+	
+	/**
+	 * Indicates whether some other object is "equal to" this one.
+	 * <p>
+	 *
+	 * @param obj the reference object with which to compare.
+	 * @return {@code true} if this object is the same as the obj
+	 * 	argument; {@code false} otherwise.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		
+		Pair<?, ?> pair = (Pair<?, ?>) obj;
+		
+		if (!Objects.equals(first, pair.first)) return false;
+		return Objects.equals(second, pair.second);
+	}
+	
+	/**
+	 * Returns a hash code value for the object. This method is supported for the
+	 * benefit of hash tables such as those provided by {@link java.util.HashMap}.
+	 *
+	 * @return a hash code value for this object.
+	 */
+	@Override
+	public int hashCode() {
+		int result = first != null ? first.hashCode() : 0;
+		result = 31 * result + (second != null ? second.hashCode() : 0);
 		return result;
 	}
 	

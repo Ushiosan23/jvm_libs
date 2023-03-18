@@ -1,5 +1,12 @@
 package ushiosan.jvm_utilities.lang;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Class that contains extra utilities for mathematical operations
  */
@@ -159,6 +166,36 @@ public final class Maths {
 	 */
 	public static boolean isZero(double value) {
 		return isZero(value, DECIMAL_TOLERANCE);
+	}
+	
+	/**
+	 * Determines if a list is considered a sequence of numbers or not
+	 *
+	 * @param list          the list to check
+	 * @param acceptContext if the parameter is {@code true} empty lists or lists with a single element are considered valid.
+	 * @return {@code true} if the list is consecutive or {@code false} otherwise
+	 */
+	public static boolean isConsecutiveSequence(@NotNull List<Integer> list, boolean acceptContext) {
+		if (list.isEmpty() || list.size() == 1) return acceptContext;
+		int min = Collections.min(list);
+		int max = Collections.max(list);
+		
+		// Check sequence size
+		if (list.size() != (max - min + 1)) return false;
+		
+		// Check sequence
+		Set<Integer> uniqueList = new HashSet<>(list);
+		return uniqueList.size() == list.size();
+	}
+	
+	/**
+	 * Determines if a list is considered a sequence of numbers or not
+	 *
+	 * @param list the list to check
+	 * @return {@code true} if the list is consecutive or {@code false} otherwise
+	 */
+	public static boolean isConsecutiveSequence(@NotNull List<Integer> list) {
+		return isConsecutiveSequence(list, true);
 	}
 	
 	/* -----------------------------------------------------

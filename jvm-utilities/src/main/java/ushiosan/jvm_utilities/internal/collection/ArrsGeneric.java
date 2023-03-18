@@ -286,7 +286,7 @@ public abstract class ArrsGeneric implements IArrsConstants {
 	@SafeVarargs
 	public static <T> T @NotNull [] joinAll(T @NotNull []... arrays) {
 		Class<T> cls = Cls.getArrayIndividualClass(arrays);
-		return joinAll(Cls.getArrayIndividualClass(arrays), arrays);
+		return joinAll(cls, arrays);
 	}
 	
 	/* ---------------------------------------------------------

@@ -6,6 +6,10 @@ import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 import java.util.Collections;
 import java.util.*;
 
+import static ushiosan.jvm_utilities.lang.collection.Collections.mutableListOf;
+import static ushiosan.jvm_utilities.lang.collection.Collections.mutableMapOf;
+import static ushiosan.jvm_utilities.lang.collection.Collections.mutableSetOf;
+
 /**
  * Class that has helper methods for data holders like {@link Map}, {@link List},
  * {@link Set}, {@link Stack} and {@link Vector}.
@@ -43,7 +47,7 @@ public final class CollectionsSync {
 	 */
 	@SafeVarargs
 	public static <T> @NotNull List<T> listOf(T @NotNull ... elements) {
-		return Collections.synchronizedList(List.of(elements));
+		return Collections.synchronizedList(mutableListOf(elements));
 	}
 	
 	/* -----------------------------------------------------
@@ -59,7 +63,7 @@ public final class CollectionsSync {
 	 */
 	@SafeVarargs
 	public static <T> @NotNull Set<T> setOf(T @NotNull ... elements) {
-		return Collections.synchronizedSet(Set.of(elements));
+		return Collections.synchronizedSet(mutableSetOf(elements));
 	}
 	
 	/* -----------------------------------------------------
@@ -76,9 +80,7 @@ public final class CollectionsSync {
 	 */
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> mapOf(Map.Entry<K, V> @NotNull ... entries) {
-		final Map<K, V> base = ushiosan.jvm_utilities.lang.collection.Collections
-			.mapOf(entries);
-		return Collections.synchronizedMap(base);
+		return Collections.synchronizedMap(mutableMapOf(entries));
 	}
 	
 	/**
@@ -91,9 +93,7 @@ public final class CollectionsSync {
 	 */
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> mapOf(Pair<K, V> @NotNull ... pairs) {
-		final Map<K, V> base = ushiosan.jvm_utilities.lang.collection.Collections
-			.mapOf(pairs);
-		return Collections.synchronizedMap(base);
+		return Collections.synchronizedMap(mutableMapOf(pairs));
 	}
 	
 }

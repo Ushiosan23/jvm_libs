@@ -131,6 +131,31 @@ public final class Collections {
 	}
 	
 	/**
+	 * Returns all indices where the searched element is found
+	 *
+	 * @param base   the base list
+	 * @param search the object to search
+	 * @param <T>    generic object type
+	 * @return all indices where the searched object is found
+	 */
+	public static <T> @NotNull List<Integer> searchListIndex(@NotNull List<T> base, @NotNull T search) {
+		List<Integer> indexList = mutableListOf();
+		
+		// Iterate all elements
+		for (int i = 0; i < base.size(); i++) {
+			T item = base.get(i);
+			// Check element
+			if (search.equals(item)) indexList.add(i);
+		}
+		
+		return indexList;
+	}
+	
+	/* -----------------------------------------------------
+	 * Stack methods
+	 * ----------------------------------------------------- */
+	
+	/**
 	 * Create a stack with all given elements.
 	 *
 	 * @param elements the elements to insert
@@ -161,6 +186,10 @@ public final class Collections {
 		// Only return the `result` object
 		return result;
 	}
+	
+	/* -----------------------------------------------------
+	 * Vector methods
+	 * ----------------------------------------------------- */
 	
 	/**
 	 * Create a vector with all given elements.

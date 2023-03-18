@@ -2,10 +2,13 @@ package ushiosan.jvm_utilities.internal.print.str;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ushiosan.jvm_utilities.error.RecursiveCallException;
 import ushiosan.jvm_utilities.function.Apply;
 import ushiosan.jvm_utilities.lang.Cls;
+import ushiosan.jvm_utilities.lang.Maths;
 import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.collection.Collections;
+import ushiosan.jvm_utilities.lang.collection.CollectionsSync;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 import ushiosan.jvm_utilities.lang.reflection.MethodUtils;
 import ushiosan.jvm_utilities.lang.reflection.options.ReflectionOpts;
@@ -36,6 +39,11 @@ public abstract class BasePrintObject {
 	 * Print map
 	 */
 	protected List<Pair<Apply.Result<Object, String>, Class<?>[]>> printMap = Collections.mutableListOf();
+	
+	/**
+	 * Object used to track certain calls.
+	 */
+	protected final List<Pair<Class<?>, Method>> observerStack = CollectionsSync.listOf();
 	
 	/* -----------------------------------------------------
 	 * Constructors
@@ -183,17 +191,32 @@ public abstract class BasePrintObject {
 			.setDeclaredOnly(true)
 			.setSkipAbstracts(true)
 			.setOnlyPublic(true);
+		
 		// Verify that the object has the method "toString" defined to call it instead.
 		try {
 			Method toStringMethod = MethodUtils.findMethodObj(obj, "toString", opts);
+			
+			// check that there are no recursive calls simultaneously
 			if (toStringMethod.getDeclaringClass() == clazz) {
-				throw new IllegalAccessException("Recursive call");
+				Pair<Class<?>, Method> searchObj = Pair.of(clazz, toStringMethod);
+				List<Integer> listIndex = Collections.searchListIndex(observerStack, searchObj);
+				
+				if (observerStack.contains(searchObj) && Maths.isConsecutiveSequence(listIndex, false)) {
+					observerStack.removeIf(searchObj::equals);
+					throw new RecursiveCallException(String.format("Recursive call from \"%s\" method", toStringMethod));
+				} else {
+					observerStack.add(Pair.of(clazz, toStringMethod));
+				}
 			}
 			
 			toStringMethod.setAccessible(true);
 			return cast(toStringMethod.invoke(obj), String.class);
-		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-			return String.format("(@%X) %s", obj.hashCode(), getInstance(isVerbose()).toClassString(clazz));
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | RecursiveCallException e) {
+			String suffix = "";
+			if (e instanceof RecursiveCallException) {
+				suffix = " - E[" + e.getMessage() + "]";
+			}
+			return String.format("(@%X) %s%s", obj.hashCode(), getInstance(isVerbose()).toClassString(clazz), suffix);
 		}
 	}
 	

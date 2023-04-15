@@ -5,7 +5,7 @@ import project.TypeDependency
 // Common developers list
 private val commonDependenciesMap: Map<Any, List<*>> = mapOf(
 	TypeDependency.COMPILE_ONLY to listOf(
-		"org.jetbrains:annotations:23.0.0"
+		"org.jetbrains:annotations:24.0.1"
 	),
 	TypeDependency.TEST_IMPLEMENTATION to listOf(
 		"junit:junit:4.13.2"

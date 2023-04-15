@@ -63,7 +63,7 @@ public final class PrintObj {
 	 * @param verbose   determines the level of detail in the output of the content
 	 * @param extension the extension to insert
 	 */
-	public void attachExtension(boolean verbose, @NotNull Pair<Apply.Result<Object, String>, Class<?>[]> extension) {
+	public static void attachExtension(boolean verbose, @NotNull Pair<Apply.Result<Object, String>, Class<?>[]> extension) {
 		BasePrintObject.getInstance(verbose)
 			.attachExtension(extension);
 	}
@@ -75,7 +75,7 @@ public final class PrintObj {
 	 * @param action    the extension action
 	 * @param supported supported elements
 	 */
-	public void attachExtension(boolean verbose, @NotNull Apply.Result<Object, String> action,
+	public static void attachExtension(boolean verbose, @NotNull Apply.Result<Object, String> action,
 		Class<?> @NotNull ... supported) {
 		BasePrintObject.getInstance(verbose)
 			.attachExtension(action, supported);

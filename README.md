@@ -8,8 +8,8 @@ libraries and their respective sections.
 
 ### Libraries
 
-- [JVM Utilities](https://github.com/Ushiosan23/jvm_libs/tree/main/jvm_utilities)
-- [Swing Utilities](https://github.com/Ushiosan23/jvm_libs/tree/main/swing_utilities)
+- [Jvm utilities (com.github.ushiosan23:jvm-utilities)](https://github.com/Ushiosan23/jvm_libs/tree/main/jvm-utilities)
+- [Swing utilities (...)](https://github.com/Ushiosan23/jvm_libs/tree/main/swing-utilities)
 
 ### How work with them?
 

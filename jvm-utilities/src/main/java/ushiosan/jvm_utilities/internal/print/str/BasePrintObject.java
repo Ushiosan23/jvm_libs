@@ -5,10 +5,8 @@ import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm_utilities.error.RecursiveCallException;
 import ushiosan.jvm_utilities.function.Apply;
 import ushiosan.jvm_utilities.lang.Cls;
-import ushiosan.jvm_utilities.lang.Maths;
 import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.collection.Collections;
-import ushiosan.jvm_utilities.lang.collection.CollectionsSync;
 import ushiosan.jvm_utilities.lang.collection.elements.Pair;
 import ushiosan.jvm_utilities.lang.reflection.MethodUtils;
 import ushiosan.jvm_utilities.lang.reflection.options.ReflectionOpts;
@@ -16,6 +14,7 @@ import ushiosan.jvm_utilities.lang.reflection.options.ReflectionOpts;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -39,11 +38,6 @@ public abstract class BasePrintObject {
 	 * Print map
 	 */
 	protected List<Pair<Apply.Result<Object, String>, Class<?>[]>> printMap = Collections.mutableListOf();
-	
-	/**
-	 * Object used to track certain calls.
-	 */
-	protected final List<Pair<Class<?>, Method>> observerStack = CollectionsSync.listOf();
 	
 	/* -----------------------------------------------------
 	 * Constructors
@@ -198,14 +192,14 @@ public abstract class BasePrintObject {
 			
 			// check that there are no recursive calls simultaneously
 			if (toStringMethod.getDeclaringClass() == clazz) {
-				Pair<Class<?>, Method> searchObj = Pair.of(clazz, toStringMethod);
-				List<Integer> listIndex = Collections.searchListIndex(observerStack, searchObj);
+				var traceElements = Thread.currentThread().getStackTrace();
+				var foundRecursive = Arrays.stream(traceElements)
+					.anyMatch(it -> it.getClassName().equals(clazz.getName()) &&
+									it.getMethodName().equals("toString"));
 				
-				if (observerStack.contains(searchObj) && Maths.isConsecutiveSequence(listIndex, false)) {
-					observerStack.removeIf(searchObj::equals);
+				// Check recursive calling
+				if (foundRecursive) {
 					throw new RecursiveCallException(String.format("Recursive call from \"%s\" method", toStringMethod));
-				} else {
-					observerStack.add(Pair.of(clazz, toStringMethod));
 				}
 			}
 			

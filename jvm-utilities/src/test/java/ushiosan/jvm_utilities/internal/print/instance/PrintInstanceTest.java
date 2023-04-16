@@ -2,6 +2,7 @@ package ushiosan.jvm_utilities.internal.print.instance;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ushiosan.jvm_utilities.TestUtils;
 import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintExclude;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
@@ -12,6 +13,8 @@ public class PrintInstanceTest {
 	
 	@Test
 	public void toInstanceStringTest() throws Exception {
+		TestUtils.printSection();
+		
 		ExampleClass example = new ExampleClass3();
 		String instanceStr = toInstanceString(example);
 		
@@ -19,8 +22,6 @@ public class PrintInstanceTest {
 							"ExampleClass3{nothing=\"Hello, World!\", getNothing()=\"Hello, World!\"}",
 							instanceStr);
 		
-		
-		System.out.println("toInstanceStringTest()");
 		System.err.println(Obj.toString(example));
 		System.err.println(instanceStr);
 		System.out.println();

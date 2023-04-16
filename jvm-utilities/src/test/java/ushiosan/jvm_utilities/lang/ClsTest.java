@@ -2,6 +2,7 @@ package ushiosan.jvm_utilities.lang;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ushiosan.jvm_utilities.TestUtils;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 
 import java.awt.*;
@@ -11,6 +12,8 @@ public class ClsTest {
 	
 	@Test
 	public void isPrimitiveTest() {
+		TestUtils.printSection();
+		
 		Class<?> primitiveType = int.class;
 		Class<?> primitiveChar = char.class;
 		Class<?> primitiveWrapper = Integer.class;
@@ -26,7 +29,6 @@ public class ClsTest {
 		String primitiveWrapperStr = Obj.toString(primitiveWrapper);
 		String notPrimitiveStr = Obj.toString(notPrimitive);
 		
-		System.out.println("isPrimitiveTest()");
 		System.out.printf("%s is primitive: %s\n", primitiveTypeStr, Cls.isPrimitive(primitiveType));
 		System.out.printf("%s is primitive: %s\n", primitiveCharStr, Cls.isPrimitive(primitiveChar));
 		System.out.printf("%s is primitive: %s\n", primitiveWrapperStr, Cls.isPrimitive(primitiveWrapper));
@@ -36,6 +38,8 @@ public class ClsTest {
 	
 	@Test
 	public void isPrimitiveArrayTest() {
+		TestUtils.printSection();
+		
 		Class<?> primitiveArray = int[].class;
 		Class<?> notPrimitiveArray = String[].class;
 		
@@ -45,7 +49,6 @@ public class ClsTest {
 		String primArrStr = Obj.toString(primitiveArray);
 		String notPrimArrStr = Obj.toString(notPrimitiveArray);
 		
-		System.out.println("isPrimitiveArrayTest()");
 		System.out.printf("%s is primitive array: %s\n", primArrStr, Cls.isPrimitiveArray(primitiveArray));
 		System.out.printf("%s is primitive array: %s\n", notPrimArrStr, Cls.isPrimitiveArray(notPrimitiveArray));
 		System.out.println();
@@ -53,6 +56,8 @@ public class ClsTest {
 	
 	@Test
 	public void toTypeArgsTest() {
+		TestUtils.printSection();
+		
 		Object[] args = Arrs.of("Hello", 12, new Dimension());
 		Class<?>[] typeArgs = Cls.toTypeArgs(args);
 		
@@ -61,19 +66,19 @@ public class ClsTest {
 			Arrs.of(String.class, Integer.class, Dimension.class),
 			typeArgs);
 		
-		System.out.println("toTypeArgsTest()");
 		System.out.println(Obj.toString(typeArgs));
 		System.out.println();
 	}
 	
 	@Test
 	public void getArrayIndividualClassTest() {
+		TestUtils.printSection();
+		
 		int[] arr = new int[0];
 		var cls = Cls.getArrayMultipleIndividualClass(arr);
 		
 		Assert.assertEquals("Invalid type class", cls, int.class);
 		
-		System.out.println("getArrayIndividualClassTest()");
 		System.err.println(cls);
 		System.out.println();
 	}

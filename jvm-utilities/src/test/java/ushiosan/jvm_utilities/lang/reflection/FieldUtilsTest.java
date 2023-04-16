@@ -1,6 +1,7 @@
 package ushiosan.jvm_utilities.lang.reflection;
 
 import org.junit.Test;
+import ushiosan.jvm_utilities.TestUtils;
 import ushiosan.jvm_utilities.lang.Obj;
 import ushiosan.jvm_utilities.lang.print.annotations.PrintOpts;
 import ushiosan.jvm_utilities.lang.reflection.options.ReflectionOpts;
@@ -11,13 +12,14 @@ public class FieldUtilsTest {
 	
 	@Test
 	public void findFieldObjTest() throws NoSuchFieldException, IllegalAccessException {
+		TestUtils.printSection();
+		
 		ExampleClass instance = new ExampleClass3();
 		var opts = ReflectionOpts.<Field>getDefault()
 			.setRecursive(false)
 			.setOnlyPublic(false);
 		Field field = FieldUtils.findFieldObj(instance, "notContentField", opts);
 		
-		System.out.println("findFieldObjTest()");
 		System.err.println(opts);
 		System.err.println(instance);
 		

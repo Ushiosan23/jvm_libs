@@ -2,6 +2,7 @@ package ushiosan.jvm_utilities.lang.reflection;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ushiosan.jvm_utilities.TestUtils;
 import ushiosan.jvm_utilities.lang.reflection.options.ReflectionOpts;
 
 import java.lang.reflect.Method;
@@ -10,6 +11,8 @@ public class MethodUtilsTest {
 	
 	@Test
 	public void getAllClassMethodsTest() {
+		TestUtils.printSection();
+		
 		E3 instance = new E3();
 		ReflectionOpts<Method> opts = ReflectionOpts.<Method>getDefault()
 			.setSkipAbstracts(true)
@@ -21,7 +24,6 @@ public class MethodUtilsTest {
 		Method[] methods = MethodUtils.getAllClassMethods(instance.getClass(), opts);
 		Assert.assertTrue("Method not found", methods.length > 0);
 		
-		System.out.println("getAllClassMethodsTest()");
 		for (Method method : methods) {
 			System.err.println(method);
 		}

@@ -2,16 +2,22 @@ package ushiosan.jvm_utilities.error;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ushiosan.jvm_utilities.TestUtils;
 
 public class ErrorsTest {
 	
 	@Test(expected = RuntimeException.class)
 	public void launchErrorTest() {
+		TestUtils.printSection();
+		
 		Errors.launch(RuntimeException.class, "Example error");
+		System.out.println();
 	}
 	
 	@Test
 	public void rootCauseTest() {
+		TestUtils.printSection();
+		
 		try {
 			Errors.launch(RuntimeException.class, new Object());
 		} catch (Exception e) {
@@ -24,7 +30,6 @@ public class ErrorsTest {
 				rootStr,
 				eStr);
 			
-			System.out.println("rootCauseTest()");
 			System.err.println(rootStr);
 			System.err.println(eStr);
 			System.out.println();
@@ -33,9 +38,10 @@ public class ErrorsTest {
 	
 	@Test
 	public void toStringTest() {
+		TestUtils.printSection();
+		
 		Exception exception = new Exception("Example error");
 		
-		System.out.println("toStringTest()");
 		System.err.println(Errors.toString(exception, true));
 		System.out.println();
 	}

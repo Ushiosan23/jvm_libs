@@ -200,7 +200,7 @@ abstract class ReflectionUtils {
 		return (it) -> {
 			boolean result = true;
 			for (Class<? extends Annotation> clsAnnotation : annotations) {
-				if (inverted == it.isAnnotationPresent(clsAnnotation)) {
+				if (!inverted == it.isAnnotationPresent(clsAnnotation)) {
 					result = false;
 					break;
 				}

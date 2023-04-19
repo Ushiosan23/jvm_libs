@@ -198,10 +198,10 @@ abstract class ReflectionUtils {
 	public static <T extends AccessibleObject> @NotNull Predicate<T> requireAnnotations(boolean inverted,
 		Class<? extends Annotation> @NotNull ... annotations) {
 		return (it) -> {
-			boolean result = true;
+			boolean result = !inverted;
 			for (Class<? extends Annotation> clsAnnotation : annotations) {
-				if (!inverted == it.isAnnotationPresent(clsAnnotation)) {
-					result = false;
+				if (!it.isAnnotationPresent(clsAnnotation)) {
+					result = inverted;
 					break;
 				}
 			}

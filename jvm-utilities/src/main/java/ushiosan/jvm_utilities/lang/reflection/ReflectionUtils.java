@@ -1,15 +1,16 @@
 package ushiosan.jvm_utilities.lang.reflection;
 
+import org.intellij.lang.annotations.MagicConstant;
 import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm_utilities.function.Apply;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
+import ushiosan.jvm_utilities.lang.collection.elements.Pair;
+import ushiosan.jvm_utilities.lang.reflection.options.ReflectionOpts;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Field;
-import java.lang.reflect.Member;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,6 +21,17 @@ abstract class ReflectionUtils {
 	 * Java classes that represent no value, but are a valid data type
 	 */
 	static final Class<?>[] INVALID_RETURN_TYPES = new Class[]{void.class, Void.class};
+	
+	/**
+	 * Array of filters used in reflection utilities for fields
+	 */
+	protected static final Pair<Apply.Result<ReflectionOpts<? extends Member>, Boolean>, Apply.Result<Member, Boolean>>[]
+		MEMBER_VALIDATORS = Arrs.of(
+		// Only public items will be filtered
+		Pair.of(ReflectionOpts::onlyPublic, (it) -> Modifier.isPublic(it.getModifiers())),
+		// "Abstract" elements are omitted
+		Pair.of(ReflectionOpts::skipAbstracts, (it) -> !Modifier.isAbstract(it.getModifiers()))
+	);
 	
 	/* ---------------------------------------------------------
 	 * Constants
@@ -123,11 +135,11 @@ abstract class ReflectionUtils {
 	 */
 	public static @NotNull <T extends Member> Predicate<T> regexMultipleOf(boolean inverted, Pattern @NotNull ... patterns) {
 		return (it) -> {
-			boolean result = true;
+			boolean result = !inverted;
 			for (Pattern pattern : patterns) {
 				Matcher matcher = pattern.matcher(it.getName());
-				if (inverted == matcher.find()) {
-					result = false;
+				if (!matcher.find()) {
+					result = inverted;
 					break;
 				}
 			}
@@ -221,6 +233,78 @@ abstract class ReflectionUtils {
 	public static <T extends AccessibleObject> @NotNull Predicate<T> requireAnnotations(
 		Class<? extends Annotation> @NotNull ... annotations) {
 		return requireAnnotations(false, annotations);
+	}
+	
+	/**
+	 * Generates a filter to verify that a member meets the modifier conditions.
+	 * Modifiers can be individual or plural, where they all have to be true for the
+	 * filter to be valid.
+	 *
+	 * @param inverted  option for the condition to be inverse to the one established
+	 * @param modifiers array with all access modifiers
+	 * @param <T>       generic accessible type
+	 * @return the filter instance with the desired behavior
+	 * @see Modifier#PUBLIC
+	 * @see Modifier#PRIVATE
+	 * @see Modifier#PROTECTED
+	 * @see Modifier#STATIC
+	 * @see Modifier#FINAL
+	 * @see Modifier#SYNCHRONIZED
+	 * @see Modifier#VOLATILE
+	 * @see Modifier#TRANSIENT
+	 * @see Modifier#NATIVE
+	 * @see Modifier#INTERFACE
+	 * @see Modifier#ABSTRACT
+	 * @see Modifier#STRICT
+	 */
+	public static <T extends Member> @NotNull Predicate<T> requireModifiers(boolean inverted,
+		@MagicConstant(valuesFromClass = Modifier.class) int... modifiers) {
+		return (it) -> {
+			boolean result = true;
+			int mods = it.getModifiers();
+			
+			for (int modifier : modifiers) {
+				if (inverted) {
+					if ((mods & modifier) != 0) {
+						result = false;
+						break;
+					}
+				} else {
+					if ((mods & modifier) == 0) {
+						result = false;
+						break;
+					}
+				}
+			}
+			
+			return result;
+		};
+	}
+	
+	/**
+	 * Generates a filter to verify that a member meets the modifier conditions.
+	 * Modifiers can be individual or plural, where they all have to be true for the
+	 * filter to be valid.
+	 *
+	 * @param modifiers array with all access modifiers
+	 * @param <T>       generic accessible type
+	 * @return the filter instance with the desired behavior
+	 * @see Modifier#PUBLIC
+	 * @see Modifier#PRIVATE
+	 * @see Modifier#PROTECTED
+	 * @see Modifier#STATIC
+	 * @see Modifier#FINAL
+	 * @see Modifier#SYNCHRONIZED
+	 * @see Modifier#VOLATILE
+	 * @see Modifier#TRANSIENT
+	 * @see Modifier#NATIVE
+	 * @see Modifier#INTERFACE
+	 * @see Modifier#ABSTRACT
+	 * @see Modifier#STRICT
+	 */
+	public static <T extends Member> @NotNull Predicate<T> requireModifiers(
+		@MagicConstant(valuesFromClass = Modifier.class) int... modifiers) {
+		return requireModifiers(false, modifiers);
 	}
 	
 }

@@ -5,7 +5,6 @@ import ushiosan.jvm_utilities.lang.collection.Collections;
 import ushiosan.jvm_utilities.lang.reflection.options.ReflectionOpts;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -163,27 +162,13 @@ public final class MethodUtils extends ReflectionUtils {
 	private static @NotNull List<Method> validateMethods(Method @NotNull [] methods, @NotNull ReflectionOpts<Method> opts) {
 		Stream<Method> stream = Arrays.stream(methods);
 		
-		// Filter all public methods
-		if (opts.onlyPublic()) {
-			stream = stream.filter(it -> {
-				int modifiers = it.getModifiers();
-				return Modifier.isPublic(modifiers);
-			});
+		// Apply validators
+		for (var validator : MEMBER_VALIDATORS) {
+			if (validator.first.apply(opts)) {
+				stream = stream.filter(validator.second::apply);
+			}
 		}
-		// Skip all abstract methods
-		if (opts.skipAbstracts()) {
-			stream = stream.filter(it -> {
-				int modifiers = it.getModifiers();
-				return !Modifier.isAbstract(modifiers);
-			});
-		}
-		// Skip all static methods
-		if (opts.skipStatic()) {
-			stream = stream.filter(it -> {
-				int modifiers = it.getModifiers();
-				return !Modifier.isStatic(modifiers);
-			});
-		}
+		
 		// Apply filters
 		if (!opts.predicates().isEmpty()) {
 			for (Predicate<Method> predicate : opts.predicates()) {

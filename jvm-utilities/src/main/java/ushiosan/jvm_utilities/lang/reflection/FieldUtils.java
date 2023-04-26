@@ -5,7 +5,6 @@ import ushiosan.jvm_utilities.lang.collection.Collections;
 import ushiosan.jvm_utilities.lang.reflection.options.ReflectionOpts;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -153,20 +152,13 @@ public final class FieldUtils extends ReflectionUtils {
 	private static @NotNull List<Field> getAllValidFields(Field @NotNull [] fields, @NotNull ReflectionOpts<Field> opts) {
 		Stream<Field> stream = Arrays.stream(fields);
 		
-		// Filter all public fields
-		if (opts.onlyPublic()) {
-			stream = stream.filter(it -> {
-				int mods = it.getModifiers();
-				return Modifier.isPublic(mods);
-			});
+		// Apply validators
+		for (var validator : MEMBER_VALIDATORS) {
+			if (validator.first.apply(opts)) {
+				stream = stream.filter(validator.second::apply);
+			}
 		}
-		// Skip all abstract fields
-		if (opts.skipAbstracts()) {
-			stream = stream.filter(it -> {
-				int mods = it.getModifiers();
-				return !Modifier.isAbstract(mods);
-			});
-		}
+		
 		// Apply filters
 		if (!opts.predicates().isEmpty()) {
 			for (Predicate<Field> fieldPredicate : opts.predicates()) {

@@ -44,11 +44,6 @@ public final class ReflectionOpts<T extends Member> {
 	private boolean skipAbstracts;
 	
 	/**
-	 * Data option to exclude static elements
-	 */
-	private boolean skipStatic;
-	
-	/**
 	 * List of predicates for the data filter
 	 */
 	private List<Predicate<T>> predicateList;
@@ -65,7 +60,6 @@ public final class ReflectionOpts<T extends Member> {
 		onlyPublic = true;
 		recursive = true;
 		skipAbstracts = true;
-		skipStatic = true;
 		predicateList = Collections.mutableListOf();
 	}
 	
@@ -161,26 +155,6 @@ public final class ReflectionOpts<T extends Member> {
 	 */
 	public @NotNull ReflectionOpts<T> setSkipAbstracts(boolean skipAbstracts) {
 		this.skipAbstracts = skipAbstracts;
-		return this;
-	}
-	
-	/**
-	 * Data option to exclude static elements
-	 *
-	 * @return {@code skipStatic} option status
-	 */
-	public boolean skipStatic() {
-		return skipStatic;
-	}
-	
-	/**
-	 * Change the state of the class to handle static elements
-	 *
-	 * @param skipStatic new status
-	 * @return the same current object
-	 */
-	public @NotNull ReflectionOpts<T> setSkipStatic(boolean skipStatic) {
-		this.skipStatic = skipStatic;
 		return this;
 	}
 	

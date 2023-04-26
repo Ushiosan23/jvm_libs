@@ -11,6 +11,7 @@ module com.github.ushiosan.jvm_utilities {
 	exports ushiosan.jvm_utilities.function;
 	exports ushiosan.jvm_utilities.function.predicate;
 	exports ushiosan.jvm_utilities.lang;
+	exports ushiosan.jvm_utilities.lang.accumulator;
 	exports ushiosan.jvm_utilities.lang.collection;
 	exports ushiosan.jvm_utilities.lang.collection.elements;
 	exports ushiosan.jvm_utilities.lang.io;

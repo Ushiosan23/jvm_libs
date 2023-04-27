@@ -75,6 +75,18 @@ public interface Apply {
 			}
 		}
 		
+		/**
+		 * The same behavior of {@link #apply(Object)} but without writing anything to the logs
+		 *
+		 * @param item target element to which the changes will be applied
+		 */
+		default void silentApply(T item) {
+			try {
+				apply(item);
+			} catch (Throwable ignore) {
+			}
+		}
+		
 	}
 	
 	/* -----------------------------------------------------
@@ -146,6 +158,21 @@ public interface Apply {
 				return Optional.ofNullable(apply(item));
 			} catch (Throwable e) {
 				Obj.logger().log(Level.SEVERE, e.getMessage(), e);
+			}
+			return Optional.empty();
+		}
+		
+		/**
+		 * The same behavior of {@link #apply(Object)} but without writing anything to the logs
+		 *
+		 * @param item target element to which the changes will be applied
+		 * @return returns the resulting object after applying the configuration
+		 * 	or {@link Optional#empty()} if action fail
+		 */
+		default Optional<V> silentSafeApply(T item) {
+			try {
+				return Optional.ofNullable(apply(item));
+			} catch (Throwable ignore) {
 			}
 			return Optional.empty();
 		}

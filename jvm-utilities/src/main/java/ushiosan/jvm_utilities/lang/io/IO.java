@@ -309,6 +309,42 @@ public final class IO extends IOImpl {
 		return getExtension(entry).orElse("");
 	}
 	
+	/**
+	 * Check that all predicates are true
+	 *
+	 * @param path       the location to validate
+	 * @param validators all validators
+	 * @return {@code true} if all predicates are valid or {@code false} otherwise
+	 */
+	@SafeVarargs
+	public static boolean validate(@NotNull Path path, Predicate<Path> @NotNull ... validators) {
+		return validateImpl(path, validators);
+	}
+	
+	/**
+	 * Check that all predicates are true
+	 *
+	 * @param file       the file to validate
+	 * @param validators all validators
+	 * @return {@code true} if all predicates are valid or {@code false} otherwise
+	 */
+	@SafeVarargs
+	public static boolean validate(@NotNull File file, Predicate<File> @NotNull ... validators) {
+		return validateImpl(file, validators);
+	}
+	
+	/**
+	 * Check that all predicates are true
+	 *
+	 * @param entry      the entry to validate
+	 * @param validators all validators
+	 * @return {@code true} if all predicates are valid or {@code false} otherwise
+	 */
+	@SafeVarargs
+	public static boolean validate(@NotNull ZipEntry entry, Predicate<ZipEntry> @NotNull ... validators) {
+		return validateImpl(entry, validators);
+	}
+	
 	/* -----------------------------------------------------
 	 * Hashing methods
 	 * ----------------------------------------------------- */
@@ -743,6 +779,26 @@ public final class IO extends IOImpl {
 		} catch (NoSuchAlgorithmException e) {
 			throw new IOException(e);
 		}
+	}
+	
+	/**
+	 * Check that all predicates are true
+	 *
+	 * @param obj        the object to validate
+	 * @param validators all validators
+	 * @return {@code true} if all predicates are valid or {@code false} otherwise
+	 */
+	@SafeVarargs
+	public static <T> boolean validateImpl(@NotNull T obj, Predicate<T> @NotNull ... validators) {
+		boolean result = true;
+		for (Predicate<T> validator : validators) {
+			if (!validator.test(obj)) {
+				result = false;
+				break;
+			}
+		}
+		
+		return result;
 	}
 	
 }

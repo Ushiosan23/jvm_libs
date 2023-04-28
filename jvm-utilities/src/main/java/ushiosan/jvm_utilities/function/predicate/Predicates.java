@@ -26,7 +26,7 @@ public final class Predicates {
 	 * @return the stream with filters applied
 	 */
 	@SafeVarargs
-	public static <T> @NotNull Stream<T> applyAll(@NotNull Stream<T> stream, Predicate<T> @NotNull ... predicates) {
+	public static <T> @NotNull Stream<T> filterAll(@NotNull Stream<T> stream, Predicate<T> @NotNull ... predicates) {
 		// Iterate all filters
 		for (var predicate : predicates) {
 			stream = stream.filter(predicate);

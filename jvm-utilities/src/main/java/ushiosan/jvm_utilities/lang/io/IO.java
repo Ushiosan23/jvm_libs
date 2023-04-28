@@ -313,12 +313,38 @@ public final class IO extends IOImpl {
 	 * Check that all predicates are true
 	 *
 	 * @param path       the location to validate
+	 * @param inverted   Parameter used to invert the validation behavior
+	 * @param validators all validators
+	 * @return {@code true} if all predicates are valid or {@code false} otherwise
+	 */
+	@SafeVarargs
+	public static boolean validate(@NotNull Path path, boolean inverted, Predicate<Path> @NotNull ... validators) {
+		return validateImpl(path, inverted, validators);
+	}
+	
+	/**
+	 * Check that all predicates are true
+	 *
+	 * @param path       the location to validate
 	 * @param validators all validators
 	 * @return {@code true} if all predicates are valid or {@code false} otherwise
 	 */
 	@SafeVarargs
 	public static boolean validate(@NotNull Path path, Predicate<Path> @NotNull ... validators) {
-		return validateImpl(path, validators);
+		return validate(path, false, validators);
+	}
+	
+	/**
+	 * Check that all predicates are true
+	 *
+	 * @param file       the file to validate
+	 * @param inverted   Parameter used to invert the validation behavior
+	 * @param validators all validators
+	 * @return {@code true} if all predicates are valid or {@code false} otherwise
+	 */
+	@SafeVarargs
+	public static boolean validate(@NotNull File file, boolean inverted, Predicate<File> @NotNull ... validators) {
+		return validateImpl(file, inverted, validators);
 	}
 	
 	/**
@@ -330,7 +356,20 @@ public final class IO extends IOImpl {
 	 */
 	@SafeVarargs
 	public static boolean validate(@NotNull File file, Predicate<File> @NotNull ... validators) {
-		return validateImpl(file, validators);
+		return validate(file, false, validators);
+	}
+	
+	/**
+	 * Check that all predicates are true
+	 *
+	 * @param entry      the entry to validate
+	 * @param inverted   Parameter used to invert the validation behavior
+	 * @param validators all validators
+	 * @return {@code true} if all predicates are valid or {@code false} otherwise
+	 */
+	@SafeVarargs
+	public static boolean validate(@NotNull ZipEntry entry, boolean inverted, Predicate<ZipEntry> @NotNull ... validators) {
+		return validateImpl(entry, inverted, validators);
 	}
 	
 	/**
@@ -342,7 +381,7 @@ public final class IO extends IOImpl {
 	 */
 	@SafeVarargs
 	public static boolean validate(@NotNull ZipEntry entry, Predicate<ZipEntry> @NotNull ... validators) {
-		return validateImpl(entry, validators);
+		return validate(entry, false, validators);
 	}
 	
 	/* -----------------------------------------------------
@@ -785,15 +824,17 @@ public final class IO extends IOImpl {
 	 * Check that all predicates are true
 	 *
 	 * @param obj        the object to validate
+	 * @param inverted   Parameter used to invert the validation behavior
 	 * @param validators all validators
+	 * @param <T>        generic object type
 	 * @return {@code true} if all predicates are valid or {@code false} otherwise
 	 */
 	@SafeVarargs
-	public static <T> boolean validateImpl(@NotNull T obj, Predicate<T> @NotNull ... validators) {
-		boolean result = true;
+	static <T> boolean validateImpl(@NotNull T obj, boolean inverted, Predicate<T> @NotNull ... validators) {
+		boolean result = !inverted;
 		for (Predicate<T> validator : validators) {
 			if (!validator.test(obj)) {
-				result = false;
+				result = inverted;
 				break;
 			}
 		}

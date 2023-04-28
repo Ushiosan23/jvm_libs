@@ -178,7 +178,7 @@ public final class IO extends IOImpl {
 	public static String @NotNull [] getAllExtensions(@NotNull Path path) {
 		// Validate regular file
 		if (Files.isDirectory(path)) {
-			throw new IllegalArgumentException(String.format(INVALID_FILE_TYPE, "Regular File", "Directory"));
+			throw new IllegalArgumentException(invalidFileType("Regular File", "Directory"));
 		}
 		// Returns result value
 		return getAllExtensionsImpl(path.getFileName().toString());
@@ -200,7 +200,7 @@ public final class IO extends IOImpl {
 	public static String @NotNull [] getAllExtensions(@NotNull File file) {
 		// Validate regular file
 		if (file.isDirectory()) {
-			throw new IllegalArgumentException(String.format(INVALID_FILE_TYPE, "Regular File", "Directory"));
+			throw new IllegalArgumentException(invalidFileType("Regular File", "Directory"));
 		}
 		// Returns result value
 		return getAllExtensionsImpl(file.getName());
@@ -222,7 +222,7 @@ public final class IO extends IOImpl {
 	public static String @NotNull [] getAllExtensions(@NotNull ZipEntry entry) {
 		// Validate regular file
 		if (entry.isDirectory()) {
-			throw new IllegalArgumentException(String.format(INVALID_FILE_TYPE, "Regular File", "Directory"));
+			throw new IllegalArgumentException(invalidFileType("Regular File", "Directory"));
 		}
 		// Returns result value
 		return getAllExtensionsImpl(entry.getName());
@@ -609,6 +609,17 @@ public final class IO extends IOImpl {
 	 */
 	public static @NotNull Path pathOf(@NotNull URI uri) throws IOException {
 		return getValidPath(uri);
+	}
+	
+	/**
+	 * Generates an error message for valid format types
+	 *
+	 * @param expected expected file type
+	 * @param given    given file type
+	 * @return a generated message
+	 */
+	public static @NotNull String invalidFileType(@NotNull String expected, @NotNull String given) {
+		return String.format(INVALID_FILE_TYPE, expected, given);
 	}
 	
 	/* ---------------------------------------------------------

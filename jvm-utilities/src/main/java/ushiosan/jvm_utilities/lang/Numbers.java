@@ -2,6 +2,9 @@ package ushiosan.jvm_utilities.lang;
 
 import org.intellij.lang.annotations.MagicConstant;
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm_utilities.function.Function;
+import ushiosan.jvm_utilities.lang.collection.Arrs;
+import ushiosan.jvm_utilities.lang.collection.elements.Trio;
 
 import java.util.Optional;
 
@@ -14,6 +17,13 @@ public final class Numbers {
 	 * Minimal representation of a binary number in Java
 	 */
 	private static final Number UNIT = 1;
+	
+	private static final Trio<Class<?>, Integer, Function.Function2<Boolean, Number, Integer>>[] TO_STRING_TRIOS =
+		Arrs.of(
+			Trio.of(Byte.class, Byte.SIZE, Numbers::getByteBit),
+			Trio.of(Short.class, Short.SIZE, Numbers::getShortBit),
+			Trio.of(Integer.class, Integer.SIZE, Numbers::getIntBit),
+			Trio.of(Long.class, Long.SIZE, Numbers::getLongBit));
 	
 	/**
 	 * This class cannot be instantiated.
@@ -149,11 +159,11 @@ public final class Numbers {
 	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
 	 *                                   the size allowed by the data type
 	 */
-	public static boolean getIntBit(int value, @MagicConstant(
+	public static boolean getIntBit(@NotNull Number value, @MagicConstant(
 		intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
 			29, 30, 31}) int index) {
 		checkRange(index, Integer.SIZE, "Integer");
-		return ((value >> index) & UNIT.intValue()) == UNIT.intValue();
+		return ((value.intValue() >> index) & UNIT.intValue()) == UNIT.intValue();
 	}
 	
 	/**
@@ -170,7 +180,7 @@ public final class Numbers {
 	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
 	 *                                   the size allowed by the data type
 	 */
-	public static int setIntBit(int value, @MagicConstant(
+	public static int setIntBit(@NotNull Number value, @MagicConstant(
 		intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
 			29, 30, 31}) int index, boolean status) {
 		// Generate number mask
@@ -178,8 +188,8 @@ public final class Numbers {
 		int mask = status ? (UNIT.intValue() << index) :
 				   ~(UNIT.intValue() << index);
 		
-		return status ? (value | mask) :
-			   (value & mask);
+		return status ? (value.intValue() | mask) :
+			   (value.intValue() & mask);
 	}
 	
 	/**
@@ -192,12 +202,12 @@ public final class Numbers {
 	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
 	 *                                   the size allowed by the data type
 	 */
-	public static boolean getLongBit(long value, @MagicConstant(
+	public static boolean getLongBit(@NotNull Number value, @MagicConstant(
 		intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
 			29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
 			58, 59, 60, 61, 62, 63}) int index) {
 		checkRange(index, Long.SIZE, "Long");
-		return ((value >> index) & UNIT.longValue()) == UNIT.longValue();
+		return ((value.longValue() >> index) & UNIT.longValue()) == UNIT.longValue();
 	}
 	
 	/**
@@ -214,7 +224,7 @@ public final class Numbers {
 	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
 	 *                                   the size allowed by the data type
 	 */
-	public static long setLongBit(long value, @MagicConstant(
+	public static long setLongBit(@NotNull Number value, @MagicConstant(
 		intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
 			29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
 			58, 59, 60, 61, 62, 63}) int index, boolean status) {
@@ -223,8 +233,52 @@ public final class Numbers {
 		long mask = status ? (UNIT.longValue() << index) :
 					~(UNIT.longValue() << index);
 		
-		return (status ? (value | mask) :
-				(value & mask));
+		return (status ? (value.longValue() | mask) :
+				(value.longValue() & mask));
+	}
+	
+	/**
+	 * Converts a binary number to a bit-text representation
+	 *
+	 * @param number    the number to convert
+	 * @param separator every 4 bits add a separator to better visualize the numbers
+	 * @return binary string representation
+	 */
+	public static @NotNull String toBinaryString(@NotNull Number number, boolean separator) {
+		// Check class type
+		Class<?> cls = number.getClass();
+		
+		// Check class type
+		for (var trio : TO_STRING_TRIOS) {
+			// Check if class is valid
+			if (cls != trio.first) continue;
+			
+			// Convert the number
+			StringBuilder builder = new StringBuilder();
+			for (int i = trio.second - 1; i >= 0; i--) {
+				boolean bit = trio.third.invoke(number, i);
+				builder.append(bit ? "1" : "0");
+				if ((trio.second - i) % 4 == 0 && i != 0 && separator) {
+					builder.append("_");
+				}
+			}
+			
+			return builder.toString();
+		}
+		
+		// Launch error
+		throw new IllegalArgumentException("The argument is not a valid integer type");
+	}
+	
+	/**
+	 * Converts a binary number to a bit-text representation
+	 *
+	 * @param number the number to convert
+	 * @return binary string representation
+	 * @see #toBinaryString(Number, boolean)
+	 */
+	public static @NotNull String toBinaryString(@NotNull Number number) {
+		return toBinaryString(number, true);
 	}
 	
 	/* -----------------------------------------------------

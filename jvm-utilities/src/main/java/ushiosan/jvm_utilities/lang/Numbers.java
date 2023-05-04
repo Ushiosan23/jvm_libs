@@ -2,7 +2,7 @@ package ushiosan.jvm_utilities.lang;
 
 import org.intellij.lang.annotations.MagicConstant;
 import org.jetbrains.annotations.NotNull;
-import ushiosan.jvm_utilities.function.Function;
+import ushiosan.jvm_utilities.function.base.Function;
 import ushiosan.jvm_utilities.lang.collection.Arrs;
 import ushiosan.jvm_utilities.lang.collection.elements.Trio;
 
@@ -18,6 +18,9 @@ public final class Numbers {
 	 */
 	private static final Number UNIT = 1;
 	
+	/**
+	 * Functions used to convert numbers to text in binary format
+	 */
 	private static final Trio<Class<?>, Integer, Function.Function2<Boolean, Number, Integer>>[] TO_STRING_TRIOS =
 		Arrs.of(
 			Trio.of(Byte.class, Byte.SIZE, Numbers::getByteBit),

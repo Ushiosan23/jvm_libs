@@ -9,6 +9,7 @@ module com.github.ushiosan.jvm_utilities {
 	
 	exports ushiosan.jvm_utilities.error;
 	exports ushiosan.jvm_utilities.function;
+	exports ushiosan.jvm_utilities.function.base;
 	exports ushiosan.jvm_utilities.function.predicate;
 	exports ushiosan.jvm_utilities.lang;
 	exports ushiosan.jvm_utilities.lang.accumulator;

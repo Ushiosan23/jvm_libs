@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="95e8640a-d17b-4bce-a765-7969b6e5be28" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/gradle-publish.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common-java-library.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common-maven-publishing.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/common/CommonDependencies.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/common/CommonDevelopers.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/common/CommonJavadocs.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/common/CommonLicenses.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/project/JvmUtilitiesProject.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/project/SwingUtilitiesProject.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/project/BaseProject.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/project/SimpleJavaProject.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/project/TypeDependency.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/project/loader/PropertyProjectLoader.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/publishing/SimpleMavenProject.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/publishing/SingingProject.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/publishing/info.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/error/Errors.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/error/InvalidArgumentTypeException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/error/NotImplementedException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/error/RecursiveCallException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/Apply.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/Run.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/RunnableError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/base/Function.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/base/FunctionErr.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/predicate/ExtensionPredicate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/predicate/Predicates.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/predicate/RegexPredicate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/collection/ArrsGeneric.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/collection/ArrsPrimitive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/collection/IArrsConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/io/IOImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/instance/PrintInstance.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/BasePrintArray.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/BasePrintObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/SimplePrintArray.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/SimplePrintObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/VerbosePrintArray.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/VerbosePrintObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/Cls.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/Maths.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/Numbers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/Obj.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/Strings.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/accumulator/Accumulator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/accumulator/FileSizeAccumulator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/Arrs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/Collections.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/CollectionsSync.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/elements/Pair.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/elements/Trio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/io/IO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/io/StandardAlgorithms.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/io/ZipUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/print/PrintObj.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/print/annotations/PrintExclude.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/print/annotations/PrintOpts.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/random/Rand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/random/TextType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/reflection/ClassUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/reflection/FieldUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/reflection/MethodUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/reflection/ReflectionUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/reflection/options/ReflectionOpts.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/system/Arch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/system/Platform.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/TestUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/error/ErrorsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/function/predicate/ExtensionPredicateTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/internal/print/instance/PrintInstanceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/ClsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/MathsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/NumbersTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/ObjTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/StringsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/collection/ArrsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/io/IOTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/io/StandardAlgorithmsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/print/PrintObjTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/random/RandTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/reflection/FieldUtilsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/reflection/MethodUtilsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/reflection/ReflectionUtilsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/reflection/options/ReflectionOptsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/system/ArchTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/system/PlatformTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/resources/example.file.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/resources/simple.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/resources/zip-example.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swing-utilities/build.gradle.kts" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="JvmLibs" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit3 Test Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/scoop/apps/openjdk11/current/lib/src.zip!/java.base/java/lang/Object.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="1iggmh28" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2N7CdOHgWFW0ea7mv8uJjJuqXjZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit3",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
+    "git-widget-placeholder": "development",
+    "last_opened_file_path": "E:/Libraries/jvm-utilities",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "terminal"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="junit.framework.TestCase" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="ushiosan.jvm_utilities.lang" />
+      <recent name="ushiosan.jvm_utilities.lang.reflection" />
+      <recent name="ushiosan.jvm_utilities.lang.io" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.jvm-utilities [jvm-utilities:publishToMavenLocal]">
+    <configuration name="jvm-utilities [jvm-utilities:build]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--stacktrace" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jvm-utilities:build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="jvm-utilities [jvm-utilities:clean]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--stacktrace" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jvm-utilities:clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="jvm-utilities [jvm-utilities:javadoc]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--stacktrace" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jvm-utilities:javadoc" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="jvm-utilities [jvm-utilities:publishToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--stacktrace" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jvm-utilities:publishToMavenLocal" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="jvm-utilities [jvm-utilities:build]" run_configuration_type="GradleRunConfiguration" />
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="jvm-utilities [jvm-utilities:javadoc]" run_configuration_type="GradleRunConfiguration" />
+      </method>
+    </configuration>
+    <configuration name="jvm-utilities [jvm-utilities:test]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--stacktrace" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jvm-utilities:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.jvm-utilities [jvm-utilities:build]" />
+      <item itemvalue="Gradle.jvm-utilities [jvm-utilities:javadoc]" />
+      <item itemvalue="Gradle.jvm-utilities [jvm-utilities:publishToMavenLocal]" />
+      <item itemvalue="Gradle.jvm-utilities [jvm-utilities:test]" />
+      <item itemvalue="Gradle.jvm-utilities [jvm-utilities:clean]" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="95e8640a-d17b-4bce-a765-7969b6e5be28" name="Changes" comment="" />
+      <created>1679005827928</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679005827928</updated>
+    </task>
+    <task id="LOCAL-00001" summary="fix(jvm-utilities): Possible candidate to throw a &quot;NullPointerException&quot; exception for a poorly elaborated check.">
+      <created>1679012846990</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1679012846990</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix(jvm-utilities): Fixed typo">
+      <created>1679078140326</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1679078140326</updated>
+    </task>
+    <task id="LOCAL-00003" summary="refactor(jvm-utilities): Checking for null values">
+      <created>1679078247570</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1679078247570</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat(jvm-utilities): Shortcuts to Common Algorithm Names">
+      <created>1679078304829</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1679078304829</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat(jvm-utilities): Methods to get the hash of a file">
+      <created>1679078390300</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1679078390300</updated>
+    </task>
+    <task id="LOCAL-00006" summary="refactor(jvm-utilities): jvm-utilities 0.4.4">
+      <created>1679078432228</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1679078432228</updated>
+    </task>
+    <task id="LOCAL-00007" summary="refactor(jvm-utilities): New ignore rules">
+      <created>1679078634783</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1679078634783</updated>
+    </task>
+    <task id="LOCAL-00008" summary="refactor(project): Remove IDE and editor configurations">
+      <created>1679078855121</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1679078855121</updated>
+    </task>
+    <task id="LOCAL-00009" summary="refactor(jvm-utilities-test): All test classes now follow a name pattern and method names have been modified according to the pattern.&#10;&#10;In addition to adding more tests to verify that the library works correctly">
+      <created>1679164528055</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1679164528055</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat(jvm-utilities): New class used to detect recursive calls">
+      <created>1679164601278</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1679164601278</updated>
+    </task>
+    <task id="LOCAL-00011" summary="refactor(jvm-utilities): New methods of the Maths class to determine if a series of numbers is consecutive">
+      <created>1679164721368</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1679164721368</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fix(jvm-utilities): Thanks to the tests, it was possible to identify a bug in the synchronized collections.&#10;&#10;The error is that all the collections passed as a parameter within the collection were immutable and impossible to modify (which makes the method meaningless).">
+      <created>1679164908992</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1679164908992</updated>
+    </task>
+    <task id="LOCAL-00013" summary="refactor(jvm-utilities): Added a method that searches for all matches within a list and returns the indices where the match was found.">
+      <created>1679164983486</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1679164983486</updated>
+    </task>
+    <task id="LOCAL-00014" summary="refactor(jvm-utilities): Now the Pair class identifies the content and not the object as a whole. In this way objects with the same information are considered the same.">
+      <created>1679165104029</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1679165104029</updated>
+    </task>
+    <task id="LOCAL-00015" summary="refactor(jvm-utilities): For some reason it was calling a function 2 times and not using the variable, so it was completely inoperable.&#10;&#10;The variable is now used and the function being called has been removed.">
+      <created>1679165213495</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1679165213495</updated>
+    </task>
+    <task id="LOCAL-00016" summary="refactor(jvm-utilities): the toObjectString() method changed its behavior again.&#10;                         &#10;Previously, its behavior was based on searching for any toString method recursively and taking it for printing. The problem with this was that if this method was inside the same class it could make recursive calls (this method is meant to be called inside toString() methods) and fill the stack with calls.&#10;                         &#10;Now an observeStack call has been generated and all it does is store all the calls that are made to a certain object. If the object makes many consecutive calls (more than 2 calls is already considered recursive), it blocks it and shows a generic response along with the error that there is a recursion inside the called method. In this way, frozen programs and some unexpected error are avoided.">
+      <created>1679165675073</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1679165675073</updated>
+    </task>
+    <task id="LOCAL-00017" summary="refactor(jvm-utilities): jvm-utilities v0.5.0">
+      <created>1679165704222</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1679165704222</updated>
+    </task>
+    <task id="LOCAL-00018" summary="refactor(jvm-utilities): Fixed an issue where parameters that add print functionality were not exposed.">
+      <created>1681590273818</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1681590273818</updated>
+    </task>
+    <task id="LOCAL-00019" summary="refactor(jvm-utilities): jvm-utilities v0.5.1">
+      <created>1681590312291</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1681590312291</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix(jvm-utilities): README.md Fixed">
+      <created>1681590551075</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1681590551080</updated>
+    </task>
+    <task id="LOCAL-00021" summary="refactor(jvm-utilities): Change dependencies and behaviour">
+      <created>1681594724902</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1681594724902</updated>
+    </task>
+    <task id="LOCAL-00022" summary="refactor(jvm-utilities): The recursive call detection system was implemented again. Now the use of the call stack is made, which is more reliable than the previous system.">
+      <created>1681663035853</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1681663035853</updated>
+    </task>
+    <task id="LOCAL-00023" summary="refactor(jvm-utilities-test): The test classes were revised and complemented with new functionalities">
+      <created>1681663132932</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1681663132932</updated>
+    </task>
+    <task id="LOCAL-00024" summary="refactor(jvm-utilities): jvm-utilities v0.5.5">
+      <created>1681663170875</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1681663170875</updated>
+    </task>
+    <task id="LOCAL-00025" summary="fix(jvm-utilities): The concept is correct, but the application isn't. The only way I can think of at this moment is to invert said value so that the result is valid.">
+      <created>1681870151793</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1681870151793</updated>
+    </task>
+    <task id="LOCAL-00026" summary="refactor(jvm-utilities): jvm-utilities v0.5.6">
+      <created>1681870220200</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1681870220200</updated>
+    </task>
+    <task id="LOCAL-00027" summary="fix(jvm-utilities): Update ReflectionUtils.java too #64ebb37">
+      <created>1681872117472</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1681872117472</updated>
+    </task>
+    <task id="LOCAL-00028" summary="refactor(github-actions): Scan build process">
+      <created>1681872795723</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1681872795723</updated>
+    </task>
+    <task id="LOCAL-00029" summary="refactor(github-actions): New class for utilities in predicates">
+      <created>1682548278170</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1682548278170</updated>
+    </task>
+    <task id="LOCAL-00030" summary="refactor(github-actions): Various actions made by reflection have been simplified and new functionality has been added.">
+      <created>1682548378176</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1682548378176</updated>
+    </task>
+    <task id="LOCAL-00031" summary="refactor(github-actions): Added support for data accumulators. Very useful for working with data streams.">
+      <created>1682548436376</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1682548436376</updated>
+    </task>
+    <task id="LOCAL-00032" summary="refactor(github-actions): Added extra functionality for silent error handling">
+      <created>1682629462310</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1682629462310</updated>
+    </task>
+    <task id="LOCAL-00033" summary="refactor(github-actions): Name too ambiguous for the action it was performing">
+      <created>1682641608844</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1682641608844</updated>
+    </task>
+    <task id="LOCAL-00034" summary="refactor(github-actions): I/O functionality simplifications">
+      <created>1682642041590</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1682642041590</updated>
+    </task>
+    <task id="LOCAL-00035" summary="refactor(github-actions): More I/O functionality">
+      <created>1682643527257</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1682643527257</updated>
+    </task>
+    <task id="LOCAL-00036" summary="refactor(github-actions): More I/O functionality">
+      <created>1682644005984</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1682644005984</updated>
+    </task>
+    <task id="LOCAL-00037" summary="feat(jvm-utilities): Added functionality to work with bits in numbers">
+      <created>1683219591919</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1683219591919</updated>
+    </task>
+    <task id="LOCAL-00038" summary="refactor(jvm-utilities): Now regular expression patterns are dynamically generated as normal Java patterns.">
+      <created>1683219714654</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1683219714654</updated>
+    </task>
+    <task id="LOCAL-00039" summary="refactor(jvm-utilities): The behavior of converting numbers was changed, since it was exactly the same as that used by the &quot;Double&quot; class and it did not present any advantage to the original method.">
+      <created>1683220513451</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1683220513451</updated>
+    </task>
+    <task id="LOCAL-00040" summary="fix(jvm-utilities): Fixed the positioning of the bits when generating the text.">
+      <created>1683237227314</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1683237227314</updated>
+    </task>
+    <task id="LOCAL-00041" summary="feat(jvm-utilities-test): Generated a test class for the Numbers class">
+      <created>1683237286719</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1683237286719</updated>
+    </task>
+    <task id="LOCAL-00042" summary="feat(jvm-utilities): More representation of functions">
+      <created>1683238650532</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1683238650532</updated>
+    </task>
+    <task id="LOCAL-00043" summary="refactor(jvm-utilities): Dynamically throwing errors is completely deprecated.">
+      <created>1683238748020</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1683238748020</updated>
+    </task>
+    <task id="LOCAL-00044" summary="refactor(jvm-utilities): Refactoring conversion of numbers to text in binary format">
+      <created>1683238876733</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1683238876733</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <MESSAGE value="refactor(jvm-utilities): jvm-utilities v0.5.1" />
+    <MESSAGE value="fix(jvm-utilities): README.md Fixed" />
+    <MESSAGE value="refactor(jvm-utilities): Change dependencies and behaviour" />
+    <MESSAGE value="refactor(jvm-utilities): The recursive call detection system was implemented again. Now the use of the call stack is made, which is more reliable than the previous system." />
+    <MESSAGE value="refactor(jvm-utilities-test): The test classes were revised and complemented with new functionalities" />
+    <MESSAGE value="refactor(jvm-utilities): jvm-utilities v0.5.5" />
+    <MESSAGE value="fix(jvm-utilities): The concept is correct, but the application isn't. The only way I can think of at this moment is to invert said value so that the result is valid." />
+    <MESSAGE value="refactor(jvm-utilities): jvm-utilities v0.5.6" />
+    <MESSAGE value="fix(jvm-utilities): Update ReflectionUtils.java too #64ebb37" />
+    <MESSAGE value="refactor(github-actions): Scan build process" />
+    <MESSAGE value="refactor(github-actions): New class for utilities in predicates" />
+    <MESSAGE value="refactor(github-actions): Various actions made by reflection have been simplified and new functionality has been added." />
+    <MESSAGE value="refactor(github-actions): Added support for data accumulators. Very useful for working with data streams." />
+    <MESSAGE value="refactor(github-actions): Added extra functionality for silent error handling" />
+    <MESSAGE value="refactor(github-actions): Name too ambiguous for the action it was performing" />
+    <MESSAGE value="refactor(github-actions): I/O functionality simplifications" />
+    <MESSAGE value="refactor(github-actions): More I/O functionality" />
+    <MESSAGE value="feat(jvm-utilities): Added functionality to work with bits in numbers" />
+    <MESSAGE value="refactor(jvm-utilities): Now regular expression patterns are dynamically generated as normal Java patterns." />
+    <MESSAGE value="refactor(jvm-utilities): The behavior of converting numbers was changed, since it was exactly the same as that used by the &quot;Double&quot; class and it did not present any advantage to the original method." />
+    <MESSAGE value="fix(jvm-utilities): Fixed the positioning of the bits when generating the text." />
+    <MESSAGE value="feat(jvm-utilities-test): Generated a test class for the Numbers class" />
+    <MESSAGE value="feat(jvm-utilities): More representation of functions" />
+    <MESSAGE value="refactor(jvm-utilities): Dynamically throwing errors is completely deprecated." />
+    <MESSAGE value="refactor(jvm-utilities): Refactoring conversion of numbers to text in binary format" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(jvm-utilities): Refactoring conversion of numbers to text in binary format" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/Arrs.java</url>
+          <line>258</line>
+          <properties class="ushiosan.jvm_utilities.lang.collection.Arrs" method="toObjectArrayImpl">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

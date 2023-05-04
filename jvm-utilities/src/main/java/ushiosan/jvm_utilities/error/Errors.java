@@ -38,6 +38,7 @@ public final class Errors {
 	 * @throws RuntimeException error if the instance could not be created
 	 * @throws T                selected error generation
 	 */
+	@Deprecated(since = "0.6.0")
 	public static <T extends Throwable> void launch(@NotNull Class<T> clazz, Object... args) throws T {
 		T errorInstance;
 		try {

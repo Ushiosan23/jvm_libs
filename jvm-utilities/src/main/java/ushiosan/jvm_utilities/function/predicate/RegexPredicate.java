@@ -1,7 +1,9 @@
 package ushiosan.jvm_utilities.function.predicate;
 
+import org.intellij.lang.annotations.MagicConstant;
 import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm_utilities.lang.Numbers;
 import ushiosan.jvm_utilities.lang.io.IO;
 
 import java.io.File;
@@ -29,14 +31,40 @@ public interface RegexPredicate<T> extends Predicate<T> {
 	 * Generate instance of {@link RegexPredicate}
 	 *
 	 * @param fullPath determines whether to inspect the full path or just the filename
-	 * @param regex    regular expression to check each element
+	 * @param pattern  regular expression pattern instance
 	 * @param <T>      predicate object type
 	 * @return a configured instance of {@link RegexPredicate}
+	 * @see Pattern
 	 */
-	static <T> @NotNull Predicate<T> of(boolean fullPath, @NotNull @RegExp String regex) {
-		final Pattern pattern = Pattern.compile(regex);
+	static <T> @NotNull Predicate<T> of(boolean fullPath, @NotNull Pattern pattern) {
 		return new RegexPredicate<T>() {
+			@Override
+			public boolean isFullPathInspect() {
+				return fullPath;
+			}
 			
+			@Override
+			public Pattern getPattern() {
+				return pattern;
+			}
+		};
+	}
+	
+	/**
+	 * Generate instance of {@link RegexPredicate}
+	 *
+	 * @param fullPath determines whether to inspect the full path or just the filename
+	 * @param regex    regular expression to check each element
+	 * @param flags    regular expression flags
+	 * @param <T>      predicate object type
+	 * @return a configured instance of {@link RegexPredicate}
+	 * @see Pattern
+	 */
+	@SuppressWarnings("MagicConstant")
+	static <T> @NotNull Predicate<T> of(boolean fullPath, @NotNull @RegExp String regex,
+		@MagicConstant(flagsFromClass = Pattern.class) int @NotNull ... flags) {
+		final Pattern pattern = Pattern.compile(regex, Numbers.asFlags(flags));
+		return new RegexPredicate<>() {
 			@Override
 			public boolean isFullPathInspect() {
 				return fullPath;
@@ -53,11 +81,13 @@ public interface RegexPredicate<T> extends Predicate<T> {
 	 * Generate instance of {@link RegexPredicate}
 	 *
 	 * @param regex regular expression to check each element
+	 * @param flags regular expression flags
 	 * @param <T>   predicate object type
 	 * @return a configured instance of {@link RegexPredicate}
 	 */
-	static <T> @NotNull Predicate<T> of(@NotNull @RegExp String regex) {
-		return of(true, regex);
+	static <T> @NotNull Predicate<T> of(@NotNull @RegExp String regex,
+		@MagicConstant(flagsFromClass = Pattern.class) int @NotNull ... flags) {
+		return of(true, regex, flags);
 	}
 	
 	/**

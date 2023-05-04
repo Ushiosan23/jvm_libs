@@ -2,7 +2,8 @@ package ushiosan.jvm_utilities.lang;
 
 import org.intellij.lang.annotations.MagicConstant;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Unmodifiable;
+
+import java.util.Optional;
 
 /**
  * Class containing functionality for general number manipulation
@@ -41,12 +42,16 @@ public final class Numbers {
 	 * represented by the specified {@code String}.
 	 *
 	 * @param content the string to be parsed
-	 * @return the {@link Number} value represented by the string argument
-	 * @throws NumberFormatException if the string does not contain a
-	 *                               parsable {@code Number}
+	 * @return the {@link Number} value represented by the string argument or
+	 *    {@link Optional#empty()} if content is not valid number
 	 */
-	public static @NotNull @Unmodifiable Number parse(@NotNull CharSequence content) {
-		return Double.parseDouble(content.toString());
+	public static @NotNull Optional<Number> parse(@NotNull CharSequence content) {
+		try {
+			return Optional.of(
+				Double.parseDouble(content.toString()));
+		} catch (NumberFormatException ignore) {
+		}
+		return Optional.empty();
 	}
 	
 	/* -----------------------------------------------------

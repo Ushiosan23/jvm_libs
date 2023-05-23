@@ -31,7 +31,7 @@ private val cache: MutableMap<String, String> =
  * ----------------------------------------------------- */
 
 fun env(project: Project, key: String): String? {
-	// Check if cache is empty
+	// Check if the cache is empty
 	checkForNews(project)
 	// Check if key exists
 	return cache[key]
@@ -50,9 +50,9 @@ fun checkForNews(project: Project) {
 		.filter(Files::isRegularFile)
 		.filter { filterRegex.containsMatchIn(it.fileName.toString()) }
 	
-	// Check if cache contains any of these files
+	// Check if the cache contains any of these files
 	for (file in files) {
-		// Check if file already exists
+		// Check if the file already exists
 		if (file in cacheFiles) continue
 		// Load file
 		val tmpProps = Properties()
@@ -69,7 +69,7 @@ fun checkForNews(project: Project) {
 }
 
 private fun attachFile(file: Path, properties: Properties, project: Project) {
-	// Check if file exists
+	// Check if the file exists
 	if (!Files.exists(file) || cacheFiles.contains(file)) return
 	
 	println("Loading: \"$file\" -> :${project.name}")

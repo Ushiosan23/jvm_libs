@@ -299,6 +299,10 @@ public final class UNumber {
 				(value.longValue() & mask));
 	}
 	
+	/* -----------------------------------------------------
+	 * Binary string representation
+	 * ----------------------------------------------------- */
+	
 	/**
 	 * Converts a binary number to a bit-text representation
 	 *

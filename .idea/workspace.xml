@@ -4,110 +4,72 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95e8640a-d17b-4bce-a765-7969b6e5be28" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="95e8640a-d17b-4bce-a765-7969b6e5be28" name="Changes" comment="refactor(jvm-libraries): Clean project">
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common/common-developers.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common/common-java.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common/common-maven.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common/common-publications.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common/common-versions.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/types/common-types.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/utilities/environment-utilities.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/utilities/java-utilities.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/utilities/maven-publications.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/utilities/maven-signing.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/module-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/ULogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UNumber.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/UArrays.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/UCollections.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/ULists.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/USets.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/content/UPair.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/content/UTrio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/function/UEmptyFun.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/function/UEmptyFunErr.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/function/UFun.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/function/UFunErr.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/UArraysConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/generic/UArraysGeneric.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UArraysPrimitive.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UBooleanArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UByteArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UCharArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UDoubleArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UFloatArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UIntegerArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/ULongArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UShortArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/UToStringComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/UToStringManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/components/UGeneralComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/reflection/UFieldReflection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/reflection/UMethodReflection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UArrayValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UClassValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UObjectValidators.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/reflection/UReflectionActions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/reflection/UReflectionOptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/UTestUnit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/UActionTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/UClassTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/UObjectTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/collections/UArraysTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/internal/print/UToStringManagerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/gradle-publish.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common-java-library.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common-maven-publishing.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/common/CommonDependencies.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/common/CommonDevelopers.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/common/CommonJavadocs.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/common/CommonLicenses.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/project/JvmUtilitiesProject.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/defined/project/SwingUtilitiesProject.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/project/BaseProject.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/project/SimpleJavaProject.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/project/TypeDependency.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/project/loader/PropertyProjectLoader.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/publishing/SimpleMavenProject.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/publishing/SingingProject.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/publishing/info.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/module-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/error/Errors.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/error/InvalidArgumentTypeException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/error/NotImplementedException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/error/RecursiveCallException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/Apply.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/Run.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/RunnableError.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/base/Function.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/base/FunctionErr.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/predicate/ExtensionPredicate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/predicate/Predicates.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/function/predicate/RegexPredicate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/collection/ArrsGeneric.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/collection/ArrsPrimitive.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/collection/IArrsConstants.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/io/IOImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/instance/PrintInstance.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/BasePrintArray.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/BasePrintObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/SimplePrintArray.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/SimplePrintObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/VerbosePrintArray.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/internal/print/str/VerbosePrintObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/Cls.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/Maths.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/Numbers.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/Obj.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/Strings.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/accumulator/Accumulator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/accumulator/FileSizeAccumulator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/Arrs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/Collections.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/CollectionsSync.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/elements/Pair.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/elements/Trio.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/io/IO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/io/StandardAlgorithms.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/io/ZipUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/print/PrintObj.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/print/annotations/PrintExclude.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/print/annotations/PrintOpts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/random/Rand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/random/TextType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/reflection/ClassUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/reflection/FieldUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/reflection/MethodUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/reflection/ReflectionUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/reflection/options/ReflectionOpts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/system/Arch.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/system/Platform.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/TestUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/error/ErrorsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/function/predicate/ExtensionPredicateTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/internal/print/instance/PrintInstanceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/ClsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/MathsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/NumbersTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/ObjTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/StringsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/collection/ArrsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/io/IOTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/io/StandardAlgorithmsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/print/PrintObjTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/random/RandTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/reflection/FieldUtilsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/reflection/MethodUtilsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/reflection/ReflectionUtilsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/lang/reflection/options/ReflectionOptsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/system/ArchTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm_utilities/system/PlatformTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/resources/example.file.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/resources/simple.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/resources/zip-example.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swing-utilities/build.gradle.kts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,12 +90,15 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/jvm-utilities">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="JvmLibs" type="f1a62948:ProjectNode" />
+                <item name="jvm-libraries" type="f1a62948:ProjectNode" />
               </path>
             </expand>
             <select />
@@ -145,9 +110,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit3 Test Class" />
+        <option value="Kotlin File" />
+        <option value="Enum" />
+        <option value="module-info" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -158,6 +127,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="6eeb2a07-d447-4a21-84ba-0f0787d357f8" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$USER_HOME$/scoop/apps/openjdk11/current/lib/src.zip!/java.base/java/lang/Object.java" root0="SKIP_INSPECTION" />
@@ -174,30 +146,40 @@
   <component name="ProjectId" id="2N7CdOHgWFW0ea7mv8uJjJuqXjZ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit3",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
-    "git-widget-placeholder": "development",
-    "last_opened_file_path": "E:/Libraries/jvm-utilities",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.17",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "terminal"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;last_directory_selection&quot;: &quot;D:/Libraries/jvm-utilities/jvm-utilities/src/test/java/ushiosan/jvm&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Libraries/jvm-utilities&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
       <recent name="junit.framework.TestCase" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Libraries\jvm-utilities\buildSrc\src\main\kotlin\types" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="ushiosan.jvm_utilities.lang" />
-      <recent name="ushiosan.jvm_utilities.lang.reflection" />
-      <recent name="ushiosan.jvm_utilities.lang.io" />
+      <recent name="ushiosan.jvm.print" />
+      <recent name="ushiosan.jvm.reflection" />
+      <recent name="ushiosan.jvm" />
+      <recent name="ushiosan.jvm.internal.print" />
+      <recent name="ushiosan.jvm.collections" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.jvm-utilities [jvm-utilities:publishToMavenLocal]">
@@ -287,10 +269,7 @@
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <ForceTestExec>false</ForceTestExec>
-      <method v="2">
-        <option name="RunConfigurationTask" enabled="true" run_configuration_name="jvm-utilities [jvm-utilities:build]" run_configuration_type="GradleRunConfiguration" />
-        <option name="RunConfigurationTask" enabled="true" run_configuration_name="jvm-utilities [jvm-utilities:javadoc]" run_configuration_type="GradleRunConfiguration" />
-      </method>
+      <method v="2" />
     </configuration>
     <configuration name="jvm-utilities [jvm-utilities:test]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
       <ExternalSystemSettings>
@@ -639,7 +618,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683238876733</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="refactor(jvm-libraries): Clean project">
+      <created>1683240100139</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1683240100139</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -655,7 +641,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="refactor(jvm-utilities): jvm-utilities v0.5.1" />
     <MESSAGE value="fix(jvm-utilities): README.md Fixed" />
     <MESSAGE value="refactor(jvm-utilities): Change dependencies and behaviour" />
     <MESSAGE value="refactor(jvm-utilities): The recursive call detection system was implemented again. Now the use of the call stack is made, which is more reliable than the previous system." />
@@ -680,7 +665,8 @@
     <MESSAGE value="feat(jvm-utilities): More representation of functions" />
     <MESSAGE value="refactor(jvm-utilities): Dynamically throwing errors is completely deprecated." />
     <MESSAGE value="refactor(jvm-utilities): Refactoring conversion of numbers to text in binary format" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor(jvm-utilities): Refactoring conversion of numbers to text in binary format" />
+    <MESSAGE value="refactor(jvm-libraries): Clean project" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(jvm-libraries): Clean project" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -691,7 +677,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm_utilities/lang/collection/Arrs.java</url>
           <line>258</line>
-          <properties class="ushiosan.jvm_utilities.lang.collection.Arrs" method="toObjectArrayImpl">
+          <properties class="ushiosan.jvm_utilities.lang.collection.Arrs">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>

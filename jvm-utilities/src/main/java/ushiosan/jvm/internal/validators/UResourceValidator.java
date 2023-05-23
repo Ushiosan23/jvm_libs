@@ -16,7 +16,7 @@ import static ushiosan.jvm.internal.collections.arrays.UArraysConstants.INDEX_NO
 import static ushiosan.jvm.platform.UArchitecture.X64;
 import static ushiosan.jvm.platform.UArchitecture.platformRunningArch;
 
-public abstract class UPathValidator {
+public abstract class UResourceValidator {
 	
 	/* -----------------------------------------------------
 	 * Properties

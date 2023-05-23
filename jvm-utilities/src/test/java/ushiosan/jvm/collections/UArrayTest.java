@@ -7,25 +7,25 @@ import ushiosan.jvm.print.UToStringManager;
 
 import java.util.Arrays;
 
-import static ushiosan.jvm.collections.UArrays.toObjectArray;
+import static ushiosan.jvm.collections.UArray.toObjectArray;
 
-public class UArraysTest extends UTestUnit {
+public class UArrayTest extends UTestUnit {
 	
 	/* -----------------------------------------------------
 	 * Global properties
 	 * ----------------------------------------------------- */
 	
 	// Generic array generation
-	private final String[] genericArray = UArrays.of("Hello", ", ", "World", "!");
+	private final String[] genericArray = UArray.of("Hello", ", ", "World", "!");
 	// Primitive array generators
-	private final boolean[] pBooleanArray = UArrays.booleanOf(true, false, false, false, true, true);
-	private final char[] pCharArray = UArrays.charOf('H', 'e', 'l', 'l', 'o', '!');
-	private final byte[] pByteArray = UArrays.byteOf(0, 1, 2, 4, 8, 16, 32, 64, 127);
-	private final short[] pShortArray = UArrays.shortOf(2, 4, 6, 8, 10, 12, 14, 16, 18, 20);
-	private final int[] pIntegerArray = UArrays.intOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12903, Integer.MAX_VALUE);
-	private final long[] pLongArray = UArrays.longOf(890128093, 98791829, 98792845, 1090128);
-	private final float[] pFloatArray = UArrays.floatOf(1234.1234f, 365f);
-	private final double[] pDoubleArray = UArrays.doubleOf(Math.PI, 1289.198279182739123, Math.E);
+	private final boolean[] pBooleanArray = UArray.booleanOf(true, false, false, false, true, true);
+	private final char[] pCharArray = UArray.charOf('H', 'e', 'l', 'l', 'o', '!');
+	private final byte[] pByteArray = UArray.byteOf(0, 1, 2, 4, 8, 16, 32, 64, 127);
+	private final short[] pShortArray = UArray.shortOf(2, 4, 6, 8, 10, 12, 14, 16, 18, 20);
+	private final int[] pIntegerArray = UArray.intOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12903, Integer.MAX_VALUE);
+	private final long[] pLongArray = UArray.longOf(890128093, 98791829, 98792845, 1090128);
+	private final float[] pFloatArray = UArray.floatOf(1234.1234f, 365f);
+	private final double[] pDoubleArray = UArray.doubleOf(Math.PI, 1289.198279182739123, Math.E);
 	
 	/* -----------------------------------------------------
 	 * Test methods
@@ -71,13 +71,13 @@ public class UArraysTest extends UTestUnit {
 	public void indexOfTest() {
 		sectionOf(() -> {
 			// Temporal variables
-			int genericArrayIndex = UArrays.indexOf(genericArray, "!");
-			int pByteArrayIndex = UArrays.primitiveIndexOf(pByteArray, 64);
-			int pShortArrayIndex = UArrays.primitiveIndexOf(pShortArray, 4);
-			int pIntegerArrayIndex = UArrays.primitiveIndexOf(pIntegerArray, 12903);
-			int pLongArrayIndex = UArrays.primitiveIndexOf(pLongArray, 890128093);
-			int pFloatArrayIndex = UArrays.primitiveIndexOf(pFloatArray, 365.0f);
-			int pDoubleArrayIndex = UArrays.primitiveIndexOf(pDoubleArray, Math.PI);
+			int genericArrayIndex = UArray.indexOf(genericArray, "!");
+			int pByteArrayIndex = UArray.primitiveIndexOf(pByteArray, 64);
+			int pShortArrayIndex = UArray.primitiveIndexOf(pShortArray, 4);
+			int pIntegerArrayIndex = UArray.primitiveIndexOf(pIntegerArray, 12903);
+			int pLongArrayIndex = UArray.primitiveIndexOf(pLongArray, 890128093);
+			int pFloatArrayIndex = UArray.primitiveIndexOf(pFloatArray, 365.0f);
+			int pDoubleArrayIndex = UArray.primitiveIndexOf(pDoubleArray, Math.PI);
 			
 			// Assertions
 			Assertions.assertEquals(genericArrayIndex, 3,
@@ -117,13 +117,13 @@ public class UArraysTest extends UTestUnit {
 	public void lastIndexOfTest() {
 		sectionOf(() -> {
 			// Temporal variables
-			int genericArrayIndex = UArrays.lastIndexOf(genericArray, "!");
-			int pByteArrayIndex = UArrays.primitiveLastIndexOf(pByteArray, 64);
-			int pShortArrayIndex = UArrays.primitiveLastIndexOf(pShortArray, 4);
-			int pIntegerArrayIndex = UArrays.primitiveLastIndexOf(pIntegerArray, 12903);
-			int pLongArrayIndex = UArrays.primitiveLastIndexOf(pLongArray, 890128093);
-			int pFloatArrayIndex = UArrays.primitiveLastIndexOf(pFloatArray, 365.0f);
-			int pDoubleArrayIndex = UArrays.primitiveLastIndexOf(pDoubleArray, Math.PI);
+			int genericArrayIndex = UArray.lastIndexOf(genericArray, "!");
+			int pByteArrayIndex = UArray.primitiveLastIndexOf(pByteArray, 64);
+			int pShortArrayIndex = UArray.primitiveLastIndexOf(pShortArray, 4);
+			int pIntegerArrayIndex = UArray.primitiveLastIndexOf(pIntegerArray, 12903);
+			int pLongArrayIndex = UArray.primitiveLastIndexOf(pLongArray, 890128093);
+			int pFloatArrayIndex = UArray.primitiveLastIndexOf(pFloatArray, 365.0f);
+			int pDoubleArrayIndex = UArray.primitiveLastIndexOf(pDoubleArray, Math.PI);
 			
 			// Assertions
 			Assertions.assertEquals(genericArrayIndex, 3,
@@ -163,13 +163,13 @@ public class UArraysTest extends UTestUnit {
 	@Test
 	public void containsTest() {
 		sectionOf(() -> {
-			boolean containsGeneric = UArrays.contains(genericArray, "!");
-			boolean containsByte = UArrays.primitiveContains(pByteArray, 64);
-			boolean containsShort = UArrays.primitiveContains(pShortArray, 4);
-			boolean containsInt = UArrays.primitiveContains(pIntegerArray, 12903);
-			boolean containsLong = UArrays.primitiveContains(pLongArray, 890128093);
-			boolean containsFloat = UArrays.primitiveContains(pFloatArray, 365.0f);
-			boolean containsDouble = UArrays.primitiveContains(pDoubleArray, Math.PI);
+			boolean containsGeneric = UArray.contains(genericArray, "!");
+			boolean containsByte = UArray.primitiveContains(pByteArray, 64);
+			boolean containsShort = UArray.primitiveContains(pShortArray, 4);
+			boolean containsInt = UArray.primitiveContains(pIntegerArray, 12903);
+			boolean containsLong = UArray.primitiveContains(pLongArray, 890128093);
+			boolean containsFloat = UArray.primitiveContains(pFloatArray, 365.0f);
+			boolean containsDouble = UArray.primitiveContains(pDoubleArray, Math.PI);
 			
 			// Assertions
 			Assertions.assertTrue(containsGeneric,
@@ -209,14 +209,14 @@ public class UArraysTest extends UTestUnit {
 	public void lastElementTest() {
 		sectionOf(() -> {
 			// Temporal variables
-			var genericLast = UArrays.lastElement(genericArray);
-			var charLast = UArrays.primitiveLastElement(pCharArray);
-			var byteLast = UArrays.primitiveLastElement(pByteArray);
-			var shortLast = UArrays.primitiveLastElement(pShortArray);
-			var intLast = UArrays.primitiveLastElement(pIntegerArray);
-			var longLast = UArrays.primitiveLastElement(pLongArray);
-			var floatLast = UArrays.primitiveLastElement(pFloatArray);
-			var doubleLast = UArrays.primitiveLastElement(pDoubleArray);
+			var genericLast = UArray.lastElement(genericArray);
+			var charLast = UArray.primitiveLastElement(pCharArray);
+			var byteLast = UArray.primitiveLastElement(pByteArray);
+			var shortLast = UArray.primitiveLastElement(pShortArray);
+			var intLast = UArray.primitiveLastElement(pIntegerArray);
+			var longLast = UArray.primitiveLastElement(pLongArray);
+			var floatLast = UArray.primitiveLastElement(pFloatArray);
+			var doubleLast = UArray.primitiveLastElement(pDoubleArray);
 			
 			// Assertions
 			Assertions.assertTrue(genericLast.isPresent() && genericLast.get().equals("!"),
@@ -260,15 +260,15 @@ public class UArraysTest extends UTestUnit {
 	public void toObjectArrayTest() {
 		sectionOf(() -> {
 			// Temporal variables
-			Object[] genericObjArr = UArrays.toGenericObjectArray(genericArray);
-			Character[] charObjArr = UArrays.toObjectArray(pCharArray);
-			Boolean[] boolObjArr = UArrays.toObjectArray(pBooleanArray);
-			Byte[] byteObjArr = UArrays.toObjectArray(pByteArray);
-			Short[] shortObjArr = UArrays.toObjectArray(pShortArray);
-			Integer[] intObjArr = UArrays.toObjectArray(pIntegerArray);
-			Long[] longObjArr = UArrays.toObjectArray(pLongArray);
-			Float[] floatObjArr = UArrays.toObjectArray(pFloatArray);
-			Double[] doubleObjArr = UArrays.toObjectArray(pDoubleArray);
+			Object[] genericObjArr = UArray.toGenericObjectArray(genericArray);
+			Character[] charObjArr = UArray.toObjectArray(pCharArray);
+			Boolean[] boolObjArr = UArray.toObjectArray(pBooleanArray);
+			Byte[] byteObjArr = UArray.toObjectArray(pByteArray);
+			Short[] shortObjArr = UArray.toObjectArray(pShortArray);
+			Integer[] intObjArr = UArray.toObjectArray(pIntegerArray);
+			Long[] longObjArr = UArray.toObjectArray(pLongArray);
+			Float[] floatObjArr = UArray.toObjectArray(pFloatArray);
+			Double[] doubleObjArr = UArray.toObjectArray(pDoubleArray);
 			
 			// Assertions
 			Assertions.assertEquals(genericObjArr.getClass(), String[].class,
@@ -316,19 +316,19 @@ public class UArraysTest extends UTestUnit {
 	public void transformTest() {
 		sectionOf(() -> {
 			// Temporal variables
-			var genericTransform = UArrays.transform(genericArray,
-													 it -> UArrays.toObjectArray(it.getBytes()),
-													 Byte[][]::new);
-			var booleanTransform = UArrays.primitiveTransform(pBooleanArray,
-															  it -> (byte) (it ? 1 : 0),
-															  Byte[]::new);
+			var genericTransform = UArray.transform(genericArray,
+													it -> UArray.toObjectArray(it.getBytes()),
+													Byte[][]::new);
+			var booleanTransform = UArray.primitiveTransform(pBooleanArray,
+															 it -> (byte) (it ? 1 : 0),
+															 Byte[]::new);
 			
 			// Assertions
-			Assertions.assertArrayEquals(UArrays.toObjectArray(UArrays.byteOf(1, 0, 0, 0, 1, 1)),
+			Assertions.assertArrayEquals(UArray.toObjectArray(UArray.byteOf(1, 0, 0, 0, 1, 1)),
 										 booleanTransform, "Invalid array conversion");
 			Assertions.assertArrayEquals(
-				UArrays.of(toObjectArray(genericArray[0].getBytes()), toObjectArray(genericArray[1].getBytes()),
-						   toObjectArray(genericArray[2].getBytes()), toObjectArray(genericArray[3].getBytes())),
+				UArray.of(toObjectArray(genericArray[0].getBytes()), toObjectArray(genericArray[1].getBytes()),
+						  toObjectArray(genericArray[2].getBytes()), toObjectArray(genericArray[3].getBytes())),
 				genericTransform, "Invalid array conversion");
 			
 			System.out.println(UToStringManager.getInstance().toString(genericTransform));

@@ -7,7 +7,7 @@ import ushiosan.jvm.internal.validators.UArrayValidator;
 import static ushiosan.jvm.UObject.cast;
 import static ushiosan.jvm.UObject.requireNotNull;
 
-public abstract class UArraysPrimitive extends UDoubleArray {
+public abstract class UArrayPrimitive extends UDoubleArray {
 	
 	/**
 	 * Convert any array to an object array.

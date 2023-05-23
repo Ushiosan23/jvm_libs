@@ -2,7 +2,7 @@ package ushiosan.jvm;
 
 import org.intellij.lang.annotations.MagicConstant;
 import org.jetbrains.annotations.NotNull;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.content.UTrio;
 import ushiosan.jvm.function.UFun;
 
@@ -25,7 +25,7 @@ public final class UNumber {
 	 * Functions used to convert numbers to text in binary format
 	 */
 	private static final UTrio<Class<?>, Integer, UFun.UFun2<Boolean, Number, Integer>>[] TO_STRING_TRIOS =
-		UArrays.of(
+		UArray.of(
 			UTrio.of(Byte.class, Byte.SIZE, UNumber::getByteBit),
 			UTrio.of(Short.class, Short.SIZE, UNumber::getShortBit),
 			UTrio.of(Integer.class, Integer.SIZE, UNumber::getIntBit),

@@ -109,7 +109,7 @@ abstract class UByteArray extends UCharArray {
 	 * @return a converted array object
 	 */
 	public static Byte @NotNull [] toObjectArray(byte[] array) {
-		return cast(UArraysPrimitive.toObjectArrayImpl(array), Byte[].class);
+		return cast(UArrayPrimitive.toObjectArrayImpl(array), Byte[].class);
 	}
 	
 	/**

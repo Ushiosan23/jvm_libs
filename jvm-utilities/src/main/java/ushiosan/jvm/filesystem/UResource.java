@@ -1,7 +1,7 @@
 package ushiosan.jvm.filesystem;
 
 import org.jetbrains.annotations.NotNull;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.internal.validators.UResourceValidator;
 
 import java.io.File;
@@ -355,7 +355,7 @@ public final class UResource extends UResourceValidator {
 	 */
 	public static @NotNull String resourceHashStr(byte[] hash) {
 		requireNotNull(hash, "hash");
-		return Arrays.stream(UArrays.toObjectArray(hash))
+		return Arrays.stream(UArray.toObjectArray(hash))
 			.map(it -> String.format("%02x", it))
 			.collect(Collectors.joining());
 	}

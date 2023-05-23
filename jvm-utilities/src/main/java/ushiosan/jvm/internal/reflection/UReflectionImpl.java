@@ -5,9 +5,9 @@ import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm.UClass;
 import ushiosan.jvm.UNumber;
-import ushiosan.jvm.collections.UArrays;
-import ushiosan.jvm.collections.ULists;
-import ushiosan.jvm.collections.USets;
+import ushiosan.jvm.collections.UArray;
+import ushiosan.jvm.collections.UList;
+import ushiosan.jvm.collections.USet;
 import ushiosan.jvm.content.UPair;
 import ushiosan.jvm.function.UFun;
 import ushiosan.jvm.internal.validators.UReflectionValidator;
@@ -40,7 +40,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	 * on the selected configuration.
 	 */
 	protected static final UPair<UFun.UFun1<Boolean, UReflectionOptions<? extends Member>>, Predicate<? extends Member>>[]
-		MEMBER_FILTER_ARRAY = UArrays.of(
+		MEMBER_FILTER_ARRAY = UArray.of(
 		UPair.of(UReflectionOptions::publicAccess, modifiers(Modifier.PUBLIC)),
 		UPair.of(UReflectionOptions::skipAbstract, modifiers(true, Modifier.ABSTRACT)));
 	
@@ -61,18 +61,18 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 		requireNotNull(options, "options");
 		// Temporal variables
 		Stack<Class<?>> classStack = UClass.classStack(cls, options.maxDeepRecursive());
-		Set<Method> methodContainer = USets.mutableSetOf();
+		Set<Method> methodContainer = USet.mutableSetOf();
 		
 		// Iterate all classes
 		for (Class<?> clsItem : classStack) {
-			var clsMethods = options.recursive() ? ULists.<Method>listOf() :
+			var clsMethods = options.recursive() ? UList.<Method>listOf() :
 							 filterMembers(clsItem.getMethods(), options);
 			var clsDeclaredMethods = filterMembers(clsItem.getDeclaredMethods(),
 												   options);
 			
 			// Combine all methods (ignore equal methods)
-			Set<Method> uniqueMethods = cast(USets.combine(clsMethods, clsDeclaredMethods));
-			methodContainer = cast(USets.combine(methodContainer, uniqueMethods));
+			Set<Method> uniqueMethods = cast(USet.combine(clsMethods, clsDeclaredMethods));
+			methodContainer = cast(USet.combine(methodContainer, uniqueMethods));
 		}
 		
 		// Generate array
@@ -93,18 +93,18 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 		requireNotNull(options, "options");
 		// Temporal variables
 		Stack<Class<?>> classStack = UClass.classStack(cls, options.maxDeepRecursive());
-		Set<Field> fieldContainer = USets.mutableSetOf();
+		Set<Field> fieldContainer = USet.mutableSetOf();
 		
 		// Iterate all classes
 		for (Class<?> clsItem : classStack) {
-			var clsFields = options.recursive() ? ULists.<Field>listOf() :
+			var clsFields = options.recursive() ? UList.<Field>listOf() :
 							filterMembers(clsItem.getFields(), options);
 			var clsDeclaredFields = filterMembers(clsItem.getDeclaredFields(),
 												  options);
 			
 			// Combine all fields (ignore equal fields)
-			Set<Field> uniqueFields = cast(USets.combine(clsFields, clsDeclaredFields));
-			fieldContainer = cast(USets.combine(fieldContainer, uniqueFields));
+			Set<Field> uniqueFields = cast(USet.combine(clsFields, clsDeclaredFields));
+			fieldContainer = cast(USet.combine(fieldContainer, uniqueFields));
 		}
 		
 		// Generate array
@@ -202,7 +202,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	 * @return the filter instance with the desired behavior
 	 */
 	public static <T extends Member> @NotNull Predicate<T> excludeMembers(String @NotNull ... names) {
-		return it -> !UArrays.contains(names, it.getName());
+		return it -> !UArray.contains(names, it.getName());
 	}
 	
 	/**
@@ -218,12 +218,12 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 			// Verify if a member is a field or method
 			if (canCast(it, Field.class)) {
 				Field field = cast(it);
-				return !UArrays.contains(INVALID_GET_TYPES, field.getType());
+				return !UArray.contains(INVALID_GET_TYPES, field.getType());
 			}
 			if (canCast(it, Method.class)) {
 				Method method = cast(it);
 				return method.getParameterCount() == 0 &&
-					   !UArrays.contains(INVALID_GET_TYPES, method.getReturnType());
+					   !UArray.contains(INVALID_GET_TYPES, method.getReturnType());
 			}
 			return false;
 		};
@@ -249,7 +249,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	 * @return the filter instance with the desired behavior
 	 */
 	public static @NotNull Predicate<Method> methodTypeParams(Class<?> @NotNull ... args) {
-		return it -> UArrays.contentEquals(it.getParameterTypes(), args);
+		return it -> UArray.contentEquals(it.getParameterTypes(), args);
 	}
 	
 	/**

@@ -99,7 +99,7 @@ abstract class UCharArray extends UBooleanArray {
 	 * @return a converted array object
 	 */
 	public static Character @NotNull [] toObjectArray(char[] array) {
-		return cast(UArraysPrimitive.toObjectArrayImpl(array), Character[].class);
+		return cast(UArrayPrimitive.toObjectArrayImpl(array), Character[].class);
 	}
 	
 	/**

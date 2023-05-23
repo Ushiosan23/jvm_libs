@@ -5,8 +5,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ushiosan.UTestUnit;
-import ushiosan.jvm.collections.UArrays;
-import ushiosan.jvm.collections.ULists;
+import ushiosan.jvm.collections.UArray;
+import ushiosan.jvm.collections.UList;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ class UToStringManagerTest extends UTestUnit {
 				
 				@Override
 				public Class<?>[] supportedElements() {
-					return UArrays.of(RecursiveCallClass.class);
+					return UArray.of(RecursiveCallClass.class);
 				}
 				
 				@Override
@@ -136,14 +136,14 @@ class UToStringManagerTest extends UTestUnit {
 	@Test
 	public void toStringCollectionTest() {
 		sectionOf(() -> {
-			var dimensionalArray = UArrays.of(
-				UArrays.intOf(1, 2),
-				UArrays.intOf(1, 2),
-				UArrays.intOf(1, 2));
-			var list = ULists.listOf(2, 4, 6, 8, Integer.class, new Object(), new Object() {});
+			var dimensionalArray = UArray.of(
+				UArray.intOf(1, 2),
+				UArray.intOf(1, 2),
+				UArray.intOf(1, 2));
+			var list = UList.listOf(2, 4, 6, 8, Integer.class, new Object(), new Object() {});
 			var map = new HashMap<>();
 			map.put(1, "Hello");
-			map.put(String.class, UArrays.of(2, 4, 6, 8, 10, 12));
+			map.put(String.class, UArray.of(2, 4, 6, 8, 10, 12));
 			
 			// Objects string
 			var dimensionalArrayStr = UToStringManager.getInstance()

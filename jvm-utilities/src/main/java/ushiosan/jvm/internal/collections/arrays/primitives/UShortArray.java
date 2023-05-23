@@ -109,7 +109,7 @@ abstract class UShortArray extends UByteArray {
 	 * @return a converted array object
 	 */
 	public static Short @NotNull [] toObjectArray(short[] array) {
-		return cast(UArraysPrimitive.toObjectArrayImpl(array), Short[].class);
+		return cast(UArrayPrimitive.toObjectArrayImpl(array), Short[].class);
 	}
 	
 	/**

@@ -98,7 +98,7 @@ abstract class ULongArray extends UIntegerArray {
 	 * @return a converted array object
 	 */
 	public static Long @NotNull [] toObjectArray(long[] array) {
-		return cast(UArraysPrimitive.toObjectArrayImpl(array),
+		return cast(UArrayPrimitive.toObjectArrayImpl(array),
 					Long[].class);
 	}
 	

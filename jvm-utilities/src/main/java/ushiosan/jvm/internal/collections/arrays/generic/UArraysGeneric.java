@@ -4,7 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm.UClass;
-import ushiosan.jvm.collections.ULists;
+import ushiosan.jvm.collections.UList;
 import ushiosan.jvm.internal.collections.arrays.UArraysConstants;
 
 import java.lang.reflect.Array;
@@ -59,7 +59,7 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 */
 	public static Object @NotNull [] of(@NotNull Iterator<?> iterator) {
 		requireNotNull(iterator, "iterator");
-		List<?> iteratorList = ULists.listOf(iterator);
+		List<?> iteratorList = UList.listOf(iterator);
 		return iteratorList.toArray();
 	}
 	

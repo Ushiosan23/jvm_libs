@@ -2,10 +2,10 @@ package ushiosan.jvm.internal.print.components;
 
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm.UObject;
-import ushiosan.jvm.internal.collections.arrays.primitives.UArraysPrimitive;
+import ushiosan.jvm.internal.collections.arrays.primitives.UArrayPrimitive;
 import ushiosan.jvm.print.UToStringComponent;
 
-public class UArrayComponent extends UArraysPrimitive implements UToStringComponent {
+public class UArrayComponent extends UArrayPrimitive implements UToStringComponent {
 	
 	/**
 	 * Singleton instance

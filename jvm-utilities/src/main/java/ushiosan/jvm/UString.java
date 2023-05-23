@@ -2,7 +2,7 @@ package ushiosan.jvm;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.content.UPair;
 
 import java.util.Arrays;
@@ -45,7 +45,7 @@ public final class UString {
 		// Temporal variables
 		String contentString = content.toString();
 		String[] contentChunks = allContent ? contentString.split("\\s") :
-								 UArrays.of(contentString);
+								 UArray.of(contentString);
 		
 		// Try to convert all elements
 		String[] convertedChunks = Arrays.stream(contentChunks)
@@ -86,7 +86,7 @@ public final class UString {
 			// Filter invalid ASCII characters
 			.filter(c -> (c <= 57 || c >= 65) && (c <= 90 || c >= 97))
 			// Filter selected characters to be ignored
-			.filter(c -> !UArrays.primitiveContains(ignore, (char) c))
+			.filter(c -> !UArray.primitiveContains(ignore, (char) c))
 			.limit(size)
 			.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
 			.toString();

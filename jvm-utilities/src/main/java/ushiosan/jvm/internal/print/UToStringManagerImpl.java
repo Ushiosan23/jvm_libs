@@ -4,8 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm.UClass;
 import ushiosan.jvm.UObject;
-import ushiosan.jvm.collections.UArrays;
-import ushiosan.jvm.collections.USets;
+import ushiosan.jvm.collections.UArray;
+import ushiosan.jvm.collections.USet;
 import ushiosan.jvm.content.UPair;
 import ushiosan.jvm.function.UFun;
 import ushiosan.jvm.internal.print.components.*;
@@ -30,7 +30,7 @@ public final class UToStringManagerImpl implements UToStringManager {
 	/**
 	 * Constant that contains the functions for the conversion of special cases.
 	 */
-	private static final UPair<UFun.UFun1<Boolean, Object>, UFun.UFun2<String, Object, Boolean>>[] SPECIAL_CASES = UArrays.of(
+	private static final UPair<UFun.UFun1<Boolean, Object>, UFun.UFun2<String, Object, Boolean>>[] SPECIAL_CASES = UArray.of(
 		// Checks that the object is a valid null value and
 		// returns its text representation
 		UPair.of(Objects::isNull, (it, ignore) -> "<null>"),
@@ -70,14 +70,14 @@ public final class UToStringManagerImpl implements UToStringManager {
 	 */
 	private UToStringManagerImpl() {
 		// Initialize properties
-		components = UArrays.of(
+		components = UArray.of(
 			UCollectionComponent.getInstance(),
 			UEntryComponent.getInstance(),
 			UArrayComponent.getInstance(),
 			UThrowableComponent.getInstance(),
 			UGeneralComponent.getInstance());
 		noEditableComponents = cast(UClass.toVarargTypes((Object[]) components));
-		registeredTypes = USets.mutableSetOf(noEditableComponents);
+		registeredTypes = USet.mutableSetOf(noEditableComponents);
 	}
 	
 	/* -----------------------------------------------------
@@ -178,7 +178,7 @@ public final class UToStringManagerImpl implements UToStringManager {
 		requireNotNull(component, "component");
 		// Check if component a not editable component or already exists
 		Class<?> componentCls = component.getClass();
-		if (UArrays.contains(noEditableComponents, componentCls) ||
+		if (UArray.contains(noEditableComponents, componentCls) ||
 			registeredTypes.contains(componentCls)) {
 			return;
 		}
@@ -186,7 +186,7 @@ public final class UToStringManagerImpl implements UToStringManager {
 		// We make the changes to the array.
 		// The last element of the array is considered fixed and should
 		// never change because it is an essential element with generic functionality.
-		UToStringComponent lastComponent = UArrays.unsafeLastElement(components);
+		UToStringComponent lastComponent = UArray.unsafeLastElement(components);
 		UToStringComponent[] tmpComponents = new UToStringComponent[components.length + 1];
 		
 		// Copy the base elements
@@ -208,7 +208,7 @@ public final class UToStringManagerImpl implements UToStringManager {
 	public void removeComponent(@NotNull Class<? extends UToStringComponent> cls) {
 		requireNotNull(cls, "cls");
 		// Check if component a not editable component or not exists
-		if (UArrays.contains(noEditableComponents, cls) ||
+		if (UArray.contains(noEditableComponents, cls) ||
 			!registeredTypes.contains(cls)) {
 		}
 		

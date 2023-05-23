@@ -2,7 +2,7 @@ package ushiosan.jvm.internal.print.components;
 
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm.UObject;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.print.UToStringComponent;
 
 import java.util.Map;
@@ -22,7 +22,7 @@ public final class UEntryComponent implements UToStringComponent {
 	/**
 	 * All elements supported by the instance
 	 */
-	private final Class<?>[] SUPPORTED_CLASSES = UArrays.of(
+	private final Class<?>[] SUPPORTED_CLASSES = UArray.of(
 		Map.Entry.class);
 	
 	/**

@@ -1,7 +1,7 @@
 package ushiosan.jvm.internal.validators;
 
 import org.jetbrains.annotations.NotNull;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -146,7 +146,7 @@ public abstract class UResourceValidator {
 	 * @return returns the file extension or {@link Optional#empty()} if the extension not exists
 	 */
 	protected static @NotNull Optional<String> extensionImpl(String @NotNull [] extensions) {
-		return UArrays.lastElement(extensions);
+		return UArray.lastElement(extensions);
 	}
 	
 	/**

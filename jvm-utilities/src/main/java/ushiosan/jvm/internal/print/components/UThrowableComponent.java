@@ -3,7 +3,7 @@ package ushiosan.jvm.internal.print.components;
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm.UError;
 import ushiosan.jvm.UObject;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.print.UToStringComponent;
 
 import static ushiosan.jvm.UObject.cast;
@@ -21,7 +21,7 @@ public class UThrowableComponent implements UToStringComponent {
 	/**
 	 * All elements supported by the instance
 	 */
-	private final Class<?>[] SUPPORTED_CLASSES = UArrays.of(Throwable.class);
+	private final Class<?>[] SUPPORTED_CLASSES = UArray.of(Throwable.class);
 	
 	/**
 	 * This class cannot be instantiated directly

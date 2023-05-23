@@ -98,7 +98,7 @@ abstract class UDoubleArray extends UFloatArray {
 	 * @return a converted array object
 	 */
 	public static Double @NotNull [] toObjectArray(double[] array) {
-		return cast(UArraysPrimitive.toObjectArrayImpl(array),
+		return cast(UArrayPrimitive.toObjectArrayImpl(array),
 					Double[].class);
 	}
 	

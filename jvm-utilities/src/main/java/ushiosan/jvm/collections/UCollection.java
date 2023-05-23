@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.List;
 
-abstract class UCollections {
+abstract class UCollection {
 	
 	/* -----------------------------------------------------
 	 * Join methods
@@ -21,8 +21,8 @@ abstract class UCollections {
 	 */
 	@SafeVarargs
 	public static <T> @NotNull Collection<T> combine(boolean excludeDuplicates, List<T> @NotNull ... lts) {
-		Collection<T> tmpResult = excludeDuplicates ? USets.mutableSetOf() :
-								  ULists.mutableListOf();
+		Collection<T> tmpResult = excludeDuplicates ? USet.mutableSetOf() :
+								  UList.mutableListOf();
 		// Iterate all collections
 		for (List<T> lt : lts) {
 			tmpResult.addAll(lt);

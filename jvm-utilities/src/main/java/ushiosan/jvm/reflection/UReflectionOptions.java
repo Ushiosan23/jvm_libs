@@ -4,7 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 import ushiosan.jvm.UClass;
-import ushiosan.jvm.collections.ULists;
+import ushiosan.jvm.collections.UList;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
@@ -59,7 +59,7 @@ public class UReflectionOptions<T extends Member> {
 		recursive = true;
 		skipAbstract = true;
 		maxDeep = UClass.FULL_CLASS_STACK;
-		predicates = ULists.mutableListOf();
+		predicates = UList.mutableListOf();
 	}
 	
 	/* -----------------------------------------------------
@@ -206,7 +206,7 @@ public class UReflectionOptions<T extends Member> {
 	 * @return all predicate elements
 	 */
 	public @NotNull @Unmodifiable List<Predicate<T>> predicates() {
-		return ULists.listOf(predicates);
+		return UList.listOf(predicates);
 	}
 	
 	/**

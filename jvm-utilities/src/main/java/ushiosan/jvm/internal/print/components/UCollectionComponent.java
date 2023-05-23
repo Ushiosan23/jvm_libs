@@ -2,7 +2,7 @@ package ushiosan.jvm.internal.print.components;
 
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm.UObject;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.function.UFun;
 import ushiosan.jvm.print.UToStringComponent;
 
@@ -25,7 +25,7 @@ public final class UCollectionComponent implements UToStringComponent {
 	/**
 	 * All elements supported by the instance
 	 */
-	private final Class<?>[] SUPPORTED_CLASSES = UArrays.of(
+	private final Class<?>[] SUPPORTED_CLASSES = UArray.of(
 		Map.class,
 		Collection.class);
 	/**
@@ -34,7 +34,7 @@ public final class UCollectionComponent implements UToStringComponent {
 	 *
 	 * @see #SUPPORTED_CLASSES
 	 */
-	private final UFun.UFun2<String, Object, Boolean>[] CONVERSION_REFERENCE = UArrays.of(
+	private final UFun.UFun2<String, Object, Boolean>[] CONVERSION_REFERENCE = UArray.of(
 		this::toMapString,
 		this::toCollectionString);
 	

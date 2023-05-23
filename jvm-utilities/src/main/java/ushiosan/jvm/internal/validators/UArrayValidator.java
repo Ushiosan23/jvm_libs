@@ -1,7 +1,7 @@
 package ushiosan.jvm.internal.validators;
 
 import org.jetbrains.annotations.NotNull;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.content.UPair;
 import ushiosan.jvm.function.UFun;
 
@@ -17,7 +17,7 @@ public final class UArrayValidator {
 	 * Object pairs used for conversion from primitive arrays to object arrays
 	 */
 	public static final UPair<Class<?>, UFun.UFun1<Object[], Object>>[] NUMERIC_ARRAYS_OBJ_CONVERSIONS =
-		UArrays.of(
+		UArray.of(
 			UPair.of(byte[].class, UArrayValidator::toByteArrayObj),
 			UPair.of(short[].class, UArrayValidator::toShortArrayObj),
 			UPair.of(int[].class, UArrayValidator::toIntegerArrayObj),
@@ -29,7 +29,7 @@ public final class UArrayValidator {
 	 * Object pairs used for conversion from primitive arrays to object arrays
 	 */
 	public static final UPair<Class<?>, UFun.UFun1<Object[], Object>>[] PRIMITIVE_ARRAYS_CONVERSIONS =
-		UArrays.join(NUMERIC_ARRAYS_OBJ_CONVERSIONS, UArrays.of(
+		UArray.join(NUMERIC_ARRAYS_OBJ_CONVERSIONS, UArray.of(
 			UPair.of(boolean[].class, UArrayValidator::toBooleanArrayObj),
 			UPair.of(char[].class, UArrayValidator::toCharArrayObj)));
 	

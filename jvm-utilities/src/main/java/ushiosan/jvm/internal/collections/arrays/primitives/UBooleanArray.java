@@ -29,7 +29,7 @@ abstract class UBooleanArray extends UArraysGeneric {
 	 * @return a converted array object
 	 */
 	public static Boolean[] toObjectArray(boolean[] array) {
-		return cast(UArraysPrimitive.toObjectArrayImpl(array), Boolean[].class);
+		return cast(UArrayPrimitive.toObjectArrayImpl(array), Boolean[].class);
 	}
 	
 	/**

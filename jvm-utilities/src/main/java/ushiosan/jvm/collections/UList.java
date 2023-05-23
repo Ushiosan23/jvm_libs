@@ -8,12 +8,12 @@ import java.util.*;
 
 import static ushiosan.jvm.UObject.requireNotNull;
 
-public final class ULists extends UCollections {
+public final class UList extends UCollection {
 	
 	/**
 	 * This class cannot be instantiated
 	 */
-	private ULists() {}
+	private UList() {}
 	
 	/* -----------------------------------------------------
 	 * Methods

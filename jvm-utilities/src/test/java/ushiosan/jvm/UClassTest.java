@@ -3,7 +3,7 @@ package ushiosan.jvm;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ushiosan.UTestUnit;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 
 import javax.swing.*;
 import java.util.Arrays;
@@ -48,16 +48,16 @@ public class UClassTest extends UTestUnit {
 		sectionOf(() -> {
 			// Temporal variables
 			var completeArray = UClass.toVarargTypes(
-				UArrays.<Object>of(12, 'c', "Hello"));
+				UArray.<Object>of(12, 'c', "Hello"));
 			var incompleteArray = UClass.toVarargTypes(
-				UArrays.<Object>of("XD", null, 3.145f));
+				UArray.<Object>of("XD", null, 3.145f));
 			
 			// Assertions
 			Assertions.assertArrayEquals(
-				UArrays.of(Integer.class, Character.class, String.class),
+				UArray.of(Integer.class, Character.class, String.class),
 				completeArray, "Incompatible arrays");
 			Assertions.assertArrayEquals(
-				UArrays.of(String.class, Object.class, Float.class),
+				UArray.of(String.class, Object.class, Float.class),
 				incompleteArray, "Incompatible arrays");
 			
 			// Display information

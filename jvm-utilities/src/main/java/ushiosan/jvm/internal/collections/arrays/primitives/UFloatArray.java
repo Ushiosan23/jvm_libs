@@ -98,7 +98,7 @@ abstract class UFloatArray extends ULongArray {
 	 * @return a converted array object
 	 */
 	public static Float @NotNull [] toObjectArray(float[] array) {
-		return cast(UArraysPrimitive.toObjectArrayImpl(array),
+		return cast(UArrayPrimitive.toObjectArrayImpl(array),
 					Float[].class);
 	}
 	

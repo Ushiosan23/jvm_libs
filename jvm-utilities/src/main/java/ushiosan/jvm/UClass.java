@@ -2,7 +2,7 @@ package ushiosan.jvm;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.internal.validators.UClassValidator;
 
 import java.util.Arrays;
@@ -48,7 +48,7 @@ public final class UClass extends UClassValidator {
 	 */
 	public static boolean isPrimitive(@NotNull Class<?> cls) {
 		requireNotNull(cls, "cls");
-		return cls.isPrimitive() || UArrays.contains(PRIMITIVE_WRAPPED_CLASSES, cls);
+		return cls.isPrimitive() || UArray.contains(PRIMITIVE_WRAPPED_CLASSES, cls);
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public final class UClass extends UClassValidator {
 	 */
 	public static boolean isArrayPrimitive(@NotNull Class<?> cls) {
 		requireNotNull(cls, "cls");
-		return cls.isArray() && UArrays.contains(PRIMITIVE_ARRAY_CLASSES, cls);
+		return cls.isArray() && UArray.contains(PRIMITIVE_ARRAY_CLASSES, cls);
 	}
 	
 	/**
@@ -231,7 +231,7 @@ public final class UClass extends UClassValidator {
 		// Check if class is an array
 		if (!cls.isArray()) throw new IllegalArgumentException("Invalid array type");
 		String generalName = cls.getCanonicalName();
-		int index = UArrays.indexOf(PRIMITIVE_ARRAY_CLASSES, cls);
+		int index = UArray.indexOf(PRIMITIVE_ARRAY_CLASSES, cls);
 		
 		// Only for primitive types
 		if (index != INDEX_NOT_FOUND) {

@@ -2,7 +2,7 @@ package ushiosan.jvm.internal.validators;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.content.UPair;
 import ushiosan.jvm.function.UFun;
 
@@ -18,7 +18,7 @@ public abstract class UObjectValidators {
 	/**
 	 * Object pairs used to check that objects are null
 	 */
-	public static final UPair<Class<?>, UFun.UFun1<Boolean, Object>>[] NULLABLE_VALIDATORS = UArrays.of(
+	public static final UPair<Class<?>, UFun.UFun1<Boolean, Object>>[] NULLABLE_VALIDATORS = UArray.of(
 		UPair.of(WeakReference.class, (obj) -> cast(obj, WeakReference.class).get() != null),
 		UPair.of(Optional.class, (obj) -> cast(obj, Optional.class).isEmpty()));
 	

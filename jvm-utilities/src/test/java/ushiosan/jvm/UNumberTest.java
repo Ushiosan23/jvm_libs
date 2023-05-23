@@ -3,7 +3,7 @@ package ushiosan.jvm;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ushiosan.UTestUnit;
-import ushiosan.jvm.collections.UArrays;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.print.UToStringManager;
 
 import java.util.Random;
@@ -75,7 +75,7 @@ public class UNumberTest extends UTestUnit {
 				// Assertions
 				Assertions.assertEquals(50, range.length,
 										"Invalid range size");
-				Assertions.assertFalse(UArrays.primitiveContains(range, 1000),
+				Assertions.assertFalse(UArray.primitiveContains(range, 1000),
 									   "The range contains a boundary element");
 				
 				// Display information

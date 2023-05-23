@@ -8,12 +8,12 @@ import java.util.*;
 
 import static ushiosan.jvm.UObject.requireNotNull;
 
-public final class USets extends UCollections {
+public final class USet extends UCollection {
 	
 	/**
 	 * This class cannot be instantiated
 	 */
-	private USets() {}
+	private USet() {}
 	
 	/* -----------------------------------------------------
 	 * Generator methods
@@ -188,7 +188,7 @@ public final class USets extends UCollections {
 	 */
 	@SafeVarargs
 	public static <T> @NotNull Set<T> combine(Set<T> @NotNull ... sets) {
-		Set<T> tmpResult = USets.mutableSetOf();
+		Set<T> tmpResult = USet.mutableSetOf();
 		
 		// Iterate all collections
 		for (Set<T> lt : sets) {

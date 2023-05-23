@@ -98,7 +98,7 @@ abstract class UIntegerArray extends UShortArray {
 	 * @return a converted array object
 	 */
 	public static Integer @NotNull [] toObjectArray(int[] array) {
-		return cast(UArraysPrimitive.toObjectArrayImpl(array),
+		return cast(UArrayPrimitive.toObjectArrayImpl(array),
 					Integer[].class);
 	}
 	

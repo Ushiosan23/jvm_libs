@@ -5,71 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95e8640a-d17b-4bce-a765-7969b6e5be28" name="Changes" comment="refactor(jvm-libraries): Clean project">
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buildSrc/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common/common-developers.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common/common-java.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common/common-maven.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common/common-publications.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/common/common-versions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/types/common-types.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/utilities/environment-utilities.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/utilities/java-utilities.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/utilities/maven-publications.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/utilities/maven-signing.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/build.gradle.kts" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/ULogger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UNumber.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/UArrays.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/UCollections.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/ULists.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/USets.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/content/UPair.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/content/UTrio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/function/UEmptyFun.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/function/UEmptyFunErr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/function/UFun.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/function/UFunErr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/UArraysConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/generic/UArraysGeneric.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UArraysPrimitive.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UBooleanArray.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UByteArray.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UCharArray.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UDoubleArray.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UFloatArray.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UIntegerArray.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/ULongArray.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UShortArray.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/UToStringComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/UToStringManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/components/UGeneralComponent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/reflection/UFieldReflection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/reflection/UMethodReflection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UArrayValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UClassValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UObjectValidators.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/reflection/UReflectionActions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/reflection/UReflectionOptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/filesystem/UResource.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/UTestUnit.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/UActionTest.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/UClassTest.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/UObjectTest.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/collections/UArraysTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/internal/print/UToStringManagerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/print/UToStringManagerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/reflection/UReflectionActionsTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UPathValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UResourceValidator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,111 +256,6 @@
       <option name="presentableId" value="Default" />
       <updated>1679005827928</updated>
     </task>
-    <task id="LOCAL-00001" summary="fix(jvm-utilities): Possible candidate to throw a &quot;NullPointerException&quot; exception for a poorly elaborated check.">
-      <created>1679012846990</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1679012846990</updated>
-    </task>
-    <task id="LOCAL-00002" summary="fix(jvm-utilities): Fixed typo">
-      <created>1679078140326</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1679078140326</updated>
-    </task>
-    <task id="LOCAL-00003" summary="refactor(jvm-utilities): Checking for null values">
-      <created>1679078247570</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1679078247570</updated>
-    </task>
-    <task id="LOCAL-00004" summary="feat(jvm-utilities): Shortcuts to Common Algorithm Names">
-      <created>1679078304829</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1679078304829</updated>
-    </task>
-    <task id="LOCAL-00005" summary="feat(jvm-utilities): Methods to get the hash of a file">
-      <created>1679078390300</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1679078390300</updated>
-    </task>
-    <task id="LOCAL-00006" summary="refactor(jvm-utilities): jvm-utilities 0.4.4">
-      <created>1679078432228</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1679078432228</updated>
-    </task>
-    <task id="LOCAL-00007" summary="refactor(jvm-utilities): New ignore rules">
-      <created>1679078634783</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1679078634783</updated>
-    </task>
-    <task id="LOCAL-00008" summary="refactor(project): Remove IDE and editor configurations">
-      <created>1679078855121</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1679078855121</updated>
-    </task>
-    <task id="LOCAL-00009" summary="refactor(jvm-utilities-test): All test classes now follow a name pattern and method names have been modified according to the pattern.&#10;&#10;In addition to adding more tests to verify that the library works correctly">
-      <created>1679164528055</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1679164528055</updated>
-    </task>
-    <task id="LOCAL-00010" summary="feat(jvm-utilities): New class used to detect recursive calls">
-      <created>1679164601278</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1679164601278</updated>
-    </task>
-    <task id="LOCAL-00011" summary="refactor(jvm-utilities): New methods of the Maths class to determine if a series of numbers is consecutive">
-      <created>1679164721368</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1679164721368</updated>
-    </task>
-    <task id="LOCAL-00012" summary="fix(jvm-utilities): Thanks to the tests, it was possible to identify a bug in the synchronized collections.&#10;&#10;The error is that all the collections passed as a parameter within the collection were immutable and impossible to modify (which makes the method meaningless).">
-      <created>1679164908992</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1679164908992</updated>
-    </task>
-    <task id="LOCAL-00013" summary="refactor(jvm-utilities): Added a method that searches for all matches within a list and returns the indices where the match was found.">
-      <created>1679164983486</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1679164983486</updated>
-    </task>
-    <task id="LOCAL-00014" summary="refactor(jvm-utilities): Now the Pair class identifies the content and not the object as a whole. In this way objects with the same information are considered the same.">
-      <created>1679165104029</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1679165104029</updated>
-    </task>
-    <task id="LOCAL-00015" summary="refactor(jvm-utilities): For some reason it was calling a function 2 times and not using the variable, so it was completely inoperable.&#10;&#10;The variable is now used and the function being called has been removed.">
-      <created>1679165213495</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1679165213495</updated>
-    </task>
     <task id="LOCAL-00016" summary="refactor(jvm-utilities): the toObjectString() method changed its behavior again.&#10;                         &#10;Previously, its behavior was based on searching for any toString method recursively and taking it for printing. The problem with this was that if this method was inside the same class it could make recursive calls (this method is meant to be called inside toString() methods) and fill the stack with calls.&#10;                         &#10;Now an observeStack call has been generated and all it does is store all the calls that are made to a certain object. If the object makes many consecutive calls (more than 2 calls is already considered recursive), it blocks it and shows a generic response along with the error that there is a recursion inside the called method. In this way, frozen programs and some unexpected error are avoided.">
       <created>1679165675073</created>
       <option name="number" value="00016" />
@@ -625,7 +466,140 @@
       <option name="project" value="LOCAL" />
       <updated>1683240100139</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="refactor(jvm-libraries): Intellij configuration">
+      <created>1684865925578</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1684865925578</updated>
+    </task>
+    <task id="LOCAL-00047" summary="refactor(jvm-libraries): Base project configuration">
+      <created>1684866104516</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1684866104516</updated>
+    </task>
+    <task id="LOCAL-00048" summary="refactor(jvm-libraries): Base project configuration">
+      <created>1684866152086</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1684866152086</updated>
+    </task>
+    <task id="LOCAL-00049" summary="refactor(jvm-libraries): Remove unused language configuration">
+      <created>1684866219006</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1684866219006</updated>
+    </task>
+    <task id="LOCAL-00050" summary="refactor(jvm-libraries): Common values within the entire project.&#10;&#10;These values do not change within the project and avoid having to type them each time.">
+      <created>1684866373290</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1684866373290</updated>
+    </task>
+    <task id="LOCAL-00051" summary="refactor(jvm-libraries): Data types used for project configuration">
+      <created>1684866427329</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1684866427329</updated>
+    </task>
+    <task id="LOCAL-00052" summary="refactor(jvm-libraries): Utility files for configuring the project automatically">
+      <created>1684866576315</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1684866576315</updated>
+    </task>
+    <task id="LOCAL-00053" summary="refactor(jvm-libraries): Fixed some grammatical errors">
+      <created>1684866663200</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1684866663201</updated>
+    </task>
+    <task id="LOCAL-00054" summary="refactor(jvm-libraries): Added project settings">
+      <created>1684866872210</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1684866872210</updated>
+    </task>
+    <task id="LOCAL-00055" summary="refactor(jvm-libraries): Interfaces used for functional calls in Java">
+      <created>1684866983252</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1684866983252</updated>
+    </task>
+    <task id="LOCAL-00056" summary="refactor(jvm-libraries): Elements that are used as information containers either in pairs or trios.">
+      <created>1684867081269</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1684867081269</updated>
+    </task>
+    <task id="LOCAL-00057" summary="refactor(jvm-libraries): Utility classes to manage collections or generate them">
+      <created>1684867182576</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1684867182576</updated>
+    </task>
+    <task id="LOCAL-00058" summary="refactor(jvm-libraries): Utility classes for handling primitive or generic arrays">
+      <created>1684867261989</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1684867261989</updated>
+    </task>
+    <task id="LOCAL-00059" summary="refactor(jvm-libraries): Utility classes for common or very general objects within Java">
+      <created>1684867947879</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1684867947879</updated>
+    </task>
+    <task id="LOCAL-00060" summary="refactor(jvm-libraries): Utility classes for element detection on the platform the JVM is running on">
+      <created>1684868027166</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1684868027166</updated>
+    </task>
+    <task id="LOCAL-00061" summary="refactor(jvm-libraries): Utilities for the use of reflection in an easy, flexible and fast way.">
+      <created>1684868252702</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1684868252702</updated>
+    </task>
+    <task id="LOCAL-00062" summary="refactor(jvm-libraries): Utilities for the use of reflection in an easy, flexible and fast way.">
+      <created>1684868294861</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1684868294861</updated>
+    </task>
+    <task id="LOCAL-00063" summary="refactor(jvm-libraries): Class for the representation of objects to plain text improved and more flexible">
+      <created>1684868380999</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1684868380999</updated>
+    </task>
+    <task id="LOCAL-00064" summary="refactor(jvm-libraries): New exceptions and error message handling">
+      <created>1684868469021</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1684868469021</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -641,23 +615,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="fix(jvm-utilities): README.md Fixed" />
-    <MESSAGE value="refactor(jvm-utilities): Change dependencies and behaviour" />
-    <MESSAGE value="refactor(jvm-utilities): The recursive call detection system was implemented again. Now the use of the call stack is made, which is more reliable than the previous system." />
-    <MESSAGE value="refactor(jvm-utilities-test): The test classes were revised and complemented with new functionalities" />
-    <MESSAGE value="refactor(jvm-utilities): jvm-utilities v0.5.5" />
-    <MESSAGE value="fix(jvm-utilities): The concept is correct, but the application isn't. The only way I can think of at this moment is to invert said value so that the result is valid." />
-    <MESSAGE value="refactor(jvm-utilities): jvm-utilities v0.5.6" />
-    <MESSAGE value="fix(jvm-utilities): Update ReflectionUtils.java too #64ebb37" />
-    <MESSAGE value="refactor(github-actions): Scan build process" />
-    <MESSAGE value="refactor(github-actions): New class for utilities in predicates" />
-    <MESSAGE value="refactor(github-actions): Various actions made by reflection have been simplified and new functionality has been added." />
-    <MESSAGE value="refactor(github-actions): Added support for data accumulators. Very useful for working with data streams." />
-    <MESSAGE value="refactor(github-actions): Added extra functionality for silent error handling" />
-    <MESSAGE value="refactor(github-actions): Name too ambiguous for the action it was performing" />
-    <MESSAGE value="refactor(github-actions): I/O functionality simplifications" />
-    <MESSAGE value="refactor(github-actions): More I/O functionality" />
-    <MESSAGE value="feat(jvm-utilities): Added functionality to work with bits in numbers" />
     <MESSAGE value="refactor(jvm-utilities): Now regular expression patterns are dynamically generated as normal Java patterns." />
     <MESSAGE value="refactor(jvm-utilities): The behavior of converting numbers was changed, since it was exactly the same as that used by the &quot;Double&quot; class and it did not present any advantage to the original method." />
     <MESSAGE value="fix(jvm-utilities): Fixed the positioning of the bits when generating the text." />
@@ -666,7 +623,24 @@
     <MESSAGE value="refactor(jvm-utilities): Dynamically throwing errors is completely deprecated." />
     <MESSAGE value="refactor(jvm-utilities): Refactoring conversion of numbers to text in binary format" />
     <MESSAGE value="refactor(jvm-libraries): Clean project" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor(jvm-libraries): Clean project" />
+    <MESSAGE value="refactor(jvm-libraries): Intellij configuration" />
+    <MESSAGE value="refactor(jvm-libraries): Base project configuration" />
+    <MESSAGE value="refactor(jvm-libraries): Remove unused language configuration" />
+    <MESSAGE value="refactor(jvm-libraries): Common values within the entire project.&#10;&#10;These values do not change within the project and avoid having to type them each time." />
+    <MESSAGE value="refactor(jvm-libraries): Data types used for project configuration" />
+    <MESSAGE value="refactor(jvm-libraries): Utility files for configuring the project automatically" />
+    <MESSAGE value="refactor(jvm-libraries): Fixed some grammatical errors" />
+    <MESSAGE value="refactor(jvm-libraries): Added project settings" />
+    <MESSAGE value="refactor(jvm-libraries): Interfaces used for functional calls in Java" />
+    <MESSAGE value="refactor(jvm-libraries): Elements that are used as information containers either in pairs or trios." />
+    <MESSAGE value="refactor(jvm-libraries): Utility classes to manage collections or generate them" />
+    <MESSAGE value="refactor(jvm-libraries): Utility classes for handling primitive or generic arrays" />
+    <MESSAGE value="refactor(jvm-libraries): Utility classes for common or very general objects within Java" />
+    <MESSAGE value="refactor(jvm-libraries): Utility classes for element detection on the platform the JVM is running on" />
+    <MESSAGE value="refactor(jvm-libraries): Utilities for the use of reflection in an easy, flexible and fast way." />
+    <MESSAGE value="refactor(jvm-libraries): Class for the representation of objects to plain text improved and more flexible" />
+    <MESSAGE value="refactor(jvm-libraries): New exceptions and error message handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(jvm-libraries): New exceptions and error message handling" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

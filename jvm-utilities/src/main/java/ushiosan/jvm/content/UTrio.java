@@ -46,7 +46,7 @@ public class UTrio<F, S, T> extends UPair<F, S> {
 	 * @param <T>    generic third type
 	 * @return instance of {@link UTrio} class
 	 */
-	public static <F, S, T> @NotNull UTrio<F, S, T> of(F first, S second, T third) {
+	public static <F, S, T> @NotNull UTrio<F, S, T> make(F first, S second, T third) {
 		return new UTrio<>(first, second, third);
 	}
 	
@@ -59,9 +59,9 @@ public class UTrio<F, S, T> extends UPair<F, S> {
 	 * @param <T>   generic third type
 	 * @return instance of {@link UTrio} class
 	 */
-	public static <F, S, T> @NotNull UTrio<F, S, T> of(@NotNull UPair<F, S> uPair) {
+	public static <F, S, T> @NotNull UTrio<F, S, T> make(@NotNull UPair<F, S> uPair) {
 		requireNotNull(uPair, "uPair");
-		return of(uPair.first, uPair.second, null);
+		return make(uPair.first, uPair.second, null);
 	}
 	
 }

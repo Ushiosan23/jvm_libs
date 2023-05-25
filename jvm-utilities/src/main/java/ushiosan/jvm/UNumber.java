@@ -26,10 +26,10 @@ public final class UNumber {
 	 */
 	private static final UTrio<Class<?>, Integer, UFun.UFun2<Boolean, Number, Integer>>[] TO_STRING_TRIOS =
 		UArray.make(
-			UTrio.of(Byte.class, Byte.SIZE, UNumber::getByteBit),
-			UTrio.of(Short.class, Short.SIZE, UNumber::getShortBit),
-			UTrio.of(Integer.class, Integer.SIZE, UNumber::getIntBit),
-			UTrio.of(Long.class, Long.SIZE, UNumber::getLongBit));
+			UTrio.make(Byte.class, Byte.SIZE, UNumber::getByteBit),
+			UTrio.make(Short.class, Short.SIZE, UNumber::getShortBit),
+			UTrio.make(Integer.class, Integer.SIZE, UNumber::getIntBit),
+			UTrio.make(Long.class, Long.SIZE, UNumber::getLongBit));
 	
 	/**
 	 * This class cannot be instantiated

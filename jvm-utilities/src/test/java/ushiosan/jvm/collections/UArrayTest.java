@@ -16,16 +16,16 @@ public class UArrayTest extends UTestUnit {
 	 * ----------------------------------------------------- */
 	
 	// Generic array generation
-	private final String[] genericArray = UArray.of("Hello", ", ", "World", "!");
+	private final String[] genericArray = UArray.make("Hello", ", ", "World", "!");
 	// Primitive array generators
-	private final boolean[] pBooleanArray = UArray.booleanOf(true, false, false, false, true, true);
-	private final char[] pCharArray = UArray.charOf('H', 'e', 'l', 'l', 'o', '!');
-	private final byte[] pByteArray = UArray.byteOf(0, 1, 2, 4, 8, 16, 32, 64, 127);
-	private final short[] pShortArray = UArray.shortOf(2, 4, 6, 8, 10, 12, 14, 16, 18, 20);
-	private final int[] pIntegerArray = UArray.intOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12903, Integer.MAX_VALUE);
-	private final long[] pLongArray = UArray.longOf(890128093, 98791829, 98792845, 1090128);
-	private final float[] pFloatArray = UArray.floatOf(1234.1234f, 365f);
-	private final double[] pDoubleArray = UArray.doubleOf(Math.PI, 1289.198279182739123, Math.E);
+	private final boolean[] pBooleanArray = UArray.makeBoolean(true, false, false, false, true, true);
+	private final char[] pCharArray = UArray.makeChar('H', 'e', 'l', 'l', 'o', '!');
+	private final byte[] pByteArray = UArray.makeByte(0, 1, 2, 4, 8, 16, 32, 64, 127);
+	private final short[] pShortArray = UArray.makeShort(2, 4, 6, 8, 10, 12, 14, 16, 18, 20);
+	private final int[] pIntegerArray = UArray.makeInt(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12903, Integer.MAX_VALUE);
+	private final long[] pLongArray = UArray.makeLong(890128093, 98791829, 98792845, 1090128);
+	private final float[] pFloatArray = UArray.makeFloat(1234.1234f, 365f);
+	private final double[] pDoubleArray = UArray.makeDouble(Math.PI, 1289.198279182739123, Math.E);
 	
 	/* -----------------------------------------------------
 	 * Test methods
@@ -324,11 +324,11 @@ public class UArrayTest extends UTestUnit {
 															 Byte[]::new);
 			
 			// Assertions
-			Assertions.assertArrayEquals(UArray.toObjectArray(UArray.byteOf(1, 0, 0, 0, 1, 1)),
+			Assertions.assertArrayEquals(UArray.toObjectArray(UArray.makeByte(1, 0, 0, 0, 1, 1)),
 										 booleanTransform, "Invalid array conversion");
 			Assertions.assertArrayEquals(
-				UArray.of(toObjectArray(genericArray[0].getBytes()), toObjectArray(genericArray[1].getBytes()),
-						  toObjectArray(genericArray[2].getBytes()), toObjectArray(genericArray[3].getBytes())),
+				UArray.make(toObjectArray(genericArray[0].getBytes()), toObjectArray(genericArray[1].getBytes()),
+							toObjectArray(genericArray[2].getBytes()), toObjectArray(genericArray[3].getBytes())),
 				genericTransform, "Invalid array conversion");
 			
 			System.out.println(UToStringManager.getInstance().toString(genericTransform));

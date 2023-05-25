@@ -48,16 +48,16 @@ public class UClassTest extends UTestUnit {
 		sectionOf(() -> {
 			// Temporal variables
 			var completeArray = UClass.toVarargTypes(
-				UArray.<Object>of(12, 'c', "Hello"));
+				UArray.<Object>make(12, 'c', "Hello"));
 			var incompleteArray = UClass.toVarargTypes(
-				UArray.<Object>of("XD", null, 3.145f));
+				UArray.<Object>make("XD", null, 3.145f));
 			
 			// Assertions
 			Assertions.assertArrayEquals(
-				UArray.of(Integer.class, Character.class, String.class),
+				UArray.make(Integer.class, Character.class, String.class),
 				completeArray, "Incompatible arrays");
 			Assertions.assertArrayEquals(
-				UArray.of(String.class, Object.class, Float.class),
+				UArray.make(String.class, Object.class, Float.class),
 				incompleteArray, "Incompatible arrays");
 			
 			// Display information

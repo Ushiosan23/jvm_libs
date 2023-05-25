@@ -26,7 +26,7 @@ class UToStringManagerTest extends UTestUnit {
 				
 				@Override
 				public Class<?>[] supportedElements() {
-					return UArray.of(RecursiveCallClass.class);
+					return UArray.make(RecursiveCallClass.class);
 				}
 				
 				@Override
@@ -136,14 +136,14 @@ class UToStringManagerTest extends UTestUnit {
 	@Test
 	public void toStringCollectionTest() {
 		sectionOf(() -> {
-			var dimensionalArray = UArray.of(
-				UArray.intOf(1, 2),
-				UArray.intOf(1, 2),
-				UArray.intOf(1, 2));
-			var list = UList.listOf(2, 4, 6, 8, Integer.class, new Object(), new Object() {});
+			var dimensionalArray = UArray.make(
+				UArray.makeInt(1, 2),
+				UArray.makeInt(1, 2),
+				UArray.makeInt(1, 2));
+			var list = UList.make(2, 4, 6, 8, Integer.class, new Object(), new Object() {});
 			var map = new HashMap<>();
 			map.put(1, "Hello");
-			map.put(String.class, UArray.of(2, 4, 6, 8, 10, 12));
+			map.put(String.class, UArray.make(2, 4, 6, 8, 10, 12));
 			
 			// Objects string
 			var dimensionalArrayStr = UToStringManager.getInstance()

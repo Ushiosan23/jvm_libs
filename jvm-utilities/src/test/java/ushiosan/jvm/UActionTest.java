@@ -36,7 +36,7 @@ class UActionTest extends UTestUnit {
 		sectionOf(() -> {
 			// Temporal variables
 			var dimensionToPair = UAction.apply(new Dimension(1000, 600),
-												it -> UPair.of(it.width, it.height));
+												it -> UPair.make(it.width, it.height));
 			
 			// Assertions
 			Assertions.assertEquals(UPair.class, dimensionToPair.getClass(),

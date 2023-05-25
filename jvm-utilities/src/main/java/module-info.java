@@ -9,6 +9,7 @@ module ushiosan.jvm.utilities {
 	
 	// Exports
 	exports ushiosan.jvm;
+	exports ushiosan.jvm.accumulator;
 	exports ushiosan.jvm.collections;
 	exports ushiosan.jvm.content;
 	exports ushiosan.jvm.error;

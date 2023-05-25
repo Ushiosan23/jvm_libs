@@ -38,7 +38,7 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 * @see Short
 	 */
 	@SafeVarargs
-	public static <T> T[] of(T... elements) {
+	public static <T> T[] make(T... elements) {
 		return elements;
 	}
 	
@@ -57,9 +57,9 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 * @see Long
 	 * @see Short
 	 */
-	public static Object @NotNull [] of(@NotNull Iterator<?> iterator) {
+	public static Object @NotNull [] make(@NotNull Iterator<?> iterator) {
 		requireNotNull(iterator, "iterator");
-		List<?> iteratorList = UList.listOf(iterator);
+		List<?> iteratorList = UList.make(iterator);
 		return iteratorList.toArray();
 	}
 	

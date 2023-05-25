@@ -18,7 +18,7 @@ abstract class UFloatArray extends ULongArray {
 	 * @param elements float elements
 	 * @return an array with all float elements
 	 */
-	public static float[] floatOf(float... elements) {
+	public static float[] makeFloat(float... elements) {
 		return elements;
 	}
 	

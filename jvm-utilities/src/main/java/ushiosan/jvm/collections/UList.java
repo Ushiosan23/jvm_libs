@@ -2,6 +2,7 @@ package ushiosan.jvm.collections;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.*;
@@ -16,7 +17,7 @@ public final class UList extends UCollection {
 	private UList() {}
 	
 	/* -----------------------------------------------------
-	 * Methods
+	 * Make methods
 	 * ----------------------------------------------------- */
 	
 	/**
@@ -28,10 +29,9 @@ public final class UList extends UCollection {
 	 */
 	@SafeVarargs
 	@Contract(pure = true)
-	public static @Unmodifiable <T> List<T> listOf(T @NotNull ... elements) {
+	public static @Unmodifiable <T> List<T> make(T @NotNull ... elements) {
 		return List.of(elements);
 	}
-	
 	
 	/**
 	 * Create an immutable list with all given elements.
@@ -40,7 +40,7 @@ public final class UList extends UCollection {
 	 * @param <T>  generic type list
 	 * @return an immutable list with all elements
 	 */
-	public static @Unmodifiable <T> List<T> listOf(@NotNull Collection<T> base) {
+	public static @Unmodifiable <T> List<T> make(@NotNull Collection<T> base) {
 		requireNotNull(base, "base");
 		return List.copyOf(base);
 	}
@@ -52,9 +52,13 @@ public final class UList extends UCollection {
 	 * @param <T>      generic type list
 	 * @return an immutable list with all elements
 	 */
-	public static @Unmodifiable <T> @NotNull List<T> listOf(@NotNull Iterator<T> iterator) {
-		return Collections.unmodifiableList(mutableListOf(iterator));
+	public static @Unmodifiable <T> @NotNull List<T> make(@NotNull Iterator<T> iterator) {
+		return Collections.unmodifiableList(makeMutable(iterator));
 	}
+	
+	/* -----------------------------------------------------
+	 * Make mutable methods
+	 * ----------------------------------------------------- */
 	
 	/**
 	 * Create a mutable list with all given elements.
@@ -63,15 +67,10 @@ public final class UList extends UCollection {
 	 * @param <T>      generic type list
 	 * @return a mutable list with all elements
 	 */
-	@SuppressWarnings({"ManualArrayToCollectionCopy", "UseBulkOperation"})
 	@SafeVarargs
 	@Contract("_ -> new")
-	public static <T> @NotNull List<T> mutableListOf(T @NotNull ... elements) {
-		List<T> result = new ArrayList<>(elements.length);
-		for (T it : elements) {
-			result.add(it);
-		}
-		return result;
+	public static <T> @NotNull List<T> makeMutable(T @NotNull ... elements) {
+		return makeImpl(new ArrayList<>(elements.length), elements);
 	}
 	
 	/**
@@ -81,9 +80,9 @@ public final class UList extends UCollection {
 	 * @param <T>  generic type list
 	 * @return a mutable list with all elements
 	 */
-	public static <T> @NotNull List<T> mutableListOf(@NotNull Collection<T> base) {
+	public static <T> @NotNull List<T> makeMutable(@NotNull Collection<T> base) {
 		requireNotNull(base, "base");
-		return new ArrayList<>(base);
+		return makeImpl(new ArrayList<>(base.size()), base.iterator());
 	}
 	
 	/**
@@ -93,14 +92,14 @@ public final class UList extends UCollection {
 	 * @param <T>      generic type list
 	 * @return a mutable list with all elements
 	 */
-	public static <T> @NotNull List<T> mutableListOf(@NotNull Iterator<T> iterator) {
+	public static <T> @NotNull List<T> makeMutable(@NotNull Iterator<T> iterator) {
 		requireNotNull(iterator, "iterator");
-		// Fill a new mutable list
-		List<T> base = new ArrayList<>();
-		iterator.forEachRemaining(base::add);
-		
-		return base;
+		return makeImpl(new ArrayList<>(), iterator);
 	}
+	
+	/* -----------------------------------------------------
+	 * Make linked methods
+	 * ----------------------------------------------------- */
 	
 	/**
 	 * Create a linked list with all given elements.
@@ -110,8 +109,8 @@ public final class UList extends UCollection {
 	 * @return a linked list with all elements
 	 */
 	@SafeVarargs
-	public static <T> @NotNull List<T> linkedListOf(T @NotNull ... elements) {
-		return new LinkedList<>(listOf(elements));
+	public static <T> @NotNull List<T> makeLinked(T @NotNull ... elements) {
+		return makeImpl(new LinkedList<>(), elements);
 	}
 	
 	/**
@@ -121,8 +120,21 @@ public final class UList extends UCollection {
 	 * @param <T>  generic type list
 	 * @return a linked list with all elements
 	 */
-	public static <T> @NotNull List<T> linkedListOf(@NotNull Collection<T> base) {
+	public static <T> @NotNull List<T> makeLinked(@NotNull Collection<T> base) {
+		requireNotNull(base, "base");
 		return new LinkedList<>(base);
+	}
+	
+	/**
+	 * Create a linked list with all given elements.
+	 *
+	 * @param iterator the base collection content
+	 * @param <T>      generic type list
+	 * @return a linked list with all elements
+	 */
+	public static <T> @NotNull List<T> makeLinked(@NotNull Iterator<T> iterator) {
+		requireNotNull(iterator, "iterator");
+		return makeImpl(new LinkedList<>(), iterator);
 	}
 	
 	/* -----------------------------------------------------
@@ -137,17 +149,52 @@ public final class UList extends UCollection {
 	 * @param <T>    generic object type
 	 * @return all indices where the searched object is found
 	 */
-	public static <T> @NotNull List<Integer> searchIndexes(@NotNull List<T> base, @NotNull T search) {
-		List<Integer> indexList = mutableListOf();
+	public static <T> @NotNull List<Integer> searchIndexes(@NotNull List<T> base, @Nullable T search) {
+		requireNotNull(base, "base");
+		List<Integer> indexList = makeMutable();
 		
 		// Iterate all elements
 		for (int i = 0; i < base.size(); i++) {
 			T item = base.get(i);
 			// Check element
-			if (search.equals(item)) indexList.add(i);
+			if (Objects.equals(search, item)) indexList.add(i);
 		}
 		
 		return indexList;
+	}
+	
+	/* -----------------------------------------------------
+	 * Internal methods
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Create a mutable list with all given elements.
+	 *
+	 * @param mutableList base mutable list
+	 * @param elements    the elements to insert
+	 * @param <T>         generic type list
+	 * @return a mutable list with all elements
+	 */
+	@SafeVarargs
+	@SuppressWarnings({"UseBulkOperation", "ManualArrayToCollectionCopy"})
+	private static <T> @NotNull List<T> makeImpl(@NotNull List<T> mutableList, T @NotNull ... elements) {
+		for (T it : elements) {
+			mutableList.add(it);
+		}
+		return mutableList;
+	}
+	
+	/**
+	 * Create a mutable list with all given elements.
+	 *
+	 * @param mutableList base mutable list
+	 * @param elements    the elements to insert
+	 * @param <T>         generic type list
+	 * @return a mutable list with all elements
+	 */
+	private static <T> @NotNull List<T> makeImpl(@NotNull List<T> mutableList, @NotNull Iterator<T> elements) {
+		elements.forEachRemaining(mutableList::add);
+		return mutableList;
 	}
 	
 }

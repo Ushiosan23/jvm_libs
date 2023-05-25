@@ -4,25 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95e8640a-d17b-4bce-a765-7969b6e5be28" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/accumulator/UAccumulator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/accumulator/UFileSizeAccumulator.java" afterDir="false" />
+    <list default="true" id="95e8640a-d17b-4bce-a765-7969b6e5be28" name="Changes" comment="refactor(jvm-libraries): Data accumulator classes. Useful to concentrate data easily and consistently.">
       <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/UMap.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/UStack.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/UVector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UNumber.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UString.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/UString.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/UCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/UCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/UList.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/collections/UList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/content/UPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/content/UPair.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/generic/UArraysGeneric.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/generic/UArraysGeneric.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UBooleanArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UBooleanArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UByteArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UByteArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UCharArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UCharArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UDoubleArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UDoubleArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UFloatArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UFloatArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UIntegerArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UIntegerArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/ULongArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/ULongArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UShortArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/collections/arrays/primitives/UShortArray.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/error/UCommonMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/error/UCommonMessages.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/UToStringManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/UToStringManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/components/UCollectionComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/components/UCollectionComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/components/UEntryComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/components/UEntryComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/components/UGeneralComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/components/UGeneralComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/components/UThrowableComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/print/components/UThrowableComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/reflection/UReflectionImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/reflection/UReflectionImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UArrayValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UArrayValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UObjectValidators.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/internal/validators/UObjectValidators.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/reflection/UReflectionOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/main/java/ushiosan/jvm/reflection/UReflectionOptions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/UActionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/UActionTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/UClassTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/UClassTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/collections/UArrayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/collections/UArrayTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/print/UToStringManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/jvm-utilities/src/test/java/ushiosan/jvm/print/UToStringManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -263,13 +276,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679005827928</updated>
-    </task>
-    <task id="LOCAL-00024" summary="refactor(jvm-utilities): jvm-utilities v0.5.5">
-      <created>1681663170875</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1681663170875</updated>
     </task>
     <task id="LOCAL-00025" summary="fix(jvm-utilities): The concept is correct, but the application isn't. The only way I can think of at this moment is to invert said value so that the result is valid.">
       <created>1681870151793</created>
@@ -607,7 +613,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684873189787</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="refactor(jvm-libraries): Data accumulator classes. Useful to concentrate data easily and consistently.">
+      <created>1684992596984</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1684992596984</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -623,7 +636,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="refactor(jvm-libraries): Intellij configuration" />
     <MESSAGE value="refactor(jvm-libraries): Base project configuration" />
     <MESSAGE value="refactor(jvm-libraries): Remove unused language configuration" />
     <MESSAGE value="refactor(jvm-libraries): Common values within the entire project.&#10;&#10;These values do not change within the project and avoid having to type them each time." />
@@ -648,7 +660,8 @@
     <MESSAGE value="refactor(jvm-libraries): separation comment" />
     <MESSAGE value="refactor(jvm-libraries): New test classes" />
     <MESSAGE value="refactor(jvm-libraries): Collections should not have plural names because they are utility classes and not an instantiable class." />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor(jvm-libraries): Collections should not have plural names because they are utility classes and not an instantiable class." />
+    <MESSAGE value="refactor(jvm-libraries): Data accumulator classes. Useful to concentrate data easily and consistently." />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(jvm-libraries): Data accumulator classes. Useful to concentrate data easily and consistently." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />

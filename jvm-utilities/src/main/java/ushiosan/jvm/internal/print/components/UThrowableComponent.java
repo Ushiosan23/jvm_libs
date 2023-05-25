@@ -21,7 +21,7 @@ public class UThrowableComponent implements UToStringComponent {
 	/**
 	 * All elements supported by the instance
 	 */
-	private final Class<?>[] SUPPORTED_CLASSES = UArray.of(Throwable.class);
+	private final Class<?>[] SUPPORTED_CLASSES = UArray.make(Throwable.class);
 	
 	/**
 	 * This class cannot be instantiated directly

@@ -30,24 +30,24 @@ public final class UToStringManagerImpl implements UToStringManager {
 	/**
 	 * Constant that contains the functions for the conversion of special cases.
 	 */
-	private static final UPair<UFun.UFun1<Boolean, Object>, UFun.UFun2<String, Object, Boolean>>[] SPECIAL_CASES = UArray.of(
+	private static final UPair<UFun.UFun1<Boolean, Object>, UFun.UFun2<String, Object, Boolean>>[] SPECIAL_CASES = UArray.make(
 		// Checks that the object is a valid null value and
 		// returns its text representation
-		UPair.of(Objects::isNull, (it, ignore) -> "<null>"),
+		UPair.make(Objects::isNull, (it, ignore) -> "<null>"),
 		// Checks that the object is a valid object or primitive
 		// and returns its text representation. The only thing that
 		// changes is the Char type, which is represented by single quotes.
-		UPair.of(UClass::isPrimitive, (it, ignore) -> String.format(canCast(it, Character.class) ? "'%s'" : "%s", it)),
+		UPair.make(UClass::isPrimitive, (it, ignore) -> String.format(canCast(it, Character.class) ? "'%s'" : "%s", it)),
 		// Since the Object class is the base of every object in Java. It is also
 		// what causes it to be possible to cast to any type (even if that action
 		// is invalidated), and it is for this reason that it is considered a
 		// special case and only a generic text representation is generated.
-		UPair.of(it -> it.getClass() == Object.class, UGeneralComponent.getInstance()::toString));
+		UPair.make(it -> it.getClass() == Object.class, UGeneralComponent.getInstance()::toString));
 	
 	/**
 	 * Object instance
 	 */
-	private static UToStringManagerImpl INSTANCE;
+	private volatile static UToStringManagerImpl INSTANCE;
 	/**
 	 * Default components that cannot be removed or modified.
 	 */
@@ -70,7 +70,7 @@ public final class UToStringManagerImpl implements UToStringManager {
 	 */
 	private UToStringManagerImpl() {
 		// Initialize properties
-		components = UArray.of(
+		components = UArray.make(
 			UCollectionComponent.getInstance(),
 			UEntryComponent.getInstance(),
 			UArrayComponent.getInstance(),
@@ -85,13 +85,48 @@ public final class UToStringManagerImpl implements UToStringManager {
 	 * ----------------------------------------------------- */
 	
 	/**
+	 * Generates a text with the representation of the object.
+	 * Very similar to what the {@link Object#toString()} method does, but it ensures
+	 * that all objects have an easily identifiable representation.
+	 *
+	 * @param object  the object that you want to get the text representation
+	 * @param verbose option used to determine if the output will be long or simple
+	 * @return object string representation
+	 */
+	@SuppressWarnings("DataFlowIssue")
+	public @NotNull String toString(@Nullable Object object, boolean verbose) {
+		// Check the special cases
+		for (var conversion : SPECIAL_CASES) {
+			if (conversion.first.invoke(object)) {
+				return conversion.second.invoke(object, verbose);
+			}
+		}
+		
+		// The compiler will determine that there is a possibility that
+		// an exception to type "NullPointerException" will be thrown.
+		// But it is not like that, because it was previously validated in special cases.
+		Class<?> cls = object.getClass();
+		var component = Arrays.stream(components)
+			.filter(it -> it.arraysOnly() == cls.isArray())
+			.filter(it -> checkComponent(object, it))
+			.findFirst();
+		
+		// Check if component exists
+		return component.map(instanceCmp -> instanceCmp.toString(object, verbose))
+			// As a last alternative, we use the "#toString" method by default,
+			// but in reality this case is only an alternative because it
+			// should never be executed.
+			.orElseGet(object::toString);
+	}
+	
+	/**
 	 * Generates an instance of the specified class and saves it so that only one
 	 * instance exists throughout the entire program. If the JVM deletes such an
 	 * instance, it is recreated.
 	 *
 	 * @return the object instance
 	 */
-	public static @NotNull UToStringManager getInstance() {
+	public static synchronized @NotNull UToStringManager getInstance() {
 		if (UObject.isNull(INSTANCE)) {
 			INSTANCE = new UToStringManagerImpl();
 		}
@@ -129,41 +164,6 @@ public final class UToStringManagerImpl implements UToStringManager {
 		return false;
 	}
 	
-	/**
-	 * Generates a text with the representation of the object.
-	 * Very similar to what the {@link Object#toString()} method does, but it ensures
-	 * that all objects have an easily identifiable representation.
-	 *
-	 * @param object  the object that you want to get the text representation
-	 * @param verbose option used to determine if the output will be long or simple
-	 * @return object string representation
-	 */
-	@SuppressWarnings("DataFlowIssue")
-	public @NotNull String toString(@Nullable Object object, boolean verbose) {
-		// Check the special cases
-		for (var conversion : SPECIAL_CASES) {
-			if (conversion.first.invoke(object)) {
-				return conversion.second.invoke(object, verbose);
-			}
-		}
-		
-		// The compiler will determine that there is a possibility that
-		// an exception to type "NullPointerException" will be thrown.
-		// But it is not like that, because it was previously validated in special cases.
-		Class<?> cls = object.getClass();
-		var component = Arrays.stream(components)
-			.filter(it -> it.arraysOnly() == cls.isArray())
-			.filter(it -> checkComponent(object, it))
-			.findFirst();
-		
-		// Check if component exists
-		return component.map(instanceCmp -> instanceCmp.toString(object, verbose))
-			// As a last alternative, we use the "#toString" method by default,
-			// but in reality this case is only an alternative because it
-			// should never be executed.
-			.orElseGet(object::toString);
-	}
-	
 	/* -----------------------------------------------------
 	 * Static methods
 	 * ----------------------------------------------------- */
@@ -174,7 +174,7 @@ public final class UToStringManagerImpl implements UToStringManager {
 	 * @param component the new component to register
 	 */
 	@Override
-	public void registerComponent(@NotNull UToStringComponent component) {
+	public synchronized void registerComponent(@NotNull UToStringComponent component) {
 		requireNotNull(component, "component");
 		// Check if component a not editable component or already exists
 		Class<?> componentCls = component.getClass();
@@ -199,19 +199,43 @@ public final class UToStringManagerImpl implements UToStringManager {
 		registeredTypes.add(component.getClass());
 	}
 	
+	/* -----------------------------------------------------
+	 * Internal methods
+	 * ----------------------------------------------------- */
+	
 	/**
 	 * Removes a component from the component list
 	 *
 	 * @param cls The class of the component you want to remove
 	 */
 	@Override
-	public void removeComponent(@NotNull Class<? extends UToStringComponent> cls) {
+	public synchronized void removeComponent(@NotNull Class<? extends UToStringComponent> cls) {
 		requireNotNull(cls, "cls");
-		// Check if component a not editable component or not exists
-		if (UArray.contains(noEditableComponents, cls) ||
-			!registeredTypes.contains(cls)) {
+		// Check if component is a not editable component or not exists
+		if (UArray.contains(noEditableComponents, cls) || !registeredTypes.contains(cls)) {
+			return;
 		}
+		// Remove component instance
+		Class<?>[] componentClasses = UArray.transform(components, Object::getClass, Class[]::new);
+		int indexComponent = UArray.indexOf(componentClasses, cls);
 		
+		// We make the changes to the array.
+		// The last element of the array is considered fixed and should
+		// never change because it is an essential element with generic functionality.
+		UToStringComponent lastComponent = UArray.unsafeLastElement(components);
+		UToStringComponent[] tmpComponents = new UToStringComponent[components.length - 1];
+		
+		// Copy the base elements
+		System.arraycopy(components, 0, tmpComponents, 0, indexComponent);
+		if (indexComponent < tmpComponents.length) {
+			System.arraycopy(components, indexComponent + 1, tmpComponents, indexComponent,
+							 tmpComponents.length - indexComponent);
+		}
+		tmpComponents[tmpComponents.length - 1] = lastComponent;
+		
+		// Replace the component array and add new restrictions
+		components = tmpComponents;
+		registeredTypes.remove(cls);
 	}
 	
 }

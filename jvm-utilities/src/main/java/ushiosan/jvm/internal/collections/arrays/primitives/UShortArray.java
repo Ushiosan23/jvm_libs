@@ -19,7 +19,7 @@ abstract class UShortArray extends UByteArray {
 	 * @param elements short elements
 	 * @return an array with all shot elements
 	 */
-	public static short @NotNull [] shortOf(Number @NotNull ... elements) {
+	public static short[] makeShort(Number @NotNull ... elements) {
 		// Temporal variables
 		short[] result = new short[elements.length];
 		

@@ -59,7 +59,7 @@ public class UReflectionOptions<T extends Member> {
 		recursive = true;
 		skipAbstract = true;
 		maxDeep = UClass.FULL_CLASS_STACK;
-		predicates = UList.mutableListOf();
+		predicates = UList.makeMutable();
 	}
 	
 	/* -----------------------------------------------------
@@ -206,7 +206,7 @@ public class UReflectionOptions<T extends Member> {
 	 * @return all predicate elements
 	 */
 	public @NotNull @Unmodifiable List<Predicate<T>> predicates() {
-		return UList.listOf(predicates);
+		return UList.make(predicates);
 	}
 	
 	/**

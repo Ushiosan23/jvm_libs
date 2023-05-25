@@ -18,7 +18,7 @@ abstract class UCharArray extends UBooleanArray {
 	 * @param elements char elements
 	 * @return an array with all char elements
 	 */
-	public static char[] charOf(char... elements) {
+	public static char[] makeChar(char... elements) {
 		return elements;
 	}
 	

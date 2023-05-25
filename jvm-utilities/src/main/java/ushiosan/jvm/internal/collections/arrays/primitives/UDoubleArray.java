@@ -18,7 +18,7 @@ abstract class UDoubleArray extends UFloatArray {
 	 * @param elements double elements
 	 * @return an array with double bytes
 	 */
-	public static double[] doubleOf(double... elements) {
+	public static double[] makeDouble(double... elements) {
 		return elements;
 	}
 	

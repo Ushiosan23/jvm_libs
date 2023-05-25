@@ -22,7 +22,7 @@ public final class UEntryComponent implements UToStringComponent {
 	/**
 	 * All elements supported by the instance
 	 */
-	private final Class<?>[] SUPPORTED_CLASSES = UArray.of(
+	private final Class<?>[] SUPPORTED_CLASSES = UArray.make(
 		Map.Entry.class);
 	
 	/**

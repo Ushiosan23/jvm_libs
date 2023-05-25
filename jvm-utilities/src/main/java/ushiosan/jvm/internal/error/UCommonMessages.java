@@ -13,8 +13,8 @@ public abstract class UCommonMessages {
 	 * Pair of values used to generate error messages when a value is null
 	 */
 	private static final UPair<String, String> UO_REQUIRE_NOT_NULL =
-		UPair.of("The parameter must not be a <null> value.",
-				 "The parameter \"%s\" must not be a <null> value.");
+		UPair.make("The parameter must not be a <null> value.",
+				   "The parameter \"%s\" must not be a <null> value.");
 	
 	/* -----------------------------------------------------
 	 * Properties

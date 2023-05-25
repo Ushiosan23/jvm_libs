@@ -18,7 +18,7 @@ abstract class UIntegerArray extends UShortArray {
 	 * @param elements int elements
 	 * @return an array with all int elements
 	 */
-	public static int[] intOf(int... elements) {
+	public static int[] makeInt(int... elements) {
 		return elements;
 	}
 	

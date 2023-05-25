@@ -17,21 +17,21 @@ public final class UArrayValidator {
 	 * Object pairs used for conversion from primitive arrays to object arrays
 	 */
 	public static final UPair<Class<?>, UFun.UFun1<Object[], Object>>[] NUMERIC_ARRAYS_OBJ_CONVERSIONS =
-		UArray.of(
-			UPair.of(byte[].class, UArrayValidator::toByteArrayObj),
-			UPair.of(short[].class, UArrayValidator::toShortArrayObj),
-			UPair.of(int[].class, UArrayValidator::toIntegerArrayObj),
-			UPair.of(long[].class, UArrayValidator::toLongArrayObj),
-			UPair.of(float[].class, UArrayValidator::toFloatArrayObj),
-			UPair.of(double[].class, UArrayValidator::toDoubleArrayObj));
+		UArray.make(
+			UPair.make(byte[].class, UArrayValidator::toByteArrayObj),
+			UPair.make(short[].class, UArrayValidator::toShortArrayObj),
+			UPair.make(int[].class, UArrayValidator::toIntegerArrayObj),
+			UPair.make(long[].class, UArrayValidator::toLongArrayObj),
+			UPair.make(float[].class, UArrayValidator::toFloatArrayObj),
+			UPair.make(double[].class, UArrayValidator::toDoubleArrayObj));
 	
 	/**
 	 * Object pairs used for conversion from primitive arrays to object arrays
 	 */
 	public static final UPair<Class<?>, UFun.UFun1<Object[], Object>>[] PRIMITIVE_ARRAYS_CONVERSIONS =
-		UArray.join(NUMERIC_ARRAYS_OBJ_CONVERSIONS, UArray.of(
-			UPair.of(boolean[].class, UArrayValidator::toBooleanArrayObj),
-			UPair.of(char[].class, UArrayValidator::toCharArrayObj)));
+		UArray.join(NUMERIC_ARRAYS_OBJ_CONVERSIONS, UArray.make(
+			UPair.make(boolean[].class, UArrayValidator::toBooleanArrayObj),
+			UPair.make(char[].class, UArrayValidator::toCharArrayObj)));
 	
 	/* -----------------------------------------------------
 	 * Primitive conversion methods

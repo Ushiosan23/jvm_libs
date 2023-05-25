@@ -18,7 +18,7 @@ abstract class ULongArray extends UIntegerArray {
 	 * @param elements long elements
 	 * @return an array with all long elements
 	 */
-	public static long[] longOf(long... elements) {
+	public static long[] makeLong(long... elements) {
 		return elements;
 	}
 	

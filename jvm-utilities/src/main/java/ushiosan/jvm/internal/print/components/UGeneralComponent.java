@@ -31,7 +31,7 @@ public final class UGeneralComponent implements UToStringComponent {
 	/**
 	 * All elements supported by the instance
 	 */
-	private final Class<?>[] SUPPORTED_CLASSES = UArray.of(
+	private final Class<?>[] SUPPORTED_CLASSES = UArray.make(
 		CharSequence.class,
 		Class.class,
 		Object.class);
@@ -41,7 +41,7 @@ public final class UGeneralComponent implements UToStringComponent {
 	 *
 	 * @see #SUPPORTED_CLASSES
 	 */
-	private final UFun.UFun2<String, Object, Boolean>[] CONVERSION_REFERENCE = UArray.of(
+	private final UFun.UFun2<String, Object, Boolean>[] CONVERSION_REFERENCE = UArray.make(
 		this::toStringCharSequence,
 		this::toStringClass,
 		this::toStringObject);

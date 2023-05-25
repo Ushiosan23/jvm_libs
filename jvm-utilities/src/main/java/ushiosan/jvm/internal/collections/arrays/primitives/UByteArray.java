@@ -20,7 +20,7 @@ abstract class UByteArray extends UCharArray {
 	 * @param elements byte elements
 	 * @return an array with all bytes
 	 */
-	public static byte @NotNull [] byteOf(Number @NotNull ... elements) {
+	public static byte @NotNull [] makeByte(Number @NotNull ... elements) {
 		// Temporal variables
 		byte[] result = new byte[elements.length];
 		

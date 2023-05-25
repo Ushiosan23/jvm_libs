@@ -18,9 +18,9 @@ public abstract class UObjectValidators {
 	/**
 	 * Object pairs used to check that objects are null
 	 */
-	public static final UPair<Class<?>, UFun.UFun1<Boolean, Object>>[] NULLABLE_VALIDATORS = UArray.of(
-		UPair.of(WeakReference.class, (obj) -> cast(obj, WeakReference.class).get() != null),
-		UPair.of(Optional.class, (obj) -> cast(obj, Optional.class).isEmpty()));
+	public static final UPair<Class<?>, UFun.UFun1<Boolean, Object>>[] NULLABLE_VALIDATORS = UArray.make(
+		UPair.make(WeakReference.class, (obj) -> cast(obj, WeakReference.class).get() != null),
+		UPair.make(Optional.class, (obj) -> cast(obj, Optional.class).isEmpty()));
 	
 	
 	/* -----------------------------------------------------

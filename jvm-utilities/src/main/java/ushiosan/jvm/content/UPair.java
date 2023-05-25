@@ -62,7 +62,7 @@ public class UPair<F, S> {
 	 * @return instance of {@link UPair} class
 	 */
 	@Contract(value = "_, _ -> new", pure = true)
-	public static <T, K> @NotNull UPair<T, K> of(T first, K second) {
+	public static <T, K> @NotNull UPair<T, K> make(T first, K second) {
 		return new UPair<>(first, second);
 	}
 	
@@ -77,7 +77,7 @@ public class UPair<F, S> {
 	@Contract("_ -> new")
 	public static <T, K> @NotNull UPair<T, K> copyOf(Map.@NotNull Entry<T, K> entry) {
 		requireNotNull(entry, "entry");
-		return of(entry.getKey(), entry.getValue());
+		return make(entry.getKey(), entry.getValue());
 	}
 	
 	/* -----------------------------------------------------

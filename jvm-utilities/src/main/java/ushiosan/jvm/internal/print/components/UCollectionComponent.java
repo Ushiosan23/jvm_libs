@@ -25,7 +25,7 @@ public final class UCollectionComponent implements UToStringComponent {
 	/**
 	 * All elements supported by the instance
 	 */
-	private final Class<?>[] SUPPORTED_CLASSES = UArray.of(
+	private final Class<?>[] SUPPORTED_CLASSES = UArray.make(
 		Map.class,
 		Collection.class);
 	/**
@@ -34,7 +34,7 @@ public final class UCollectionComponent implements UToStringComponent {
 	 *
 	 * @see #SUPPORTED_CLASSES
 	 */
-	private final UFun.UFun2<String, Object, Boolean>[] CONVERSION_REFERENCE = UArray.of(
+	private final UFun.UFun2<String, Object, Boolean>[] CONVERSION_REFERENCE = UArray.make(
 		this::toMapString,
 		this::toCollectionString);
 	

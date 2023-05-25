@@ -40,9 +40,9 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	 * on the selected configuration.
 	 */
 	protected static final UPair<UFun.UFun1<Boolean, UReflectionOptions<? extends Member>>, Predicate<? extends Member>>[]
-		MEMBER_FILTER_ARRAY = UArray.of(
-		UPair.of(UReflectionOptions::publicAccess, modifiers(Modifier.PUBLIC)),
-		UPair.of(UReflectionOptions::skipAbstract, modifiers(true, Modifier.ABSTRACT)));
+		MEMBER_FILTER_ARRAY = UArray.make(
+		UPair.make(UReflectionOptions::publicAccess, modifiers(Modifier.PUBLIC)),
+		UPair.make(UReflectionOptions::skipAbstract, modifiers(true, Modifier.ABSTRACT)));
 	
 	/* -----------------------------------------------------
 	 * Filter members
@@ -65,7 +65,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 		
 		// Iterate all classes
 		for (Class<?> clsItem : classStack) {
-			var clsMethods = options.recursive() ? UList.<Method>listOf() :
+			var clsMethods = options.recursive() ? UList.<Method>make() :
 							 filterMembers(clsItem.getMethods(), options);
 			var clsDeclaredMethods = filterMembers(clsItem.getDeclaredMethods(),
 												   options);
@@ -97,7 +97,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 		
 		// Iterate all classes
 		for (Class<?> clsItem : classStack) {
-			var clsFields = options.recursive() ? UList.<Field>listOf() :
+			var clsFields = options.recursive() ? UList.<Field>make() :
 							filterMembers(clsItem.getFields(), options);
 			var clsDeclaredFields = filterMembers(clsItem.getDeclaredFields(),
 												  options);

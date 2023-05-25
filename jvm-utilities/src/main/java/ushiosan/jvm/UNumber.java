@@ -25,7 +25,7 @@ public final class UNumber {
 	 * Functions used to convert numbers to text in binary format
 	 */
 	private static final UTrio<Class<?>, Integer, UFun.UFun2<Boolean, Number, Integer>>[] TO_STRING_TRIOS =
-		UArray.of(
+		UArray.make(
 			UTrio.of(Byte.class, Byte.SIZE, UNumber::getByteBit),
 			UTrio.of(Short.class, Short.SIZE, UNumber::getShortBit),
 			UTrio.of(Integer.class, Integer.SIZE, UNumber::getIntBit),

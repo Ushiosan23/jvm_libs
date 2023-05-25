@@ -18,7 +18,7 @@ abstract class UBooleanArray extends UArraysGeneric {
 	 * @param elements boolean elements
 	 * @return an array with all boolean elements
 	 */
-	public static boolean[] booleanOf(boolean... elements) {
+	public static boolean[] makeBoolean(boolean... elements) {
 		return elements;
 	}
 	

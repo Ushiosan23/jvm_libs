@@ -45,7 +45,7 @@ public final class UString {
 		// Temporal variables
 		String contentString = content.toString();
 		String[] contentChunks = allContent ? contentString.split("\\s") :
-								 UArray.of(contentString);
+								 UArray.make(contentString);
 		
 		// Try to convert all elements
 		String[] convertedChunks = Arrays.stream(contentChunks)
@@ -197,7 +197,7 @@ public final class UString {
 		 * @param end   ASCII end range
 		 */
 		UGeneratorType(int start, int end) {
-			range = UPair.of(start, end);
+			range = UPair.make(start, end);
 		}
 	}
 	

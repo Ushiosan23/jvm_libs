@@ -1,4 +1,4 @@
-package ushiosan.jvm.internal.error;
+package ushiosan.jvm.error;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -7,7 +7,23 @@ import ushiosan.jvm.content.UPair;
 import static ushiosan.jvm.UObject.isNull;
 import static ushiosan.jvm.UObject.requireNotNull;
 
-public abstract class UCommonMessages {
+public abstract class UCommonErrorMessages {
+	
+	/* -----------------------------------------------------
+	 * Properties
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Text used to define error messages for invalid resources
+	 */
+	private static final String FS_TYPE_ERROR =
+		"The resource is not a valid \"%s\" type. \"%s\" given";
+	
+	/**
+	 * Text used when some scheme is not valid or is not supported by the current element
+	 */
+	private static final String FS_SCHEME_NOT_SUPPORTED =
+		"Scheme \"%s\" is not supported.";
 	
 	/**
 	 * Pair of values used to generate error messages when a value is null
@@ -16,24 +32,17 @@ public abstract class UCommonMessages {
 		UPair.make("The parameter must not be a <null> value.",
 				   "The parameter \"%s\" must not be a <null> value.");
 	
-	/* -----------------------------------------------------
-	 * Properties
-	 * ----------------------------------------------------- */
 	/**
-	 * Text used to define error messages for invalid resources
+	 * Pair of values used to generate error messages when a property was not found
 	 */
-	private static final String FS_TYPE_ERROR =
-		"The resource is not a valid \"%s\" type. \"%s\" given";
-	/**
-	 * Text used when some scheme is not valid or is not supported by the current element
-	 */
-	private static final String FS_SCHEME_NOT_SUPPORTED =
-		"Scheme \"%s\" is not supported.";
+	private static final UPair<String, String> UC_PROPERTY_NOT_FOUND =
+		UPair.make("The specified property was not found.",
+				   "The property \"%s\" was not found");
 	
 	/**
 	 * This class cannot be instantiated directly
 	 */
-	private UCommonMessages() {}
+	private UCommonErrorMessages() {}
 	
 	/* -----------------------------------------------------
 	 * Methods
@@ -76,6 +85,18 @@ public abstract class UCommonMessages {
 		requireNotNull(scheme, "scheme");
 		// Generate message content
 		return String.format(FS_SCHEME_NOT_SUPPORTED, scheme);
+	}
+	
+	/**
+	 * Generates a formatted error message when the property was not found
+	 *
+	 * @param property the name of the property that was not found
+	 * @return formatted error message
+	 */
+	public static String propertyNotFoundError(@Nullable String property) {
+		// Generate message content
+		return isNull(property) ? UC_PROPERTY_NOT_FOUND.first :
+			   String.format(UC_PROPERTY_NOT_FOUND.second, property);
 	}
 	
 }

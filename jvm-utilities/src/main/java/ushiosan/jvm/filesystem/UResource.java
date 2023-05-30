@@ -2,7 +2,7 @@ package ushiosan.jvm.filesystem;
 
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm.collections.UArray;
-import ushiosan.jvm.internal.validators.UResourceValidator;
+import ushiosan.jvm.internal.filesystem.UResourceImpl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,10 +22,10 @@ import java.util.zip.ZipFile;
 
 import static ushiosan.jvm.UAction.applyNotNull;
 import static ushiosan.jvm.UObject.requireNotNull;
-import static ushiosan.jvm.internal.error.UCommonMessages.resourceTypeError;
-import static ushiosan.jvm.internal.error.UCommonMessages.schemeNotSupportedError;
+import static ushiosan.jvm.error.UCommonErrorMessages.resourceTypeError;
+import static ushiosan.jvm.error.UCommonErrorMessages.schemeNotSupportedError;
 
-public final class UResource extends UResourceValidator {
+public final class UResource extends UResourceImpl {
 	
 	/**
 	 * This class cannot be instantiated directly

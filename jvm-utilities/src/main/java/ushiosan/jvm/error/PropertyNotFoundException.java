@@ -2,14 +2,14 @@ package ushiosan.jvm.error;
 
 import java.security.PrivilegedActionException;
 
-public class URecursiveCallException extends Exception {
+public class PropertyNotFoundException extends Exception {
 	
 	/**
 	 * Constructs a new exception with {@code null} as its detail message.
 	 * The cause is not initialized, and may subsequently be initialized by a
 	 * call to {@link #initCause}.
 	 */
-	public URecursiveCallException() {
+	public PropertyNotFoundException() {
 	}
 	
 	/**
@@ -20,7 +20,7 @@ public class URecursiveCallException extends Exception {
 	 * @param message the detail message. The detail message is saved for
 	 *                later retrieval by the {@link #getMessage()} method.
 	 */
-	public URecursiveCallException(String message) {
+	public PropertyNotFoundException(String message) {
 		super(message);
 	}
 	
@@ -37,7 +37,7 @@ public class URecursiveCallException extends Exception {
 	 *                permitted, and indicates that the cause is nonexistent or
 	 *                unknown.)
 	 */
-	public URecursiveCallException(String message, Throwable cause) {
+	public PropertyNotFoundException(String message, Throwable cause) {
 		super(message, cause);
 	}
 	
@@ -46,7 +46,7 @@ public class URecursiveCallException extends Exception {
 	 * message of {@code (cause==null ? null : cause.toString())} (which
 	 * typically contains the class and detail message of {@code cause}).
 	 * This constructor is useful for exceptions that are little more than
-	 * wrappers for other throwable (for example, {@link
+	 * wrappers for other throwables (for example, {@link
 	 * PrivilegedActionException}).
 	 *
 	 * @param cause the cause (which is saved for later retrieval by the
@@ -54,7 +54,7 @@ public class URecursiveCallException extends Exception {
 	 *              permitted, and indicates that the cause is nonexistent or
 	 *              unknown.)
 	 */
-	public URecursiveCallException(Throwable cause) {
+	public PropertyNotFoundException(Throwable cause) {
 		super(cause);
 	}
 	
@@ -71,7 +71,7 @@ public class URecursiveCallException extends Exception {
 	 * @param writableStackTrace whether the stack trace should
 	 *                           be writable
 	 */
-	public URecursiveCallException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public PropertyNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 	

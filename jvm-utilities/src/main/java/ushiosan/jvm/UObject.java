@@ -4,10 +4,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm.function.UEmptyFun;
 import ushiosan.jvm.internal.validators.UObjectValidators;
+import ushiosan.jvm.print.UToStringManager;
 
 import java.util.Optional;
 
-import static ushiosan.jvm.internal.error.UCommonMessages.requireNotNullError;
+import static ushiosan.jvm.error.UCommonErrorMessages.requireNotNullError;
 
 public final class UObject extends UObjectValidators {
 	
@@ -230,6 +231,36 @@ public final class UObject extends UObjectValidators {
 		// Verify that the object can be promoted to the defined class
 		return canCast(obj, cls) ? Optional.ofNullable(cast(obj)) :
 			   Optional.empty();
+	}
+	
+	/* -----------------------------------------------------
+	 * Print object
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Generates a text with the representation of the object.
+	 * Very similar to what the {@link Object#toString()} method does, but it ensures
+	 * that all objects have an easily identifiable representation.
+	 *
+	 * @param object  the object that you want to get the text representation
+	 * @param verbose option used to determine if the output will be long or simple
+	 * @return object string representation
+	 */
+	public static @NotNull String toString(@Nullable Object object, boolean verbose) {
+		return UToStringManager.getInstance()
+			.toString(object, verbose);
+	}
+	
+	/**
+	 * Generates a text with the representation of the object.
+	 * Very similar to what the {@link Object#toString()} method does, but it ensures
+	 * that all objects have an easily identifiable representation.
+	 *
+	 * @param object the object that you want to get the text representation
+	 * @return object string representation
+	 */
+	public static @NotNull String toString(@Nullable Object object) {
+		return toString(object, false);
 	}
 	
 }

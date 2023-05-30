@@ -85,41 +85,6 @@ public final class UToStringManagerImpl implements UToStringManager {
 	 * ----------------------------------------------------- */
 	
 	/**
-	 * Generates a text with the representation of the object.
-	 * Very similar to what the {@link Object#toString()} method does, but it ensures
-	 * that all objects have an easily identifiable representation.
-	 *
-	 * @param object  the object that you want to get the text representation
-	 * @param verbose option used to determine if the output will be long or simple
-	 * @return object string representation
-	 */
-	@SuppressWarnings("DataFlowIssue")
-	public @NotNull String toString(@Nullable Object object, boolean verbose) {
-		// Check the special cases
-		for (var conversion : SPECIAL_CASES) {
-			if (conversion.first.invoke(object)) {
-				return conversion.second.invoke(object, verbose);
-			}
-		}
-		
-		// The compiler will determine that there is a possibility that
-		// an exception to type "NullPointerException" will be thrown.
-		// But it is not like that, because it was previously validated in special cases.
-		Class<?> cls = object.getClass();
-		var component = Arrays.stream(components)
-			.filter(it -> it.arraysOnly() == cls.isArray())
-			.filter(it -> checkComponent(object, it))
-			.findFirst();
-		
-		// Check if component exists
-		return component.map(instanceCmp -> instanceCmp.toString(object, verbose))
-			// As a last alternative, we use the "#toString" method by default,
-			// but in reality this case is only an alternative because it
-			// should never be executed.
-			.orElseGet(object::toString);
-	}
-	
-	/**
 	 * Generates an instance of the specified class and saves it so that only one
 	 * instance exists throughout the entire program. If the JVM deletes such an
 	 * instance, it is recreated.
@@ -162,6 +127,41 @@ public final class UToStringManagerImpl implements UToStringManager {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Generates a text with the representation of the object.
+	 * Very similar to what the {@link Object#toString()} method does, but it ensures
+	 * that all objects have an easily identifiable representation.
+	 *
+	 * @param object  the object that you want to get the text representation
+	 * @param verbose option used to determine if the output will be long or simple
+	 * @return object string representation
+	 */
+	@SuppressWarnings("DataFlowIssue")
+	public @NotNull String toString(@Nullable Object object, boolean verbose) {
+		// Check the special cases
+		for (var conversion : SPECIAL_CASES) {
+			if (conversion.first.invoke(object)) {
+				return conversion.second.invoke(object, verbose);
+			}
+		}
+		
+		// The compiler will determine that there is a possibility that
+		// an exception to type "NullPointerException" will be thrown.
+		// But it is not like that, because it was previously validated in special cases.
+		Class<?> cls = object.getClass();
+		var component = Arrays.stream(components)
+			.filter(it -> it.arraysOnly() == cls.isArray())
+			.filter(it -> checkComponent(object, it))
+			.findFirst();
+		
+		// Check if component exists
+		return component.map(instanceCmp -> instanceCmp.toString(object, verbose))
+			// As a last alternative, we use the "#toString" method by default,
+			// but in reality this case is only an alternative because it
+			// should never be executed.
+			.orElseGet(object::toString);
 	}
 	
 	/* -----------------------------------------------------

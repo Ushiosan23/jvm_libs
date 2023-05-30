@@ -42,7 +42,7 @@ jobs:
             -   name: Publish to GitHub Packages (jvm-utilities)
                 uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
                 with:
-                    arguments: jvm-utilities:publishReleasePublicationToSonatypeRepository
+                    arguments: jvm-utilities:publishAllPublicationsToSonatypeRepository --stacktrace
                 env:
                     OSSRH_USERNAME: ${{secrets.OSSRH_USERNAME}}
                     OSSRH_PASSWORD: ${{secrets.OSSRH_PASSWORD}}

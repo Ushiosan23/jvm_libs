@@ -281,13 +281,13 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 		Class<? extends Annotation> @NotNull ... annotations) {
 		return it -> {
 			// Temporal variables
-			boolean result = inverted;
+			boolean result = !inverted;
 			// Check if an element contains the annotation
 			for (var annotation : annotations) {
 				if (!it.isAnnotationPresent(annotation)) {
 					// All conditions need to be true otherwise the object
 					// does not have the necessary requirements
-					result = !inverted;
+					result = inverted;
 					break;
 				}
 			}
@@ -334,17 +334,14 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 		@MagicConstant(valuesFromClass = Modifier.class) int... modifiers) {
 		return (it) -> {
 			// Temporal variables
-			boolean result = true;
+			boolean result = !inverted;
 			int memberMods = it.getModifiers();
 			
 			// Iterate all modifiers
 			for (int modifier : modifiers) {
-				int operation = memberMods & modifier;
-				boolean resultOperation = inverted == (operation != 0);
-				
 				// Check operation
-				if (resultOperation) {
-					result = false;
+				if ((modifier & memberMods) == 0) {
+					result = inverted;
 					break;
 				}
 			}

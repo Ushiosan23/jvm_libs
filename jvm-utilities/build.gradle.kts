@@ -12,7 +12,7 @@ plugins {
  * ----------------------------------------------------- */
 
 group = commonGroup
-version = "1.0.0"
+version = jvmUtilitiesVersion
 
 /* -----------------------------------------------------
  * Java configuration

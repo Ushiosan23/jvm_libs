@@ -22,7 +22,7 @@ fun generatePublication(ext: PublishingExtension, publication: PublicationInfo, 
 fun generatePublicationTasks(container: TaskContainer, publication: PublicationInfo, project: Project,
 							 sourceSet: SourceSet?) =
 	with(container) {
-		// Generate javadoc task
+		// Generate the javadoc artifact task
 		publication.javadoc.javadocTask?.let { taskName ->
 			create(taskName, Jar::class.java) {
 				archiveClassifier.set("javadoc")
@@ -35,7 +35,7 @@ fun generatePublicationTasks(container: TaskContainer, publication: PublicationI
 			}
 		}
 		
-		// Generate source task
+		// Generate the source artifact task
 		publication.javadoc.sourceTask?.let { taskName ->
 			create(taskName, Jar::class.java) {
 				archiveClassifier.set("sources")
@@ -76,7 +76,7 @@ private fun configurePublication(config: Pair<MavenPublication, PublicationInfo>
 		val javadocTasks = listOf(config.second.javadoc.javadocTask, config.second.javadoc.sourceTask)
 		for (task in javadocTasks) {
 			if (task == null) continue
-			// Check if task already exists
+			// Check if the task already exists
 			project.tasks
 				.findByName(task)
 				?.let(this::artifact)

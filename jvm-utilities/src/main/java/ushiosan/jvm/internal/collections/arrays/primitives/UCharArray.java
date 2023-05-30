@@ -1,5 +1,6 @@
 package ushiosan.jvm.internal.collections.arrays.primitives;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -20,6 +21,24 @@ abstract class UCharArray extends UBooleanArray {
 	 */
 	public static char[] makeChar(char... elements) {
 		return elements;
+	}
+	
+	/**
+	 * Generate a primitive char array
+	 *
+	 * @param elements char elements
+	 * @return an array with all char elements
+	 */
+	@Contract(pure = true)
+	public static char @NotNull [] makeCharObj(Character @NotNull ... elements) {
+		char[] result = new char[elements.length];
+		int index = 0;
+		
+		for (var element : elements) {
+			result[index++] = element;
+		}
+		
+		return result;
 	}
 	
 	/**

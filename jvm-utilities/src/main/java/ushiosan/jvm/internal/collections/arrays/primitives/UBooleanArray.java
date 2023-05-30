@@ -23,6 +23,23 @@ abstract class UBooleanArray extends UArraysGeneric {
 	}
 	
 	/**
+	 * Generate a primitive boolean array
+	 *
+	 * @param elements int elements
+	 * @return an array with all boolean elements
+	 */
+	public static boolean @NotNull [] makeBooleanObj(Boolean @NotNull ... elements) {
+		boolean[] result = new boolean[elements.length];
+		int index = 0;
+		
+		for (var element : elements) {
+			result[index++] = element;
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * Convert any array to an object array. This also applies to primitive types.
 	 *
 	 * @param array the array to convert

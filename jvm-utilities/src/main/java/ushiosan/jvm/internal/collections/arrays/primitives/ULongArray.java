@@ -1,5 +1,6 @@
 package ushiosan.jvm.internal.collections.arrays.primitives;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -20,6 +21,24 @@ abstract class ULongArray extends UIntegerArray {
 	 */
 	public static long[] makeLong(long... elements) {
 		return elements;
+	}
+	
+	/**
+	 * Generate a primitive long array
+	 *
+	 * @param elements long elements
+	 * @return an array with all long elements
+	 */
+	@Contract(pure = true)
+	public static long @NotNull [] makeLongObj(Long @NotNull ... elements) {
+		long[] result = new long[elements.length];
+		int index = 0;
+		
+		for (var element : elements) {
+			result[index++] = element;
+		}
+		
+		return result;
 	}
 	
 	/**

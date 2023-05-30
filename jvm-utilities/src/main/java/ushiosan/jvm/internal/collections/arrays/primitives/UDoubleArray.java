@@ -1,5 +1,6 @@
 package ushiosan.jvm.internal.collections.arrays.primitives;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -20,6 +21,24 @@ abstract class UDoubleArray extends UFloatArray {
 	 */
 	public static double[] makeDouble(double... elements) {
 		return elements;
+	}
+	
+	/**
+	 * Generate a primitive double array
+	 *
+	 * @param elements double elements
+	 * @return an array with double bytes
+	 */
+	@Contract(pure = true)
+	public static double @NotNull [] makeDoubleObj(Double @NotNull ... elements) {
+		double[] result = new double[elements.length];
+		int index = 0;
+		
+		for (var element : elements) {
+			result[index++] = element;
+		}
+		
+		return result;
 	}
 	
 	/**

@@ -32,6 +32,23 @@ abstract class UByteArray extends UCharArray {
 	}
 	
 	/**
+	 * Generate a primitive byte array
+	 *
+	 * @param elements byte elements
+	 * @return an array with all bytes
+	 */
+	public static byte @NotNull [] makeByteObj(Byte @NotNull ... elements) {
+		// Temporal variables
+		byte[] result = new byte[elements.length];
+		
+		// Copy elements
+		for (int i = 0; i < elements.length; ++i) {
+			result[i] = elements[i];
+		}
+		return result;
+	}
+	
+	/**
 	 * Search elements in the array
 	 *
 	 * @param array   base array to search

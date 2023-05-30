@@ -1,5 +1,6 @@
 package ushiosan.jvm.internal.collections.arrays.primitives;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -20,6 +21,24 @@ abstract class UFloatArray extends ULongArray {
 	 */
 	public static float[] makeFloat(float... elements) {
 		return elements;
+	}
+	
+	/**
+	 * Generate a primitive float array
+	 *
+	 * @param elements float elements
+	 * @return an array with all float elements
+	 */
+	@Contract(pure = true)
+	public static float @NotNull [] makeFloatObj(Float @NotNull ... elements) {
+		float[] result = new float[elements.length];
+		int index = 0;
+		
+		for (var element : elements) {
+			result[index++] = element;
+		}
+		
+		return result;
 	}
 	
 	/**

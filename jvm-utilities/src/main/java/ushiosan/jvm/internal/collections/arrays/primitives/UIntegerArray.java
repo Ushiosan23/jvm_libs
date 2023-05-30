@@ -23,6 +23,23 @@ abstract class UIntegerArray extends UShortArray {
 	}
 	
 	/**
+	 * Generate a primitive int array
+	 *
+	 * @param elements int elements
+	 * @return an array with all int elements
+	 */
+	public static int @NotNull [] makeIntObj(Integer @NotNull ... elements) {
+		int[] result = new int[elements.length];
+		int index = 0;
+		
+		for (var element : elements) {
+			result[index++] = element;
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * Search elements in the array
 	 *
 	 * @param array   base array to search

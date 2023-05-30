@@ -1,5 +1,6 @@
 package ushiosan.jvm.internal.collections.arrays.primitives;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 
@@ -19,7 +20,7 @@ abstract class UShortArray extends UByteArray {
 	 * @param elements short elements
 	 * @return an array with all shot elements
 	 */
-	public static short[] makeShort(Number @NotNull ... elements) {
+	public static short @NotNull [] makeShort(Number @NotNull ... elements) {
 		// Temporal variables
 		short[] result = new short[elements.length];
 		
@@ -27,6 +28,25 @@ abstract class UShortArray extends UByteArray {
 		for (int i = 0; i < elements.length; ++i) {
 			result[i] = elements[i].shortValue();
 		}
+		return result;
+	}
+	
+	
+	/**
+	 * Generate a primitive short array
+	 *
+	 * @param elements short elements
+	 * @return an array with all shot elements
+	 */
+	@Contract(pure = true)
+	public static short @NotNull [] makeShortObj(Short @NotNull ... elements) {
+		short[] result = new short[elements.length];
+		int index = 0;
+		
+		for (var element : elements) {
+			result[index++] = element;
+		}
+		
 		return result;
 	}
 	

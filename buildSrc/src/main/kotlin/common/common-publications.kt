@@ -13,7 +13,8 @@ val jvmUtilitiesReleasePublication
 			description = "Utilities for the java virtual machine.",
 			licenses = commonLicenses,
 			artifactId = "jvm-utilities",
-			developers = commonDevelopers.toList()))
+			developers = commonDevelopers.toList(),
+			scm = ScmInfo(branch = "development")))
 
 fun jvmUtilitiesSigningInfo(project: Project) =
 	SigningInfo(

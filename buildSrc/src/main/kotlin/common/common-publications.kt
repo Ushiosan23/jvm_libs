@@ -16,7 +16,19 @@ val jvmUtilitiesReleasePublication
 			developers = commonDevelopers.toList(),
 			scm = ScmInfo(branch = "development")))
 
-fun jvmUtilitiesSigningInfo(project: Project) =
+val jvmTestUtilitiesReleasePublication
+	get() = PublicationInfo(
+		name = "jvm-test-utilities",
+		artifactId = "jvm-test-utilities",
+		pom = MavenPomInfo(
+			artifactUrl = "https://github.com/Ushiosan23/jvm_libs.git",
+			description = "Utilities for the java virtual machine.",
+			licenses = commonLicenses,
+			artifactId = "jvm-test-utilities",
+			developers = commonDevelopers.toList(),
+			scm = ScmInfo(branch = "development")))
+
+fun projectSigningInfo(project: Project) =
 	SigningInfo(
 		env(project, "SIGNING_KEY_ID", ""),
 		env(project, "SIGNING_PASSWORD", ""),

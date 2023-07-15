@@ -1,6 +1,9 @@
 package common
 
 val jvmUtilitiesVersion
+	get() = "1.0.0b2"
+
+val jvmTestUtilitiesVersion
 	get() = "1.0.0b1"
 
 val jetbrainsAnnotationsVersion

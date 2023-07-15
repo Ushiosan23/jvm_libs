@@ -3,12 +3,14 @@ package ushiosan.jvm.platform;
 import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ushiosan.jvm.UObject;
 
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static ushiosan.jvm.UObject.isNotNull;
+import static ushiosan.jvm.UObject.requireNotNull;
 
 /**
  * Enumerated type for identification of the operating system on which the JVM is running.
@@ -77,33 +79,34 @@ public enum UPlatform {
 	 * @return the platform where the JVM runs or {@link #UNKNOWN} if the platform is not listed
 	 */
 	@SuppressWarnings("ConstantConditions")
-	public static UPlatform runningPlatform() {
+	public static @NotNull UPlatform runningPlatform() {
+		return from(platformNameRaw(true));
+	}
+	
+	/**
+	 * Gets the platform depending on the input
+	 *
+	 * @param name the name of the platform you want to get
+	 * @return the instance of the platform element or {@link #UNKNOWN} if the platform is not listed
+	 */
+	@SuppressWarnings("ConstantConditions")
+	public static @NotNull UPlatform from(@NotNull String name) {
+		requireNotNull(name, "name");
 		// Temporal variables
-		String nativeOs = platformNameRaw(true);
+		String cleanName = name.trim().toLowerCase();
 		UPlatform[] allValidPlatforms = Arrays.stream(values())
-			.filter(it -> UObject.isNotNull(it.pattern))
+			.filter(it -> isNotNull(it.pattern))
 			.toArray(UPlatform[]::new);
 		
 		// Iterate all platforms
 		for (var platform : allValidPlatforms) {
-			Matcher matcher = platform.pattern.matcher(nativeOs);
+			Matcher matcher = platform.pattern.matcher(cleanName);
 			if (matcher.find()) {
 				return platform;
 			}
 		}
 		
 		return UNKNOWN;
-	}
-	
-	/**
-	 * Gets the current platform name
-	 *
-	 * @return current platform name
-	 */
-	private static @NotNull String platformNameRaw(boolean lowerCase) {
-		String content = System.getProperty("os.name");
-		return lowerCase ? content.toLowerCase() :
-			   content;
 	}
 	
 	/**
@@ -133,6 +136,17 @@ public enum UPlatform {
 	/* -----------------------------------------------------
 	 * Static methods
 	 * ----------------------------------------------------- */
+	
+	/**
+	 * Gets the current platform name
+	 *
+	 * @return current platform name
+	 */
+	private static @NotNull String platformNameRaw(boolean lowerCase) {
+		String content = System.getProperty("os.name");
+		return lowerCase ? content.toLowerCase() :
+			   content;
+	}
 	
 	/**
 	 * Gets the current platform name

@@ -116,13 +116,37 @@ public final class UResource extends UResourceImpl {
 	/**
 	 * Gets the resource basename, without any extension.
 	 *
+	 * @param path    the resource location to analyze
+	 * @param partial returns the full or partial name
+	 * @return the resource basename
+	 */
+	public static @NotNull String basename(@NotNull Path path, boolean partial) {
+		requireNotNull(path, "path");
+		return basenameImpl(path.getFileName().toString(),
+							Files.isDirectory(path), partial);
+	}
+	
+	/**
+	 * Gets the resource basename, without any extension.
+	 *
 	 * @param path the resource location to analyze
 	 * @return the resource basename
 	 */
 	public static @NotNull String basename(@NotNull Path path) {
-		requireNotNull(path, "path");
-		return basenameImpl(path.getFileName().toString(),
-							Files.isDirectory(path));
+		return basename(path, true);
+	}
+	
+	/**
+	 * Gets the resource basename, without any extension.
+	 *
+	 * @param file    the resource location to analyze
+	 * @param partial returns the full or partial name
+	 * @return the resource basename
+	 */
+	public static @NotNull String basename(@NotNull File file, boolean partial) {
+		requireNotNull(file, "file");
+		return basenameImpl(file.getName(),
+							file.isDirectory(), partial);
 	}
 	
 	/**
@@ -132,9 +156,20 @@ public final class UResource extends UResourceImpl {
 	 * @return the resource basename
 	 */
 	public static @NotNull String basename(@NotNull File file) {
-		requireNotNull(file, "file");
-		return basenameImpl(file.getName(),
-							file.isDirectory());
+		return basename(file, true);
+	}
+	
+	/**
+	 * Gets the resource basename, without any extension.
+	 *
+	 * @param entry   the resource location to analyze
+	 * @param partial returns the full or partial name
+	 * @return the resource basename
+	 */
+	public static @NotNull String basename(@NotNull ZipEntry entry, boolean partial) {
+		requireNotNull(entry, "entry");
+		return basenameImpl(entry.getName(),
+							entry.isDirectory(), partial);
 	}
 	
 	/**
@@ -144,9 +179,7 @@ public final class UResource extends UResourceImpl {
 	 * @return the resource basename
 	 */
 	public static @NotNull String basename(@NotNull ZipEntry entry) {
-		requireNotNull(entry, "entry");
-		return basenameImpl(entry.getName(),
-							entry.isDirectory());
+		return basename(entry, true);
 	}
 	
 	/* -----------------------------------------------------

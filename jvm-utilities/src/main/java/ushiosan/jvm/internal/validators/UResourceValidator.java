@@ -82,20 +82,23 @@ public abstract class UResourceValidator {
 	 * <p>
 	 * Example:
 	 * <pre>{@code
-	 * "build.gradle.kts" -> build
-	 * "example.file.java" -> example
+	 * "build.gradle.kts" -> build | build.gradle
+	 * "example.file.java" -> example | example.file
 	 * }</pre>
 	 *
-	 * @param location the file location to analyze
+	 * @param location  the file location to analyze
+	 * @param directory determines if the resource is a directory
+	 * @param partial   returns the full or partial name
 	 * @return the file base name
 	 */
-	protected static @NotNull String basenameImpl(@NotNull String location, boolean directory) {
+	protected static @NotNull String basenameImpl(@NotNull String location, boolean directory, boolean partial) {
 		String cleanLocation = nameWithoutSlashesImpl(location);
 		// Directories or the like do not contain extensions.
 		if (directory) return cleanLocation;
 		
 		// Clean regular file name
-		int dotIndex = cleanLocation.indexOf(FS_EXTENSION_IDENTIFIER);
+		int dotIndex = partial ? cleanLocation.indexOf(FS_EXTENSION_IDENTIFIER) :
+					   cleanLocation.lastIndexOf(FS_EXTENSION_IDENTIFIER);
 		return dotIndex == INDEX_NOT_FOUND ? cleanLocation :
 			   cleanLocation.substring(0, dotIndex);
 	}
@@ -114,7 +117,7 @@ public abstract class UResourceValidator {
 	 */
 	protected static String @NotNull [] allExtensionsImpl(@NotNull String location) {
 		// Temporal variables
-		String basename = basenameImpl(location, false);
+		String basename = basenameImpl(location, false, false);
 		String cleanLocation = nameWithoutSlashesImpl(location);
 		int dotIndex = cleanLocation.indexOf(FS_EXTENSION_IDENTIFIER);
 		

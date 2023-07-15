@@ -61,7 +61,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 		requireNotNull(options, "options");
 		// Temporal variables
 		Stack<Class<?>> classStack = UClass.classStack(cls, options.maxDeepRecursive());
-		Set<Method> methodContainer = USet.mutableSetOf();
+		Set<Method> methodContainer = USet.makeMutable();
 		
 		// Iterate all classes
 		for (Class<?> clsItem : classStack) {
@@ -93,7 +93,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 		requireNotNull(options, "options");
 		// Temporal variables
 		Stack<Class<?>> classStack = UClass.classStack(cls, options.maxDeepRecursive());
-		Set<Field> fieldContainer = USet.mutableSetOf();
+		Set<Field> fieldContainer = USet.makeMutable();
 		
 		// Iterate all classes
 		for (Class<?> clsItem : classStack) {

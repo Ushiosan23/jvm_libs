@@ -21,7 +21,7 @@ abstract class UCollection {
 	 */
 	@SafeVarargs
 	public static <T> @NotNull Collection<T> combine(boolean excludeDuplicates, List<T> @NotNull ... lts) {
-		Collection<T> tmpResult = excludeDuplicates ? USet.mutableSetOf() :
+		Collection<T> tmpResult = excludeDuplicates ? USet.makeMutable() :
 								  UList.makeMutable();
 		// Iterate all collections
 		for (List<T> lt : lts) {

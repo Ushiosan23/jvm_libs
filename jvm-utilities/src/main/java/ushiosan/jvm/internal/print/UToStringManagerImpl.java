@@ -34,6 +34,9 @@ public final class UToStringManagerImpl implements UToStringManager {
 		// Checks that the object is a valid null value and
 		// returns its text representation
 		UPair.make(Objects::isNull, (it, ignore) -> "<null>"),
+		// Primitive formats like Boolean types have reserved words that may not be identified when read.
+		// That is why they are encapsulated inside "<>" to determine that it is a type and not a word within a text.
+		UPair.make(it -> canCast(it, Boolean.class), (it, ignore) -> String.format("<%s>", it)),
 		// Checks that the object is a valid object or primitive
 		// and returns its text representation. The only thing that
 		// changes is the Char type, which is represented by single quotes.
@@ -77,7 +80,7 @@ public final class UToStringManagerImpl implements UToStringManager {
 			UThrowableComponent.getInstance(),
 			UGeneralComponent.getInstance());
 		noEditableComponents = cast(UClass.toVarargTypes((Object[]) components));
-		registeredTypes = USet.mutableSetOf(noEditableComponents);
+		registeredTypes = USet.makeMutable(noEditableComponents);
 	}
 	
 	/* -----------------------------------------------------

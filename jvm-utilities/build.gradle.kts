@@ -1,5 +1,7 @@
 import common.*
 import utilities.*
+import java.nio.file.*
+import java.nio.file.Path
 
 plugins {
 	`java-library`
@@ -36,7 +38,7 @@ afterEvaluate {
 	
 	// Signing
 	signing {
-		signPublications(this, jvmUtilitiesSigningInfo(project),
+		signPublications(this, projectSigningInfo(project),
 			*publishing.publications.toTypedArray())
 	}
 }
@@ -59,6 +61,34 @@ tasks {
 	}
 }
 
+val versionResource by tasks.registering {
+	val resourceDir = sourceSets["main"].resources
+		.srcDirs
+		.firstOrNull()?.toPath() ?: return@registering
+	val targetResource = Path.of("$resourceDir", "ushiosan/jvm/jvm-utilities.properties")
+	
+	// Generate file
+	outputs.file(targetResource)
+	if (!Files.exists(targetResource)) {
+		Files.createDirectories(targetResource.parent)
+		Files.createFile(targetResource)
+	}
+	
+	// Generate file content
+	doLast {
+		val content = """
+			jvm.utilities.version=$version
+		""".trimIndent()
+		Files.writeString(targetResource, content,
+			StandardOpenOption.WRITE,
+			StandardOpenOption.TRUNCATE_EXISTING)
+	}
+}
+
+tasks.processResources {
+	dependsOn(versionResource)
+}
+
 /* -----------------------------------------------------
  * Dependencies
  * ----------------------------------------------------- */
@@ -68,5 +98,6 @@ dependencies {
 	// Test implementations
 	testImplementation(platform("org.junit:junit-bom:$jupiterUnitVersion"))
 	testImplementation("org.junit.jupiter:junit-jupiter")
+	testImplementation(project(":jvm-test-utilities"))
 	testCompileOnly("org.jetbrains:annotations:$jetbrainsAnnotationsVersion")
 }

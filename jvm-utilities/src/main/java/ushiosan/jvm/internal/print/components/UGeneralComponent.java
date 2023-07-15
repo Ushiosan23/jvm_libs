@@ -24,10 +24,12 @@ public final class UGeneralComponent implements UToStringComponent {
 	/* -----------------------------------------------------
 	 * Properties
 	 * ----------------------------------------------------- */
+	
 	/**
 	 * Singleton instance
 	 */
 	private static UToStringComponent INSTANCE;
+	
 	/**
 	 * All elements supported by the instance
 	 */
@@ -35,6 +37,7 @@ public final class UGeneralComponent implements UToStringComponent {
 		CharSequence.class,
 		Class.class,
 		Object.class);
+	
 	/**
 	 * Reference of the methods that are called in each case.
 	 * The order of the methods must be the same as the order of the supported classes.

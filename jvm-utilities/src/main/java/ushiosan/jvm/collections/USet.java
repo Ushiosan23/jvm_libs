@@ -27,7 +27,7 @@ public final class USet extends UCollection {
 	 * @return a set with all elements
 	 */
 	@SafeVarargs
-	public static @Unmodifiable <T> @NotNull Set<T> setOf(T @NotNull ... elements) {
+	public static @Unmodifiable <T> @NotNull Set<T> make(T @NotNull ... elements) {
 		return Set.of(elements);
 	}
 	
@@ -39,7 +39,7 @@ public final class USet extends UCollection {
 	 * @return a set with all elements
 	 */
 	@SuppressWarnings("unchecked")
-	public static @Unmodifiable <T> @NotNull Set<T> setOf(@NotNull Collection<T> base) {
+	public static @Unmodifiable <T> @NotNull Set<T> make(@NotNull Collection<T> base) {
 		requireNotNull(base, "base");
 		// The "Set.copyOf(Collection)" method is not used because it performs unnecessary procedures
 		// (it generates a list object and converts it to an array again), and this library
@@ -56,7 +56,7 @@ public final class USet extends UCollection {
 	 */
 	@SafeVarargs
 	@SuppressWarnings({"ManualArrayToCollectionCopy", "UseBulkOperation"})
-	public static <T> @NotNull Set<T> mutableSetOf(T @NotNull ... elements) {
+	public static <T> @NotNull Set<T> makeMutable(T @NotNull ... elements) {
 		HashSet<T> result = new HashSet<>(elements.length);
 		// prioritize speed instead of copying items to another list
 		for (T it : elements) {
@@ -73,7 +73,7 @@ public final class USet extends UCollection {
 	 * @param <T>  generic type set
 	 * @return a set with all elements
 	 */
-	public static <T> @NotNull Set<T> mutableSetOf(@NotNull Collection<T> base) {
+	public static <T> @NotNull Set<T> makeMutable(@NotNull Collection<T> base) {
 		requireNotNull(base, "base");
 		HashSet<T> result = new HashSet<>(base.size());
 		result.addAll(base);
@@ -90,7 +90,7 @@ public final class USet extends UCollection {
 	 */
 	@SuppressWarnings({"ManualArrayToCollectionCopy", "UseBulkOperation"})
 	@SafeVarargs
-	public static <T> @NotNull Set<T> linkedSetOf(T @NotNull ... elements) {
+	public static <T> @NotNull Set<T> makeLinked(T @NotNull ... elements) {
 		Set<T> result = new LinkedHashSet<>(elements.length);
 		// prioritize speed instead of copying items to another list
 		for (T it : elements) {
@@ -107,7 +107,7 @@ public final class USet extends UCollection {
 	 * @param <T>  generic type set
 	 * @return a linked set with all elements
 	 */
-	public static <T> @NotNull Set<T> linkedSetOf(@NotNull Collection<T> base) {
+	public static <T> @NotNull Set<T> makeLinked(@NotNull Collection<T> base) {
 		requireNotNull(base, "base");
 		Set<T> result = new LinkedHashSet<>(base.size());
 		result.addAll(base);
@@ -125,7 +125,7 @@ public final class USet extends UCollection {
 	 */
 	@SafeVarargs
 	@SuppressWarnings({"ManualArrayToCollectionCopy", "UseBulkOperation"})
-	public static <T> @NotNull Set<T> treeSetOf(@Nullable Comparator<T> comparator, T @NotNull ... elements) {
+	public static <T> @NotNull Set<T> makeTree(@Nullable Comparator<T> comparator, T @NotNull ... elements) {
 		Set<T> result = new TreeSet<>(comparator);
 		// prioritize speed instead of copying items to another list
 		for (T it : elements) {
@@ -143,8 +143,8 @@ public final class USet extends UCollection {
 	 * @return a linked set with all elements
 	 */
 	@SafeVarargs
-	public static <T> @NotNull Set<T> treeSetOf(T @NotNull ... elements) {
-		return treeSetOf(null, elements);
+	public static <T> @NotNull Set<T> makeTree(T @NotNull ... elements) {
+		return makeTree(null, elements);
 	}
 	
 	/**
@@ -155,7 +155,7 @@ public final class USet extends UCollection {
 	 * @param <T>        generic type set
 	 * @return a linked set with all elements
 	 */
-	public static <T> @NotNull Set<T> treeSetOf(@Nullable Comparator<T> comparator, @NotNull Collection<T> base) {
+	public static <T> @NotNull Set<T> makeTree(@Nullable Comparator<T> comparator, @NotNull Collection<T> base) {
 		requireNotNull(base, "base");
 		Set<T> result = new TreeSet<>(comparator);
 		result.addAll(base);
@@ -170,7 +170,7 @@ public final class USet extends UCollection {
 	 * @param <T> generic enum type
 	 * @return an enum set with all enum elements
 	 */
-	public static <T extends Enum<T>> @NotNull Set<T> enumSetOf(@NotNull Class<T> cls) {
+	public static <T extends Enum<T>> @NotNull Set<T> makeEnum(@NotNull Class<T> cls) {
 		requireNotNull(cls, "cls");
 		return EnumSet.allOf(cls);
 	}
@@ -188,7 +188,7 @@ public final class USet extends UCollection {
 	 */
 	@SafeVarargs
 	public static <T> @NotNull Set<T> combine(Set<T> @NotNull ... sets) {
-		Set<T> tmpResult = USet.mutableSetOf();
+		Set<T> tmpResult = makeMutable();
 		
 		// Iterate all collections
 		for (Set<T> lt : sets) {

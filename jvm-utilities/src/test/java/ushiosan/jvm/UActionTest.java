@@ -1,9 +1,10 @@
 package ushiosan.jvm;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ushiosan.UTestUnit;
 import ushiosan.jvm.content.UPair;
+import ushiosan.jvm.test.UTestUnit;
 
 import java.awt.*;
 import java.net.URI;
@@ -11,9 +12,19 @@ import java.net.URISyntaxException;
 
 class UActionTest extends UTestUnit {
 	
+	/**
+	 * The name of the module where the tests are being done
+	 *
+	 * @return the module name
+	 */
+	@Override
+	public @NotNull String module() {
+		return Constants.LIB_MODULE;
+	}
+	
 	@Test
 	public void alsoTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			// Temporal variables
 			var dimension = UAction.also(new Dimension(), it -> {
 				it.width = 1000;
@@ -33,7 +44,7 @@ class UActionTest extends UTestUnit {
 	
 	@Test
 	public void applyTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			// Temporal variables
 			var dimensionToPair = UAction.apply(new Dimension(1000, 600),
 												it -> UPair.make(it.width, it.height));
@@ -50,15 +61,15 @@ class UActionTest extends UTestUnit {
 	}
 	
 	@Test
-	public void applyErrTest() throws URISyntaxException {
-		sectionOf(() -> Assertions.assertThrows(URISyntaxException.class, () -> {
+	public void applyErrTest() {
+		makeSectionExpected(URISyntaxException.class, () -> {
 			// Force error
 			var malformedURL = "C:\\Users\\current\\example";
 			var uriObject = UAction.applyErr(malformedURL, URI::new);
 			
 			System.out.println(malformedURL);
 			System.out.println(uriObject);
-		}));
+		});
 	}
 	
 }

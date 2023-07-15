@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ushiosan.jvm.test.UTestUnit;
 
-public class UErrorTest extends UTestUnit {
+class URTest extends UTestUnit {
 	
 	/**
 	 * The name of the module where the tests are being done
@@ -18,18 +18,19 @@ public class UErrorTest extends UTestUnit {
 	}
 	
 	@Test
-	public void extractTraceTest() {
+	public void getPropertyTest() {
 		makeSection(() -> {
-			Throwable error = new RuntimeException("Example Error");
-			String extractedTrace = UError.extractTrace(error);
-			String validTrace = "java.lang.RuntimeException: Example Error";
+			// Get property value
+			var libraryVersion = UR.getInstance()
+				.getProperty("jvm.utilities.version");
 			
 			// Assertions
-			Assertions.assertTrue(extractedTrace.startsWith(validTrace),
-								  "Invalid Stack Trace information");
+			Assertions.assertTrue(libraryVersion.isPresent(),
+								  "Property cannot be <empty>");
 			
 			// Display information
-			println("Stack trace: %s", extractedTrace);
+			var version = libraryVersion.get();
+			println("Library version: %s", version);
 		});
 	}
 	

@@ -1,19 +1,30 @@
 package ushiosan.jvm;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ushiosan.UTestUnit;
 import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.print.UToStringManager;
+import ushiosan.jvm.test.UTestUnit;
 
 import java.util.Random;
 
 public class UNumberTest extends UTestUnit {
 	
+	/**
+	 * The name of the module where the tests are being done
+	 *
+	 * @return the module name
+	 */
+	@Override
+	public @NotNull String module() {
+		return Constants.LIB_MODULE;
+	}
+	
 	@SuppressWarnings("ConstantValue")
 	@Test
 	public void isDecimalTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			boolean validDecimal = UNumber.isDecimal(Math.PI);
 			boolean validDecimal2 = UNumber.isDecimal(12783.1);
 			boolean invalidDecimal = UNumber.isDecimal(1.0);
@@ -30,17 +41,17 @@ public class UNumberTest extends UTestUnit {
 								   "Invalid decimal result");
 			
 			// Display information
-			System.out.printf("Valid %f decimal: %s%n", Math.PI, validDecimal);
-			System.out.printf("Valid %f decimal: %s%n", 12783.1, validDecimal2);
+			println("Valid %f decimal: %s", Math.PI, validDecimal);
+			println("Valid %f decimal: %s", 12783.1, validDecimal2);
 			
-			System.out.printf("Invalid %f decimal: %s%n", 1.0, invalidDecimal);
-			System.out.printf("Invalid %f decimal: %s%n", 365.0, invalidDecimal2);
+			println("Invalid %f decimal: %s", 1.0, invalidDecimal);
+			println("Invalid %f decimal: %s", 365.0, invalidDecimal2);
 		});
 	}
 	
 	@Test
 	public void parseTest() throws NumberFormatException {
-		sectionErrOf(() -> {
+		makeSectionError(() -> {
 			String validDecimal = "365.128934";
 			String validInteger = "18923";
 			String invalidInteger = "a17283";
@@ -58,15 +69,15 @@ public class UNumberTest extends UTestUnit {
 								  "Invalid number is present");
 			
 			// Display information
-			System.out.printf("%s to number is: %s%n", validDecimal, validDecimalNumber);
-			System.out.printf("%s to number is: %s%n", validInteger, validIntegerNumber);
-			System.out.printf("%s to number is: %s%n", invalidInteger, invalidIntegerNumber);
+			println("%s to number is: %s", validDecimal, validDecimalNumber);
+			println("%s to number is: %s", validInteger, validIntegerNumber);
+			println("%s to number is: %s", invalidInteger, invalidIntegerNumber);
 		});
 	}
 	
 	@Test
 	public void randomRangeTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			Random random = new Random(System.nanoTime());
 			
 			for (int i = 0; i < 100; i++) {
@@ -79,15 +90,15 @@ public class UNumberTest extends UTestUnit {
 									   "The range contains a boundary element");
 				
 				// Display information
-				System.out.printf("Range %d content: %s%n", i,
-								  UToStringManager.getInstance().toString(range));
+				println("Range %d content: %s", i,
+						UToStringManager.getInstance().toString(range));
 			}
 		});
 	}
 	
 	@Test
 	public void getByteBitTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			byte content = Byte.MAX_VALUE;
 			boolean lastBit = UNumber.getByteBit(content, 7);
 			
@@ -100,13 +111,13 @@ public class UNumberTest extends UTestUnit {
 			}
 			
 			// Display information
-			System.out.printf("content information: %s%n", content);
+			println("content information: %s -> %s", content, UNumber.toBinaryString(content));
 		});
 	}
 	
 	@Test
 	public void setByteBitTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			byte content = Byte.MAX_VALUE;
 			byte newContent = UNumber.setByteBit(content, 7, true);
 			for (int i = 0; i < 7; i++) {
@@ -120,14 +131,14 @@ public class UNumberTest extends UTestUnit {
 									"The value is not valid");
 			
 			// Display information
-			System.out.printf("content information: %s%n", content);
-			System.out.printf("new content information: %s%n", newContent);
+			println("content information: %s", content);
+			println("new content information: %s", newContent);
 		});
 	}
 	
 	@Test
 	public void toBinaryStringTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			byte num1 = 0b0000_1100;
 			int num2 = 0xFF;
 			long num3 = 0xFFFF;
@@ -145,12 +156,12 @@ public class UNumberTest extends UTestUnit {
 									num3Str, "Invalid binary representation");
 			
 			// Display information
-			System.out.printf("The number %s binary representation: %s%n",
-							  num1, num1Str);
-			System.out.printf("The number %s binary representation: %s%n",
-							  num2, num2Str);
-			System.out.printf("The number %s binary representation: %s%n",
-							  num3, num3Str);
+			println("The number %s binary representation: %s",
+					num1, num1Str);
+			println("The number %s binary representation: %s",
+					num2, num2Str);
+			println("The number %s binary representation: %s",
+					num3, num3Str);
 		});
 	}
 	

@@ -1,3 +1,3 @@
 rootProject.name = "jvm-libraries"
 
-include(":jvm-utilities")
+include(":jvm-utilities", ":jvm-test-utilities")

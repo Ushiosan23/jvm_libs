@@ -4,19 +4,20 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ushiosan.UTestUnit;
+import ushiosan.jvm.Constants;
 import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.collections.UList;
+import ushiosan.jvm.test.UTestUnit;
 
 import java.awt.*;
 import java.util.HashMap;
 
 class UToStringManagerTest extends UTestUnit {
 	
-	
 	@AfterAll
 	public static void registerExtensionTest() {
-		sectionOf(() -> {
+		var access = instanceAccess(Constants.LIB_MODULE);
+		access.makeSection(() -> {
 			var extension = new UToStringComponent() {
 				
 				@Override
@@ -51,14 +52,24 @@ class UToStringManagerTest extends UTestUnit {
 			Assertions.assertEquals("ushiosan.jvm.print.UToStringManagerTest.RecursiveCallClass{}",
 									recursiveCallClassStrV, "Invalid component selection");
 			
-			System.out.printf("Verbose mode off: %s%n", recursiveCallClassStr);
-			System.out.printf("Verbose mode on: %s%n", recursiveCallClassStrV);
+			access.println("Verbose mode off: %s", recursiveCallClassStr);
+			access.println("Verbose mode on: %s", recursiveCallClassStrV);
 		});
+	}
+	
+	/**
+	 * The name of the module where the tests are being done
+	 *
+	 * @return the module name
+	 */
+	@Override
+	public @NotNull String module() {
+		return Constants.LIB_MODULE;
 	}
 	
 	@Test
 	public void toStringClassTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			// Temporal variables
 			Class<?> cls = String.class;
 			String clsStr = UToStringManager.getInstance()
@@ -83,30 +94,30 @@ class UToStringManagerTest extends UTestUnit {
 									"Invalid string representation");
 			
 			// Display information
-			System.out.printf("Class verbose mode off: %s%n", clsStr);
-			System.out.printf("Class verbose mode on:  %s%n%n", clsStrVerbose);
+			println("Class verbose mode off: %s", clsStr);
+			println("Class verbose mode on:  %s%n", clsStrVerbose);
 			
-			System.out.printf("Class array verbose mode off: %s%n", arrayClsStr);
-			System.out.printf("Class array verbose mode on:  %s%n", arrayClsStrV);
+			println("Class array verbose mode off: %s", arrayClsStr);
+			println("Class array verbose mode on:  %s", arrayClsStrV);
 		});
 	}
 	
 	@Test
 	public void toStringStringTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			var content = "Hello, World!";
 			var contentStr = UToStringManager.getInstance()
 				.toString(content, false);
 			
 			
-			System.out.printf("Original string:       %s%n", content);
-			System.out.printf("String representation: %s%n", contentStr);
+			println("Original string:       %s", content);
+			println("String representation: %s", contentStr);
 		});
 	}
 	
 	@Test
 	public void toStringObjectTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			var anyObject = new Dimension(1000, 600);
 			var anyObjectStr = UToStringManager.getInstance()
 				.toString(anyObject);
@@ -114,14 +125,14 @@ class UToStringManagerTest extends UTestUnit {
 			Assertions.assertEquals(anyObject.toString(), anyObjectStr,
 									"Invalid Object string representation");
 			
-			System.out.printf("Original string:  %s%n", anyObject);
-			System.out.printf("Generated string: %s%n", anyObjectStr);
+			println("Original string:  %s", anyObject);
+			println("Generated string: %s", anyObjectStr);
 		});
 	}
 	
 	@Test
 	public void toStringObjectRecursiveTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			var recursiveObj = new RecursiveCallClass();
 			var recursiveObjStr = UToStringManager.getInstance()
 				.toString(recursiveObj);
@@ -129,13 +140,13 @@ class UToStringManagerTest extends UTestUnit {
 			Assertions.assertTrue(recursiveObjStr.startsWith("E("),
 								  "Invalid recursive call");
 			
-			System.out.println(recursiveObjStr);
+			println(recursiveObjStr);
 		});
 	}
 	
 	@Test
 	public void toStringCollectionTest() {
-		sectionOf(() -> {
+		makeSection(() -> {
 			var dimensionalArray = UArray.make(
 				UArray.makeInt(1, 2),
 				UArray.makeInt(1, 2),
@@ -159,13 +170,13 @@ class UToStringManagerTest extends UTestUnit {
 			var mapStrV = UToStringManager.getInstance()
 				.toString(map, true);
 			
-			System.out.printf("Dimensional array string representation:           %s%n", dimensionalArrayStr);
-			System.out.printf("Dimensional array string representation (verbose): %s%n%n", dimensionalArrayStrV);
+			println("Dimensional array string representation:           %s", dimensionalArrayStr);
+			println("Dimensional array string representation (verbose): %s%n", dimensionalArrayStrV);
 			
-			System.out.printf("List string representation:           %s%n", listStr);
-			System.out.printf("List string representation (verbose): %s%n", listStrV);
-			System.out.printf("Map string representation:            %s%n", mapStr);
-			System.out.printf("Map string representation (verbose):  %s%n", mapStrV);
+			println("List string representation:           %s", listStr);
+			println("List string representation (verbose): %s", listStrV);
+			println("Map string representation:            %s", mapStr);
+			println("Map string representation (verbose):  %s", mapStrV);
 		});
 	}
 	

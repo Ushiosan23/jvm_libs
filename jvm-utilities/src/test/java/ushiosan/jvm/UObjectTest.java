@@ -1,8 +1,9 @@
 package ushiosan.jvm;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ushiosan.UTestUnit;
+import ushiosan.jvm.test.UTestUnit;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -12,9 +13,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UObjectTest extends UTestUnit {
 	
+	/**
+	 * The name of the module where the tests are being done
+	 *
+	 * @return the module name
+	 */
+	@Override
+	public @NotNull String module() {
+		return Constants.LIB_MODULE;
+	}
+	
 	@Test
 	public void tryCastTest() throws IOException {
-		sectionErrOf(() -> {
+		makeSectionError(() -> {
 			// Try to cast some elements
 			URL googleURL = new URL("https://google.com");
 			URLConnection connection = googleURL.openConnection();
@@ -26,11 +37,10 @@ public class UObjectTest extends UTestUnit {
 			Assertions.assertTrue(valid.get(), "Invalid cast");
 			
 			// Display information
-			System.out.printf("URL: %s%n", googleURL);
-			System.out.printf("Connection: %s%n", connection);
-			System.out.printf("Valid result: %s%n", valid);
+			println("URL: %s", googleURL);
+			println("Connection: %s", connection);
+			println("Valid result: %s", valid);
 		});
 	}
-	
 	
 }

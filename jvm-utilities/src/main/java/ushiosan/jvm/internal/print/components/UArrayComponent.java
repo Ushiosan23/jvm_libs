@@ -79,15 +79,20 @@ public class UArrayComponent extends UArrayPrimitive implements UToStringCompone
 		// Temporal variables
 		StringBuilder builder = new StringBuilder();
 		Class<?> cls = object.getClass();
+		var array = toObjectArrayImpl(object);
 		
 		// Base information
 		if (verbose) {
-			builder.append(manager().toString(cls, true));
+			String clsInfo = manager().toString(cls, true);
+			final int index = clsInfo.indexOf('[') + 1;
+			
+			builder.append(clsInfo, 0, index)
+				.append(array.length)
+				.append(clsInfo.substring(index));
 		}
 		builder.append('[');
 		
 		// Builder content
-		var array = toObjectArrayImpl(object);
 		for (int i = 0; i < array.length; i++) {
 			var item = array[i];
 			builder.append(manager().toString(item, verbose));

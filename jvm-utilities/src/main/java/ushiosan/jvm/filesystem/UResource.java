@@ -7,6 +7,7 @@ import ushiosan.jvm.internal.filesystem.UResourceImpl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.*;
@@ -291,6 +292,33 @@ public final class UResource extends UResourceImpl {
 	 * ----------------------------------------------------- */
 	
 	/**
+	 * Get the hash of the given stream
+	 *
+	 * @param stream    the content stream
+	 * @param algorithm hash algorithm
+	 * @return the stream hash
+	 * @throws NoSuchAlgorithmException error if algorithm not exists
+	 * @throws IOException              error to read stream content
+	 */
+	public static byte[] resourceHash(@NotNull InputStream stream, @NotNull String algorithm) throws IOException,
+		NoSuchAlgorithmException {
+		requireNotNull(stream, "stream");
+		return resourceHashImpl(stream, algorithm);
+	}
+	
+	/**
+	 * Get the hash of the given stream
+	 *
+	 * @param stream the content stream
+	 * @return the stream hash
+	 * @throws NoSuchAlgorithmException error if algorithm not exists
+	 * @throws IOException              error to read stream content
+	 */
+	public static byte[] resourceHash(@NotNull InputStream stream) throws IOException, NoSuchAlgorithmException {
+		return resourceHash(stream, FS_DEFAULT_ALGORITHM);
+	}
+	
+	/**
 	 * Get the hash of the given resource
 	 *
 	 * @param path      the resource location
@@ -391,6 +419,35 @@ public final class UResource extends UResourceImpl {
 		return Arrays.stream(UArray.toObjectArray(hash))
 			.map(it -> String.format("%02x", it))
 			.collect(Collectors.joining());
+	}
+	
+	/**
+	 * Get the hash of the given resource
+	 * This method returns the hash as hexadecimal string.
+	 *
+	 * @param stream    the content stream
+	 * @param algorithm hash algorithm
+	 * @return hash as hexadecimal string
+	 * @throws NoSuchAlgorithmException error if algorithm not exists
+	 * @throws IOException              error to read stream content
+	 */
+	public static @NotNull String resourceHashStr(@NotNull InputStream stream, @NotNull String algorithm) throws IOException,
+		NoSuchAlgorithmException {
+		return resourceHashStr(resourceHash(stream, algorithm));
+	}
+	
+	/**
+	 * Get the hash of the given resource
+	 * This method returns the hash as hexadecimal string.
+	 *
+	 * @param stream the content stream
+	 * @return hash as hexadecimal string
+	 * @throws NoSuchAlgorithmException error if algorithm not exists
+	 * @throws IOException              error to read stream content
+	 */
+	public static @NotNull String resourceHashStr(@NotNull InputStream stream) throws IOException,
+		NoSuchAlgorithmException {
+		return resourceHashStr(resourceHash(stream));
 	}
 	
 	/* -----------------------------------------------------

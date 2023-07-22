@@ -31,6 +31,7 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * Generates a filter to capture the elements that meet said restriction
 	 *
 	 * @param pattern  regular expression to apply
+	 * @param fullPath property used to parse the full path or just the file name for matches
 	 * @param inverted option to perform the action inverted
 	 * @param flags    regular expression configuration flags
 	 * @param <T>      generic member type
@@ -45,9 +46,10 @@ public abstract class UResourceImpl extends UResourceValidator {
 	/**
 	 * Generates a filter to capture the elements that meet said restriction
 	 *
-	 * @param pattern regular expression to apply
-	 * @param flags   regular expression configuration flags
-	 * @param <T>     generic member type
+	 * @param pattern  regular expression to apply
+	 * @param fullPath property used to parse the full path or just the file name for matches
+	 * @param flags    regular expression configuration flags
+	 * @param <T>      generic member type
 	 * @return the filter instance with the desired behavior
 	 * @see Pattern
 	 */
@@ -60,6 +62,7 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * Generates a filter to capture the elements that meet said restriction
 	 *
 	 * @param pattern  regular expression to apply
+	 * @param fullPath property used to parse the full path or just the file name for matches
 	 * @param inverted option to perform the action inverted
 	 * @param <T>      generic member type
 	 * @return the filter instance with the desired behavior
@@ -90,8 +93,8 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * @param <T>        generic member type
 	 * @return the filter instance with the desired behavior
 	 */
-	private static @NotNull <T extends Path> Predicate<T> extensionsPathOf(boolean inverted, String @NotNull ... extensions) {
-		return namedImpl(inverted, extensions);
+	public static @NotNull <T extends Path> Predicate<T> extensionsPathOf(boolean inverted, String @NotNull ... extensions) {
+		return extensionsImpl(inverted, extensions);
 	}
 	
 	/* -----------------------------------------------------
@@ -102,8 +105,10 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * Generates a filter to capture the elements that meet said restriction
 	 *
 	 * @param pattern  regular expression to apply
+	 * @param fullPath property used to parse the full path or just the file name for matches
 	 * @param inverted option to perform the action inverted
 	 * @param flags    regular expression configuration flags
+	 * @param <T>      generic member type
 	 * @return the filter instance with the desired behavior
 	 * @see Pattern
 	 */
@@ -115,8 +120,10 @@ public abstract class UResourceImpl extends UResourceValidator {
 	/**
 	 * Generates a filter to capture the elements that meet said restriction
 	 *
-	 * @param pattern regular expression to apply
-	 * @param flags   regular expression configuration flags
+	 * @param pattern  regular expression to apply
+	 * @param fullPath property used to parse the full path or just the file name for matches
+	 * @param flags    regular expression configuration flags
+	 * @param <T>      generic member type
 	 * @return the filter instance with the desired behavior
 	 * @see Pattern
 	 */
@@ -129,7 +136,9 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * Generates a filter to capture the elements that meet said restriction
 	 *
 	 * @param pattern  regular expression to apply
+	 * @param fullPath property used to parse the full path or just the file name for matches
 	 * @param inverted option to perform the action inverted
+	 * @param <T>      generic member type
 	 * @return the filter instance with the desired behavior
 	 * @see Pattern
 	 */
@@ -158,7 +167,7 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * @param <T>        generic member type
 	 * @return the filter instance with the desired behavior
 	 */
-	private static @NotNull <T extends File> Predicate<T> extensionsFileOf(boolean inverted, String @NotNull ... extensions) {
+	public static @NotNull <T extends File> Predicate<T> extensionsFileOf(boolean inverted, String @NotNull ... extensions) {
 		return namedImpl(inverted, extensions);
 	}
 	
@@ -170,8 +179,10 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * Generates a filter to capture the elements that meet said restriction
 	 *
 	 * @param pattern  regular expression to apply
+	 * @param fullPath property used to parse the full path or just the file name for matches
 	 * @param inverted option to perform the action inverted
 	 * @param flags    regular expression configuration flags
+	 * @param <T>      generic member type
 	 * @return the filter instance with the desired behavior
 	 * @see Pattern
 	 */
@@ -183,8 +194,10 @@ public abstract class UResourceImpl extends UResourceValidator {
 	/**
 	 * Generates a filter to capture the elements that meet said restriction
 	 *
-	 * @param pattern regular expression to apply
-	 * @param flags   regular expression configuration flags
+	 * @param pattern  regular expression to apply
+	 * @param fullPath property used to parse the full path or just the file name for matches
+	 * @param flags    regular expression configuration flags
+	 * @param <T>      generic member type
 	 * @return the filter instance with the desired behavior
 	 * @see Pattern
 	 */
@@ -197,7 +210,9 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * Generates a filter to capture the elements that meet said restriction
 	 *
 	 * @param pattern  regular expression to apply
+	 * @param fullPath property used to parse the full path or just the file name for matches
 	 * @param inverted option to perform the action inverted
+	 * @param <T>      generic member type
 	 * @return the filter instance with the desired behavior
 	 * @see Pattern
 	 */
@@ -226,9 +241,9 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * @param <T>        generic member type
 	 * @return the filter instance with the desired behavior
 	 */
-	private static @NotNull <T extends ZipEntry> Predicate<T> extensionsEntryOf(boolean inverted,
+	public static @NotNull <T extends ZipEntry> Predicate<T> extensionsEntryOf(boolean inverted,
 		String @NotNull ... extensions) {
-		return namedImpl(inverted, extensions);
+		return extensionsImpl(inverted, extensions);
 	}
 	
 	/* -----------------------------------------------------
@@ -246,7 +261,7 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * @see Pattern
 	 */
 	@SuppressWarnings("MagicConstant")
-	public static <T> @NotNull Predicate<T> regexResourceOfImpl(@NotNull @RegExp String pattern, boolean fullPath,
+	private static <T> @NotNull Predicate<T> regexResourceOfImpl(@NotNull @RegExp String pattern, boolean fullPath,
 		boolean inverted, @MagicConstant(flagsFromClass = Pattern.class) int @NotNull ... flags) {
 		requireNotNull(pattern, "pattern");
 		// Generate pattern instance
@@ -325,7 +340,7 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * @see Pattern
 	 */
 	@SuppressWarnings("OptionalGetWithoutIsPresent")
-	private static @NotNull <T> Predicate<T> extensions(boolean inverted, String @NotNull ... extensions) {
+	private static @NotNull <T> Predicate<T> extensionsImpl(boolean inverted, String @NotNull ... extensions) {
 		return it -> {
 			Optional<String> resourceExtension = Optional.empty();
 			// Check the object class type

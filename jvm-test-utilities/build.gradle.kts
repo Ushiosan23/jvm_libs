@@ -51,7 +51,7 @@ tasks {
 		project, sourceSets.findByName("main"))
 	
 	findByName("javadoc")?.let {
-		configureJavadoc(it as Javadoc, commonJvmUtilitiesJavadocInfo)
+		configureJavadoc(it as Javadoc, generateProjectJavadocInfo(jvmTestUtilitiesReleasePublication))
 	}
 	
 	test {

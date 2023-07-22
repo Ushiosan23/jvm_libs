@@ -6,10 +6,12 @@ import org.jetbrains.annotations.UnmodifiableView;
 import ushiosan.jvm.content.UPair;
 
 import java.util.*;
+import java.util.function.Function;
 
 import static ushiosan.jvm.UObject.cast;
+import static ushiosan.jvm.UObject.requireNotNull;
 
-public class UMap {
+public class UMap extends UCollection {
 	
 	/**
 	 * This class cannot be instantiated directly
@@ -136,6 +138,59 @@ public class UMap {
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> makeLinked(UPair<K, V> @NotNull ... pairs) {
 		return makeImpl(new LinkedHashMap<>(pairs.length), pairs);
+	}
+	
+	/* -----------------------------------------------------
+	 * Transform methods
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Converts one map to another but with a different data type.
+	 *
+	 * @param original the original map that you want to convert
+	 * @param mapper   function in charge of transforming each element of the map
+	 * @param <K>      base entry key value type
+	 * @param <V>      base entry value type
+	 * @param <KR>     output entry key value type
+	 * @param <VR>     output entry value type
+	 * @return the new map with the converted data
+	 */
+	@SuppressWarnings("unchecked")
+	public static <K, V, KR, VR> @NotNull Map<KR, VR> transform(@NotNull Map<K, V> original,
+		@NotNull Function<Map.Entry<K, V>, Map.Entry<KR, VR>> mapper) {
+		requireNotNull(original, "original");
+		requireNotNull(mapper, "mapper");
+		// Generate entry transform values
+		var entries = (Map.Entry<KR, VR>[]) original.entrySet().stream()
+			.map(mapper)
+			.toArray(Map.Entry[]::new);
+		return isUnmodifiable(original) ? make(entries) :
+			   makeMutable(entries);
+	}
+	
+	/**
+	 * Converts one map to another but with a different data type.
+	 *
+	 * @param original the original map that you want to convert
+	 * @param mapper   function in charge of transforming each element of the map
+	 * @param <K>      base entry key value type
+	 * @param <V>      base entry value type
+	 * @param <KR>     output entry key value type
+	 * @param <VR>     output entry value type
+	 * @return the new map with the converted data
+	 */
+	@SuppressWarnings("unchecked")
+	public static <K, V, KR, VR> @NotNull Map<KR, VR> transformPair(@NotNull Map<K, V> original,
+		@NotNull Function<UPair<K, V>, UPair<KR, VR>> mapper) {
+		requireNotNull(original, "original");
+		requireNotNull(mapper, "mapper");
+		// Generate entry transform values
+		var pairs = (UPair<KR, VR>[]) original.entrySet().stream()
+			.map(UPair::copyOf)
+			.map(mapper)
+			.toArray(UPair[]::new);
+		return isUnmodifiable(original) ? make(pairs) :
+			   makeMutable(pairs);
 	}
 	
 	/* -----------------------------------------------------

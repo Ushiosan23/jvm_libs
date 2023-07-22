@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.function.Function;
 
 import static ushiosan.jvm.UObject.requireNotNull;
 
@@ -53,6 +54,28 @@ public final class UVector extends UCollection {
 	public static <T> @NotNull Vector<T> make(@NotNull Iterator<T> iterator) {
 		requireNotNull(iterator, "iterator");
 		return makeImpl(new Vector<>(), iterator);
+	}
+	
+	/* -----------------------------------------------------
+	 * Transform methods
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Converts one vector to another but with a different data type.
+	 *
+	 * @param original the original vector that you want to convert
+	 * @param mapper   function in charge of transforming each element of the vector
+	 * @param <T>      the original data type
+	 * @param <R>      the target data type
+	 * @return the new vector with the converted data
+	 */
+	public static <T, R> @NotNull Vector<R> transform(@NotNull Vector<T> original, @NotNull Function<T, R> mapper) {
+		requireNotNull(original, "original");
+		requireNotNull(mapper, "mapper");
+		// Generate vector result
+		return original.stream()
+			.map(mapper)
+			.collect(Vector::new, Vector::add, Vector::addAll);
 	}
 	
 	/* -----------------------------------------------------

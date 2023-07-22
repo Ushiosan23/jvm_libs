@@ -6,6 +6,8 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static ushiosan.jvm.UObject.requireNotNull;
 
@@ -161,6 +163,34 @@ public final class UList extends UCollection {
 		}
 		
 		return indexList;
+	}
+	
+	/* -----------------------------------------------------
+	 * Transform methods
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Converts one list to another but with a different data type.
+	 *
+	 * @param original the original list that you want to convert
+	 * @param mapper   function in charge of transforming each element of the list
+	 * @param <T>      the original data type
+	 * @param <R>      the target data type
+	 * @return the new list with the converted data
+	 */
+	public static <T, R> @NotNull List<R> transform(@NotNull List<T> original, @NotNull Function<T, R> mapper) {
+		requireNotNull(original, "original");
+		requireNotNull(mapper, "mapper");
+		// Generate list stream
+		var listStream = original.stream()
+			.map(mapper);
+		
+		// Check the type of collection
+		if (isUnmodifiable(original)) {
+			return listStream.collect(Collectors.toUnmodifiableList());
+		} else {
+			return listStream.collect(Collectors.toList());
+		}
 	}
 	
 	/* -----------------------------------------------------

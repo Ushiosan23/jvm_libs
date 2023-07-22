@@ -8,6 +8,10 @@ import java.util.Stack;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.function.Function;
+
+import static ushiosan.jvm.UObject.canCastNotNull;
+import static ushiosan.jvm.UObject.requireNotNull;
 
 public final class UStack extends UCollection {
 	
@@ -70,6 +74,53 @@ public final class UStack extends UCollection {
 	@SafeVarargs
 	public static <T> @NotNull Deque<T> makeConcurrentDeque(T @NotNull ... elements) {
 		return makeImpl(new ConcurrentLinkedDeque<>(), elements);
+	}
+	
+	/* -----------------------------------------------------
+	 * Transform methods
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Converts a stack to another but with a different data type.
+	 *
+	 * @param original the original stack that you want to convert
+	 * @param mapper   function in charge of transforming each element of the stack
+	 * @param <T>      the original data type
+	 * @param <R>      the target data type
+	 * @return the new stack with the converted data
+	 */
+	public static <T, R> @NotNull Stack<R> transform(@NotNull Stack<T> original, @NotNull Function<T, R> mapper) {
+		requireNotNull(original, "original");
+		requireNotNull(mapper, "mapper");
+		// Generate stack stream
+		return original.stream()
+			.map(mapper)
+			.collect(Stack::new, Stack::push, Stack::addAll);
+	}
+	
+	/**
+	 * Converts one deque to another but with a different data type.
+	 *
+	 * @param original the original deque that you want to convert
+	 * @param mapper   function in charge of transforming each element of the deque
+	 * @param <T>      the original data type
+	 * @param <R>      the target data type
+	 * @return the new deque with the converted data
+	 */
+	public static <T, R> @NotNull Deque<R> transform(@NotNull Deque<T> original, @NotNull Function<T, R> mapper) {
+		requireNotNull(original, "original");
+		requireNotNull(mapper, "mapper");
+		// Generate stack stream
+		var dequeStream = original.stream()
+			.map(mapper);
+		
+		if (canCastNotNull(original, ConcurrentLinkedDeque.class)) {
+			return dequeStream.collect(ConcurrentLinkedDeque::new, Deque::push, Deque::addAll);
+		} else if (canCastNotNull(original, LinkedBlockingDeque.class)) {
+			return dequeStream.collect(LinkedBlockingDeque::new, Deque::push, Deque::addAll);
+		} else {
+			return dequeStream.collect(ArrayDeque::new, Deque::push, Deque::addAll);
+		}
 	}
 	
 	/* -----------------------------------------------------

@@ -5,6 +5,8 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static ushiosan.jvm.UObject.requireNotNull;
 
@@ -195,6 +197,33 @@ public final class USet extends UCollection {
 			tmpResult.addAll(lt);
 		}
 		return tmpResult;
+	}
+	
+	/* -----------------------------------------------------
+	 * Transform methods
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Converts one set to another but with a different data type.
+	 *
+	 * @param original the original set that you want to convert
+	 * @param mapper   function in charge of transforming each element of the set
+	 * @param <T>      the original data type
+	 * @param <R>      the target data type
+	 * @return the new set with the converted data
+	 */
+	public static <T, R> @NotNull Set<R> transform(@NotNull Set<T> original, @NotNull Function<T, R> mapper) {
+		requireNotNull(original, "original");
+		requireNotNull(mapper, "mapper");
+		// Generate set stream
+		var setStream = original.stream()
+			.map(mapper);
+		
+		if (isUnmodifiable(original)) {
+			return setStream.collect(Collectors.toUnmodifiableSet());
+		} else {
+			return setStream.collect(Collectors.toSet());
+		}
 	}
 	
 }

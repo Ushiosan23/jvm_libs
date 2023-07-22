@@ -2,6 +2,7 @@ package ushiosan.jvm.internal.collections.arrays.primitives;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
+import ushiosan.jvm.UNumber;
 import ushiosan.jvm.internal.collections.arrays.UArraysConstants;
 
 import java.util.Arrays;
@@ -172,6 +173,20 @@ abstract class UByteArray extends UCharArray {
 	 */
 	public static boolean primitiveContentEquals(byte[] ar1, byte[] ar2) {
 		return contentEquals(toObjectArray(ar1), toObjectArray(ar2));
+	}
+	
+	/**
+	 * Gets a new array but removing the sign to only get positive integers and not
+	 * get invalid data.
+	 *
+	 * @param array the array you want to transform
+	 * @return the result of the conversion to positive unsigned integers
+	 */
+	public static int @NotNull [] primitiveUnsignedByteArray(byte[] array) {
+		// Convert all array content to a valid unsigned integers
+		Integer[] transform = primitiveTransform(array, UNumber::toUnsignedByte, Integer[]::new);
+		// Generate primitive array
+		return UIntegerArray.makeIntObj(transform);
 	}
 	
 }

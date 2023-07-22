@@ -71,6 +71,7 @@ public final class UNumber {
 	/**
 	 * Generate an array of pseudorandom numbers within a specified range
 	 *
+	 * @param random    thr random content generator instance
 	 * @param start     the start of the range (inclusive)
 	 * @param end       the end of the range (no inclusive)
 	 * @param size      total elements in array
@@ -96,6 +97,7 @@ public final class UNumber {
 	/**
 	 * Generate an array of pseudorandom numbers within a specified range
 	 *
+	 * @param random    thr random content generator instance
 	 * @param start     the start of the range (inclusive)
 	 * @param end       the end of the range (no inclusive)
 	 * @param size      total elements in array
@@ -123,6 +125,49 @@ public final class UNumber {
 	 * ----------------------------------------------------- */
 	
 	/**
+	 * Converts a signed byte to an unsigned byte.
+	 * Since bytes can only be signed, then the type is changed to an integer
+	 * that can hold the value of an unsigned byte if an overflow occurs.
+	 *
+	 * @param data the byte you want to change
+	 * @return returns the unsigned byte
+	 */
+	public static int toUnsignedByte(byte data) {
+		return (data & 0xFF);
+	}
+	
+	/**
+	 * Gets the value of the bit in numeric format
+	 *
+	 * @param status the state of the bit you want to get
+	 * @return {@code 1} if the bit is {@code true} or {@code 0} if it is {@code false}
+	 */
+	public static int getBitValue(boolean status) {
+		return status ? 1 : 0;
+	}
+	
+	/**
+	 * Gets the value of the specific bit from the given number
+	 *
+	 * @param value the number you want to analyze
+	 * @param index the index of the bit to obtain. It is necessary to clarify that,
+	 *              like arrays, bit indices begin with the number {@code 0}
+	 * @param mask  the mask to determine the value of the bit
+	 * @return {@code true} if the bit is {@code 1} or {@code false} if the bit is {@code 0}
+	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
+	 *                                   the size allowed by the data type
+	 */
+	public static int getByteBit(@NotNull Number value, @MagicConstant(intValues = {0, 1, 2, 3, 4, 5, 6, 7}) int index,
+		byte mask) {
+		// Restrictions
+		requireNotNull(value, "value");
+		checkRange(index, Byte.SIZE, "Byte");
+		
+		// Check number mask
+		return (value.byteValue() >> index) & mask;
+	}
+	
+	/**
 	 * Gets the value of the specific bit from the given number
 	 *
 	 * @param value the number you want to analyze
@@ -133,9 +178,19 @@ public final class UNumber {
 	 *                                   the size allowed by the data type
 	 */
 	public static boolean getByteBit(@NotNull Number value, @MagicConstant(intValues = {0, 1, 2, 3, 4, 5, 6, 7}) int index) {
-		requireNotNull(value, "value");
-		checkRange(index, Byte.SIZE, "Byte");
-		return ((value.byteValue() >> index) & UNIT.byteValue()) == UNIT.intValue();
+		return getByteBit(value, index, UNIT.byteValue()) == UNIT.intValue();
+	}
+	
+	/**
+	 * Gets the value of the specific bit from the given number
+	 *
+	 * @param value the number you want to analyze
+	 * @return {@code true} if the bit is {@code 1} or {@code false} if the bit is {@code 0}
+	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
+	 *                                   the size allowed by the data type
+	 */
+	public static boolean getByteBit(@NotNull Number value) {
+		return getByteBit(value, 0);
 	}
 	
 	/**
@@ -164,6 +219,25 @@ public final class UNumber {
 					   (value.byteValue() & mask));
 	}
 	
+	
+	/**
+	 * Gets the value of the specific bit from the given number
+	 *
+	 * @param value the number you want to analyze
+	 * @param index the index of the bit to obtain. It is necessary to clarify that,
+	 *              like arrays, bit indices begin with the number {@code 0}
+	 * @param mask  the mask to determine the value of the bit
+	 * @return {@code true} if the bit is {@code 1} or {@code false} if the bit is {@code 0}
+	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
+	 *                                   the size allowed by the data type
+	 */
+	public static int getShortBit(@NotNull Number value,
+		@MagicConstant(intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}) int index, short mask) {
+		requireNotNull(value, "value");
+		checkRange(index, Short.SIZE, "Short");
+		return (value.shortValue() >> index) & mask;
+	}
+	
 	/**
 	 * Gets the value of the specific bit from the given number
 	 *
@@ -176,9 +250,19 @@ public final class UNumber {
 	 */
 	public static boolean getShortBit(@NotNull Number value,
 		@MagicConstant(intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}) int index) {
-		requireNotNull(value, "value");
-		checkRange(index, Short.SIZE, "Short");
-		return ((value.shortValue() >> index) & UNIT.shortValue()) == UNIT.intValue();
+		return getShortBit(value, index, UNIT.shortValue()) == UNIT.intValue();
+	}
+	
+	/**
+	 * Gets the value of the specific bit from the given number
+	 *
+	 * @param value the number you want to analyze
+	 * @return {@code true} if the bit is {@code 1} or {@code false} if the bit is {@code 0}
+	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
+	 *                                   the size allowed by the data type
+	 */
+	public static boolean getShortBit(@NotNull Number value) {
+		return getShortBit(value, 0);
 	}
 	
 	/**
@@ -213,6 +297,25 @@ public final class UNumber {
 	 * @param value the number you want to analyze
 	 * @param index the index of the bit to obtain. It is necessary to clarify that,
 	 *              like arrays, bit indices begin with the number {@code 0}
+	 * @param mask  the mask to determine the value of the bit
+	 * @return {@code true} if the bit is {@code 1} or {@code false} if the bit is {@code 0}
+	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
+	 *                                   the size allowed by the data type
+	 */
+	public static int getIntBit(@NotNull Number value, @MagicConstant(
+		intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+			29, 30, 31}) int index, int mask) {
+		requireNotNull(value, "value");
+		checkRange(index, Integer.SIZE, "Integer");
+		return (value.intValue() >> index) & mask;
+	}
+	
+	/**
+	 * Gets the value of the specific bit from the given number
+	 *
+	 * @param value the number you want to analyze
+	 * @param index the index of the bit to obtain. It is necessary to clarify that,
+	 *              like arrays, bit indices begin with the number {@code 0}
 	 * @return {@code true} if the bit is {@code 1} or {@code false} if the bit is {@code 0}
 	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
 	 *                                   the size allowed by the data type
@@ -220,9 +323,19 @@ public final class UNumber {
 	public static boolean getIntBit(@NotNull Number value, @MagicConstant(
 		intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
 			29, 30, 31}) int index) {
-		requireNotNull(value, "value");
-		checkRange(index, Integer.SIZE, "Integer");
-		return ((value.intValue() >> index) & UNIT.intValue()) == UNIT.intValue();
+		return getIntBit(value, index, UNIT.intValue()) == UNIT.intValue();
+	}
+	
+	/**
+	 * Gets the value of the specific bit from the given number
+	 *
+	 * @param value the number you want to analyze
+	 * @return {@code true} if the bit is {@code 1} or {@code false} if the bit is {@code 0}
+	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
+	 *                                   the size allowed by the data type
+	 */
+	public static boolean getIntBit(@NotNull Number value) {
+		return getIntBit(value, 0);
 	}
 	
 	/**
@@ -258,6 +371,26 @@ public final class UNumber {
 	 * @param value the number you want to analyze
 	 * @param index the index of the bit to obtain. It is necessary to clarify that,
 	 *              like arrays, bit indices begin with the number {@code 0}
+	 * @param mask  the mask to determine the value of the bit
+	 * @return {@code true} if the bit is {@code 1} or {@code false} if the bit is {@code 0}
+	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
+	 *                                   the size allowed by the data type
+	 */
+	public static long getLongBit(@NotNull Number value, @MagicConstant(
+		intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+			29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
+			58, 59, 60, 61, 62, 63}) int index, long mask) {
+		requireNotNull(value, "value");
+		checkRange(index, Long.SIZE, "Long");
+		return (value.longValue() >> index) & mask;
+	}
+	
+	/**
+	 * Gets the value of the specific bit from the given number
+	 *
+	 * @param value the number you want to analyze
+	 * @param index the index of the bit to obtain. It is necessary to clarify that,
+	 *              like arrays, bit indices begin with the number {@code 0}
 	 * @return {@code true} if the bit is {@code 1} or {@code false} if the bit is {@code 0}
 	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
 	 *                                   the size allowed by the data type
@@ -268,7 +401,19 @@ public final class UNumber {
 			58, 59, 60, 61, 62, 63}) int index) {
 		requireNotNull(value, "value");
 		checkRange(index, Long.SIZE, "Long");
-		return ((value.longValue() >> index) & UNIT.longValue()) == UNIT.longValue();
+		return getLongBit(value, index, UNIT.longValue()) == UNIT.longValue();
+	}
+	
+	/**
+	 * Gets the value of the specific bit from the given number
+	 *
+	 * @param value the number you want to analyze
+	 * @return {@code true} if the bit is {@code 1} or {@code false} if the bit is {@code 0}
+	 * @throws IndexOutOfBoundsException error when the index is larger or smaller than
+	 *                                   the size allowed by the data type
+	 */
+	public static boolean getLongBit(@NotNull Number value) {
+		return getLongBit(value, 0);
 	}
 	
 	/**

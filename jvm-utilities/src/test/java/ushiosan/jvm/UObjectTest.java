@@ -3,6 +3,7 @@ package ushiosan.jvm;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.test.UTestUnit;
 
 import java.io.IOException;
@@ -23,6 +24,10 @@ public class UObjectTest extends UTestUnit {
 		return Constants.LIB_MODULE;
 	}
 	
+	/* -----------------------------------------------------
+	 * Testing methods
+	 * ----------------------------------------------------- */
+	
 	@Test
 	public void tryCastTest() throws IOException {
 		makeSectionError(() -> {
@@ -40,6 +45,24 @@ public class UObjectTest extends UTestUnit {
 			println("URL: %s", googleURL);
 			println("Connection: %s", connection);
 			println("Valid result: %s", valid);
+		});
+	}
+	
+	@Test
+	public void printTest() {
+		makeSection(() -> {
+			UObject.println("Hello, World!");
+			UObject.println(UArray.make(2, 4, 6, 8, 10));
+			UObject.println("Format print: %s", (Object) UArray.make(2, 4, 6, 8, 10));
+		});
+	}
+	
+	@Test
+	public void printVTest() {
+		makeSection(() -> {
+			UObject.printlnV("Hello, World!");
+			UObject.printlnV(UArray.make(2, 4, 6, 8, 10));
+			UObject.printlnV("Format print: %s", (Object) UArray.make(2, 4, 6, 8, 10));
 		});
 	}
 	

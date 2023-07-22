@@ -2,26 +2,36 @@ package common
 
 import org.gradle.api.JavaVersion
 import types.JavadocInfo
+import types.PublicationInfo
+
+/**
+ * Common java version code
+ */
+val commonJavaVersion
+	get() = "11"
 
 /**
  * Common source java version
  */
-val commonSourceCompatibility: JavaVersion
-	get() = JavaVersion.VERSION_11
+val commonSourceCompatibility
+	get() = JavaVersion.toVersion(commonJavaVersion)
 
 /**
  * Common target java version
  */
-val commonTargetCompatibility: JavaVersion
+val commonTargetCompatibility
 	get() = commonSourceCompatibility
 
-/**
- * Common Javadoc info for jvm-utilities
- */
-val commonJvmUtilitiesJavadocInfo: JavadocInfo
-	get() = JavadocInfo(
-		title = jvmUtilitiesReleasePublication.name,
-		windowTitle = jvmUtilitiesReleasePublication.name,
-		urls = listOf(
-			"https://docs.oracle.com/en/java/javase/11/docs/api/",
-			"https://javadoc.io/doc/org.jetbrains/annotations/latest/"))
+/* -----------------------------------------------------
+ * Functions
+ * ----------------------------------------------------- */
+
+fun generateProjectJavadocInfo(info: PublicationInfo, vararg urls: String): JavadocInfo =
+	JavadocInfo(
+		title = info.name,
+		windowTitle = info.name,
+		urls = mutableListOf(
+			"https://docs.oracle.com/en/java/javase/$commonJavaVersion/docs/api/",
+			"https://javadoc.io/doc/org.jetbrains/annotations/$jetbrainsAnnotationsVersion/"
+		) + urls
+	)

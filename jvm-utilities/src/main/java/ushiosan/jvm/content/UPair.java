@@ -139,7 +139,6 @@ public class UPair<F, S> {
 	
 	/**
 	 * Indicates whether some other object is "equal to" this one.
-	 * <p>
 	 *
 	 * @param obj the reference object with which to compare.
 	 * @return {@code true} if this object is the same as the obj

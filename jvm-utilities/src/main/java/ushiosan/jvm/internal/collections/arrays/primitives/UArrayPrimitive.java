@@ -13,6 +13,7 @@ public abstract class UArrayPrimitive extends UDoubleArray {
 	 * Convert any array to an object array.
 	 *
 	 * @param array the array to convert
+	 * @param <T>   generic member type
 	 * @return a converted array object
 	 */
 	public static <T> Object @NotNull [] toGenericObjectArray(T @NotNull [] array) {

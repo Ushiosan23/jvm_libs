@@ -112,7 +112,6 @@ abstract class UCharArray extends UBooleanArray {
 	
 	/**
 	 * Convert any array to an object array. This also applies to primitive types.
-	 * <p>
 	 *
 	 * @param array the array to convert
 	 * @return a converted array object

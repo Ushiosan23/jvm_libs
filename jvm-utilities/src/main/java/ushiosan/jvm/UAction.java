@@ -217,6 +217,7 @@ public final class UAction {
 	 * @param <E>    error type
 	 * @return a different object depending on the applied configuration.
 	 * @throws IllegalArgumentException error if {@code obj} or {@code action} is {@code null}
+	 * @throws E                        error if {@code action} goes wrong
 	 */
 	public static <R, T, E extends Throwable> R applyErrNotNull(@NotNull T obj,
 		UFunErr.@NotNull UFunErr1<R, T, E> action) throws E {

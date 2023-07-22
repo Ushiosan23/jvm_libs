@@ -2,10 +2,13 @@ package ushiosan.jvm;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.function.UEmptyFun;
 import ushiosan.jvm.internal.validators.UObjectValidators;
 import ushiosan.jvm.print.UToStringManager;
 
+import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static ushiosan.jvm.error.UCommonErrorMessages.requireNotNullError;
@@ -224,6 +227,7 @@ public final class UObject extends UObjectValidators {
 	 * @param obj the object to convert
 	 * @param cls the class to which you want to promote
 	 * @param <T> class cast type
+	 * @return the object to the target data type or {@link Optional#empty()} if the cast is invalid
 	 * @throws IllegalArgumentException error if {@code cls} is {@code null}
 	 */
 	public static <T> @NotNull Optional<T> tryCast(@Nullable Object obj, @NotNull Class<T> cls) {
@@ -234,7 +238,7 @@ public final class UObject extends UObjectValidators {
 	}
 	
 	/* -----------------------------------------------------
-	 * Print object
+	 * ToString object
 	 * ----------------------------------------------------- */
 	
 	/**
@@ -261,6 +265,195 @@ public final class UObject extends UObjectValidators {
 	 */
 	public static @NotNull String toString(@Nullable Object object) {
 		return toString(object, false);
+	}
+	
+	/* -----------------------------------------------------
+	 * Simple print methods
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Write information into a data stream
+	 *
+	 * @param printStream the data stream you want to write
+	 * @param format      the data writing format
+	 * @param args        the data format arguments
+	 * @see #toString(Object)
+	 * @see PrintStream#printf(String, Object...)
+	 */
+	public static void printRef(@NotNull PrintStream printStream, @Nullable Object format, Object @Nullable ... args) {
+		printRefImpl(printStream, format, null, false, args);
+	}
+	
+	/**
+	 * Write information into a data stream (insert a line break at the end of the content)
+	 *
+	 * @param printStream the data stream you want to write
+	 * @param format      the data writing format
+	 * @param args        the data format arguments
+	 * @see #toString(Object)
+	 * @see PrintStream#printf(String, Object...)
+	 */
+	public static void printlnRef(@NotNull PrintStream printStream, @Nullable Object format, Object @Nullable ... args) {
+		printRefImpl(printStream, format, "%n", false, args);
+	}
+	
+	/**
+	 * Write information into a data stream
+	 *
+	 * @param format the data writing format
+	 * @param args   the data format arguments
+	 * @see #printRef(PrintStream, Object, Object...)
+	 */
+	public static void print(@Nullable Object format, Object @Nullable ... args) {
+		printRef(System.out, format, args);
+	}
+	
+	/**
+	 * Write information into a data stream
+	 *
+	 * @param format the data writing format
+	 * @param args   the data format arguments
+	 * @see #printRef(PrintStream, Object, Object...)
+	 */
+	public static void printErr(@Nullable Object format, Object @Nullable ... args) {
+		printRef(System.err, format, args);
+	}
+	
+	/**
+	 * Write information into a data stream (insert a line break at the end of the content)
+	 *
+	 * @param format the data writing format
+	 * @param args   the data format arguments
+	 * @see #printlnRef(PrintStream, Object, Object...)
+	 */
+	public static void println(@NotNull Object format, Object @Nullable ... args) {
+		printlnRef(System.out, format, args);
+	}
+	
+	/**
+	 * Write information into a data stream (insert a line break at the end of the content)
+	 *
+	 * @param format the data writing format
+	 * @param args   the data format arguments
+	 * @see #printlnRef(PrintStream, Object, Object...)
+	 */
+	public static void printlnErr(@NotNull Object format, Object @Nullable ... args) {
+		printlnRef(System.err, format, args);
+	}
+	
+	/**
+	 * Write information into a data stream (insert a line break at the end of the content)
+	 *
+	 * @see #printlnRef(PrintStream, Object, Object...)
+	 */
+	public static void println() {
+		println("");
+	}
+	
+	/* -----------------------------------------------------
+	 * Verbose print methods
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Write information into a data stream
+	 *
+	 * @param printStream the data stream you want to write
+	 * @param format      the data writing format
+	 * @param args        the data format arguments
+	 * @see #toString(Object)
+	 * @see PrintStream#printf(String, Object...)
+	 */
+	public static void printRefV(@NotNull PrintStream printStream, @Nullable Object format, Object @Nullable ... args) {
+		printRefImpl(printStream, format, null, true, args);
+	}
+	
+	/**
+	 * Write information into a data stream (insert a line break at the end of the content)
+	 *
+	 * @param printStream the data stream you want to write
+	 * @param format      the data writing format
+	 * @param args        the data format arguments
+	 * @see #toString(Object)
+	 * @see PrintStream#printf(String, Object...)
+	 */
+	public static void printlnRefV(@NotNull PrintStream printStream, @Nullable Object format, Object @Nullable ... args) {
+		printRefImpl(printStream, format, "%n", true, args);
+	}
+	
+	/**
+	 * Write information into a data stream
+	 *
+	 * @param format the data writing format
+	 * @param args   the data format arguments
+	 * @see #printRefV(PrintStream, Object, Object...)
+	 */
+	public static void printV(@Nullable Object format, Object @Nullable ... args) {
+		printRefV(System.out, format, args);
+	}
+	
+	/**
+	 * Write information into a data stream
+	 *
+	 * @param format the data writing format
+	 * @param args   the data format arguments
+	 * @see #printRefV(PrintStream, Object, Object...)
+	 */
+	public static void printErrV(@Nullable Object format, Object @Nullable ... args) {
+		printRefV(System.err, format, args);
+	}
+	
+	/**
+	 * Write information into a data stream (insert a line break at the end of the content)
+	 *
+	 * @param format the data writing format
+	 * @param args   the data format arguments
+	 * @see #printlnRefV(PrintStream, Object, Object...)
+	 */
+	public static void printlnV(@NotNull Object format, Object @Nullable ... args) {
+		printlnRefV(System.out, format, args);
+	}
+	
+	/**
+	 * Write information into a data stream (insert a line break at the end of the content)
+	 *
+	 * @param format the data writing format
+	 * @param args   the data format arguments
+	 * @see #printlnRefV(PrintStream, Object, Object...)
+	 */
+	public static void printlnErrV(@NotNull Object format, Object @Nullable ... args) {
+		printlnRefV(System.err, format, args);
+	}
+	
+	/* -----------------------------------------------------
+	 * Internal methods
+	 * ----------------------------------------------------- */
+	
+	/**
+	 * Write information into a data stream
+	 *
+	 * @param printStream the data stream you want to write
+	 * @param format      the data writing format
+	 * @param suffix      information inserted at the end of the content
+	 * @param verbose     true if the information should be extensive or false otherwise
+	 * @param args        the data format arguments
+	 */
+	private static void printRefImpl(@NotNull PrintStream printStream, @Nullable Object format, @Nullable String suffix,
+		boolean verbose, Object @Nullable [] args) {
+		requireNotNull(printStream, "printStream");
+		// Generate output format
+		String formatString;
+		if (format == null || !canCastNotNull(format, CharSequence.class)) {
+			formatString = toString(format, verbose);
+		} else {
+			formatString = cast(format, CharSequence.class).toString();
+		}
+		// Transform output arguments
+		Object[] outArgs = Arrays.stream(notNull(args, UArray.OBJ_EMPTY))
+			.map(it -> UClass.isPrimitive(it.getClass()) || canCastNotNull(it, CharSequence.class) ? it : toString(it, verbose))
+			.toArray();
+		// Send result
+		suffix = notNull(suffix, "");
+		printStream.printf(formatString + suffix, outArgs);
 	}
 	
 }

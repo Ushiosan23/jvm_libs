@@ -195,7 +195,7 @@ public final class UObject extends UObjectValidators {
 		if (obj == null) return cast(null);
 		// Try to cast
 		Class<?> clsObj = obj.getClass();
-		if (canCast(obj, clsObj, false)) {
+		if (canCast(obj, cls, false)) {
 			return cast(obj);
 		}
 		// Launch an error

@@ -64,7 +64,7 @@ public class UMap extends UCollection {
 	 */
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> makeMutable(Map.Entry<K, V> @NotNull ... entries) {
-		return makeImpl(new HashMap<>(entries.length), entries);
+		return makeImpl(new HashMap<>(measureSize(entries.length)), entries);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class UMap extends UCollection {
 	 */
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> makeMutable(UPair<K, V> @NotNull ... pairs) {
-		return makeImpl(new HashMap<>(pairs.length), pairs);
+		return makeImpl(new HashMap<>(measureSize(pairs.length)), pairs);
 	}
 	
 	/* -----------------------------------------------------
@@ -94,7 +94,7 @@ public class UMap extends UCollection {
 	 */
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> makeWeak(Map.Entry<K, V> @NotNull ... entries) {
-		return makeImpl(new WeakHashMap<>(entries.length), entries);
+		return makeImpl(new WeakHashMap<>(measureSize(entries.length)), entries);
 	}
 	
 	/**
@@ -107,7 +107,7 @@ public class UMap extends UCollection {
 	 */
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> makeWeak(UPair<K, V> @NotNull ... pairs) {
-		return makeImpl(new WeakHashMap<>(pairs.length), pairs);
+		return makeImpl(new WeakHashMap<>(measureSize(pairs.length)), pairs);
 	}
 	
 	/* -----------------------------------------------------
@@ -124,7 +124,7 @@ public class UMap extends UCollection {
 	 */
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> makeLinked(Map.Entry<K, V> @NotNull ... entries) {
-		return makeImpl(new LinkedHashMap<>(entries.length), entries);
+		return makeImpl(new LinkedHashMap<>(measureSize(entries.length)), entries);
 	}
 	
 	/**
@@ -137,7 +137,7 @@ public class UMap extends UCollection {
 	 */
 	@SafeVarargs
 	public static <K, V> @NotNull Map<K, V> makeLinked(UPair<K, V> @NotNull ... pairs) {
-		return makeImpl(new LinkedHashMap<>(pairs.length), pairs);
+		return makeImpl(new LinkedHashMap<>(measureSize(pairs.length)), pairs);
 	}
 	
 	/* -----------------------------------------------------

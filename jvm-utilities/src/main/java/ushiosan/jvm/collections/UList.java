@@ -72,7 +72,7 @@ public final class UList extends UCollection {
 	@SafeVarargs
 	@Contract("_ -> new")
 	public static <T> @NotNull List<T> makeMutable(T @NotNull ... elements) {
-		return makeImpl(new ArrayList<>(elements.length), elements);
+		return makeImpl(new ArrayList<>(measureSize(elements.length)), elements);
 	}
 	
 	/**
@@ -84,7 +84,7 @@ public final class UList extends UCollection {
 	 */
 	public static <T> @NotNull List<T> makeMutable(@NotNull Collection<T> base) {
 		requireNotNull(base, "base");
-		return makeImpl(new ArrayList<>(base.size()), base.iterator());
+		return makeImpl(new ArrayList<>(measureSize(base.size())), base.iterator());
 	}
 	
 	/**
@@ -96,7 +96,7 @@ public final class UList extends UCollection {
 	 */
 	public static <T> @NotNull List<T> makeMutable(@NotNull Iterator<T> iterator) {
 		requireNotNull(iterator, "iterator");
-		return makeImpl(new ArrayList<>(), iterator);
+		return makeImpl(new ArrayList<>(measureSize(0)), iterator);
 	}
 	
 	/* -----------------------------------------------------

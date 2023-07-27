@@ -49,7 +49,7 @@ public final class UStack extends UCollection {
 	 */
 	@SafeVarargs
 	public static <T> @NotNull Deque<T> makeDeque(T @NotNull ... elements) {
-		return makeImpl(new ArrayDeque<>(elements.length), elements);
+		return makeImpl(new ArrayDeque<>(), elements);
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public final class UStack extends UCollection {
 	 */
 	@SafeVarargs
 	public static <T> @NotNull Deque<T> makeLinkedDeque(T @NotNull ... elements) {
-		return makeImpl(new LinkedBlockingDeque<>(elements.length), elements);
+		return makeImpl(new LinkedBlockingDeque<>(), elements);
 	}
 	
 	/**

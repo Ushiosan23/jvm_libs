@@ -59,7 +59,7 @@ public final class USet extends UCollection {
 	@SafeVarargs
 	@SuppressWarnings({"ManualArrayToCollectionCopy", "UseBulkOperation"})
 	public static <T> @NotNull Set<T> makeMutable(T @NotNull ... elements) {
-		HashSet<T> result = new HashSet<>(elements.length);
+		HashSet<T> result = new HashSet<>(measureSize(elements.length));
 		// prioritize speed instead of copying items to another list
 		for (T it : elements) {
 			result.add(it);
@@ -77,7 +77,7 @@ public final class USet extends UCollection {
 	 */
 	public static <T> @NotNull Set<T> makeMutable(@NotNull Collection<T> base) {
 		requireNotNull(base, "base");
-		HashSet<T> result = new HashSet<>(base.size());
+		HashSet<T> result = new HashSet<>(measureSize(base.size()));
 		result.addAll(base);
 		// Only return the `result` object
 		return result;
@@ -93,7 +93,7 @@ public final class USet extends UCollection {
 	@SuppressWarnings({"ManualArrayToCollectionCopy", "UseBulkOperation"})
 	@SafeVarargs
 	public static <T> @NotNull Set<T> makeLinked(T @NotNull ... elements) {
-		Set<T> result = new LinkedHashSet<>(elements.length);
+		Set<T> result = new LinkedHashSet<>(measureSize(elements.length));
 		// prioritize speed instead of copying items to another list
 		for (T it : elements) {
 			result.add(it);
@@ -111,7 +111,7 @@ public final class USet extends UCollection {
 	 */
 	public static <T> @NotNull Set<T> makeLinked(@NotNull Collection<T> base) {
 		requireNotNull(base, "base");
-		Set<T> result = new LinkedHashSet<>(base.size());
+		Set<T> result = new LinkedHashSet<>(measureSize(base.size()));
 		result.addAll(base);
 		// Only return the `result` object
 		return result;
@@ -190,7 +190,7 @@ public final class USet extends UCollection {
 	 */
 	@SafeVarargs
 	public static <T> @NotNull Set<T> combine(Set<T> @NotNull ... sets) {
-		Set<T> tmpResult = makeMutable();
+		Set<T> tmpResult = new HashSet<>(measureSize(calculateSize(sets)));
 		
 		// Iterate all collections
 		for (Set<T> lt : sets) {

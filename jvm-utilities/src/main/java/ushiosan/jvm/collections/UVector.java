@@ -90,11 +90,10 @@ public final class UVector extends UCollection {
 	 * @return a mutable list with all elements
 	 */
 	@SafeVarargs
-	@SuppressWarnings({"UseBulkOperation", "ManualArrayToCollectionCopy"})
 	private static <T> @NotNull Vector<T> makeImpl(T @NotNull ... elements) {
-		Vector<T> result = new Vector<>(elements.length);
+		Vector<T> result = new Vector<>(measureSize(elements.length));
 		for (T it : elements) {
-			result.add(it);
+			result.addElement(it);
 		}
 		return result;
 	}
@@ -107,7 +106,7 @@ public final class UVector extends UCollection {
 	 * @return a mutable list with all elements
 	 */
 	private static <T> @NotNull Vector<T> makeImpl(@NotNull Vector<T> vector, @NotNull Iterator<T> elements) {
-		elements.forEachRemaining(vector::add);
+		elements.forEachRemaining(vector::addElement);
 		return vector;
 	}
 	

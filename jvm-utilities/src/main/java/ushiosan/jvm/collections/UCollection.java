@@ -17,6 +17,11 @@ abstract class UCollection {
 	 */
 	private static Class<?> @NotNull [] unmodifiableCollectionClassRefs;
 	
+	/***
+	 * The extra amount of space you have to reserve to avoid resizing the internal array each time
+	 */
+	private static final int CAPACITY_GROW = 10;
+	
 	// Initialization static block
 	static {
 		try {
@@ -98,6 +103,30 @@ abstract class UCollection {
 	/* -----------------------------------------------------
 	 * Internal methods
 	 * ----------------------------------------------------- */
+	
+	/**
+	 * Calculate the number of items within all data collections
+	 *
+	 * @param collections the collections you want to compute
+	 * @return the number of items obtained within all collections
+	 */
+	protected static int calculateSize(Collection<?> @NotNull ... collections) {
+		int result = 0;
+		for (var collection : collections) {
+			result += collection.size();
+		}
+		return result;
+	}
+	
+	/**
+	 * Gets the number of items to reserve within a collection
+	 *
+	 * @param size the base quantity of elements
+	 * @return the number of target elements
+	 */
+	protected static int measureSize(int size) {
+		return size + CAPACITY_GROW;
+	}
 	
 	/**
 	 * Check if the inspected collection supports the modification of its data

@@ -5,10 +5,10 @@ package common
  * ----------------------------------------------------- */
 
 val jvmUtilitiesVersion
-	get() = "1.0.0b5"
+	get() = "1.0.0"
 
 val jvmTestUtilitiesVersion
-	get() = "1.0.0b3"
+	get() = "1.0.0"
 
 // Coming son
 val jvmLoggingVersion

@@ -2,9 +2,12 @@ import utilities.env
 
 plugins {
 	id("io.github.gradle-nexus.publish-plugin")
+	id("org.javamodularity.moduleplugin") version "1.8.12" apply false
 }
 
 allprojects {
+//	if (this != rootProject) apply(plugin = "org.javamodularity.moduleplugin")
+	
 	repositories {
 		mavenCentral()
 		mavenLocal()

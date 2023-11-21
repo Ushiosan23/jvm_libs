@@ -1,10 +1,11 @@
-package ushiosan.jvm.collections;
+package ushiosan.jvm.test.test.collections;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ushiosan.jvm.Constants;
+import ushiosan.jvm.collections.UList;
 import ushiosan.jvm.test.UTestUnit;
+import ushiosan.jvm.test.test.Constants;
 
 class UListTest extends UTestUnit {
 	

@@ -2,13 +2,11 @@ package ushiosan.jvm.content;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
-
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 /**
  * Immutable object used to represent elements with 2 values (element pair).
@@ -76,7 +74,7 @@ public class UPair<F, S> {
 	 */
 	@Contract("_ -> new")
 	public static <T, K> @NotNull UPair<T, K> copyOf(Map.@NotNull Entry<T, K> entry) {
-		requireNotNull(entry, "entry");
+		UObject.requireNotNull(entry, "entry");
 		return make(entry.getKey(), entry.getValue());
 	}
 	
@@ -93,10 +91,10 @@ public class UPair<F, S> {
 	 * @return an array with all map pairs
 	 */
 	public static <T, K> UPair<T, K> @NotNull [] extractPairs(@NotNull Map<T, K> map) {
-		requireNotNull(map, "map");
+		UObject.requireNotNull(map, "map");
 		// Temporal variables
 		int counter = 0;
-		UPair<T, K>[] result = cast(new UPair[map.size()]);
+		UPair<T, K>[] result = UObject.cast(new UPair[map.size()]);
 		
 		// Iterate all map
 		for (Map.Entry<T, K> current : map.entrySet()) {
@@ -112,14 +110,14 @@ public class UPair<F, S> {
 	 * @return an array with all property pairs
 	 */
 	public static UPair<String, String> @NotNull [] extractPairs(@NotNull Properties properties) {
-		requireNotNull(properties, "properties");
+		UObject.requireNotNull(properties, "properties");
 		// Temporal variables
-		UPair<String, String>[] result = cast(new UPair[properties.size()]);
+		UPair<String, String>[] result = UObject.cast(new UPair[properties.size()]);
 		int counter = 0;
 		
 		// Iterate all map
 		for (var current : properties.entrySet()) {
-			result[counter++] = cast(UPair.copyOf(current));
+			result[counter++] = UObject.cast(UPair.copyOf(current));
 		}
 		return result;
 	}
@@ -144,12 +142,12 @@ public class UPair<F, S> {
 	 * @return {@code true} if this object is the same as the obj
 	 * 	argument; {@code false} otherwise.
 	 */
+	@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null || getClass() != obj.getClass()) return false;
+		if (obj == null || !UObject.canCast(obj, getClass())) return false;
 		
-		var pair = (UPair<?, ?>) obj;
+		UPair<?, ?> pair = UObject.cast(obj);
 		return Objects.equals(first, pair.first) &&
 			   Objects.equals(second, pair.second);
 	}

@@ -1,10 +1,11 @@
-package ushiosan.jvm.http;
+package ushiosan.jvm.test.test.http;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ushiosan.jvm.Constants;
+import ushiosan.jvm.http.UHttpRequest;
 import ushiosan.jvm.test.UTestUnit;
+import ushiosan.jvm.test.test.Constants;
 
 import java.net.http.HttpRequest;
 

@@ -97,6 +97,7 @@ dependencies {
 	compileOnly("org.jetbrains:annotations:$jetbrainsAnnotationsVersion")
 	// Test implementations
 	testImplementation(platform("org.junit:junit-bom:$jupiterUnitVersion"))
+	testImplementation("org.junit.jupiter:junit-jupiter-engine")
 	testImplementation("org.junit.jupiter:junit-jupiter")
 	testImplementation(project(":jvm-test-utilities"))
 	testCompileOnly("org.jetbrains:annotations:$jetbrainsAnnotationsVersion")

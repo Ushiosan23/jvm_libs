@@ -1,13 +1,15 @@
-package ushiosan.jvm.print;
+package ushiosan.jvm.test.test.print;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ushiosan.jvm.Constants;
 import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.collections.UList;
+import ushiosan.jvm.print.UToStringComponent;
+import ushiosan.jvm.print.UToStringManager;
 import ushiosan.jvm.test.UTestUnit;
+import ushiosan.jvm.test.test.Constants;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -49,7 +51,7 @@ class UToStringManagerTest extends UTestUnit {
 			// Assertions
 			Assertions.assertEquals("RecursiveCallClass{}", recursiveCallClassStr,
 									"Invalid component selection");
-			Assertions.assertEquals("ushiosan.jvm.print.UToStringManagerTest.RecursiveCallClass{}",
+			Assertions.assertEquals("ushiosan.jvm.test.test.print.UToStringManagerTest.RecursiveCallClass{}",
 									recursiveCallClassStrV, "Invalid component selection");
 			
 			access.println("Verbose mode off: %s", recursiveCallClassStr);

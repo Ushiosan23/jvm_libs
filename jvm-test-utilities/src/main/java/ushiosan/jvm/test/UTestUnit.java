@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 import org.junit.jupiter.api.Assertions;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.function.UEmptyFun;
 import ushiosan.jvm.function.UEmptyFunErr;
 
@@ -12,8 +13,6 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.nio.file.Path;
-
-import static ushiosan.jvm.UObject.notNull;
 
 public abstract class UTestUnit implements UTestInfo, UDesktopTest {
 	
@@ -52,7 +51,7 @@ public abstract class UTestUnit implements UTestInfo, UDesktopTest {
 	@Override
 	public final @NotNull JFileChooser fileChooser() {
 		if (chooser == null) {
-			var location = Path.of(System.getProperty("user.home"));
+			Path location = Path.of(System.getProperty("user.home"));
 			chooser = new JFileChooser(location.toFile());
 		}
 		return chooser;
@@ -442,7 +441,7 @@ public abstract class UTestUnit implements UTestInfo, UDesktopTest {
 		
 		// Get stack information
 		printOpt(true, "# %s(%s:%d): %s()%n",
-				 notNull(stackElement.getModuleName(), module()),
+				 UObject.notNull(stackElement.getModuleName(), module()),
 				 stackElement.getFileName(),
 				 stackElement.getLineNumber(),
 				 stackElement.getMethodName());

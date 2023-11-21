@@ -1,14 +1,14 @@
-package ushiosan.jvm.reflection;
+package ushiosan.jvm.test.test.reflection;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
-import ushiosan.jvm.Constants;
+import ushiosan.jvm.reflection.UReflectionActions;
+import ushiosan.jvm.reflection.UReflectionOptions;
 import ushiosan.jvm.test.UTestUnit;
+import ushiosan.jvm.test.test.Constants;
 
 import javax.swing.*;
 import java.awt.*;
-
-import static ushiosan.jvm.reflection.UReflectionActions.methodReturnType;
 
 public class UReflectionActionsTest extends UTestUnit {
 	
@@ -27,7 +27,7 @@ public class UReflectionActionsTest extends UTestUnit {
 		makeSectionError(() -> {
 			// Temporal variables
 			var options = UReflectionOptions.generateForMethods()
-				.addPredicate(methodReturnType(Dimension.class));
+				.addPredicate(UReflectionActions.methodReturnType(Dimension.class));
 			var method = UReflectionActions
 				.findMethod(JWindow.class, "getSize", options);
 			

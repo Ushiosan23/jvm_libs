@@ -9,8 +9,6 @@ import ushiosan.jvm.function.UFun;
 import java.util.Optional;
 import java.util.Random;
 
-import static ushiosan.jvm.UObject.requireNotNull;
-
 public final class UNumber {
 	
 	/**
@@ -47,7 +45,7 @@ public final class UNumber {
 	 * @return {@code true} if the number contains decimals or {@code false} otherwise
 	 */
 	public static boolean isDecimal(@NotNull Number number) {
-		requireNotNull(number, "number");
+		UObject.requireNotNull(number, "number");
 		return (number.doubleValue() % 1) != 0;
 	}
 	
@@ -160,7 +158,7 @@ public final class UNumber {
 	public static int getByteBit(@NotNull Number value, @MagicConstant(intValues = {0, 1, 2, 3, 4, 5, 6, 7}) int index,
 		byte mask) {
 		// Restrictions
-		requireNotNull(value, "value");
+		UObject.requireNotNull(value, "value");
 		checkRange(index, Byte.SIZE, "Byte");
 		
 		// Check number mask
@@ -210,7 +208,7 @@ public final class UNumber {
 	public static byte setByteBit(@NotNull Number value, @MagicConstant(intValues = {0, 1, 2, 3, 4, 5, 6, 7}) int index,
 		boolean status) {
 		// Generate number mask
-		requireNotNull(value, "value");
+		UObject.requireNotNull(value, "value");
 		checkRange(index, Byte.SIZE, "Byte");
 		byte mask = (byte) (status ? (UNIT.byteValue() << index) :
 							~(UNIT.byteValue() << index));
@@ -233,7 +231,7 @@ public final class UNumber {
 	 */
 	public static int getShortBit(@NotNull Number value,
 		@MagicConstant(intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}) int index, short mask) {
-		requireNotNull(value, "value");
+		UObject.requireNotNull(value, "value");
 		checkRange(index, Short.SIZE, "Short");
 		return (value.shortValue() >> index) & mask;
 	}
@@ -282,7 +280,7 @@ public final class UNumber {
 	public static short setShortBit(@NotNull Number value,
 		@MagicConstant(intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}) int index, boolean status) {
 		// Generate number mask
-		requireNotNull(value, "value");
+		UObject.requireNotNull(value, "value");
 		checkRange(index, Short.SIZE, "Short");
 		short mask = (short) (status ? (UNIT.shortValue() << index) :
 							  ~(UNIT.shortValue() << index));
@@ -305,7 +303,7 @@ public final class UNumber {
 	public static int getIntBit(@NotNull Number value, @MagicConstant(
 		intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
 			29, 30, 31}) int index, int mask) {
-		requireNotNull(value, "value");
+		UObject.requireNotNull(value, "value");
 		checkRange(index, Integer.SIZE, "Integer");
 		return (value.intValue() >> index) & mask;
 	}
@@ -356,7 +354,7 @@ public final class UNumber {
 		intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
 			29, 30, 31}) int index, boolean status) {
 		// Generate number mask
-		requireNotNull(value, "value");
+		UObject.requireNotNull(value, "value");
 		checkRange(index, Integer.SIZE, "Integer");
 		int mask = status ? (UNIT.intValue() << index) :
 				   ~(UNIT.intValue() << index);
@@ -380,7 +378,7 @@ public final class UNumber {
 		intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
 			29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
 			58, 59, 60, 61, 62, 63}) int index, long mask) {
-		requireNotNull(value, "value");
+		UObject.requireNotNull(value, "value");
 		checkRange(index, Long.SIZE, "Long");
 		return (value.longValue() >> index) & mask;
 	}
@@ -399,7 +397,7 @@ public final class UNumber {
 		intValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
 			29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
 			58, 59, 60, 61, 62, 63}) int index) {
-		requireNotNull(value, "value");
+		UObject.requireNotNull(value, "value");
 		checkRange(index, Long.SIZE, "Long");
 		return getLongBit(value, index, UNIT.longValue()) == UNIT.longValue();
 	}
@@ -435,7 +433,7 @@ public final class UNumber {
 			29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
 			58, 59, 60, 61, 62, 63}) int index, boolean status) {
 		// Generate number mask
-		requireNotNull(value, "value");
+		UObject.requireNotNull(value, "value");
 		checkRange(index, Long.SIZE, "Long");
 		long mask = status ? (UNIT.longValue() << index) :
 					~(UNIT.longValue() << index);
@@ -458,7 +456,7 @@ public final class UNumber {
 	 *                                  a decimal numeric type
 	 */
 	public static @NotNull String toBinaryString(@NotNull Number number, boolean separator) {
-		requireNotNull(number, "number");
+		UObject.requireNotNull(number, "number");
 		
 		// We iterate all registered number converters
 		Class<?> cls = number.getClass();
@@ -544,7 +542,7 @@ public final class UNumber {
 	 *                                   the size allowed by the data type
 	 */
 	private static void checkRange(long index, long size, @NotNull String type) {
-		requireNotNull(type, "type");
+		UObject.requireNotNull(type, "type");
 		// Check bit range
 		size = size - 1;
 		if (index < 0 || index > size) {

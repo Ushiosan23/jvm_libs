@@ -20,4 +20,7 @@ module ushiosan.jvm.utilities {
 	exports ushiosan.jvm.platform;
 	exports ushiosan.jvm.print;
 	exports ushiosan.jvm.reflection;
+	
+	// Access to properties file
+	opens ushiosan.jvm;
 }

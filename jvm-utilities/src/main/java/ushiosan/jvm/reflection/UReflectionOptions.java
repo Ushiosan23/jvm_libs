@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 import ushiosan.jvm.UClass;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.collections.UList;
 
 import java.lang.reflect.Field;
@@ -12,8 +13,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
-
-import static ushiosan.jvm.UObject.requireNotNull;
 
 public class UReflectionOptions<T extends Member> {
 	
@@ -216,7 +215,7 @@ public class UReflectionOptions<T extends Member> {
 	 * @return the same current instance
 	 */
 	public @NotNull UReflectionOptions<T> addPredicate(@NotNull Predicate<T> predicate) {
-		requireNotNull(predicate, "predicate");
+		UObject.requireNotNull(predicate, "predicate");
 		predicates.add(predicate);
 		return this;
 	}

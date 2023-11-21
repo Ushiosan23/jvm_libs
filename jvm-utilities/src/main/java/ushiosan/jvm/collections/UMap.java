@@ -3,13 +3,11 @@ package ushiosan.jvm.collections;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnmodifiableView;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.content.UPair;
 
 import java.util.*;
 import java.util.function.Function;
-
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 public class UMap extends UCollection {
 	
@@ -158,8 +156,8 @@ public class UMap extends UCollection {
 	@SuppressWarnings("unchecked")
 	public static <K, V, KR, VR> @NotNull Map<KR, VR> transform(@NotNull Map<K, V> original,
 		@NotNull Function<Map.Entry<K, V>, Map.Entry<KR, VR>> mapper) {
-		requireNotNull(original, "original");
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(original, "original");
+		UObject.requireNotNull(mapper, "mapper");
 		// Generate entry transform values
 		var entries = (Map.Entry<KR, VR>[]) original.entrySet().stream()
 			.map(mapper)
@@ -182,8 +180,8 @@ public class UMap extends UCollection {
 	@SuppressWarnings("unchecked")
 	public static <K, V, KR, VR> @NotNull Map<KR, VR> transformPair(@NotNull Map<K, V> original,
 		@NotNull Function<UPair<K, V>, UPair<KR, VR>> mapper) {
-		requireNotNull(original, "original");
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(original, "original");
+		UObject.requireNotNull(mapper, "mapper");
 		// Generate entry transform values
 		var pairs = (UPair<KR, VR>[]) original.entrySet().stream()
 			.map(UPair::copyOf)
@@ -207,7 +205,7 @@ public class UMap extends UCollection {
 	 */
 	@SafeVarargs
 	private static <K, V> @NotNull Map<K, V> makeImpl(@NotNull Map<K, V> mutableMap, Map.Entry<K, V> @NotNull ... entries) {
-		UPair<K, V>[] transform = cast(UArray.transform(entries, UPair::copyOf, UPair[]::new));
+		UPair<K, V>[] transform = UObject.cast(UArray.transform(entries, UPair::copyOf, UPair[]::new));
 		return makeImpl(mutableMap, transform);
 	}
 	

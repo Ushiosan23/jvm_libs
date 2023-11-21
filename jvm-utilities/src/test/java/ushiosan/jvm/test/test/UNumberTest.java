@@ -1,8 +1,9 @@
-package ushiosan.jvm;
+package ushiosan.jvm.test.test;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ushiosan.jvm.UNumber;
 import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.print.UToStringManager;
 import ushiosan.jvm.test.UTestUnit;

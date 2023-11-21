@@ -1,4 +1,4 @@
-package ushiosan.jvm;
+package ushiosan.jvm.test.test;
 
 public final class Constants {
 	

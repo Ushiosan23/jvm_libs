@@ -2,6 +2,7 @@ package ushiosan.jvm.internal.validators;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.content.UPair;
 import ushiosan.jvm.function.UFun;
@@ -10,18 +11,14 @@ import java.lang.ref.WeakReference;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
-
 public abstract class UObjectValidators {
 	
 	/**
 	 * Object pairs used to check that objects are null
 	 */
 	public static final UPair<Class<?>, UFun.UFun1<Boolean, Object>>[] NULLABLE_VALIDATORS = UArray.make(
-		UPair.make(WeakReference.class, (obj) -> cast(obj, WeakReference.class).get() != null),
-		UPair.make(Optional.class, (obj) -> cast(obj, Optional.class).isEmpty()));
-	
+		UPair.make(WeakReference.class, obj -> ((WeakReference<?>) obj).get() != null),
+		UPair.make(Optional.class, obj -> ((Optional<?>) obj).isEmpty()));
 	
 	/* -----------------------------------------------------
 	 * Methods
@@ -63,7 +60,7 @@ public abstract class UObjectValidators {
 	 */
 	@SafeVarargs
 	public static <T> boolean validateNotNull(@NotNull T object, boolean inverted, Predicate<T> @NotNull ... predicates) {
-		requireNotNull(object, "object");
+		UObject.requireNotNull(object, "object");
 		return validate(object, inverted, predicates);
 	}
 	

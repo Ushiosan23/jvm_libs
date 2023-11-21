@@ -4,12 +4,11 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
+import ushiosan.jvm.UObject;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static ushiosan.jvm.UObject.requireNotNull;
 
 public final class UList extends UCollection {
 	
@@ -43,7 +42,7 @@ public final class UList extends UCollection {
 	 * @return an immutable list with all elements
 	 */
 	public static @Unmodifiable <T> List<T> make(@NotNull Collection<T> base) {
-		requireNotNull(base, "base");
+		UObject.requireNotNull(base, "base");
 		return List.copyOf(base);
 	}
 	
@@ -83,7 +82,7 @@ public final class UList extends UCollection {
 	 * @return a mutable list with all elements
 	 */
 	public static <T> @NotNull List<T> makeMutable(@NotNull Collection<T> base) {
-		requireNotNull(base, "base");
+		UObject.requireNotNull(base, "base");
 		return makeImpl(new ArrayList<>(measureSize(base.size())), base.iterator());
 	}
 	
@@ -95,7 +94,7 @@ public final class UList extends UCollection {
 	 * @return a mutable list with all elements
 	 */
 	public static <T> @NotNull List<T> makeMutable(@NotNull Iterator<T> iterator) {
-		requireNotNull(iterator, "iterator");
+		UObject.requireNotNull(iterator, "iterator");
 		return makeImpl(new ArrayList<>(measureSize(0)), iterator);
 	}
 	
@@ -123,7 +122,7 @@ public final class UList extends UCollection {
 	 * @return a linked list with all elements
 	 */
 	public static <T> @NotNull List<T> makeLinked(@NotNull Collection<T> base) {
-		requireNotNull(base, "base");
+		UObject.requireNotNull(base, "base");
 		return new LinkedList<>(base);
 	}
 	
@@ -135,7 +134,7 @@ public final class UList extends UCollection {
 	 * @return a linked list with all elements
 	 */
 	public static <T> @NotNull List<T> makeLinked(@NotNull Iterator<T> iterator) {
-		requireNotNull(iterator, "iterator");
+		UObject.requireNotNull(iterator, "iterator");
 		return makeImpl(new LinkedList<>(), iterator);
 	}
 	
@@ -152,7 +151,7 @@ public final class UList extends UCollection {
 	 * @return all indices where the searched object is found
 	 */
 	public static <T> @NotNull List<Integer> searchIndexes(@NotNull List<T> base, @Nullable T search) {
-		requireNotNull(base, "base");
+		UObject.requireNotNull(base, "base");
 		List<Integer> indexList = makeMutable();
 		
 		// Iterate all elements
@@ -179,8 +178,8 @@ public final class UList extends UCollection {
 	 * @return the new list with the converted data
 	 */
 	public static <T, R> @NotNull List<R> transform(@NotNull List<T> original, @NotNull Function<T, R> mapper) {
-		requireNotNull(original, "original");
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(original, "original");
+		UObject.requireNotNull(mapper, "mapper");
 		// Generate list stream
 		var listStream = original.stream()
 			.map(mapper);

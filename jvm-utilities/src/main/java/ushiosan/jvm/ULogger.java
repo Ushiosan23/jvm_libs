@@ -5,9 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm.print.UToStringManager;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static ushiosan.jvm.UObject.requireNotNull;
+import java.util.logging.LogRecord;
 
 public final class ULogger {
 	
@@ -27,11 +25,11 @@ public final class ULogger {
 	 * @return the logger instance
 	 * @throws IllegalArgumentException error if {@code cls} is null
 	 */
-	public static @NotNull Logger getLogger(@NotNull Class<?> cls) {
-		requireNotNull(cls, "cls");
+	public static @NotNull String loggerName(@NotNull Class<?> cls) {
+		UObject.requireNotNull(cls, "cls");
 		// Generate logger instance
-		return Logger.getLogger(UToStringManager.getInstance()
-									.toString(cls, true));
+		return UToStringManager.getInstance()
+			.toString(cls, true);
 	}
 	
 	/* -----------------------------------------------------
@@ -42,93 +40,132 @@ public final class ULogger {
 	 * It generates an info-type record, and it is only necessary to pass the format, and
 	 * it will automatically take care of generating the record.
 	 *
-	 * @param logger the logger instance
 	 * @param format message format
 	 * @param args   format arguments
+	 * @return a record instance configured with the selected items.
 	 * @throws IllegalArgumentException error if {@code logger} or {@code format} are {@code null}
 	 */
-	public static void logInfo(@NotNull Logger logger, @NotNull String format, Object @Nullable ... args) {
-		requireNotNull(logger, "logger");
-		requireNotNull(format, "logger");
+	public static @NotNull LogRecord logInfo(@NotNull String format, Object @Nullable ... args) {
+		UObject.requireNotNull(format, "format");
 		// Generate record
-		logger.log(Level.INFO, String.format(format, args));
+		return UAction.also(new LogRecord(Level.INFO, format), it -> it.setParameters(args));
 	}
 	
 	/**
-	 * It generates an info-type record, and it is only necessary to pass the error, and
+	 * It generates an info-type record, and it is only necessary to pass the format, and
 	 * it will automatically take care of generating the record.
 	 *
-	 * @param logger the logger instance
 	 * @param error  the error used to generate the record
-	 * @throws IllegalArgumentException error if {@code logger} or {@code error} are {@code null}
+	 * @param format message format
+	 * @param args   format arguments
+	 * @return a record instance configured with the selected items.
+	 * @throws IllegalArgumentException error if {@code logger} or {@code format} are {@code null}
 	 */
-	public static void logInfo(@NotNull Logger logger, @NotNull Throwable error) {
-		requireNotNull(logger, "logger");
-		requireNotNull(error, "error");
-		// Display logger information
-		logger.log(Level.INFO, error.getMessage(), error);
+	public static @NotNull LogRecord logInfo(@NotNull Throwable error, @Nullable String format, Object @Nullable ... args) {
+		UObject.requireNotNull(error, "error");
+		// Generate record
+		String finalMsg = UObject.isNull(format) ? error.getMessage() : String.format(format, args);
+		return UAction.also(new LogRecord(Level.INFO, finalMsg), it -> it.setThrown(error));
+	}
+	
+	/**
+	 * It generates an info-type record, and it is only necessary to pass the format, and
+	 * it will automatically take care of generating the record.
+	 *
+	 * @param error the error used to generate the record
+	 * @return a record instance configured with the selected items.
+	 * @throws IllegalArgumentException error if {@code logger} or {@code format} are {@code null}
+	 */
+	public static @NotNull LogRecord logInfo(@NotNull Throwable error) {
+		return logInfo(error, null);
 	}
 	
 	/**
 	 * It generates a warning-type record, and it is only necessary to pass the format, and
 	 * it will automatically take care of generating the record.
 	 *
-	 * @param logger the logger instance
 	 * @param format message format
 	 * @param args   format arguments
+	 * @return a record instance configured with the selected items.
 	 * @throws IllegalArgumentException error if {@code logger} or {@code format} are {@code null}
 	 */
-	public static void logWarning(@NotNull Logger logger, @NotNull String format, Object @Nullable ... args) {
-		requireNotNull(logger, "logger");
-		requireNotNull(format, "logger");
+	public static @NotNull LogRecord logWarning(@NotNull String format, Object @Nullable ... args) {
+		UObject.requireNotNull(format, "format");
 		// Generate record
-		logger.log(Level.WARNING, String.format(format, args));
+		return UAction.also(new LogRecord(Level.WARNING, format), it -> it.setParameters(args));
 	}
 	
 	/**
 	 * It generates a warning-type record, and it is only necessary to pass the error, and
 	 * it will automatically take care of generating the record.
 	 *
-	 * @param logger the logger instance
 	 * @param error  the error used to generate the record
-	 * @throws IllegalArgumentException error if {@code logger} or {@code error} are {@code null}
+	 * @param format message format
+	 * @param args   format arguments
+	 * @return a record instance configured with the selected items.
+	 * @throws IllegalArgumentException error if {@code logger} or {@code format} are {@code null}
 	 */
-	public static void logWarning(@NotNull Logger logger, @NotNull Throwable error) {
-		requireNotNull(logger, "logger");
-		requireNotNull(error, "error");
-		// Display logger information
-		logger.log(Level.WARNING, error.getMessage(), error);
+	public static @NotNull LogRecord logWarning(@NotNull Throwable error, @Nullable String format, Object @Nullable ... args) {
+		UObject.requireNotNull(error, "error");
+		// Generate record
+		String finalMsg = UObject.isNull(format) ? error.getMessage() : String.format(format, args);
+		return UAction.also(new LogRecord(Level.WARNING, finalMsg), it -> it.setThrown(error));
+	}
+	
+	/**
+	 * It generates a warning-type record, and it is only necessary to pass the error, and
+	 * it will automatically take care of generating the record.
+	 *
+	 * @param error the error used to generate the record
+	 * @return a record instance configured with the selected items.
+	 * @throws IllegalArgumentException error if {@code logger} or {@code format} are {@code null}
+	 */
+	public static @NotNull LogRecord logWarning(@NotNull Throwable error) {
+		return logWarning(error, null);
 	}
 	
 	/**
 	 * It generates an error-type record, and it is only necessary to pass the format, and
 	 * it will automatically take care of generating the record.
 	 *
-	 * @param logger the logger instance
 	 * @param format message format
 	 * @param args   format arguments
+	 * @return a record instance configured with the selected items.
 	 * @throws IllegalArgumentException error if {@code logger} or {@code format} are {@code null}
 	 */
-	public static void logError(@NotNull Logger logger, @NotNull String format, Object @Nullable ... args) {
-		requireNotNull(logger, "logger");
-		requireNotNull(format, "logger");
+	public static @NotNull LogRecord logError(@NotNull String format, Object @Nullable ... args) {
+		UObject.requireNotNull(format, "format");
 		// Generate record
-		logger.log(Level.SEVERE, String.format(format, args));
+		return UAction.also(new LogRecord(Level.SEVERE, format), it -> it.setParameters(args));
 	}
 	
 	/**
-	 * It generates an error-type record, and it is only necessary to pass the error, and
+	 * It generates an error-type record, and it is only necessary to pass the format, and
 	 * it will automatically take care of generating the record.
 	 *
-	 * @param logger the logger instance
 	 * @param error  the error used to generate the record
-	 * @throws IllegalArgumentException error if {@code logger} or {@code error} are {@code null}
+	 * @param format message format
+	 * @param args   format arguments
+	 * @return a record instance configured with the selected items.
+	 * @throws IllegalArgumentException error if {@code logger} or {@code format} are {@code null}
 	 */
-	public static void logError(@NotNull Logger logger, @NotNull Throwable error) {
-		requireNotNull(logger, "logger");
-		requireNotNull(error, "error");
-		// Display logger information
-		logger.log(Level.SEVERE, error.getMessage(), error);
+	public static @NotNull LogRecord logError(@NotNull Throwable error, @Nullable String format, Object @Nullable ... args) {
+		UObject.requireNotNull(error, "error");
+		// Generate record
+		String finalMsg = UObject.isNull(format) ? error.getMessage() : String.format(format, args);
+		return UAction.also(new LogRecord(Level.SEVERE, finalMsg), it -> it.setThrown(error));
+	}
+	
+	/**
+	 * It generates an error-type record, and it is only necessary to pass the format, and
+	 * it will automatically take care of generating the record.
+	 *
+	 * @param error the error used to generate the record
+	 * @return a record instance configured with the selected items.
+	 * @throws IllegalArgumentException error if {@code logger} or {@code format} are {@code null}
+	 */
+	public static @NotNull LogRecord logError(@NotNull Throwable error) {
+		return logError(error, null);
 	}
 	
 }

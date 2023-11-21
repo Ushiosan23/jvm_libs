@@ -1,26 +1,22 @@
 package ushiosan.jvm.collections;
 
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import static ushiosan.jvm.UObject.canCastNotNull;
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
-
 abstract class UCollection {
-	
-	/**
-	 * List of classes considered the bases for immutable objects (inside the standard Java library)
-	 */
-	private static Class<?> @NotNull [] unmodifiableCollectionClassRefs;
 	
 	/***
 	 * The extra amount of space you have to reserve to avoid resizing the internal array each time
 	 */
 	private static final int CAPACITY_GROW = 10;
+	/**
+	 * List of classes considered the bases for immutable objects (inside the standard Java library)
+	 */
+	private static Class<?> @NotNull [] unmodifiableCollectionClassRefs;
 	
 	// Initialization static block
 	static {
@@ -37,7 +33,7 @@ abstract class UCollection {
 		} catch (Exception ignore) {
 			// An empty array is created if any of the specified classes is not
 			// available (only for really isolated cases).
-			unmodifiableCollectionClassRefs = cast(UArray.OBJ_EMPTY);
+			unmodifiableCollectionClassRefs = UObject.cast(UArray.OBJ_EMPTY);
 		}
 	}
 	
@@ -135,10 +131,10 @@ abstract class UCollection {
 	 * @return {@code true} if the collection is immutable or {@code false} otherwise
 	 */
 	private static boolean isUnmodifiableImpl(@NotNull Object collection) {
-		requireNotNull(collection, "collection");
+		UObject.requireNotNull(collection, "collection");
 		// Check the unmodifiable type
 		for (Class<?> reference : unmodifiableCollectionClassRefs) {
-			if (canCastNotNull(collection, reference)) return true;
+			if (UObject.canCastNotNull(collection, reference)) return true;
 		}
 		
 		return false;

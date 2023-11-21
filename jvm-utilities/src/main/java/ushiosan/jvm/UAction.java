@@ -11,16 +11,12 @@ import ushiosan.jvm.function.UFunErr;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static ushiosan.jvm.ULogger.getLogger;
-import static ushiosan.jvm.ULogger.logWarning;
-import static ushiosan.jvm.UObject.requireNotNull;
-
 public final class UAction {
 	
 	/**
 	 * Logger instance
 	 */
-	private static final Logger LOG = getLogger(UAction.class);
+	private static final Logger LOG = Logger.getLogger(ULogger.loggerName(UAction.class));
 	
 	/* -----------------------------------------------------
 	 * Properties
@@ -47,7 +43,7 @@ public final class UAction {
 	 */
 	@Contract("_, _ -> param1")
 	public static <T> @Nullable T also(@Nullable T obj, UEmptyFun.@NotNull UEmptyFun1<T> action) {
-		requireNotNull(action, "action");
+		UObject.requireNotNull(action, "action");
 		// Execute action
 		action.invoke(obj);
 		return obj;
@@ -64,7 +60,7 @@ public final class UAction {
 	 * @throws IllegalArgumentException error if {@code obj} or {@code action} is {@code null}
 	 */
 	public static <T> @NotNull T alsoNotNull(@NotNull T obj, UEmptyFun.@NotNull UEmptyFun1<T> action) {
-		requireNotNull(obj, "obj");
+		UObject.requireNotNull(obj, "obj");
 		// Execute method
 		return also(obj, action);
 	}
@@ -83,7 +79,7 @@ public final class UAction {
 	 */
 	public static <T, E extends Throwable> @Nullable T alsoErr(@Nullable T obj,
 		UEmptyFunErr.@NotNull UEmptyFunErr1<T, E> action) throws E {
-		requireNotNull(action, "action");
+		UObject.requireNotNull(action, "action");
 		// Execute the action
 		action.invoke(obj);
 		return obj;
@@ -103,7 +99,7 @@ public final class UAction {
 	 */
 	public static <T, E extends Throwable> @NotNull T alsoErrNotNull(@NotNull T obj,
 		UEmptyFunErr.@NotNull UEmptyFunErr1<T, E> action) throws E {
-		requireNotNull(obj, "obj");
+		UObject.requireNotNull(obj, "obj");
 		// Execute the method
 		return alsoErr(obj, action);
 	}
@@ -121,12 +117,12 @@ public final class UAction {
 	 */
 	public static <T, E extends Throwable> @Nullable T alsoErrSafe(@Nullable T obj,
 		UEmptyFunErr.@NotNull UEmptyFunErr1<T, E> action) {
-		requireNotNull(action, "action");
+		UObject.requireNotNull(action, "action");
 		// Try to execute the action
 		try {
 			action.invoke(obj);
 		} catch (Throwable e) {
-			logWarning(LOG, e);
+			LOG.log(ULogger.logWarning(e));
 		}
 		return obj;
 	}
@@ -144,7 +140,7 @@ public final class UAction {
 	 */
 	public static <T, E extends Throwable> @NotNull T alsoErrSafeNotNull(@NotNull T obj,
 		UEmptyFunErr.@NotNull UEmptyFunErr1<T, E> action) {
-		requireNotNull(obj, "obj");
+		UObject.requireNotNull(obj, "obj");
 		// Execute the method
 		return alsoErrSafe(obj, action);
 	}
@@ -165,7 +161,7 @@ public final class UAction {
 	 * @throws IllegalArgumentException error if {@code action} is {@code null}
 	 */
 	public static <R, T> R apply(@Nullable T obj, UFun.@NotNull UFun1<R, T> action) {
-		requireNotNull(action, "action");
+		UObject.requireNotNull(action, "action");
 		// Execute the action
 		return action.invoke(obj);
 	}
@@ -182,7 +178,7 @@ public final class UAction {
 	 * @throws IllegalArgumentException error if {@code obj} or {@code action} is {@code null}
 	 */
 	public static <R, T> R applyNotNull(@NotNull T obj, UFun.@NotNull UFun1<R, T> action) {
-		requireNotNull(obj, "obj");
+		UObject.requireNotNull(obj, "obj");
 		// Execute method
 		return apply(obj, action);
 	}
@@ -201,7 +197,7 @@ public final class UAction {
 	 * @throws IllegalArgumentException error if {@code action} is {@code null}
 	 */
 	public static <R, T, E extends Throwable> R applyErr(@Nullable T obj, UFunErr.@NotNull UFunErr1<R, T, E> action) throws E {
-		requireNotNull(action, "action");
+		UObject.requireNotNull(action, "action");
 		// Execute the action
 		return action.invoke(obj);
 	}
@@ -221,7 +217,7 @@ public final class UAction {
 	 */
 	public static <R, T, E extends Throwable> R applyErrNotNull(@NotNull T obj,
 		UFunErr.@NotNull UFunErr1<R, T, E> action) throws E {
-		requireNotNull(obj, "obj");
+		UObject.requireNotNull(obj, "obj");
 		// Execute the action
 		return applyErr(obj, action);
 	}
@@ -242,7 +238,7 @@ public final class UAction {
 		try {
 			return Optional.ofNullable(applyErr(obj, action));
 		} catch (Throwable e) {
-			logWarning(LOG, e);
+			LOG.log(ULogger.logWarning(e));
 		}
 		// Return an empty object
 		return Optional.empty();
@@ -264,7 +260,7 @@ public final class UAction {
 		try {
 			return Optional.ofNullable(applyErrNotNull(obj, action));
 		} catch (Throwable e) {
-			logWarning(LOG, e);
+			LOG.log(ULogger.logWarning(e));
 		}
 		// Return an empty object
 		return Optional.empty();

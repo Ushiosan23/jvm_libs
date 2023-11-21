@@ -5,8 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import static ushiosan.jvm.UObject.requireNotNull;
-
 public final class UError {
 	
 	/**
@@ -32,7 +30,7 @@ public final class UError {
 	 * @return the root cause of error
 	 */
 	public static @NotNull Throwable rootError(@NotNull Throwable exception, int deep) {
-		requireNotNull(exception, "exception");
+		UObject.requireNotNull(exception, "exception");
 		deep = Math.max(0, deep);
 		// Temporal variables
 		Throwable exceptionTmp, result = exception;
@@ -72,7 +70,7 @@ public final class UError {
 	 * @return The content of the exception in text format
 	 */
 	public static @NotNull String extractTrace(@NotNull Throwable exception, int deep) {
-		requireNotNull(exception, "exception");
+		UObject.requireNotNull(exception, "exception");
 		// Throwable extraction variables
 		StringWriter writer = new StringWriter();
 		PrintWriter printer = new PrintWriter(writer);

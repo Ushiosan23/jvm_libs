@@ -10,8 +10,6 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static ushiosan.jvm.UObject.requireNotNull;
-
 public final class UString {
 	
 	/**
@@ -41,7 +39,7 @@ public final class UString {
 	 * @return capitalize content string
 	 */
 	public static @NotNull @Unmodifiable CharSequence capitalize(@NotNull CharSequence content, boolean allContent) {
-		requireNotNull(content, "content");
+		UObject.requireNotNull(content, "content");
 		// Temporal variables
 		String contentString = content.toString();
 		String[] contentChunks = allContent ? contentString.split("\\s") :
@@ -79,8 +77,8 @@ public final class UString {
 	 */
 	public static @NotNull @Unmodifiable CharSequence randomSequence(@NotNull Random random, int size,
 		@NotNull UGeneratorType generatorType, char... ignore) {
-		requireNotNull(random, "random");
-		requireNotNull(generatorType, "generatorType");
+		UObject.requireNotNull(random, "random");
+		UObject.requireNotNull(generatorType, "generatorType");
 		// Generate result
 		return random.ints(generatorType.range.first, generatorType.range.second)
 			// Filter invalid ASCII characters

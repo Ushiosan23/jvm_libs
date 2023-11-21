@@ -16,11 +16,6 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
 
-import static ushiosan.jvm.UObject.canCast;
-import static ushiosan.jvm.UObject.canCastNotNull;
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
-
 public final class UToStringManagerImpl implements UToStringManager {
 	
 	/* -----------------------------------------------------
@@ -36,11 +31,12 @@ public final class UToStringManagerImpl implements UToStringManager {
 		UPair.make(Objects::isNull, (it, ignore) -> "<null>"),
 		// Primitive formats like Boolean types have reserved words that may not be identified when read.
 		// That is why they are encapsulated inside "<>" to determine that it is a type and not a word within a text.
-		UPair.make(it -> canCast(it, Boolean.class), (it, ignore) -> String.format("<%s>", it)),
+		UPair.make(it -> UObject.canCast(it, Boolean.class), (it, ignore) -> String.format("<%s>", it)),
 		// Checks that the object is a valid object or primitive
 		// and returns its text representation. The only thing that
 		// changes is the Char type, which is represented by single quotes.
-		UPair.make(UClass::isPrimitive, (it, ignore) -> String.format(canCast(it, Character.class) ? "'%s'" : "%s", it)),
+		UPair.make(UClass::isPrimitive,
+				   (it, ignore) -> String.format(UObject.canCast(it, Character.class) ? "'%s'" : "%s", it)),
 		// Since the Object class is the base of every object in Java. It is also
 		// what causes it to be possible to cast to any type (even if that action
 		// is invalidated), and it is for this reason that it is considered a
@@ -79,7 +75,7 @@ public final class UToStringManagerImpl implements UToStringManager {
 			UArrayComponent.getInstance(),
 			UThrowableComponent.getInstance(),
 			UGeneralComponent.getInstance());
-		noEditableComponents = cast(UClass.toVarargTypes((Object[]) components));
+		noEditableComponents = UObject.cast(UClass.toVarargTypes((Object[]) components));
 		registeredTypes = USet.makeMutable(noEditableComponents);
 	}
 	
@@ -124,7 +120,7 @@ public final class UToStringManagerImpl implements UToStringManager {
 			if (component.supportedElements() == null) break check;
 			// Iterate all supported classes
 			for (var supportClass : component.supportedElements()) {
-				if (canCastNotNull(object, supportClass)) {
+				if (UObject.canCastNotNull(object, supportClass)) {
 					return true;
 				}
 			}
@@ -178,7 +174,7 @@ public final class UToStringManagerImpl implements UToStringManager {
 	 */
 	@Override
 	public synchronized void registerComponent(@NotNull UToStringComponent component) {
-		requireNotNull(component, "component");
+		UObject.requireNotNull(component, "component");
 		// Check if component a not editable component or already exists
 		Class<?> componentCls = component.getClass();
 		if (UArray.contains(noEditableComponents, componentCls) ||
@@ -213,7 +209,7 @@ public final class UToStringManagerImpl implements UToStringManager {
 	 */
 	@Override
 	public synchronized void removeComponent(@NotNull Class<? extends UToStringComponent> cls) {
-		requireNotNull(cls, "cls");
+		UObject.requireNotNull(cls, "cls");
 		// Check if component is a not editable component or not exists
 		if (UArray.contains(noEditableComponents, cls) || !registeredTypes.contains(cls)) {
 			return;

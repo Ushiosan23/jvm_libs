@@ -1,13 +1,12 @@
-package ushiosan.jvm.collections;
+package ushiosan.jvm.test.test.collections;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ushiosan.jvm.Constants;
+import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.print.UToStringManager;
 import ushiosan.jvm.test.UTestUnit;
-
-import static ushiosan.jvm.collections.UArray.toObjectArray;
+import ushiosan.jvm.test.test.Constants;
 
 public class UArrayTest extends UTestUnit {
 	
@@ -337,8 +336,8 @@ public class UArrayTest extends UTestUnit {
 			Assertions.assertArrayEquals(UArray.toObjectArray(UArray.makeByte(1, 0, 0, 0, 1, 1)),
 										 booleanTransform, "Invalid array conversion");
 			Assertions.assertArrayEquals(
-				UArray.make(toObjectArray(genericArray[0].getBytes()), toObjectArray(genericArray[1].getBytes()),
-							toObjectArray(genericArray[2].getBytes()), toObjectArray(genericArray[3].getBytes())),
+				UArray.make(UArray.toObjectArray(genericArray[0].getBytes()), UArray.toObjectArray(genericArray[1].getBytes()),
+							UArray.toObjectArray(genericArray[2].getBytes()), UArray.toObjectArray(genericArray[3].getBytes())),
 				genericTransform, "Invalid array conversion");
 			
 			System.out.println(UToStringManager.getInstance().toString(genericTransform));

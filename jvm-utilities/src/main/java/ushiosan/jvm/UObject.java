@@ -3,6 +3,7 @@ package ushiosan.jvm;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm.collections.UArray;
+import ushiosan.jvm.error.UCommonErrorMessages;
 import ushiosan.jvm.function.UEmptyFun;
 import ushiosan.jvm.internal.validators.UObjectValidators;
 import ushiosan.jvm.print.UToStringManager;
@@ -10,8 +11,6 @@ import ushiosan.jvm.print.UToStringManager;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Optional;
-
-import static ushiosan.jvm.error.UCommonErrorMessages.requireNotNullError;
 
 public final class UObject extends UObjectValidators {
 	
@@ -67,7 +66,7 @@ public final class UObject extends UObjectValidators {
 	 * @throws IllegalArgumentException error if {@code defaultValue} is {@code null}
 	 */
 	public static <T> @NotNull T notNull(@Nullable T obj, @NotNull T defaultValue) {
-		requireNotNull(defaultValue, "defaultValue");
+		UObject.requireNotNull(defaultValue, "defaultValue");
 		// Check result
 		return isNull(obj) ? defaultValue : obj;
 	}
@@ -81,7 +80,7 @@ public final class UObject extends UObjectValidators {
 	 * @throws IllegalArgumentException error if {@code action} is {@code null}
 	 */
 	public static <T> void notNull(@Nullable T obj, UEmptyFun.@NotNull UEmptyFun1<T> action) {
-		requireNotNull(action, "action");
+		UObject.requireNotNull(action, "action");
 		// Invoke the action only if the obj is not null
 		if (isNotNull(obj)) action.invoke(obj);
 	}
@@ -95,7 +94,8 @@ public final class UObject extends UObjectValidators {
 	 */
 	public static void requireNotNull(@Nullable Object obj, @Nullable String name) {
 		if (obj != null) return;
-		throw new IllegalArgumentException(requireNotNullError(name));
+		String errorMsg = UCommonErrorMessages.requireNotNullError(name);
+		throw new IllegalArgumentException(errorMsg);
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public final class UObject extends UObjectValidators {
 	 * @param obj the object to inspect
 	 */
 	public static void requireNotNull(@Nullable Object obj) {
-		requireNotNull(obj, null);
+		UObject.requireNotNull(obj, null);
 	}
 	
 	/* -----------------------------------------------------
@@ -123,7 +123,7 @@ public final class UObject extends UObjectValidators {
 	 * @return return {@code true} if the object can be converted to the desired type or {@code false} otherwise
 	 */
 	public static boolean canCast(@Nullable Object obj, @NotNull Class<?> cls, boolean nullable) {
-		requireNotNull(cls, "cls");
+		UObject.requireNotNull(cls, "cls");
 		// Check if an object is null
 		if (obj == null) return nullable;
 		// Try to cast the object
@@ -142,7 +142,7 @@ public final class UObject extends UObjectValidators {
 	 * @return return {@code true} if the object can be converted to the desired type or {@code false} otherwise
 	 */
 	public static boolean canCast(@Nullable Object obj, @NotNull Class<?> cls) {
-		return canCast(obj, cls, true);
+		return UObject.canCast(obj, cls, true);
 	}
 	
 	/**
@@ -156,7 +156,7 @@ public final class UObject extends UObjectValidators {
 	 * @return return {@code true} if the object can be converted to the desired type or {@code false} otherwise
 	 */
 	public static boolean canCastNotNull(@Nullable Object obj, @NotNull Class<?> cls) {
-		return canCast(obj, cls, false);
+		return UObject.canCast(obj, cls, false);
 	}
 	
 	/**
@@ -190,13 +190,13 @@ public final class UObject extends UObjectValidators {
 	 * @throws ClassCastException error if object is not compatible type
 	 */
 	public static <T> T cast(@Nullable Object obj, @NotNull Class<T> cls) {
-		requireNotNull(cls, "cls");
+		UObject.requireNotNull(cls, "cls");
 		// Check null
-		if (obj == null) return cast(null);
+		if (obj == null) return UObject.cast(null);
 		// Try to cast
 		Class<?> clsObj = obj.getClass();
-		if (canCast(obj, cls, false)) {
-			return cast(obj);
+		if (UObject.canCast(obj, cls, false)) {
+			return UObject.cast(obj);
 		}
 		// Launch an error
 		throw new ClassCastException(String.format(
@@ -214,10 +214,10 @@ public final class UObject extends UObjectValidators {
 	 * @throws IllegalArgumentException error if {@code cls} or {@code action} are {@code null}
 	 */
 	public static <T> void tryCast(@Nullable Object obj, @NotNull Class<T> cls, UEmptyFun.@NotNull UEmptyFun1<T> action) {
-		requireNotNull(cls, "cls");
-		requireNotNull(action, "action");
+		UObject.requireNotNull(cls, "cls");
+		UObject.requireNotNull(action, "action");
 		// Verify that the object can be promoted to the defined class
-		if (canCast(obj, cls)) action.invoke(cast(obj));
+		if (UObject.canCast(obj, cls)) action.invoke(UObject.cast(obj));
 	}
 	
 	/**
@@ -231,9 +231,9 @@ public final class UObject extends UObjectValidators {
 	 * @throws IllegalArgumentException error if {@code cls} is {@code null}
 	 */
 	public static <T> @NotNull Optional<T> tryCast(@Nullable Object obj, @NotNull Class<T> cls) {
-		requireNotNull(cls, "cls");
+		UObject.requireNotNull(cls, "cls");
 		// Verify that the object can be promoted to the defined class
-		return canCast(obj, cls) ? Optional.ofNullable(cast(obj)) :
+		return UObject.canCast(obj, cls) ? Optional.ofNullable(UObject.cast(obj)) :
 			   Optional.empty();
 	}
 	
@@ -439,17 +439,18 @@ public final class UObject extends UObjectValidators {
 	 */
 	private static void printRefImpl(@NotNull PrintStream printStream, @Nullable Object format, @Nullable String suffix,
 		boolean verbose, Object @Nullable [] args) {
-		requireNotNull(printStream, "printStream");
+		UObject.requireNotNull(printStream, "printStream");
 		// Generate output format
 		String formatString;
-		if (format == null || !canCastNotNull(format, CharSequence.class)) {
+		if (format == null || !UObject.canCastNotNull(format, CharSequence.class)) {
 			formatString = toString(format, verbose);
 		} else {
-			formatString = cast(format, CharSequence.class).toString();
+			formatString = UObject.cast(format, CharSequence.class).toString();
 		}
 		// Transform output arguments
 		Object[] outArgs = Arrays.stream(notNull(args, UArray.OBJ_EMPTY))
-			.map(it -> UClass.isPrimitive(it.getClass()) || canCastNotNull(it, CharSequence.class) ? it : toString(it, verbose))
+			.map(it -> UClass.isPrimitive(it.getClass()) || UObject.canCastNotNull(it, CharSequence.class) ? it :
+					   toString(it, verbose))
 			.toArray();
 		// Send result
 		suffix = notNull(suffix, "");

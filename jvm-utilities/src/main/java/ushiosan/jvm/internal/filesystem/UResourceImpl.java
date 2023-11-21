@@ -4,22 +4,23 @@ import org.intellij.lang.annotations.MagicConstant;
 import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm.UNumber;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.collections.UArray;
+import ushiosan.jvm.error.UCommonErrorMessages;
 import ushiosan.jvm.filesystem.UResource;
 import ushiosan.jvm.internal.validators.UResourceValidator;
 
 import java.io.File;
+import java.net.URI;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 
-import static ushiosan.jvm.UObject.canCastNotNull;
-import static ushiosan.jvm.UObject.cast;
 import static ushiosan.jvm.UObject.isNotNull;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 public abstract class UResourceImpl extends UResourceValidator {
 	
@@ -263,7 +264,7 @@ public abstract class UResourceImpl extends UResourceValidator {
 	@SuppressWarnings("MagicConstant")
 	private static <T> @NotNull Predicate<T> regexResourceOfImpl(@NotNull @RegExp String pattern, boolean fullPath,
 		boolean inverted, @MagicConstant(flagsFromClass = Pattern.class) int @NotNull ... flags) {
-		requireNotNull(pattern, "pattern");
+		UObject.requireNotNull(pattern, "pattern");
 		// Generate pattern instance
 		Pattern patternInstance = Pattern.compile(pattern, UNumber.asFlags(flags));
 		return regexResourceOfImpl(patternInstance, fullPath, inverted);
@@ -279,20 +280,20 @@ public abstract class UResourceImpl extends UResourceValidator {
 	 * @see Pattern
 	 */
 	private static @NotNull <T> Predicate<T> regexResourceOfImpl(@NotNull Pattern pattern, boolean fullPath, boolean inverted) {
-		requireNotNull(pattern, "pattern");
+		UObject.requireNotNull(pattern, "pattern");
 		return it -> {
 			Matcher matcher = null;
 			// Check the object class type
-			if (canCastNotNull(it, Path.class)) {
-				Path path = cast(it);
+			if (UObject.canCastNotNull(it, Path.class)) {
+				Path path = UObject.cast(it);
 				matcher = pattern.matcher((fullPath ? path : path.getFileName()).toString());
 			}
-			if (canCastNotNull(it, File.class)) {
-				File file = cast(it);
+			if (UObject.canCastNotNull(it, File.class)) {
+				File file = UObject.cast(it);
 				matcher = pattern.matcher(fullPath ? file.getAbsolutePath() : file.getName());
 			}
-			if (canCastNotNull(it, ZipEntry.class)) {
-				ZipEntry entry = cast(it);
+			if (UObject.canCastNotNull(it, ZipEntry.class)) {
+				ZipEntry entry = UObject.cast(it);
 				matcher = pattern.matcher(entry.getName());
 			}
 			
@@ -313,16 +314,16 @@ public abstract class UResourceImpl extends UResourceValidator {
 		return it -> {
 			String resourceName = null;
 			// Check the object class type
-			if (canCastNotNull(it, Path.class)) {
-				Path path = cast(it);
+			if (UObject.canCastNotNull(it, Path.class)) {
+				Path path = UObject.cast(it);
 				resourceName = UResource.resourceName(path);
 			}
-			if (canCastNotNull(it, File.class)) {
-				File file = cast(it);
+			if (UObject.canCastNotNull(it, File.class)) {
+				File file = UObject.cast(it);
 				resourceName = UResource.resourceName(file);
 			}
-			if (canCastNotNull(it, ZipEntry.class)) {
-				ZipEntry entry = cast(it);
+			if (UObject.canCastNotNull(it, ZipEntry.class)) {
+				ZipEntry entry = UObject.cast(it);
 				resourceName = UResource.resourceName(entry);
 			}
 			
@@ -344,16 +345,16 @@ public abstract class UResourceImpl extends UResourceValidator {
 		return it -> {
 			Optional<String> resourceExtension = Optional.empty();
 			// Check the object class type
-			if (canCastNotNull(it, Path.class)) {
-				Path path = cast(it);
+			if (UObject.canCastNotNull(it, Path.class)) {
+				Path path = UObject.cast(it);
 				resourceExtension = UResource.extension(path);
 			}
-			if (canCastNotNull(it, File.class)) {
-				File file = cast(it);
+			if (UObject.canCastNotNull(it, File.class)) {
+				File file = UObject.cast(it);
 				resourceExtension = UResource.extension(file);
 			}
-			if (canCastNotNull(it, ZipEntry.class)) {
-				ZipEntry entry = cast(it);
+			if (UObject.canCastNotNull(it, ZipEntry.class)) {
+				ZipEntry entry = UObject.cast(it);
 				resourceExtension = UResource.extension(entry);
 			}
 			
@@ -362,6 +363,56 @@ public abstract class UResourceImpl extends UResourceValidator {
 			// the @SuppressWarnings("OptionalGetWithoutIsPresent") annotation.
 			return inverted != (isNotNull(resourceExtension) && UArray.contains(extensions, resourceExtension.get()));
 		};
+	}
+	
+	/**
+	 * Gets the file module within a {@link URI} object for a {@code jrt:/} filesystem
+	 *
+	 * @param uri the URI where the file is located
+	 * @return the file module name or {@link Optional#empty()} if the module is not found.
+	 */
+	protected static @NotNull Optional<String> jrtModuleName(@NotNull URI uri) {
+		String scheme = uri.getScheme();
+		if (!scheme.equals("jrt")) {
+			String messageError = UCommonErrorMessages.schemeNotSupportedError(scheme);
+			throw new IllegalArgumentException(messageError);
+		}
+		
+		// Explode uri
+		String uriStr = uri.toString();
+		String[] chunks = uriStr.split("/");
+		
+		// Extract the module name
+		String moduleName = (chunks.length > 1 ? chunks[1] : "").trim();
+		if (!moduleName.contains(".")) return Optional.empty();
+		
+		return moduleName.isBlank() ? Optional.empty() : Optional.of(moduleName);
+	}
+	
+	/**
+	 * Gets the file path within a {@link URI} object for a {@code jrt:/} filesystem
+	 *
+	 * @param uri the URI where the file is located
+	 * @return the file path or empty text if the file is not found.
+	 */
+	protected static @NotNull String jrtFileAccess(@NotNull URI uri) {
+		String scheme = uri.getScheme();
+		if (!scheme.equals("jrt")) {
+			String messageError = UCommonErrorMessages.schemeNotSupportedError(scheme);
+			throw new IllegalArgumentException(messageError);
+		}
+		
+		// Explode uri
+		String uriStr = uri.toString();
+		String[] chunks = uriStr.split("/");
+		
+		// Extract the module name
+		String moduleName = chunks.length > 1 ? chunks[1] : "";
+		int from = !moduleName.contains(".") ? 1 : 2;
+		int to = chunks.length;
+		
+		String[] location = Arrays.copyOfRange(chunks, from, to);
+		return String.join("/", location);
 	}
 	
 }

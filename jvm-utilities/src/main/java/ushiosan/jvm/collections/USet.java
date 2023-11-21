@@ -3,12 +3,12 @@ package ushiosan.jvm.collections;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
+import ushiosan.jvm.UObject;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static ushiosan.jvm.UObject.requireNotNull;
+import java.util.stream.Stream;
 
 public final class USet extends UCollection {
 	
@@ -42,7 +42,7 @@ public final class USet extends UCollection {
 	 */
 	@SuppressWarnings("unchecked")
 	public static @Unmodifiable <T> @NotNull Set<T> make(@NotNull Collection<T> base) {
-		requireNotNull(base, "base");
+		UObject.requireNotNull(base, "base");
 		// The "Set.copyOf(Collection)" method is not used because it performs unnecessary procedures
 		// (it generates a list object and converts it to an array again), and this library
 		// wants to avoid that.
@@ -76,7 +76,7 @@ public final class USet extends UCollection {
 	 * @return a set with all elements
 	 */
 	public static <T> @NotNull Set<T> makeMutable(@NotNull Collection<T> base) {
-		requireNotNull(base, "base");
+		UObject.requireNotNull(base, "base");
 		HashSet<T> result = new HashSet<>(measureSize(base.size()));
 		result.addAll(base);
 		// Only return the `result` object
@@ -110,7 +110,7 @@ public final class USet extends UCollection {
 	 * @return a linked set with all elements
 	 */
 	public static <T> @NotNull Set<T> makeLinked(@NotNull Collection<T> base) {
-		requireNotNull(base, "base");
+		UObject.requireNotNull(base, "base");
 		Set<T> result = new LinkedHashSet<>(measureSize(base.size()));
 		result.addAll(base);
 		// Only return the `result` object
@@ -158,7 +158,7 @@ public final class USet extends UCollection {
 	 * @return a linked set with all elements
 	 */
 	public static <T> @NotNull Set<T> makeTree(@Nullable Comparator<T> comparator, @NotNull Collection<T> base) {
-		requireNotNull(base, "base");
+		UObject.requireNotNull(base, "base");
 		Set<T> result = new TreeSet<>(comparator);
 		result.addAll(base);
 		// Only return the `result` object
@@ -173,7 +173,7 @@ public final class USet extends UCollection {
 	 * @return an enum set with all enum elements
 	 */
 	public static <T extends Enum<T>> @NotNull Set<T> makeEnum(@NotNull Class<T> cls) {
-		requireNotNull(cls, "cls");
+		UObject.requireNotNull(cls, "cls");
 		return EnumSet.allOf(cls);
 	}
 	
@@ -213,10 +213,10 @@ public final class USet extends UCollection {
 	 * @return the new set with the converted data
 	 */
 	public static <T, R> @NotNull Set<R> transform(@NotNull Set<T> original, @NotNull Function<T, R> mapper) {
-		requireNotNull(original, "original");
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(original, "original");
+		UObject.requireNotNull(mapper, "mapper");
 		// Generate set stream
-		var setStream = original.stream()
+		Stream<R> setStream = original.stream()
 			.map(mapper);
 		
 		if (isUnmodifiable(original)) {

@@ -2,10 +2,8 @@ package ushiosan.jvm.internal.collections.arrays.primitives;
 
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm.UClass;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.internal.validators.UArrayValidator;
-
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 public abstract class UArrayPrimitive extends UDoubleArray {
 	
@@ -31,7 +29,7 @@ public abstract class UArrayPrimitive extends UDoubleArray {
 	 * @return a converted array object
 	 */
 	protected static Object @NotNull [] toObjectArrayImpl(@NotNull Object array) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		// Verify array class
 		Class<?> cls = array.getClass();
 		if (!cls.isArray()) {
@@ -46,7 +44,7 @@ public abstract class UArrayPrimitive extends UDoubleArray {
 			}
 		}
 		
-		return cast(array);
+		return UObject.cast(array);
 	}
 	
 }

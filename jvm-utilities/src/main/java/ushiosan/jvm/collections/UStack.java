@@ -1,6 +1,7 @@
 package ushiosan.jvm.collections;
 
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -9,9 +10,7 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.Function;
-
-import static ushiosan.jvm.UObject.canCastNotNull;
-import static ushiosan.jvm.UObject.requireNotNull;
+import java.util.stream.Stream;
 
 public final class UStack extends UCollection {
 	
@@ -90,8 +89,8 @@ public final class UStack extends UCollection {
 	 * @return the new stack with the converted data
 	 */
 	public static <T, R> @NotNull Stack<R> transform(@NotNull Stack<T> original, @NotNull Function<T, R> mapper) {
-		requireNotNull(original, "original");
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(original, "original");
+		UObject.requireNotNull(mapper, "mapper");
 		// Generate stack stream
 		return original.stream()
 			.map(mapper)
@@ -108,15 +107,15 @@ public final class UStack extends UCollection {
 	 * @return the new deque with the converted data
 	 */
 	public static <T, R> @NotNull Deque<R> transform(@NotNull Deque<T> original, @NotNull Function<T, R> mapper) {
-		requireNotNull(original, "original");
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(original, "original");
+		UObject.requireNotNull(mapper, "mapper");
 		// Generate stack stream
-		var dequeStream = original.stream()
+		Stream<R> dequeStream = original.stream()
 			.map(mapper);
 		
-		if (canCastNotNull(original, ConcurrentLinkedDeque.class)) {
+		if (UObject.canCastNotNull(original, ConcurrentLinkedDeque.class)) {
 			return dequeStream.collect(ConcurrentLinkedDeque::new, Deque::push, Deque::addAll);
-		} else if (canCastNotNull(original, LinkedBlockingDeque.class)) {
+		} else if (UObject.canCastNotNull(original, LinkedBlockingDeque.class)) {
 			return dequeStream.collect(LinkedBlockingDeque::new, Deque::push, Deque::addAll);
 		} else {
 			return dequeStream.collect(ArrayDeque::new, Deque::push, Deque::addAll);

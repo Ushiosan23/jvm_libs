@@ -2,17 +2,29 @@ package ushiosan.jvm.test;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ushiosan.jvm.UClass;
 import ushiosan.jvm.UObject;
 
 import java.io.PrintStream;
 import java.util.Arrays;
-
-import static ushiosan.jvm.UClass.isPrimitive;
-import static ushiosan.jvm.UObject.canCast;
-import static ushiosan.jvm.UObject.canCastNotNull;
-import static ushiosan.jvm.UObject.cast;
+import java.util.function.Function;
 
 public interface UTestInfo {
+	
+	/**
+	 * Filter used to convert objects to plain text
+	 */
+	Function<Object, CharSequence> ARRAY_MAPPER = it -> {
+		checkType:
+		{
+			if (UObject.isNull(it)) break checkType;
+			if (UClass.isPrimitive(it.getClass()) || UObject.canCast(it, CharSequence.class)) {
+				return it.toString();
+			}
+		}
+		
+		return UObject.toString(it);
+	};
 	
 	/**
 	 * The name of the module where the tests are being done
@@ -58,12 +70,7 @@ public interface UTestInfo {
 	 */
 	@SuppressWarnings("resource")
 	default @NotNull UTestInfo printOpt(boolean contrast, @Nullable Object format, Object... args) {
-		String formatStr;
-		if (format == null || !canCast(format, CharSequence.class)) {
-			formatStr = UObject.toString(format, true);
-		} else {
-			formatStr = cast(format, CharSequence.class).toString();
-		}
+		String formatStr = UObject.toString(format);
 		
 		// Display information
 		out(contrast).printf(formatStr, args);
@@ -93,17 +100,14 @@ public interface UTestInfo {
 	 */
 	@SuppressWarnings("resource")
 	default @NotNull UTestInfo printlnOpt(boolean contrast, @Nullable Object format, Object... args) {
-		String formatStr;
-		if (format == null || !canCast(format, CharSequence.class)) {
-			formatStr = UObject.toString(format);
-		} else {
-			formatStr = cast(format, CharSequence.class).toString();
-		}
+		String formatStr = UObject.toString(format);
 		
-		// Display information
+		// Generate output information array
 		Object[] outArgs = Arrays.stream(args)
-			.map(it -> isPrimitive(it.getClass()) || canCastNotNull(it, CharSequence.class) ? it : UObject.toString(it))
+			.map(ARRAY_MAPPER)
 			.toArray();
+		
+		// Send the information to the target output stream
 		out(contrast).printf(formatStr + "%n", outArgs);
 		return this;
 	}

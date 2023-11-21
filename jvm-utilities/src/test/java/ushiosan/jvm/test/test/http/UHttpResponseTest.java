@@ -1,16 +1,15 @@
-package ushiosan.jvm.http;
+package ushiosan.jvm.test.test.http;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ushiosan.jvm.Constants;
+import ushiosan.jvm.http.UHttpResponse;
 import ushiosan.jvm.test.UTestUnit;
+import ushiosan.jvm.test.test.Constants;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.time.Duration;
-
-import static ushiosan.jvm.http.UHttpResponse.validateUri;
 
 class UHttpResponseTest extends UTestUnit {
 	
@@ -39,8 +38,8 @@ class UHttpResponseTest extends UTestUnit {
 				"https://github.com/godotengine/godot/releases/download/4.1-stable/Godot_v4.1-stable_export_templates.tpz");
 			
 			// Validate URLs
-			var validGoogleUri = validateUri(googleUri, httpClient).get();
-			var validGithubUri = validateUri(githubFileUri, httpClient).get();
+			URI validGoogleUri = UHttpResponse.validateUri(googleUri, httpClient).get();
+			URI validGithubUri = UHttpResponse.validateUri(githubFileUri, httpClient).get();
 			
 			// Assertions
 			Assertions.assertEquals(googleUri, validGoogleUri,

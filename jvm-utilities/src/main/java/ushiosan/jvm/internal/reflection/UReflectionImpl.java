@@ -5,6 +5,7 @@ import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm.UClass;
 import ushiosan.jvm.UNumber;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.collections.UList;
 import ushiosan.jvm.collections.USet;
@@ -24,10 +25,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static ushiosan.jvm.UObject.canCast;
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 public abstract class UReflectionImpl extends UReflectionValidator {
 	
@@ -57,8 +54,8 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	 * @return the methods found based on the filters passed.
 	 */
 	public static Method @NotNull [] filterMethods(@NotNull Class<?> cls, @NotNull UReflectionOptions<Method> options) {
-		requireNotNull(cls, "cls");
-		requireNotNull(options, "options");
+		UObject.requireNotNull(cls, "cls");
+		UObject.requireNotNull(options, "options");
 		// Temporal variables
 		Stack<Class<?>> classStack = UClass.classStack(cls, options.maxDeepRecursive());
 		Set<Method> methodContainer = USet.makeMutable();
@@ -71,8 +68,8 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 												   options);
 			
 			// Combine all methods (ignore equal methods)
-			Set<Method> uniqueMethods = cast(USet.combine(clsMethods, clsDeclaredMethods));
-			methodContainer = cast(USet.combine(methodContainer, uniqueMethods));
+			Set<Method> uniqueMethods = UObject.cast(USet.combine(clsMethods, clsDeclaredMethods));
+			methodContainer = UObject.cast(USet.combine(methodContainer, uniqueMethods));
 		}
 		
 		// Generate array
@@ -89,8 +86,8 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	 * @return the fields found based on the filters passed.
 	 */
 	public static Field @NotNull [] filterFields(@NotNull Class<?> cls, @NotNull UReflectionOptions<Field> options) {
-		requireNotNull(cls, "cls");
-		requireNotNull(options, "options");
+		UObject.requireNotNull(cls, "cls");
+		UObject.requireNotNull(options, "options");
 		// Temporal variables
 		Stack<Class<?>> classStack = UClass.classStack(cls, options.maxDeepRecursive());
 		Set<Field> fieldContainer = USet.makeMutable();
@@ -103,8 +100,8 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 												  options);
 			
 			// Combine all fields (ignore equal fields)
-			Set<Field> uniqueFields = cast(USet.combine(clsFields, clsDeclaredFields));
-			fieldContainer = cast(USet.combine(fieldContainer, uniqueFields));
+			Set<Field> uniqueFields = UObject.cast(USet.combine(clsFields, clsDeclaredFields));
+			fieldContainer = UObject.cast(USet.combine(fieldContainer, uniqueFields));
 		}
 		
 		// Generate array
@@ -129,7 +126,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	@SuppressWarnings("MagicConstant")
 	public static <T extends Member> @NotNull Predicate<T> regexMemberOf(@NotNull @RegExp String pattern, boolean inverted,
 		@MagicConstant(flagsFromClass = Pattern.class) int @NotNull ... flags) {
-		requireNotNull(pattern, "pattern");
+		UObject.requireNotNull(pattern, "pattern");
 		// Generate pattern instance
 		Pattern patternInstance = Pattern.compile(pattern, UNumber.asFlags(flags));
 		return regexMemberOf(patternInstance, inverted);
@@ -159,7 +156,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	 * @see Pattern
 	 */
 	public static <T extends Member> @NotNull Predicate<T> regexMemberOf(@NotNull Pattern pattern, boolean inverted) {
-		requireNotNull(pattern, "pattern");
+		UObject.requireNotNull(pattern, "pattern");
 		return (it) -> {
 			Matcher matcher = pattern.matcher(it.getName());
 			return inverted != matcher.find();
@@ -190,7 +187,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	 * @return the filter instance with the desired behavior
 	 */
 	public static <T extends Member> @NotNull Predicate<T> named(@NotNull String name) {
-		requireNotNull(name, "name");
+		UObject.requireNotNull(name, "name");
 		return it -> name.trim().contentEquals(it.getName());
 	}
 	
@@ -216,12 +213,12 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	public static <T extends Member> @NotNull Predicate<T> validObtainMember() {
 		return it -> {
 			// Verify if a member is a field or method
-			if (canCast(it, Field.class)) {
-				Field field = cast(it);
+			if (UObject.canCast(it, Field.class)) {
+				Field field = UObject.cast(it);
 				return !UArray.contains(INVALID_GET_TYPES, field.getType());
 			}
-			if (canCast(it, Method.class)) {
-				Method method = cast(it);
+			if (UObject.canCast(it, Method.class)) {
+				Method method = UObject.cast(it);
 				return method.getParameterCount() == 0 &&
 					   !UArray.contains(INVALID_GET_TYPES, method.getReturnType());
 			}
@@ -237,7 +234,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	 * @return the filter instance with the desired behavior
 	 */
 	public static @NotNull Predicate<Field> fieldType(@NotNull Class<?> type) {
-		requireNotNull(type, "type");
+		UObject.requireNotNull(type, "type");
 		return it -> type.equals(it.getType());
 	}
 	
@@ -260,7 +257,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 	 * @return the filter instance with the desired behavior
 	 */
 	public static @NotNull Predicate<Method> methodReturnType(@NotNull Class<?> type) {
-		requireNotNull(type, "type");
+		UObject.requireNotNull(type, "type");
 		return it -> type.equals(it.getReturnType());
 	}
 	
@@ -399,7 +396,7 @@ public abstract class UReflectionImpl extends UReflectionValidator {
 			// Required filters
 			for (var filter : MEMBER_FILTER_ARRAY) {
 				if (filter.first.invoke(options)) {
-					memberStream = memberStream.filter(cast(filter.second));
+					memberStream = memberStream.filter(UObject.cast(filter.second));
 				}
 			}
 			if (options.predicates().isEmpty()) break filter;

@@ -7,8 +7,6 @@ import ushiosan.jvm.print.UToStringComponent;
 
 import java.util.Map;
 
-import static ushiosan.jvm.UObject.cast;
-
 public final class UEntryComponent implements UToStringComponent {
 	
 	/**
@@ -86,7 +84,7 @@ public final class UEntryComponent implements UToStringComponent {
 	@Override
 	public @NotNull String toString(@NotNull Object object, boolean verbose) {
 		// Cast element
-		Map.Entry<?, ?> entry = cast(object);
+		Map.Entry<?, ?> entry = UObject.cast(object);
 		return String.format("%s = %s",
 							 manager().toString(entry.getKey(), verbose),
 							 manager().toString(entry.getValue(), verbose));

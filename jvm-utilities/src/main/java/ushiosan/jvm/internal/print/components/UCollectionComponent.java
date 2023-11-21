@@ -10,8 +10,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-import static ushiosan.jvm.UObject.cast;
-
 public final class UCollectionComponent implements UToStringComponent {
 	
 	/**
@@ -118,7 +116,7 @@ public final class UCollectionComponent implements UToStringComponent {
 	private @NotNull String toMapString(@NotNull Object object, boolean verbose) {
 		// Generate string builder and temporal variables
 		StringBuilder builder = new StringBuilder();
-		Map<?, ?> objectMap = cast(object);
+		Map<?, ?> objectMap = UObject.cast(object);
 		Class<?> cls = objectMap.getClass();
 		int counter = 0;
 		
@@ -154,7 +152,7 @@ public final class UCollectionComponent implements UToStringComponent {
 	private @NotNull String toCollectionString(@NotNull Object object, boolean verbose) {
 		// Generate string builder and temporal variables
 		StringBuilder builder = new StringBuilder();
-		Collection<?> objectCollection = cast(object);
+		Collection<?> objectCollection = UObject.cast(object);
 		Class<?> cls = objectCollection.getClass();
 		Iterator<?> iterator = objectCollection.iterator();
 		

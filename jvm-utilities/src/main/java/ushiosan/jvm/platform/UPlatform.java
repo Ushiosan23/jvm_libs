@@ -3,14 +3,13 @@ package ushiosan.jvm.platform;
 import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ushiosan.jvm.UObject;
+import ushiosan.jvm.UString;
 
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static ushiosan.jvm.UObject.isNotNull;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 /**
  * Enumerated type for identification of the operating system on which the JVM is running.
@@ -80,8 +79,33 @@ public enum UPlatform {
 	 */
 	@SuppressWarnings("ConstantConditions")
 	public static @NotNull UPlatform runningPlatform() {
-		return from(platformNameRaw(true));
+		return fromOrUnknown(platformNameRaw(true));
 	}
+	
+	/**
+	 * Gets the platform depending on the input
+	 *
+	 * @param name the name of the platform you want to get
+	 * @return the instance of the platform element or {@link Optional#empty()} if the platform not exists
+	 */
+	@SuppressWarnings("ConstantConditions")
+	public static @NotNull Optional<UPlatform> from(@NotNull String name) {
+		UObject.requireNotNull(name, "name");
+		// Platform temporal variables
+		String validName = name.trim().toLowerCase();
+		UPlatform[] validPlatforms = Arrays.stream(values())
+			.filter(it -> UObject.isNotNull(it.pattern))
+			.toArray(UPlatform[]::new);
+		
+		// Check if any of the platform name is on the valid platform array
+		for (var platform : validPlatforms) {
+			Matcher matcher = platform.pattern.matcher(validName);
+			if (matcher.find()) return Optional.of(platform);
+		}
+		
+		return Optional.empty();
+	}
+	
 	
 	/**
 	 * Gets the platform depending on the input
@@ -89,25 +113,24 @@ public enum UPlatform {
 	 * @param name the name of the platform you want to get
 	 * @return the instance of the platform element or {@link #UNKNOWN} if the platform is not listed
 	 */
-	@SuppressWarnings("ConstantConditions")
-	public static @NotNull UPlatform from(@NotNull String name) {
-		requireNotNull(name, "name");
-		// Temporal variables
-		String cleanName = name.trim().toLowerCase();
-		UPlatform[] allValidPlatforms = Arrays.stream(values())
-			.filter(it -> isNotNull(it.pattern))
-			.toArray(UPlatform[]::new);
-		
-		// Iterate all platforms
-		for (var platform : allValidPlatforms) {
-			Matcher matcher = platform.pattern.matcher(cleanName);
-			if (matcher.find()) {
-				return platform;
-			}
-		}
-		
-		return UNKNOWN;
+	public static @NotNull UPlatform fromOrUnknown(@NotNull String name) {
+		return from(name).orElse(UNKNOWN);
 	}
+	
+	/**
+	 * Gets the current platform name
+	 *
+	 * @return current platform name
+	 */
+	private static @NotNull String platformNameRaw(boolean lowerCase) {
+		String content = System.getProperty("os.name");
+		return lowerCase ? content.toLowerCase() :
+			   content;
+	}
+	
+	/* -----------------------------------------------------
+	 * Static methods
+	 * ----------------------------------------------------- */
 	
 	/**
 	 * Determine if current platform is a {@code UNIX} like operating system
@@ -133,21 +156,6 @@ public enum UPlatform {
 		}
 	}
 	
-	/* -----------------------------------------------------
-	 * Static methods
-	 * ----------------------------------------------------- */
-	
-	/**
-	 * Gets the current platform name
-	 *
-	 * @return current platform name
-	 */
-	private static @NotNull String platformNameRaw(boolean lowerCase) {
-		String content = System.getProperty("os.name");
-		return lowerCase ? content.toLowerCase() :
-			   content;
-	}
-	
 	/**
 	 * Gets the current platform name
 	 *
@@ -157,7 +165,7 @@ public enum UPlatform {
 		// Ignore unknown platforms
 		if (this == UNKNOWN) return "Unknown";
 		// Get platform name
-		return platformNameRaw(false);
+		return UString.capitalizeWord(name()).toString();
 	}
 	
 	/**

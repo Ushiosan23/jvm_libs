@@ -2,6 +2,7 @@ package ushiosan.jvm.http;
 
 import org.jetbrains.annotations.NotNull;
 import ushiosan.jvm.ULogger;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.collections.UMap;
 import ushiosan.jvm.collections.UStack;
 import ushiosan.jvm.content.UPair;
@@ -18,13 +19,13 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Logger;
 
-import static ushiosan.jvm.ULogger.logInfo;
-import static ushiosan.jvm.UObject.requireNotNull;
-import static ushiosan.jvm.http.UHttpRequest.makeRequest;
-
 public final class UHttpResponse {
 	
-	private static final Logger LOG = ULogger.getLogger(UHttpResponse.class);
+	/**
+	 * Logger instance
+	 */
+	private static final Logger LOG = Logger.getLogger(ULogger.loggerName(UHttpResponse.class));
+	
 	/**
 	 * All possible error codes for an http request
 	 */
@@ -75,6 +76,7 @@ public final class UHttpResponse {
 	/* -----------------------------------------------------
 	 * Properties
 	 * ----------------------------------------------------- */
+	
 	/**
 	 * All possible redirect codes for an http request
 	 */
@@ -136,18 +138,21 @@ public final class UHttpResponse {
 		@NotNull HttpClient client, boolean preventErrors) {
 		return supplyAsyncErr(() -> {
 			// Generate request
-			HttpRequest request = makeRequest(uri)
+			HttpRequest request = UHttpRequest.makeRequest(uri)
 				.method("HEAD", HttpRequest.BodyPublishers.noBody())
 				.build();
 			
 			// Generate http response
 			HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
-			var detectedError = detectError(response);
+			Optional<UPair<Integer, String>> detectedError = detectError(response);
 			
-			// Log info
-			logInfo(LOG, "HTTP Request \"%s\" status code: %d", uri, response.statusCode());
+			// Only log uri status code
+			LOG.log(ULogger.logInfo(
+				"HTTP Request \"%s\" status code: %d", uri, response.statusCode()));
+			
+			// Check if http error exists
 			if (detectedError.isPresent() && preventErrors) {
-				var error = detectedError.get();
+				UPair<Integer, String> error = detectedError.get();
 				throw new CancellationException(String.format("HTTP Error %d: %s", error.first, error.second));
 			}
 			
@@ -177,7 +182,7 @@ public final class UHttpResponse {
 	 * @param uri           the route to which you want to send the request
 	 * @param client        the http client to send the request
 	 * @param preventErrors option used to throw an error if the http response is not valid (error codes 400 or 500)
-	 * @return the valid url to send an http request
+	 * @return the valid url to send a http request
 	 */
 	public static @NotNull CompletableFuture<URI> validateUri(@NotNull URI uri, @NotNull HttpClient client,
 		boolean preventErrors) {
@@ -189,12 +194,12 @@ public final class UHttpResponse {
 			// Iterate all redirections
 			do {
 				URI current = uriStack.pop();
-				var responseHeaders = requestHeaders(current, client, preventErrors).get();
+				HttpResponse<Void> responseHeaders = requestHeaders(current, client, preventErrors).get();
 				
 				// Detect any redirection
-				var redirection = detectRedirect(responseHeaders);
+				Optional<UPair<Integer, String>> redirection = detectRedirect(responseHeaders);
 				if (redirection.isPresent()) {
-					var redirectUri = responseHeaders.headers()
+					Optional<String> redirectUri = responseHeaders.headers()
 						.firstValue("Location");
 					if (redirectUri.isEmpty()) {
 						throw new CancellationException("The redirection is not valid");
@@ -207,7 +212,7 @@ public final class UHttpResponse {
 				result = current;
 			} while (!uriStack.isEmpty());
 			
-			requireNotNull(result, "HttpHeaders");
+			UObject.requireNotNull(result, "HttpHeaders");
 			return result;
 		});
 	}
@@ -222,7 +227,7 @@ public final class UHttpResponse {
 	 *
 	 * @param uri    the route to which you want to send the request
 	 * @param client the http client to send the request
-	 * @return the valid url to send an http request
+	 * @return the valid url to send a http request
 	 */
 	public static @NotNull CompletableFuture<URI> validateUri(@NotNull URI uri, @NotNull HttpClient client) {
 		return validateUri(uri, client, true);
@@ -233,7 +238,7 @@ public final class UHttpResponse {
 	 * ----------------------------------------------------- */
 	
 	/**
-	 * Sends an http request, but the passed lambda expression can throw exceptions and be handled automatically.
+	 * Sends a http request, but the passed lambda expression can throw exceptions and be handled automatically.
 	 *
 	 * @param action the action you want to execute
 	 * @param <T>    the result of the http request

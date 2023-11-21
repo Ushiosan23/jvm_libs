@@ -33,18 +33,16 @@ public final class UHttpRequest {
 	 * @return the http request configured to be valid
 	 */
 	public static @NotNull HttpRequest.Builder makeRequest() {
-		// Temporal variables
-		var javaVersion = System.getProperty("java.version");
-		var javaVendor = System.getProperty("java.vendor");
-		var javaOS = System.getProperty("os.name");
-		var javaArch = System.getProperty("os.arch");
-		var libraryVersion = UR.getInstance()
-			.getProperty("jvm.utilities.version", "");
+		// Generate User-Agent content
+		String userAgentStr = String.format(USER_AGENT,
+											System.getProperty("java.version"),
+											System.getProperty("java.vendor"),
+											System.getProperty("os.name"),
+											System.getProperty("os.arch"),
+											UR.getInstance().getProperty("jvm.utilities.version", ""));
 		
-		// Generate request
-		return HttpRequest.newBuilder()
-			.setHeader("User-Agent",
-					   String.format(USER_AGENT, javaVersion, javaVendor, javaOS, javaArch, libraryVersion));
+		// Generate and update HTTP request headers
+		return HttpRequest.newBuilder().setHeader("User-Agent", userAgentStr);
 	}
 	
 	/**

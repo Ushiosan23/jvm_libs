@@ -2,10 +2,8 @@ package ushiosan.jvm.error;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.content.UPair;
-
-import static ushiosan.jvm.UObject.isNull;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 public abstract class UCommonErrorMessages {
 	
@@ -56,7 +54,7 @@ public abstract class UCommonErrorMessages {
 	 */
 	public static String requireNotNullError(@Nullable String parameter) {
 		// Generate message
-		return isNull(parameter) ? UO_REQUIRE_NOT_NULL.first :
+		return (parameter == null) ? UO_REQUIRE_NOT_NULL.first :
 			   String.format(UO_REQUIRE_NOT_NULL.second, parameter);
 	}
 	
@@ -68,8 +66,8 @@ public abstract class UCommonErrorMessages {
 	 * @return formatted error message
 	 */
 	public static String resourceTypeError(@NotNull String expected, @NotNull String actual) {
-		requireNotNull(expected, "expected");
-		requireNotNull(actual, "actual");
+		UObject.requireNotNull(expected, "expected");
+		UObject.requireNotNull(actual, "actual");
 		// Generate message content
 		return String.format(FS_TYPE_ERROR, expected, actual);
 	}
@@ -82,7 +80,7 @@ public abstract class UCommonErrorMessages {
 	 * @return formatted error message
 	 */
 	public static String schemeNotSupportedError(@NotNull String scheme) {
-		requireNotNull(scheme, "scheme");
+		UObject.requireNotNull(scheme, "scheme");
 		// Generate message content
 		return String.format(FS_SCHEME_NOT_SUPPORTED, scheme);
 	}
@@ -95,7 +93,7 @@ public abstract class UCommonErrorMessages {
 	 */
 	public static String propertyNotFoundError(@Nullable String property) {
 		// Generate message content
-		return isNull(property) ? UC_PROPERTY_NOT_FOUND.first :
+		return (property == null) ? UC_PROPERTY_NOT_FOUND.first :
 			   String.format(UC_PROPERTY_NOT_FOUND.second, property);
 	}
 	

@@ -2,14 +2,12 @@ package ushiosan.jvm.internal.collections.arrays.primitives;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.IntFunction;
-
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 abstract class ULongArray extends UIntegerArray {
 	
@@ -49,7 +47,7 @@ abstract class ULongArray extends UIntegerArray {
 	 * @return the first index element or {@code -1} if the element not exists
 	 */
 	public static int primitiveIndexOf(long @NotNull [] array, long element) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] == element) return i;
 		}
@@ -65,7 +63,7 @@ abstract class ULongArray extends UIntegerArray {
 	 * @return the first index element or {@code -1} if the element not exists
 	 */
 	public static int primitiveLastIndexOf(long @NotNull [] array, long element) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		int maxSize = array.length - 1;
 		for (int i = maxSize; i >= 0; i--) {
 			if (array[i] == element) return i;
@@ -92,7 +90,7 @@ abstract class ULongArray extends UIntegerArray {
 	 * @return the last element of the array or {@link Optional#empty()} if array is empty
 	 */
 	public static @NotNull Optional<Long> primitiveLastElement(long @NotNull [] array) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		if (array.length == 0) return Optional.empty();
 		return Optional.of(array[array.length - 1]);
 	}
@@ -105,7 +103,7 @@ abstract class ULongArray extends UIntegerArray {
 	 * @throws IllegalStateException if the array is empty
 	 */
 	public static long primitiveUnsafeLastElement(long @NotNull [] array) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		if (array.length == 0) throw new IllegalStateException("The array is empty");
 		return array[array.length - 1];
 	}
@@ -117,8 +115,8 @@ abstract class ULongArray extends UIntegerArray {
 	 * @return a converted array object
 	 */
 	public static Long @NotNull [] toObjectArray(long[] array) {
-		return cast(UArrayPrimitive.toObjectArrayImpl(array),
-					Long[].class);
+		return UObject.cast(UArrayPrimitive.toObjectArrayImpl(array),
+							Long[].class);
 	}
 	
 	/**
@@ -132,8 +130,8 @@ abstract class ULongArray extends UIntegerArray {
 	 */
 	public static <T> T @NotNull [] primitiveTransform(long[] original, @NotNull Function<Long, T> mapper,
 		@NotNull IntFunction<T[]> arrFn) {
-		requireNotNull(mapper, "mapper");
-		requireNotNull(arrFn, "arrFn");
+		UObject.requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(arrFn, "arrFn");
 		return Arrays.stream(toObjectArray(original))
 			.map(mapper)
 			.toArray(arrFn);
@@ -148,7 +146,7 @@ abstract class ULongArray extends UIntegerArray {
 	 * @return the new array with the converted data
 	 */
 	public static <T> Object @NotNull [] primitiveTransform(long[] original, @NotNull Function<Long, T> mapper) {
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(mapper, "mapper");
 		return Arrays.stream(toObjectArray(original))
 			.map(mapper)
 			.toArray();

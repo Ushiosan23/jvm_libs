@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ushiosan.jvm.UClass;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.collections.UList;
 import ushiosan.jvm.internal.collections.arrays.UArraysConstants;
 
@@ -12,14 +13,15 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
-
 public abstract class UArraysGeneric implements UArraysConstants {
 	
 	/* -----------------------------------------------------
 	 * Generator methods
 	 * ----------------------------------------------------- */
+	
+	public static <T> T[] makeEmpty() {
+		return UObject.cast(OBJ_EMPTY);
+	}
 	
 	/**
 	 * Generate an array from given values. If you want to use primitive arrays,
@@ -58,7 +60,7 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 * @see Short
 	 */
 	public static Object @NotNull [] make(@NotNull Iterator<?> iterator) {
-		requireNotNull(iterator, "iterator");
+		UObject.requireNotNull(iterator, "iterator");
 		List<?> iteratorList = UList.make(iterator);
 		return iteratorList.toArray();
 	}
@@ -76,7 +78,7 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 */
 	@Contract(pure = true)
 	public static int indexOf(Object @NotNull [] array, @Nullable Object element) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		for (int i = 0; i < array.length; i++) {
 			Object it = array[i];
 			// Check if the selected element exists
@@ -101,7 +103,7 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 */
 	@Contract(pure = true)
 	public static int lastIndexOf(Object @NotNull [] array, @Nullable Object element) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		int maxSize = array.length - 1;
 		for (int i = maxSize; i >= 0; i--) {
 			Object it = array[i];
@@ -147,7 +149,7 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 * @return the last element of the array or {@code null} if array is empty
 	 */
 	public static <T> @Nullable T unsafeLastElement(T @NotNull [] array) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		if (array.length == 0) return null;
 		return array[array.length - 1];
 	}
@@ -171,8 +173,8 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 * 	the size is different or the content is different
 	 */
 	public static <T> boolean contentEquals(T @NotNull [] ar1, T @NotNull [] ar2) {
-		requireNotNull(ar1, "ar1");
-		requireNotNull(ar2, "ar2");
+		UObject.requireNotNull(ar1, "ar1");
+		UObject.requireNotNull(ar2, "ar2");
 		boolean result = ar1.length == ar2.length;
 		check:
 		{
@@ -212,9 +214,9 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 */
 	public static <T, V> V @NotNull [] transform(@NotNull T[] original, @NotNull Function<T, V> mapper,
 		@NotNull IntFunction<V[]> arrFn) {
-		requireNotNull(original, "original");
-		requireNotNull(mapper, "mapper");
-		requireNotNull(arrFn, "arrFn");
+		UObject.requireNotNull(original, "original");
+		UObject.requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(arrFn, "arrFn");
 		// Transform process
 		return Arrays.stream(original)
 			.map(mapper)
@@ -230,8 +232,8 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 * @return the new array with the converted data
 	 */
 	public static <T> Object @NotNull [] transform(@NotNull T[] original, @NotNull Function<T, Object> mapper) {
-		requireNotNull(original, "original");
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(original, "original");
+		UObject.requireNotNull(mapper, "mapper");
 		// Transform process
 		return Arrays.stream(original)
 			.map(mapper)
@@ -266,8 +268,8 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 * @return a new array with all the content of the two arrays passed as parameter
 	 */
 	public static <T> T @NotNull [] join(@NotNull Class<T> cls, @NotNull T[] a1, @NotNull T[] a2) {
-		requireNotNull(a1, "a1");
-		requireNotNull(a2, "a2");
+		UObject.requireNotNull(a1, "a1");
+		UObject.requireNotNull(a2, "a2");
 		return joinAll(cls, a1, a2);
 	}
 	
@@ -281,11 +283,11 @@ public abstract class UArraysGeneric implements UArraysConstants {
 	 */
 	@SafeVarargs
 	public static <T> T @NotNull [] joinAll(@NotNull Class<T> cls, T @NotNull []... arrays) {
-		requireNotNull(cls, "cls");
+		UObject.requireNotNull(cls, "cls");
 		int totalSize = calculateTotalSize(arrays);
 		int position = 0;
 		// Generate new instance of an array
-		T[] result = cast(Array.newInstance(cls, totalSize));
+		T[] result = UObject.cast(Array.newInstance(cls, totalSize));
 		
 		// Copy all elements
 		for (T[] array : arrays) {

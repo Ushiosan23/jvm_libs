@@ -1,11 +1,10 @@
 package ushiosan.jvm.internal.validators;
 
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.content.UPair;
 import ushiosan.jvm.function.UFun;
-
-import static ushiosan.jvm.UObject.cast;
 
 public final class UArrayValidator {
 	
@@ -44,7 +43,7 @@ public final class UArrayValidator {
 	 * @return a converted array object
 	 */
 	private static Object @NotNull [] toBooleanArrayObj(@NotNull Object array) {
-		boolean[] arr = cast(array);
+		boolean[] arr = UObject.cast(array);
 		Boolean[] result = new Boolean[arr.length];
 		
 		for (int i = 0; i < result.length; i++) {
@@ -60,7 +59,7 @@ public final class UArrayValidator {
 	 * @return a converted array object
 	 */
 	private static Object @NotNull [] toCharArrayObj(@NotNull Object array) {
-		char[] arr = cast(array);
+		char[] arr = UObject.cast(array);
 		Character[] result = new Character[arr.length];
 		
 		for (int i = 0; i < result.length; i++) {
@@ -80,7 +79,7 @@ public final class UArrayValidator {
 	 * @return a converted array object
 	 */
 	private static Object @NotNull [] toByteArrayObj(@NotNull Object array) {
-		byte[] arr = cast(array);
+		byte[] arr = UObject.cast(array);
 		Byte[] result = new Byte[arr.length];
 		
 		for (int i = 0; i < result.length; i++) {
@@ -96,7 +95,7 @@ public final class UArrayValidator {
 	 * @return a converted array object
 	 */
 	private static Object @NotNull [] toShortArrayObj(@NotNull Object array) {
-		short[] arr = cast(array);
+		short[] arr = UObject.cast(array);
 		Short[] result = new Short[arr.length];
 		
 		for (int i = 0; i < result.length; i++) {
@@ -112,7 +111,7 @@ public final class UArrayValidator {
 	 * @return a converted array object
 	 */
 	private static Object @NotNull [] toIntegerArrayObj(@NotNull Object array) {
-		int[] arr = cast(array);
+		int[] arr = UObject.cast(array);
 		Integer[] result = new Integer[arr.length];
 		
 		for (int i = 0; i < result.length; i++) {
@@ -128,7 +127,7 @@ public final class UArrayValidator {
 	 * @return a converted array object
 	 */
 	private static Object @NotNull [] toLongArrayObj(@NotNull Object array) {
-		long[] arr = cast(array);
+		long[] arr = UObject.cast(array);
 		Long[] result = new Long[arr.length];
 		
 		for (int i = 0; i < result.length; i++) {
@@ -144,7 +143,7 @@ public final class UArrayValidator {
 	 * @return a converted array object
 	 */
 	private static Object @NotNull [] toFloatArrayObj(@NotNull Object array) {
-		float[] arr = cast(array);
+		float[] arr = UObject.cast(array);
 		Float[] result = new Float[arr.length];
 		
 		for (int i = 0; i < result.length; i++) {
@@ -160,7 +159,7 @@ public final class UArrayValidator {
 	 * @return a converted array object
 	 */
 	private static Object @NotNull [] toDoubleArrayObj(@NotNull Object array) {
-		double[] arr = cast(array);
+		double[] arr = UObject.cast(array);
 		Double[] result = new Double[arr.length];
 		
 		for (int i = 0; i < result.length; i++) {

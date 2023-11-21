@@ -2,14 +2,12 @@ package ushiosan.jvm.internal.collections.arrays.primitives;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.IntFunction;
-
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 abstract class UCharArray extends UBooleanArray {
 	
@@ -49,7 +47,7 @@ abstract class UCharArray extends UBooleanArray {
 	 * @return the first index element or {@code -1} if an element not exists
 	 */
 	public static int primitiveIndexOf(char @NotNull [] array, char element) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] == element) return i;
 		}
@@ -65,7 +63,7 @@ abstract class UCharArray extends UBooleanArray {
 	 * @return the first index element or {@code -1} if an element not exists
 	 */
 	public static int primitiveLastIndexOf(char @NotNull [] array, char element) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		int maxSize = array.length - 1;
 		for (int i = maxSize; i >= 0; i--) {
 			if (array[i] == element) return i;
@@ -92,7 +90,7 @@ abstract class UCharArray extends UBooleanArray {
 	 * @return the last element of the array or {@link Optional#empty()} if array is empty
 	 */
 	public static @NotNull Optional<Character> primitiveLastElement(char @NotNull [] array) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		if (array.length == 0) return Optional.empty();
 		return Optional.of(array[array.length - 1]);
 	}
@@ -105,7 +103,7 @@ abstract class UCharArray extends UBooleanArray {
 	 * @throws IllegalStateException if the array is empty
 	 */
 	public static char primitiveUnsafeLastElement(char @NotNull [] array) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		if (array.length == 0) throw new IllegalStateException("The array is empty");
 		return array[array.length - 1];
 	}
@@ -117,7 +115,7 @@ abstract class UCharArray extends UBooleanArray {
 	 * @return a converted array object
 	 */
 	public static Character @NotNull [] toObjectArray(char[] array) {
-		return cast(UArrayPrimitive.toObjectArrayImpl(array), Character[].class);
+		return UObject.cast(UArrayPrimitive.toObjectArrayImpl(array), Character[].class);
 	}
 	
 	/**
@@ -131,8 +129,8 @@ abstract class UCharArray extends UBooleanArray {
 	 */
 	public static <T> T @NotNull [] PrimitiveTransform(char[] original, @NotNull Function<Character, T> mapper,
 		@NotNull IntFunction<T[]> arrFn) {
-		requireNotNull(mapper, "mapper");
-		requireNotNull(arrFn, "arrFn");
+		UObject.requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(arrFn, "arrFn");
 		return Arrays.stream(toObjectArray(original))
 			.map(mapper)
 			.toArray(arrFn);
@@ -147,7 +145,7 @@ abstract class UCharArray extends UBooleanArray {
 	 * @return the new array with the converted data
 	 */
 	public static <T> Object @NotNull [] PrimitiveTransform(char[] original, @NotNull Function<Character, T> mapper) {
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(mapper, "mapper");
 		return Arrays.stream(toObjectArray(original))
 			.map(mapper)
 			.toArray();

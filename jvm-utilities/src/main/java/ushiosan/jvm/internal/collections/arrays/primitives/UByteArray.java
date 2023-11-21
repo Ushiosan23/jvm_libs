@@ -3,15 +3,13 @@ package ushiosan.jvm.internal.collections.arrays.primitives;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 import ushiosan.jvm.UNumber;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.internal.collections.arrays.UArraysConstants;
 
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.IntFunction;
-
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 abstract class UByteArray extends UCharArray {
 	
@@ -57,7 +55,7 @@ abstract class UByteArray extends UCharArray {
 	 * @return the first index element or {@code -1} if an element not exists
 	 */
 	public static int primitiveIndexOf(byte @NotNull [] array, @Range(from = Byte.MIN_VALUE, to = Byte.MAX_VALUE) int element) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] == ((byte) element)) return i;
 		}
@@ -74,7 +72,7 @@ abstract class UByteArray extends UCharArray {
 	 */
 	public static int primitiveLastIndexOf(byte @NotNull [] array,
 		@Range(from = Byte.MIN_VALUE, to = Byte.MAX_VALUE) int element) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		int maxSize = array.length - 1;
 		for (int i = maxSize; i >= 0; i--) {
 			if (array[i] == ((byte) element)) return i;
@@ -102,7 +100,7 @@ abstract class UByteArray extends UCharArray {
 	 * @return the last element of the array or {@link Optional#empty()} if array is empty
 	 */
 	public static @NotNull Optional<Byte> primitiveLastElement(byte @NotNull [] array) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		if (array.length == 0) return Optional.empty();
 		return Optional.of(array[array.length - 1]);
 	}
@@ -115,7 +113,7 @@ abstract class UByteArray extends UCharArray {
 	 * @throws IllegalStateException if the array is empty
 	 */
 	public static byte primitiveUnsafeLastElement(byte @NotNull [] array) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		if (array.length == 0) throw new IllegalStateException("The array is empty");
 		return array[array.length - 1];
 	}
@@ -127,7 +125,7 @@ abstract class UByteArray extends UCharArray {
 	 * @return a converted array object
 	 */
 	public static Byte @NotNull [] toObjectArray(byte[] array) {
-		return cast(UArrayPrimitive.toObjectArrayImpl(array), Byte[].class);
+		return UObject.cast(UArrayPrimitive.toObjectArrayImpl(array), Byte[].class);
 	}
 	
 	/**
@@ -141,8 +139,8 @@ abstract class UByteArray extends UCharArray {
 	 */
 	public static <T> T @NotNull [] primitiveTransform(byte[] original, @NotNull Function<Byte, T> mapper,
 		@NotNull IntFunction<T[]> arrFn) {
-		requireNotNull(mapper, "mapper");
-		requireNotNull(arrFn, "arrFn");
+		UObject.requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(arrFn, "arrFn");
 		return Arrays.stream(toObjectArray(original))
 			.map(mapper)
 			.toArray(arrFn);
@@ -157,7 +155,7 @@ abstract class UByteArray extends UCharArray {
 	 * @return the new array with the converted data
 	 */
 	public static <T> Object @NotNull [] primitiveTransform(byte[] original, @NotNull Function<Byte, T> mapper) {
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(mapper, "mapper");
 		return Arrays.stream(toObjectArray(original))
 			.map(mapper)
 			.toArray();

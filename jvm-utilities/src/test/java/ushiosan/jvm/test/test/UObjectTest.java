@@ -1,8 +1,9 @@
-package ushiosan.jvm;
+package ushiosan.jvm.test.test;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.test.UTestUnit;
 
@@ -42,8 +43,8 @@ public class UObjectTest extends UTestUnit {
 			Assertions.assertTrue(valid.get(), "Invalid cast");
 			
 			// Display information
-			println("URL: %s", googleURL);
-			println("Connection: %s", connection);
+			println("URL:          %s", googleURL);
+			println("Connection:   %s", connection);
 			println("Valid result: %s", valid);
 		});
 	}

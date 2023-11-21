@@ -11,9 +11,6 @@ import ushiosan.jvm.reflection.UReflectionOptions;
 
 import java.lang.reflect.Method;
 
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.internal.reflection.UReflectionImpl.methodReturnType;
-
 public final class UGeneralComponent implements UToStringComponent {
 	
 	/**
@@ -132,8 +129,7 @@ public final class UGeneralComponent implements UToStringComponent {
 	 * @return object string representation
 	 */
 	private @NotNull String toStringCharSequence(@NotNull Object object, boolean verbose) {
-		return verbose ? String.format("[%d]\"%s\"", cast(object, CharSequence.class).length(), object) :
-			   String.format("\"%s\"", object);
+		return UObject.cast(object, CharSequence.class).toString();
 	}
 	
 	/**
@@ -145,7 +141,7 @@ public final class UGeneralComponent implements UToStringComponent {
 	 */
 	private @NotNull String toStringClass(@NotNull Object object, boolean verbose) {
 		// Temporal variables
-		Class<?> cls = cast(object);
+		Class<?> cls = UObject.cast(object);
 		StringBuilder clsResult = new StringBuilder();
 		
 		if (cls.isPrimitive() || cls.isArray()) {
@@ -188,7 +184,7 @@ public final class UGeneralComponent implements UToStringComponent {
 		// Temporal variables
 		Class<?> cls = object.getClass();
 		UReflectionOptions<Method> options = UReflectionOptions.generateForMethods()
-			.addPredicate(methodReturnType(String.class));
+			.addPredicate(UReflectionActions.methodReturnType(String.class));
 		
 		// Try to generate object information
 		try {
@@ -203,7 +199,7 @@ public final class UGeneralComponent implements UToStringComponent {
 			
 			// Call toString method
 			foundMethod.setAccessible(true);
-			return cast(foundMethod.invoke(object), String.class);
+			return UObject.cast(foundMethod.invoke(object), String.class);
 		} catch (Exception e) {
 			if (e instanceof URecursiveCallException) {
 				return String.format("E(@%X) %s", object.hashCode(),

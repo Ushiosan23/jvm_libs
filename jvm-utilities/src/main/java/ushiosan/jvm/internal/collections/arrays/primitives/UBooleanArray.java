@@ -1,14 +1,12 @@
 package ushiosan.jvm.internal.collections.arrays.primitives;
 
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.internal.collections.arrays.generic.UArraysGeneric;
 
 import java.util.Arrays;
 import java.util.function.Function;
 import java.util.function.IntFunction;
-
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 abstract class UBooleanArray extends UArraysGeneric {
 	
@@ -46,7 +44,7 @@ abstract class UBooleanArray extends UArraysGeneric {
 	 * @return a converted array object
 	 */
 	public static Boolean[] toObjectArray(boolean[] array) {
-		return cast(UArrayPrimitive.toObjectArrayImpl(array), Boolean[].class);
+		return UObject.cast(UArrayPrimitive.toObjectArrayImpl(array), Boolean[].class);
 	}
 	
 	/**
@@ -60,8 +58,8 @@ abstract class UBooleanArray extends UArraysGeneric {
 	 */
 	public static <T> T @NotNull [] primitiveTransform(boolean[] original, @NotNull Function<Boolean, T> mapper,
 		@NotNull IntFunction<T[]> arrFn) {
-		requireNotNull(mapper, "mapper");
-		requireNotNull(arrFn, "arrFn");
+		UObject.requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(arrFn, "arrFn");
 		return Arrays.stream(toObjectArray(original))
 			.map(mapper)
 			.toArray(arrFn);
@@ -76,7 +74,7 @@ abstract class UBooleanArray extends UArraysGeneric {
 	 * @return the new array with the converted data
 	 */
 	public static <T> Object @NotNull [] primitiveTransform(boolean[] original, @NotNull Function<Boolean, T> mapper) {
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(mapper, "mapper");
 		return Arrays.stream(toObjectArray(original))
 			.map(mapper)
 			.toArray();

@@ -1,8 +1,9 @@
 package ushiosan.jvm.content;
 
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 
-import static ushiosan.jvm.UObject.requireNotNull;
+import java.util.Objects;
 
 public class UTrio<F, S, T> extends UPair<F, S> {
 	
@@ -60,8 +61,25 @@ public class UTrio<F, S, T> extends UPair<F, S> {
 	 * @return instance of {@link UTrio} class
 	 */
 	public static <F, S, T> @NotNull UTrio<F, S, T> make(@NotNull UPair<F, S> uPair) {
-		requireNotNull(uPair, "uPair");
+		UObject.requireNotNull(uPair, "uPair");
 		return make(uPair.first, uPair.second, null);
+	}
+	
+	
+	/**
+	 * Indicates whether some other object is "equal to" this one.
+	 *
+	 * @param obj the reference object with which to compare.
+	 * @return {@code true} if this object is the same as the obj
+	 * 	argument; {@code false} otherwise.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !UObject.canCast(obj, getClass())) return false;
+		
+		UTrio<?, ?, ?> trio = UObject.cast(obj);
+		return super.equals(obj) &&
+			   Objects.equals(third, trio.third);
 	}
 	
 }

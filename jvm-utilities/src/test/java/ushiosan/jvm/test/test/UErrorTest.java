@@ -1,8 +1,9 @@
-package ushiosan.jvm;
+package ushiosan.jvm.test.test;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ushiosan.jvm.UError;
 import ushiosan.jvm.test.UTestUnit;
 
 public class UErrorTest extends UTestUnit {

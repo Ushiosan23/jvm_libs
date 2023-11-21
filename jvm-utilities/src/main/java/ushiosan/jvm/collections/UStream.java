@@ -1,11 +1,10 @@
 package ushiosan.jvm.collections;
 
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-
-import static ushiosan.jvm.UObject.requireNotNull;
 
 public final class UStream {
 	
@@ -28,7 +27,7 @@ public final class UStream {
 	 */
 	@SafeVarargs
 	public static <T> @NotNull Stream<T> multipleFilters(@NotNull Stream<T> base, Predicate<T> @NotNull ... predicates) {
-		requireNotNull(base, "base");
+		UObject.requireNotNull(base, "base");
 		// Apply all filters
 		for (var filter : predicates) {
 			base = base.filter(filter);

@@ -1,7 +1,8 @@
 package ushiosan.jvm.function;
 
-import static ushiosan.jvm.ULogger.getLogger;
-import static ushiosan.jvm.ULogger.logWarning;
+import ushiosan.jvm.ULogger;
+
+import java.util.logging.Logger;
 
 /**
  * Representation of a method in Java. Although called a function, it works very similar to a
@@ -20,7 +21,8 @@ public interface UEmptyFunErrSafe<E extends Throwable> extends UEmptyFunErr<E> {
 		try {
 			invoke();
 		} catch (Throwable e) {
-			logWarning(getLogger(getClass()), e);
+			Logger logger = Logger.getLogger(ULogger.loggerName(getClass()));
+			logger.log(ULogger.logWarning(e));
 		}
 	}
 	
@@ -44,7 +46,8 @@ public interface UEmptyFunErrSafe<E extends Throwable> extends UEmptyFunErr<E> {
 			try {
 				invoke(a1);
 			} catch (Throwable e) {
-				logWarning(getLogger(getClass()), e);
+				Logger logger = Logger.getLogger(ULogger.loggerName(getClass()));
+				logger.log(ULogger.logWarning(e));
 			}
 		}
 		
@@ -72,7 +75,8 @@ public interface UEmptyFunErrSafe<E extends Throwable> extends UEmptyFunErr<E> {
 			try {
 				invoke(a1, a2);
 			} catch (Throwable e) {
-				logWarning(getLogger(getClass()), e);
+				Logger logger = Logger.getLogger(ULogger.loggerName(getClass()));
+				logger.log(ULogger.logWarning(e));
 			}
 		}
 		
@@ -102,7 +106,8 @@ public interface UEmptyFunErrSafe<E extends Throwable> extends UEmptyFunErr<E> {
 			try {
 				invoke(a1, a2, a3);
 			} catch (Throwable e) {
-				logWarning(getLogger(getClass()), e);
+				Logger logger = Logger.getLogger(ULogger.loggerName(getClass()));
+				logger.log(ULogger.logWarning(e));
 			}
 		}
 		
@@ -134,7 +139,8 @@ public interface UEmptyFunErrSafe<E extends Throwable> extends UEmptyFunErr<E> {
 			try {
 				invoke(a1, a2, a3, a4);
 			} catch (Throwable e) {
-				logWarning(getLogger(getClass()), e);
+				Logger logger = Logger.getLogger(ULogger.loggerName(getClass()));
+				logger.log(ULogger.logWarning(e));
 			}
 		}
 		
@@ -168,7 +174,8 @@ public interface UEmptyFunErrSafe<E extends Throwable> extends UEmptyFunErr<E> {
 			try {
 				invoke(a1, a2, a3, a4, a5);
 			} catch (Throwable e) {
-				logWarning(getLogger(getClass()), e);
+				Logger logger = Logger.getLogger(ULogger.loggerName(getClass()));
+				logger.log(ULogger.logWarning(e));
 			}
 		}
 		
@@ -204,7 +211,8 @@ public interface UEmptyFunErrSafe<E extends Throwable> extends UEmptyFunErr<E> {
 			try {
 				invoke(a1, a2, a3, a4, a5, a6);
 			} catch (Throwable e) {
-				logWarning(getLogger(getClass()), e);
+				Logger logger = Logger.getLogger(ULogger.loggerName(getClass()));
+				logger.log(ULogger.logWarning(e));
 			}
 		}
 		

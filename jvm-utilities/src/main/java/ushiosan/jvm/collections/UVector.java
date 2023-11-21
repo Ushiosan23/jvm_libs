@@ -1,13 +1,12 @@
 package ushiosan.jvm.collections;
 
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.function.Function;
-
-import static ushiosan.jvm.UObject.requireNotNull;
 
 public final class UVector extends UCollection {
 	
@@ -40,7 +39,7 @@ public final class UVector extends UCollection {
 	 * @return a linked list with all elements
 	 */
 	public static <T> @NotNull Vector<T> make(@NotNull Collection<T> base) {
-		requireNotNull(base, "base");
+		UObject.requireNotNull(base, "base");
 		return new Vector<>(base);
 	}
 	
@@ -52,7 +51,7 @@ public final class UVector extends UCollection {
 	 * @return a linked list with all elements
 	 */
 	public static <T> @NotNull Vector<T> make(@NotNull Iterator<T> iterator) {
-		requireNotNull(iterator, "iterator");
+		UObject.requireNotNull(iterator, "iterator");
 		return makeImpl(new Vector<>(), iterator);
 	}
 	
@@ -70,8 +69,8 @@ public final class UVector extends UCollection {
 	 * @return the new vector with the converted data
 	 */
 	public static <T, R> @NotNull Vector<R> transform(@NotNull Vector<T> original, @NotNull Function<T, R> mapper) {
-		requireNotNull(original, "original");
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(original, "original");
+		UObject.requireNotNull(mapper, "mapper");
 		// Generate vector result
 		return original.stream()
 			.map(mapper)

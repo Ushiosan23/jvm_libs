@@ -79,7 +79,7 @@ public class UArrayComponent extends UArrayPrimitive implements UToStringCompone
 		// Temporal variables
 		StringBuilder builder = new StringBuilder();
 		Class<?> cls = object.getClass();
-		var array = toObjectArrayImpl(object);
+		Object[] array = toObjectArrayImpl(object);
 		
 		// Base information
 		if (verbose) {
@@ -94,7 +94,7 @@ public class UArrayComponent extends UArrayPrimitive implements UToStringCompone
 		
 		// Builder content
 		for (int i = 0; i < array.length; i++) {
-			var item = array[i];
+			Object item = array[i];
 			builder.append(manager().toString(item, verbose));
 			
 			// We add the separator for each element

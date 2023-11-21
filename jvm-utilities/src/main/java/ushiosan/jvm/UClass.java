@@ -8,10 +8,6 @@ import ushiosan.jvm.internal.validators.UClassValidator;
 import java.util.Arrays;
 import java.util.Stack;
 
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
-import static ushiosan.jvm.internal.collections.arrays.UArraysConstants.INDEX_NOT_FOUND;
-
 /**
  * Class containing helper methods for working with objects of type {@link Class}
  */
@@ -47,7 +43,7 @@ public final class UClass extends UClassValidator {
 	 * @return {@code true} if the class is a primitive type or {@code false} otherwise
 	 */
 	public static boolean isPrimitive(@NotNull Class<?> cls) {
-		requireNotNull(cls, "cls");
+		UObject.requireNotNull(cls, "cls");
 		return cls.isPrimitive() || UArray.contains(PRIMITIVE_WRAPPED_CLASSES, cls);
 	}
 	
@@ -67,18 +63,20 @@ public final class UClass extends UClassValidator {
 	 * from how many classes a class inherits functionalities. Although it is possible to
 	 * only obtain a certain number of elements of that inheritance.
 	 *
-	 * @param cls  the class you want to inspect
-	 * @param deep the inheritance boundary that you want to traverse. In addition to the limit, there are
-	 *             2 special cases, which are used for other behavior:
-	 *             <ul>
-	 *             <li><b>Case 0</b>: This case makes the inheritance recursive until reaching the "Object" class,
-	 *             which is the limit of all Java classes.</li>
-	 *             <li><b>Case 1</b>: This case causes only the current class to be listed and no other.</li>
-	 *             </ul>
+	 * @param cls     the class you want to inspect
+	 * @param maxDeep the inheritance boundary that you want to traverse. In addition to the limit, there are
+	 *                2 special cases, which are used for other behavior:
+	 *                <ul>
+	 *                <li><b>Case 0</b>: This case makes the inheritance recursive until reaching the "Object" class,
+	 *                which is the limit of all Java classes.</li>
+	 *                <li><b>Case 1</b>: This case causes only the current class to be listed and no other.</li>
+	 *                </ul>
 	 * @return a stack with all the inheritance elements of the chosen class
+	 * @see #FULL_CLASS_STACK
+	 * @see #ALONE_CLASS_STACK
 	 */
-	public static @NotNull Stack<Class<?>> classStack(@NotNull Class<?> cls, int deep) {
-		requireNotNull(cls, "cls");
+	public static @NotNull Stack<Class<?>> classStack(@NotNull Class<?> cls, int maxDeep) {
+		UObject.requireNotNull(cls, "cls");
 		// Temporal variables
 		var result = new Stack<Class<?>>();
 		int step = 0;
@@ -90,8 +88,8 @@ public final class UClass extends UClassValidator {
 			cls = cls.getSuperclass();
 			
 			// Only update if deep is not 0
-			if (deep > 0) step++;
-		} while (cls != Object.class && (deep == FULL_CLASS_STACK || step < deep));
+			if (maxDeep > 0) step++;
+		} while (cls != Object.class && (maxDeep == FULL_CLASS_STACK || step < maxDeep));
 		
 		// Get stack result
 		return result;
@@ -121,7 +119,7 @@ public final class UClass extends UClassValidator {
 	 * @return {@code true} if the class is a primitive type or {@code false} otherwise
 	 */
 	public static boolean isArrayPrimitive(@NotNull Class<?> cls) {
-		requireNotNull(cls, "cls");
+		UObject.requireNotNull(cls, "cls");
 		return cls.isArray() && UArray.contains(PRIMITIVE_ARRAY_CLASSES, cls);
 	}
 	
@@ -227,22 +225,22 @@ public final class UClass extends UClassValidator {
 	 * @return the data type of the elements individually
 	 */
 	private static <T> @NotNull Class<T> getArrayIndividualClassImpl(@NotNull Class<?> cls) {
-		requireNotNull(cls, "cls");
+		UObject.requireNotNull(cls, "cls");
 		// Check if class is an array
 		if (!cls.isArray()) throw new IllegalArgumentException("Invalid array type");
 		String generalName = cls.getCanonicalName();
 		int index = UArray.indexOf(PRIMITIVE_ARRAY_CLASSES, cls);
 		
 		// Only for primitive types
-		if (index != INDEX_NOT_FOUND) {
-			return cast(PRIMITIVE_ARRAY_INDIVIDUAL[index]);
+		if (index != UArray.INDEX_NOT_FOUND) {
+			return UObject.cast(PRIMITIVE_ARRAY_INDIVIDUAL[index]);
 		}
 		
 		// Clean class name
 		generalName = generalName.replaceAll("\\[]", "")
 			.trim();
 		try {
-			return cast(Class.forName(generalName));
+			return UObject.cast(Class.forName(generalName));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

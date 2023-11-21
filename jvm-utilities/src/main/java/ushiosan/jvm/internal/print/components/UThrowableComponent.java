@@ -6,8 +6,6 @@ import ushiosan.jvm.UObject;
 import ushiosan.jvm.collections.UArray;
 import ushiosan.jvm.print.UToStringComponent;
 
-import static ushiosan.jvm.UObject.cast;
-
 public class UThrowableComponent implements UToStringComponent {
 	
 	/**
@@ -83,7 +81,7 @@ public class UThrowableComponent implements UToStringComponent {
 	 */
 	@Override
 	public @NotNull String toString(@NotNull Object object, boolean verbose) {
-		return UError.extractTrace(cast(object, Throwable.class),
+		return UError.extractTrace(UObject.cast(object, Throwable.class),
 								   verbose ? 0 : 1);
 	}
 	

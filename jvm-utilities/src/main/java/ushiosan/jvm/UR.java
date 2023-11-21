@@ -3,17 +3,18 @@ package ushiosan.jvm;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.PropertyKey;
 
+import java.io.InputStream;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import static ushiosan.jvm.ULogger.logError;
-import static ushiosan.jvm.UObject.isNull;
-import static ushiosan.jvm.UObject.requireNotNull;
-
 public final class UR {
 	
-	private static final Logger LOG = ULogger.getLogger(UR.class);
+	/**
+	 * Logger instance
+	 */
+	private static final Logger LOG =
+		Logger.getLogger(ULogger.loggerName(UR.class));
 	
 	/* -----------------------------------------------------
 	 * Constants
@@ -36,7 +37,7 @@ public final class UR {
 	/**
 	 * Current class instance
 	 */
-	private static UR instance;
+	private static volatile UR instance;
 	
 	/**
 	 * Instance properties
@@ -49,8 +50,8 @@ public final class UR {
 	private UR() {
 		properties = new Properties();
 		// Initialize properties
-		ClassLoader loader = ClassLoader.getSystemClassLoader();
-		initialize(loader);
+		ClassLoader classLoader = UR.class.getClassLoader();
+		initialize(classLoader);
 	}
 	
 	/* -----------------------------------------------------
@@ -63,8 +64,12 @@ public final class UR {
 	 * @return current instance class
 	 */
 	public static @NotNull UR getInstance() {
-		if (isNull(instance)) {
-			instance = new UR();
+		if (instance == null) {
+			synchronized (UR.class) {
+				if (instance == null) {
+					instance = new UR();
+				}
+			}
 		}
 		return instance;
 	}
@@ -101,13 +106,23 @@ public final class UR {
 	 * @param loader the classloader of the current context
 	 */
 	private void initialize(@NotNull ClassLoader loader) {
-		try (var stream = loader.getResourceAsStream(RESOURCE_FILE)) {
-			// Check null object
-			requireNotNull(stream, "stream");
-			// Load properties
+		Throwable error;
+		
+		// Try to load resource
+		try (InputStream stream = loader.getResourceAsStream(RESOURCE_FILE)) {
+			// Check if resource is null
+			if (stream == null) {
+				String errorMsg = String.format("The resource \"%s\" not found", RESOURCE_FILE);
+				throw new IllegalAccessException(errorMsg);
+			}
 			properties.load(stream);
+			error = null;
 		} catch (Exception e) {
-			logError(LOG, e);
+			error = e;
+		}
+		
+		if (error != null) {
+			LOG.log(ULogger.logError(error));
 		}
 	}
 	

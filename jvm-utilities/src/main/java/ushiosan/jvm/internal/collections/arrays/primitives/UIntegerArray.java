@@ -1,14 +1,12 @@
 package ushiosan.jvm.internal.collections.arrays.primitives;
 
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.IntFunction;
-
-import static ushiosan.jvm.UObject.cast;
-import static ushiosan.jvm.UObject.requireNotNull;
 
 abstract class UIntegerArray extends UShortArray {
 	
@@ -47,7 +45,7 @@ abstract class UIntegerArray extends UShortArray {
 	 * @return the first index element or {@code -1} if the element not exists
 	 */
 	public static int primitiveIndexOf(int @NotNull [] array, int element) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] == element) return i;
 		}
@@ -63,7 +61,7 @@ abstract class UIntegerArray extends UShortArray {
 	 * @return the first index element or {@code -1} if the element not exists
 	 */
 	public static int primitiveLastIndexOf(int @NotNull [] array, int element) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		int maxSize = array.length - 1;
 		for (int i = maxSize; i >= 0; i--) {
 			if (array[i] == element) return i;
@@ -90,7 +88,7 @@ abstract class UIntegerArray extends UShortArray {
 	 * @return the last element of the array or {@link Optional#empty()} if array is empty
 	 */
 	public static @NotNull Optional<Integer> primitiveLastElement(int @NotNull [] array) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		if (array.length == 0) return Optional.empty();
 		return Optional.of(array[array.length - 1]);
 	}
@@ -103,7 +101,7 @@ abstract class UIntegerArray extends UShortArray {
 	 * @throws IllegalStateException if the array is empty
 	 */
 	public static int primitiveUnsafeLastElement(int @NotNull [] array) {
-		requireNotNull(array, "array");
+		UObject.requireNotNull(array, "array");
 		if (array.length == 0) throw new IllegalStateException("The array is empty");
 		return array[array.length - 1];
 	}
@@ -115,8 +113,8 @@ abstract class UIntegerArray extends UShortArray {
 	 * @return a converted array object
 	 */
 	public static Integer @NotNull [] toObjectArray(int[] array) {
-		return cast(UArrayPrimitive.toObjectArrayImpl(array),
-					Integer[].class);
+		return UObject.cast(UArrayPrimitive.toObjectArrayImpl(array),
+							Integer[].class);
 	}
 	
 	/**
@@ -130,8 +128,8 @@ abstract class UIntegerArray extends UShortArray {
 	 */
 	public static <T> T @NotNull [] primitiveTransform(int[] original, @NotNull Function<Integer, T> mapper,
 		@NotNull IntFunction<T[]> arrFn) {
-		requireNotNull(mapper, "mapper");
-		requireNotNull(arrFn, "arrFn");
+		UObject.requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(arrFn, "arrFn");
 		return Arrays.stream(toObjectArray(original))
 			.map(mapper)
 			.toArray(arrFn);
@@ -146,7 +144,7 @@ abstract class UIntegerArray extends UShortArray {
 	 * @return the new array with the converted data
 	 */
 	public static <T> Object @NotNull [] primitiveTransform(int[] original, @NotNull Function<Integer, T> mapper) {
-		requireNotNull(mapper, "mapper");
+		UObject.requireNotNull(mapper, "mapper");
 		return Arrays.stream(toObjectArray(original))
 			.map(mapper)
 			.toArray();

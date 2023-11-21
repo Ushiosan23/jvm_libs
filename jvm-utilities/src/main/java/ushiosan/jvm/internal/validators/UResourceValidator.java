@@ -1,7 +1,10 @@
 package ushiosan.jvm.internal.validators;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import ushiosan.jvm.UObject;
 import ushiosan.jvm.collections.UArray;
+import ushiosan.jvm.platform.UArchitecture;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,11 +13,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Optional;
-
-import static ushiosan.jvm.UObject.requireNotNull;
-import static ushiosan.jvm.internal.collections.arrays.UArraysConstants.INDEX_NOT_FOUND;
-import static ushiosan.jvm.platform.UArchitecture.X64;
-import static ushiosan.jvm.platform.UArchitecture.platformRunningArch;
 
 public abstract class UResourceValidator {
 	
@@ -48,12 +46,22 @@ public abstract class UResourceValidator {
 	 * such as SHA-512 and 32-bit platforms with SHA-256, but it is possible to use both
 	 * on any platform, it is only done this way for performance reasons.
 	 */
-	protected static final String FS_DEFAULT_ALGORITHM = (platformRunningArch() == X64) ?
+	protected static final String FS_DEFAULT_ALGORITHM = (UArchitecture.platformRunningArch() == UArchitecture.X64) ?
 														 "SHA-512" : "SHA-256";
 	
 	/* -----------------------------------------------------
 	 * Methods
 	 * ----------------------------------------------------- */
+	
+	/**
+	 * Create a container with a standard size for handling external data.
+	 *
+	 * @return an empty data array
+	 */
+	@Contract(value = " -> new", pure = true)
+	public static byte @NotNull [] createByteBuffer() {
+		return new byte[FS_RESOURCE_BUFFER_SIZE_STANDARD];
+	}
 	
 	/**
 	 * Gets the document without the slashes and the absolute path
@@ -62,7 +70,7 @@ public abstract class UResourceValidator {
 	 * @return the file without the slashes
 	 */
 	protected static @NotNull String nameWithoutSlashesImpl(@NotNull String location) {
-		requireNotNull(location, "location");
+		UObject.requireNotNull(location, "location");
 		String fileSeparator = String.valueOf(FS_STANDARD_FILE_SEPARATOR);
 		String cleanLocation = location.replaceAll("[/|\\\\]+", fileSeparator)
 			.trim();
@@ -73,7 +81,7 @@ public abstract class UResourceValidator {
 		}
 		
 		int lastSlashIndex = cleanLocation.lastIndexOf(FS_STANDARD_FILE_SEPARATOR);
-		return cleanLocation.substring(lastSlashIndex == INDEX_NOT_FOUND ?
+		return cleanLocation.substring(lastSlashIndex == UArray.INDEX_NOT_FOUND ?
 									   0 : lastSlashIndex + 1);
 	}
 	
@@ -99,7 +107,7 @@ public abstract class UResourceValidator {
 		// Clean regular file name
 		int dotIndex = partial ? cleanLocation.indexOf(FS_EXTENSION_IDENTIFIER) :
 					   cleanLocation.lastIndexOf(FS_EXTENSION_IDENTIFIER);
-		return dotIndex == INDEX_NOT_FOUND ? cleanLocation :
+		return dotIndex == UArray.INDEX_NOT_FOUND ? cleanLocation :
 			   cleanLocation.substring(0, dotIndex);
 	}
 	
@@ -124,7 +132,7 @@ public abstract class UResourceValidator {
 		check:
 		{
 			// Check if FS_EXTENSION_IDENTIFIER exists
-			if (dotIndex == INDEX_NOT_FOUND) break check;
+			if (dotIndex == UArray.INDEX_NOT_FOUND) break check;
 			
 			// Generate result
 			String[] extensionChunks = cleanLocation.split("\\.");
@@ -164,16 +172,16 @@ public abstract class UResourceValidator {
 	@SuppressWarnings("StatementWithEmptyBody")
 	protected static byte[] resourceHashImpl(@NotNull InputStream stream, @NotNull String algorithm) throws IOException,
 		NoSuchAlgorithmException {
-		requireNotNull(algorithm, "algorithm");
+		UObject.requireNotNull(algorithm, "algorithm");
 		// We use automatic closing of Java resources
 		try (stream) {
 			// Generate digest instance
 			MessageDigest digest = MessageDigest.getInstance(algorithm);
 			DigestInputStream digestStream = new DigestInputStream(stream, digest);
-			byte[] digestBuffer = new byte[FS_RESOURCE_BUFFER_SIZE_STANDARD];
+			byte[] digestBuffer = createByteBuffer();
 			
 			// Generate hash file
-			while (digestStream.read(digestBuffer) != INDEX_NOT_FOUND) {
+			while (digestStream.read(digestBuffer) != UArray.INDEX_NOT_FOUND) {
 				// Do nothing, because "digestStream" already does all the work automatically
 			}
 			return digest.digest();

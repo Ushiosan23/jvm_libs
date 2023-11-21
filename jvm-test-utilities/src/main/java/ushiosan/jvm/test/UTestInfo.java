@@ -14,12 +14,12 @@ public interface UTestInfo {
 	/**
 	 * Filter used to convert objects to plain text
 	 */
-	Function<Object, CharSequence> ARRAY_MAPPER = it -> {
+	Function<Object, Object> ARRAY_MAPPER = it -> {
 		checkType:
 		{
 			if (UObject.isNull(it)) break checkType;
 			if (UClass.isPrimitive(it.getClass()) || UObject.canCast(it, CharSequence.class)) {
-				return it.toString();
+				return it;
 			}
 		}
 		

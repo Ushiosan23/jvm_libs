@@ -1,14 +1,16 @@
 plugins {
-    `kotlin-dsl`
+	`kotlin-dsl`
 }
 
 repositories {
-    mavenCentral()
-    maven {
-        setUrl("https://plugins.gradle.org/m2/")
-    }
+	mavenCentral()
+	mavenLocal()
+	maven {
+		setUrl("https://plugins.gradle.org/m2/")
+	}
 }
 
 dependencies {
-    implementation("io.github.gradle-nexus:publish-plugin:1.1.0")
+	implementation("com.github.ushiosan23:jvm-utilities:1.0.0")
+	implementation("io.github.gradle-nexus:publish-plugin:1.1.0")
 }

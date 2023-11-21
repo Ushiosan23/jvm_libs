@@ -37,12 +37,12 @@ jobs:
                     SIGNING_PASSWORD: ${{secrets.SIGNING_PASSWORD}}
                     SIGNING_PGP_B64: ${{secrets.SIGNING_PGP_B64}}
 
-            # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
+            # The USERNAME and TOKEN need to correspond to the credentials' environment variables used in
             # the publishing section of your build.gradle
             -   name: Publish to GitHub Packages (jvm-utilities)
                 uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
                 with:
-                    arguments: jvm-utilities:publishReleasePublicationToSonatypeRepository
+                    arguments: jvm-utilities:publishAllPublicationsToSonatypeRepository --stacktrace
                 env:
                     OSSRH_USERNAME: ${{secrets.OSSRH_USERNAME}}
                     OSSRH_PASSWORD: ${{secrets.OSSRH_PASSWORD}}
